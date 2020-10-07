@@ -29,5 +29,5 @@
 - おべんつよ
 - 定期mtgを金曜日授業後にやりませんか
 
-##資料置き場
+## 資料置き場
 レジスタ名:https://github.com/riscv/riscv-asm-manual/blob/master/riscv-asm.md#general-registers
