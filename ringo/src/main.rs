@@ -4,7 +4,7 @@ use std::env;
 use std::collections::HashMap;
 mod inst;
 use crate::inst::Insts;
-
+use crate::inst::Machine;
 #[macro_use] extern crate lalrpop_util;
 
 lalrpop_mod!(pub asm); // synthesized by LALRPOP
@@ -16,7 +16,7 @@ fn asm() {
 
 }
 
-fn main()
+/*fn main()
 {
     let me = asm::MainParser::new().parse("add=a1,a2,a3").unwrap();
     match me {
@@ -24,6 +24,25 @@ fn main()
         _ =>{println!("other");}
 
     }
+}*/
+fn main() -> Result<(), Box<std::error::Error>>{
+    let args: Vec<String> = env::args().collect::<Vec<String>>();
+
+    if args.len() != 2 {
+        writeln!(std::io::stderr(), "file").unwrap();
+        std::process::exit(1);
+    }
+    let mut mac= Machine::new();
+    let mut meireis:Vec<Insts>=Vec::new();
+    let file = File::open(&args[1]).unwrap();
+    let filebuf = BufReader::new (file);
+    
+    for result in filebuf.lines(){
+        let l = result?;
+        let inst = asm::MainParser::new().parse(l);
+        mac.gijimeirei(inst,meireis)
+    }
+    Ok(())
 }
 pub enum InstType {
     I,R,U,UJ,S,SB
