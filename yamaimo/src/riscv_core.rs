@@ -12,6 +12,10 @@ pub type RegAddrType = u8;
 pub const DRAM_BASE:AddrType = 0x8000_0000;
 pub const STACK_BASE:i32 = 0x0010000;
 pub const DRAM_SIZE:usize = 0x0100000;
+union FloatInt {
+    i: u32,
+    f: f32,
+}
 pub enum RiscvInst{
     CSRRW , CSRRS , CSRRC ,
     CSRRWI, CSRRSI, CSRRCI,
@@ -82,6 +86,18 @@ impl EnvBase{
                 m_medeleg   : RiscvCsrBase { m_csr: 0 },
             }
         }
+    }
+    fn int_to_float(u1:u8,u2:u8,u3:u8,u4:u8)->f32{
+        let u1:u32 = u1 as u32;
+        let u2 :u32 = u2 as u32;
+        let u3:u32 = u3 as u32;
+        let u4:u32 = u4 as u32;
+        let me :u32 = (u1 << 24)|(u2 << 16)|(u3 << 8)|u4;
+        let me = FloatInt{i:me};
+        unsafe{
+            return me.f
+        }
+        
     }
 //符号拡張
     fn extend_sign (data: XlenType, msb: XlenType) -> XlenType
