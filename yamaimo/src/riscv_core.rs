@@ -97,7 +97,12 @@ impl EnvBase{
         unsafe{
             return me.f
         }
-        
+    }
+    fn float_to_inti(f:f32,i:u8)->u8{
+        let me = FloatInt{f:f};
+        unsafe{
+            return ((me.i << (i*8))&0xff)as u8;
+        }
     }
 //符号拡張
     fn extend_sign (data: XlenType, msb: XlenType) -> XlenType
@@ -191,6 +196,7 @@ pub trait Riscv64Core{
 }
 
 impl Riscv64Core for EnvBase{
+    
     fn get_rs1_addr(inst:InstType)->RegAddrType{
         return ((inst>>15)&0x1f)as RegAddrType;
     }

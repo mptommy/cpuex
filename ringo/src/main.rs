@@ -15,8 +15,8 @@ fn asm() {
     assert!(asm::MainParser::new().parse("jal=.fib").is_ok());
 
 }
-
-/*fn main()
+/*
+fn main()
 {
     let me = asm::MainParser::new().parse("add=a1,a2,a3").unwrap();
     match me {
@@ -39,8 +39,9 @@ fn main() -> Result<(), Box<std::error::Error>>{
     
     for result in filebuf.lines(){
         let l = result?;
-        let inst = asm::MainParser::new().parse(l);
-        mac.gijimeirei(inst,meireis)
+        println!("{}",l);
+        let inst = asm::MainParser::new().parse(&l).unwrap();
+      //  mac.gijimeirei(inst,meireis)
     }
     Ok(())
 }
