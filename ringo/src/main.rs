@@ -1,9 +1,10 @@
 use std::fs::File;
-use std::io::{Read,Write,BufRead,BufReader};
+use std::io::{Read,Write,BufRead,BufReader,BufWriter};
 use std::env;
+use std::path::Path;
 use std::collections::HashMap;
 mod inst;
-use crate::inst::Insts;
+use crate::inst::{Insts,Instruction};
 use crate::inst::Machine;
 #[macro_use] extern crate lalrpop_util;
 
@@ -39,28 +40,24 @@ fn main() -> Result<(), Box<std::error::Error>>{
     
     for result in filebuf.lines(){
         let l = result?;
-        println!("{}",l);
+        //println!("{}",l);
         let inst = asm::MainParser::new().parse(&l).unwrap();
-      //  mac.gijimeirei(inst,meireis)
+        meireis = mac.gijimeirei(inst,meireis);
+    }
+    for inst in meireis{
+        let check = Instruction::code(inst);
+        mac.insts.push(check);
+    }
+    mac.link();
+  //  let path = Path::new("/home/kazu/CPUEX/cpuex/ringo/target/debug/out.s");
+   // let path = env::current_dir().unwrap().join(path);
+    //let file = File::open(path).unwrap();
+   // let mut filebuf = BufWriter::new (file);
+    for inst in mac.insts{
+        println!("{:>08x}",Instruction::tohex(inst));
+        //writeln!(filebuf,"{:>08x}\n",Instruction::tohex(inst)).unwrap();
     }
     Ok(())
-}
-pub enum InstType {
-    I,R,U,UJ,S,SB
-  }
-
-pub enum asms{
-    LABEL(String),
-    II(String,i32,i32),
-    SI(String,String,i32),
-    SSI(String,String,String,i32),
-    SSS(String,String,String,String),
-    SIS(String,String,i32,String),
-    SII(String,String,i32,i32),
-    ALONE(String),
-    S(String,String),
-    SS(String,String,String),
-    
 }
 
 /*

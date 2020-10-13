@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/target/debug/yamaimo",
-            "args": ["${workspaceFolder}/target/debug/fib3"],
+            "args": ["${workspaceFolder}/target/debug/fib4"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

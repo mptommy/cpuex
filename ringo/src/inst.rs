@@ -63,7 +63,7 @@ pub enum Insts{
     BGEUL(u8,u8,String),
     JALL(u8,String),
     JALRL(u8,u8,String),
-    AUPICL(u8,String),
+    AUIPCL(u8,String),
     ADDIL(u8,u8,String),
     LA(u8,i32),
     LAL(u8,String),
@@ -73,7 +73,6 @@ pub enum Insts{
     SBL(u8,String,u8),
     SHL(u8,String,u8),
     SWL(u8,String,u8),
-    AUIPCL(u8,String),
     CALL(i32),
     CALLL(String),
     TAIL(i32),
@@ -125,6 +124,11 @@ impl Instruction{
             iti:0,
             buf:0,
         }
+    }
+    pub fn tohex(moto:Instruction)->u32{
+        let hex = (moto.op0_6 as u32)| ((moto.op7_11 as u32) << 7 ) | ((moto.op12_14 as u32) << 12 )| ((moto.op15_19 as u32 )<< 15 )| ((moto.op20_24 as u32 )<<20 )| ((moto.op25_31 as u32) << 25 );
+        let hex = hex.to_le();
+        return hex;
     }
     pub fn labeling(moto:Instruction,s:String)->Instruction{
         Instruction{
@@ -204,17 +208,18 @@ impl Instruction{
                         op7_11:r,
                         optype:inst,
                         ..Default::default()
-                    },(i as u32)
+                    },i as u32
                 )
             },
             Insts::AUIPC(r,i)=>{
+                let i = if i == -1 {0}else{i};
                 Instruction::SetImm20(
                     Instruction{
                         op0_6:0b0010111,
                         op7_11:r,
                         optype:inst,
                         ..Default::default()
-                    },(i as u32)
+                    },i as u32
                 )
             },
             Insts::ADDI(r,r2,i)=>{
@@ -828,7 +833,7 @@ impl Instruction{
                     Instruction::code(Insts::JALR(r1,r2,0)),s
                 )
             },
-            Insts::AUPICL(r1,s)=>{
+            Insts::AUIPCL(r1,s)=>{
                 Instruction::labeling(
                     Instruction::code(Insts::AUIPC(r1,0)),s
                 )
@@ -868,7 +873,8 @@ impl Instruction{
                     Instruction::code(Insts::SW(r1,0,r2)),s
                 )
             },
-            _ => Instruction::new()
+            _ => {
+                panic!("WHATS HAPPENING!");Instruction::new()}
         }
     }
 }
@@ -886,7 +892,7 @@ impl Machine{
     pub fn gijimeirei(&mut self,inst:Insts,mut vecs:Vec<Insts>)->Vec<Insts>{
         match inst{
             Insts::LABEL(s)=>{
-                self.labels.insert(s,self.insts.len() as i32);
+                self.labels.insert(s,(vecs.len() as i32)*4);
             },
             Insts::LA(r1,i)=>{
                 vecs.push(Insts::AUIPC(r1, i >> 12));
@@ -946,61 +952,63 @@ impl Machine{
     }
     pub fn link(&mut self){
         for i in 1 .. self.insts.len(){
-            if(self.insts[i].haslabel){
+            if self.insts[i].haslabel{
                 self.insts[i].buf = self.labels[&self.insts[i].label];
-                let sa = self.insts[i].buf - (i as i32)*4;
-                
-                
+                let sa = self.insts[i].buf - (i as i32)*4;                
                     match &self.insts[i].optype{
-                        Insts::BEQL(r1,r2,_l)=>{
+                        Insts::BEQ(r1,r2,_l)=>{
                             self.insts[i]=  Instruction::code(Insts::BEQ(*r1,*r2,sa))
                         },
-                        Insts::BNEL(r1,r2,_l)=>{
+                        Insts::BNE(r1,r2,_l)=>{
                             self.insts[i]=  Instruction::code(Insts::BNE(*r1,*r2,sa))
                         },
-                        Insts::BLTL(r1,r2,_l)=>{
+                        Insts::BLT(r1,r2,_l)=>{
                             self.insts[i]=  Instruction::code(Insts::BLT(*r1,*r2,sa))
                         },
-                        Insts::BGEL(r1,r2,_l)=>{
+                        Insts::BGE(r1,r2,_l)=>{
                             self.insts[i]=  Instruction::code(Insts::BGE(*r1,*r2,sa))
                         },
-                        Insts::BLTUL(r1,r2,_l)=>{
+                        Insts::BLTU(r1,r2,_l)=>{
                             self.insts[i]=  Instruction::code(Insts::BLTU(*r1,*r2,sa))
                         },
-                        Insts::BGEUL(r1,r2,_l)=>{
+                        Insts::BGEU(r1,r2,_l)=>{
                             self.insts[i]=  Instruction::code(Insts::BGEU(*r1,*r2,sa))
                         },
-                        Insts::JALL(r1,_l)=>{
+                        Insts::JAL(r1,_l)=>{
                             self.insts[i] = Instruction::code(Insts::JAL(*r1,sa));
                         },
-                        Insts::JALRL(r1,r2,_l)=>{
-                            self.insts[i] = Instruction::code(Insts::JALR(*r1,*r2,sa&0xfff));
+                        Insts::JALR(r1,r2,_l)=>{
+                            self.insts[i] = Instruction::code(Insts::JALR(*r1,*r2,(sa+4)&0xfff));
+                            //auipcとの整合を保つために+4しておく
                         },
-                        Insts::AUIPCL(r1,_l)=>{
-                            self.insts[i] = Instruction::code(Insts::AUIPC(*r1,((sa as u32)>>12)as i32));
+                        Insts::AUIPC(r1,_l)=>{
+                            self.insts[i] = Instruction::code(Insts::AUIPC(*r1,sa >> 12));
                         },
-                        Insts::ADDIL(r1,r2,_l)=>{
+                        Insts::ADDI(r1,r2,_l)=>{
                             self.insts[i] = Instruction::code(Insts::ADDI(*r1,*r2,sa&0xfff));
                         },
-                        Insts::LBL(r1,_l)=>{
+                        Insts::LB(r1,_r2,_l)=>{
                             self.insts[i] = Instruction::code(Insts::LB(*r1,sa&0xfff,*r1));
                         },
-                        Insts::LHL(r1,_l)=>{
+                        Insts::LH(r1,_r2,_l)=>{
                             self.insts[i] = Instruction::code(Insts::LH(*r1,sa&0xfff,*r1));
                         },
-                        Insts::LWL(r1,_l)=>{
+                        Insts::LW(r1,_r2,_l)=>{
                             self.insts[i] = Instruction::code(Insts::LW(*r1,sa&0xfff,*r1));
                         },
-                        Insts::SBL(r1,_l,r2)=>{
+                        Insts::SB(r1,_l,r2)=>{
                             self.insts[i] = Instruction::code(Insts::SB(*r1,sa&0xfff,*r2));
                         },
-                        Insts::SHL(r1,_l,r2)=>{
+                        Insts::SH(r1,_l,r2)=>{
                             self.insts[i] = Instruction::code(Insts::SH(*r1,sa&0xfff,*r2));
                         },
-                        Insts::SWL(r1,_l,r2)=>{
+                        Insts::SW(r1,_l,r2)=>{
                             self.insts[i] = Instruction::code(Insts::SW(*r1,sa&0xfff,*r2));
                         },
-                        _ =>  {panic!("LABEL INSTRUCTION MORE");}
+                        _ =>  {
+
+                            panic!("LABEL INSTRUCTION MORE");
+                        }
 
                     }
                 }

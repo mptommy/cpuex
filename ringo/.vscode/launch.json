@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Launch",
+            "program": "${workspaceFolder}/target/debug/ringo",
+            "args": ["${workspaceFolder}/target/debug/hello.s"],
+            "cwd": "${workspaceFolder}"
+        },
+      /*  {
             "name": "(gdb) 起動",
             "type": "cppdbg",
             "request": "launch",
@@ -22,6 +30,6 @@
                     "ignoreFailures": true
                 }
             ]
-        }
+        }*/
     ]
 }
