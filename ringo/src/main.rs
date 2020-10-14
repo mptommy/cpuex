@@ -1,8 +1,6 @@
 use std::fs::File;
-use std::io::{Read,Write,BufRead,BufReader,BufWriter};
+use std::io::{Write,BufRead,BufReader,BufWriter};
 use std::env;
-use std::path::Path;
-use std::collections::HashMap;
 mod inst;
 use crate::inst::{Insts,Instruction};
 use crate::inst::Machine;
@@ -29,7 +27,7 @@ fn main()
 fn main() -> Result<(), Box<std::error::Error>>{
     let args: Vec<String> = env::args().collect::<Vec<String>>();
 
-    if args.len() != 2 {
+    if args.len() != 3{
         writeln!(std::io::stderr(), "file").unwrap();
         std::process::exit(1);
     }
@@ -37,24 +35,28 @@ fn main() -> Result<(), Box<std::error::Error>>{
     let mut meireis:Vec<Insts>=Vec::new();
     let file = File::open(&args[1]).unwrap();
     let filebuf = BufReader::new (file);
-    
+
     for result in filebuf.lines(){
         let l = result?;
         //println!("{}",l);
         let inst = asm::MainParser::new().parse(&l).unwrap();
         meireis = mac.gijimeirei(inst,meireis);
     }
+
+    let file = File::create(&args[2]).unwrap();
+    let mut filebuf = BufWriter::new (file);
     for inst in meireis{
         let check = Instruction::code(inst);
         mac.insts.push(check);
     }
     mac.link();
-  //  let path = Path::new("/home/kazu/CPUEX/cpuex/ringo/target/debug/out.s");
-   // let path = env::current_dir().unwrap().join(path);
-    //let file = File::open(path).unwrap();
-   // let mut filebuf = BufWriter::new (file);
+   /*let path = Path::new("/home/kazu/CPUEX/cpuex/ringo/target/debug/out.s");
+    //let path = env::current_dir().unwrap().join(path);
+    let file = File::open(path).unwrap();
+   let mut filebuf = BufWriter::new (file);*/
     for inst in mac.insts{
-        println!("{:>08x}",Instruction::tohex(inst));
+        filebuf.write_all(&Instruction::tohex4(&inst))?;
+        println!("{:>08x}",Instruction::tohex(&inst));
         //writeln!(filebuf,"{:>08x}\n",Instruction::tohex(inst)).unwrap();
     }
     Ok(())

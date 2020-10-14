@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch",
             "program": "${workspaceFolder}/target/debug/ringo",
-            "args": ["${workspaceFolder}/target/debug/hello.s"],
+            "args": ["${workspaceFolder}/target/debug/hello.s","${workspaceFolder}/target/debug/hello.out"],
             "cwd": "${workspaceFolder}"
         },
       /*  {

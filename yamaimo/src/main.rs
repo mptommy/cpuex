@@ -24,10 +24,10 @@ fn main()-> Result<(), Box<std::error::Error>>  {
     //riscv64_core.m_pc = 66398+riscv64_core.m_pc;
     for result in filebuf.bytes(){
         let l:u8 = result?;
-     if l == 194{
+    /* if l == 194{
             continue;
         }
-
+*/
         riscv64_core.write_memory_byte(hex_addr + DRAM_BASE,l as XlenType);
         hex_addr=hex_addr+1;
     }

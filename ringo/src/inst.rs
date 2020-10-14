@@ -125,10 +125,18 @@ impl Instruction{
             buf:0,
         }
     }
-    pub fn tohex(moto:Instruction)->u32{
+    pub fn tohex(moto:&Instruction)->u32{
         let hex = (moto.op0_6 as u32)| ((moto.op7_11 as u32) << 7 ) | ((moto.op12_14 as u32) << 12 )| ((moto.op15_19 as u32 )<< 15 )| ((moto.op20_24 as u32 )<<20 )| ((moto.op25_31 as u32) << 25 );
         let hex = hex.to_le();
         return hex;
+    }
+    pub fn tohex4(moto:&Instruction)->Vec<u8>{
+        let mut vec:Vec<u8>=Vec::new();
+        let hex = Instruction::tohex(moto);
+        for i in 0..4{
+            vec.push(((hex>>(i*8))&0xff)as u8);
+        }
+       return vec;
     }
     pub fn labeling(moto:Instruction,s:String)->Instruction{
         Instruction{
