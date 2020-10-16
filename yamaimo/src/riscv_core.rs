@@ -3,6 +3,7 @@ use crate::riscv_csr::RiscvCsr;
 use crate::riscv_csr::RiscvCsrBase;
 use crate::riscv_csr::Riscv64Csr;
 use crate::riscv_csr::CsrAddr;
+use std::cmp;
 pub type AddrType=u32;
 pub type XlenType  = i32;
 pub type UXlenType = u32;
@@ -29,7 +30,9 @@ pub enum RiscvInst{
     ECALL, EBREAK,
     MRET, SRET, URET,
     NOP,
-    WFI
+    WFI,
+    FMADDS,FMSUBS,FNMSUBS,FNMADDS,FADDS,FSUBS,FMULS,FDIVS,FSQRTS,FSGNJS,FSGNJNS,FSGNJXS,FMINS,FMAXS,FCVTWS,FCVTWUS,FMVXW,FEQS,FLTS,FLES,FCLASSS,FCVTSW,FCVTSWU,
+    FMVWX,FLW,FSW,
 }
 pub enum MemType {
     LOAD  = 0,
@@ -45,6 +48,7 @@ pub enum MemType {
 pub struct EnvBase{
     pub m_pc:AddrType,//Program Counter
     pub m_regs:[XlenType;32],
+    pub f_regs:[f32;32],
     pub m_memory:[u8;DRAM_SIZE],
     pub m_csr:RiscvCsr,
     m_tohost_addr:AddrType,
@@ -59,6 +63,7 @@ impl EnvBase{
             m_pc:DRAM_BASE as AddrType,
             m_memory :[0;DRAM_SIZE],
             m_regs: [0; 32],
+            f_regs: [0.0;32],
             m_finish_cpu:false,
             m_fromhost_addr:(DRAM_BASE+0x001000) as AddrType,
             m_tohost_addr:(DRAM_BASE + 0x001000) as AddrType,
@@ -87,7 +92,13 @@ impl EnvBase{
             }
         }
     }
-    fn int_to_float(u1:u8,u2:u8,u3:u8,u4:u8)->f32{
+    fn int_to_float(u1:u32)->f32{
+        let me = FloatInt{i:u1};
+        unsafe{
+            return me.f
+        }
+    }
+    fn int_to_float4(u1:u8,u2:u8,u3:u8,u4:u8)->f32{
         let u1:u32 = u1 as u32;
         let u2 :u32 = u2 as u32;
         let u3:u32 = u3 as u32;
@@ -102,6 +113,12 @@ impl EnvBase{
         let me = FloatInt{f:f};
         unsafe{
             return ((me.i << (i*8))&0xff)as u8;
+        }
+    }
+    fn float_to_int(f:f32)->i32{
+        let me = FloatInt{f:f};
+        unsafe{
+            return me.i as i32;
         }
     }
 //符号拡張
@@ -170,8 +187,9 @@ impl EnvBase{
 pub trait Riscv64Core{
     fn get_rs1_addr(inst:InstType)->RegAddrType; //1st operand
     fn get_rs2_addr (inst:InstType) -> RegAddrType;
+    fn get_rs3_addr (inst:InstType) -> RegAddrType;
     fn get_rd_addr  (inst:InstType) -> RegAddrType;
-
+    fn get_rm_addr  (inst:InstType) -> RegAddrType;
     fn fetch_memory(&mut self)->XlenType;//プログラムカウンタの値から。命令フェッチ
     fn read_memory_word(&mut self,addr:AddrType)->XlenType;//word単位で
     fn read_memory_hword(&mut self,addr:AddrType)->XlenType;//halfword単位で
@@ -181,13 +199,20 @@ pub trait Riscv64Core{
     fn write_memory_hword(&mut self, addr:AddrType, data:XlenType)->XlenType;//halfword単位で
     fn write_memory_byte(&mut self, addr:AddrType, data:XlenType)->XlenType;
 
+    fn fread_memory_word(&mut self,addr:AddrType)->f32;//word単位で
+    fn fwrite_memory_word(&mut self, addr:AddrType, data:f32)->f32;//word単位で
+   
     fn read_reg(&mut self,reg_Addr:RegAddrType)->i32;
     fn write_reg (&mut self, reg_Addr: RegAddrType, data:XlenType);
+
+    fn fread_reg(&mut self,reg_Addr:RegAddrType)->f32;
+    fn fwrite_reg (&mut self, reg_Addr: RegAddrType, data:f32);
 
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst;
     fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType);
 
     fn mem_access(&mut self,op:MemType,size:MemSize,data:XlenType,addr:AddrType)->XlenType;
+    fn fmem_access(&mut self,op:MemType,size:MemSize,data:f32,addr:AddrType)->f32;
     fn get_is_finish_cpu(&mut self)->bool;
     fn set_finish_cpu(&mut self);
     fn get_tohost(&mut self)->XlenType;
@@ -203,8 +228,14 @@ impl Riscv64Core for EnvBase{
     fn get_rs2_addr (inst:InstType)->RegAddrType{
         return ((inst>>20)&0x1f)as RegAddrType;
     }
+    fn get_rs3_addr (inst:InstType)->RegAddrType{
+        return ((inst>>27)&0x1f)as RegAddrType;
+    }
     fn get_rd_addr (inst:InstType)->RegAddrType{
         return ((inst >> 7)&0x1f)as RegAddrType;
+    }
+    fn get_rm_addr (inst:InstType)->RegAddrType{
+        return ((inst >> 12)&0x7)as RegAddrType;
     }
     fn read_reg(&mut self,reg_Addr:RegAddrType)->XlenType{
         if reg_Addr == 0{
@@ -213,10 +244,23 @@ impl Riscv64Core for EnvBase{
             return self.m_regs[reg_Addr as usize];
         }
     }
+    fn fread_reg(&mut self,reg_Addr:RegAddrType)->f32{
+        if reg_Addr == 0{
+            return 0.0;
+        }else{
+            return self.f_regs[reg_Addr as usize];
+        }
+    }
     fn write_reg (&mut self,reg_Addr:RegAddrType,data:XlenType){
         if reg_Addr !=0{
             self.m_regs[reg_Addr as usize]=data;
             println!("     x{:02} <= {:08x}", reg_Addr, data);
+        }
+    }
+    fn fwrite_reg (&mut self,reg_Addr:RegAddrType,data:f32){
+        if reg_Addr !=0{
+            self.f_regs[reg_Addr as usize]=data;
+          //  println!("     x{:02} <= {:08x}", reg_Addr, data);
         }
     }
     fn fetch_memory(&mut self)->XlenType{
@@ -227,7 +271,9 @@ impl Riscv64Core for EnvBase{
         ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
         return fetch_data;
     }
-
+    fn fread_memory_word(&mut self,addr:AddrType)->f32{
+        return EnvBase::int_to_float(self.read_memory_word(addr)as u32);
+    }
     fn read_memory_word (&mut self, addr:AddrType) -> XlenType {
         let base_addr: AddrType = addr - DRAM_BASE;
         return ((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
@@ -247,14 +293,17 @@ impl Riscv64Core for EnvBase{
         return self.m_memory[base_addr as usize + 0] as XlenType;
     }
 
-
+    fn fwrite_memory_word(&mut self,addr:AddrType,data:f32)->f32{
+        let data = EnvBase::float_to_int(data);
+        self.write_memory_word(addr, data);
+        return 0.0;
+    }
     fn write_memory_word (&mut self, addr:AddrType, data:XlenType) -> XlenType {
         let base_addr: AddrType = addr - DRAM_BASE;
         self.m_memory[base_addr as usize + 0] = ((data >>  0) & 0x0ff) as u8;
         self.m_memory[base_addr as usize + 1] = ((data >>  8) & 0x0ff) as u8;
         self.m_memory[base_addr as usize + 2] = ((data >> 16) & 0x0ff) as u8;
         self.m_memory[base_addr as usize + 3] = ((data >> 24) & 0x0ff) as u8;
-
         return 0;
     }
 
@@ -276,6 +325,8 @@ impl Riscv64Core for EnvBase{
         let opcode = inst & 0x7f;
         let funct3 = (inst >> 12)&0x07;
         let funct5 = (inst >> 25)&0x07;
+        let funct2 = (inst >> 25)&0x03;
+        let funct7 = (inst >> 25)&0x7f;
         let imm12 = (inst>> 20)&0xfff;
         match opcode {
             0x0f => {
@@ -380,6 +431,117 @@ impl Riscv64Core for EnvBase{
                     0b111 => RiscvInst::CSRRCI ,
                     _     => RiscvInst::NOP    ,
                 }
+            },
+            0x07 =>{
+                match funct3{
+                    0b010 =>RiscvInst::FLW,
+                    _ => panic!("見落とし"),
+                    }
+            },
+            0x27 =>{
+                match funct3{
+                    0b010 => RiscvInst::FSW,
+                    _ => panic!("見落とし"),
+                }
+            },
+            0x43=>{
+                match funct2{
+                    0b00 => RiscvInst::FMADDS,
+                    _ => panic!("見落とし"),
+                }
+            },
+            0x47 =>{
+                match funct2{
+                    0b00 => RiscvInst::FMSUBS,
+                    _=>panic!("見落とし"),
+                }
+            },
+            0b1001011=>{
+                match funct2 {
+                    0b00=>RiscvInst::FNMSUBS,
+                    _=>panic!("MM"),
+                }
+            },
+            0b1001111=>{
+                match funct2 {
+                    0b00 => RiscvInst::FNMADDS,
+                    _ =>panic!("MM"),
+                }
+            },
+            0b1010011=>{
+                match funct7{
+                    0b0=>RiscvInst::FADDS,
+                    0x4=>RiscvInst::FSUBS,
+                    0x8=>RiscvInst::FMULS,
+                    0xc=>RiscvInst::FDIVS,
+                    0x2c=>{
+                        match funct5{
+                            0=>RiscvInst::FSQRTS,
+                            _ =>panic!("MM")
+                        }
+                    },
+                    0x10=>{
+                        match funct3{
+                            0b000 =>RiscvInst::FSGNJS,
+                            0b001 => RiscvInst::FSGNJNS,
+                            0b010 => RiscvInst::FSGNJXS,
+                            _ => panic!("MM"),
+                        }
+                    },
+                    0x14=>{
+                        match funct3{
+                            0b000=>RiscvInst::FMINS,
+                            0b001 =>RiscvInst::FMAXS,
+                            _ =>panic!("MM"),
+                        }
+                    },
+                    0x60=>{
+                        match funct5{
+                            0b0=>RiscvInst::FCVTWS,
+                            0b1=>RiscvInst::FCVTWUS,
+                            _=>panic!("MM"),
+                        }
+                    },
+                    0x70=>{
+                        match funct5{
+                            0=>{
+                                match funct3{
+                                    0=> RiscvInst::FMVXW,
+                                    1=>RiscvInst::FCLASSS,
+                                    _ => panic!("MM")
+                                }
+                            }
+                            _=>panic!("MM"),
+                        }
+                    },
+                    0x50=>{
+                        match funct3{
+                            0b010=>RiscvInst::FEQS,
+                            0b001=>RiscvInst::FLTS,
+                            0b000=>RiscvInst::FLES,
+                            _ => panic!("MM"),
+                        }
+                    },
+                    0x68=>{
+                        match funct5{
+                            0b0=>RiscvInst::FCVTSW,
+                            0b1=>RiscvInst::FCVTSWU,
+                            _=>panic!("MM"),
+                        }
+                    },
+                    0x78=>{
+                        match funct5{
+                            0b0=>{
+                                match funct3{
+                                    0b0 => RiscvInst::FMVWX,
+                                    _ => panic!("MM"),
+                                }
+                            },
+                            _ => panic!("MM"),
+                        }
+                    },
+                    _ =>panic!("MM"),
+                }
             }
             _    => RiscvInst::WFI,
         }
@@ -388,8 +550,9 @@ impl Riscv64Core for EnvBase{
         println!("{:08x} : {:08x} // DASM({:08x})", self.m_pc as u32, inst as u32, inst as u32);
         let rs1 = Self::get_rs1_addr (inst);
         let rs2 = Self::get_rs2_addr (inst);
+        let rs3=Self::get_rs3_addr(inst);
         let rd  = Self::get_rd_addr  (inst);
-
+        let rm = Self::get_rm_addr(inst);
         let csr_addr =CsrAddr::from_u64(((inst>>20)&0x0fff)as u64);
         let mut update_pc = false;
         match dec_inst{
@@ -444,7 +607,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::SW  => {
                 println!("SW\n");
                 let rs2_data = self.read_reg(rs2);
-                let addr = (self.read_reg(rs1) + Self::extract_sfield(inst)+STACK_BASE);
+                let addr = self.read_reg(rs1) + Self::extract_sfield(inst)+STACK_BASE;
                 self.mem_access(MemType::STORE, MemSize::WORD, rs2_data, addr as AddrType);
             }
             RiscvInst::ADDI => {
@@ -542,6 +705,265 @@ impl Riscv64Core for EnvBase{
                 let reg_data:XlenType = self.m_csr.csrrc (csr_addr, zimm);
                 self.write_reg(rd, reg_data);
             }
+            RiscvInst::FLW  => {
+                println!("FLW\n");
+                let addr = self.read_reg(rs1) + Self::extract_ifield(inst)+STACK_BASE;
+                let reg_data:f32 = self.fmem_access(MemType::LOAD, MemSize::WORD, 0.0, addr as AddrType);
+                self.fwrite_reg(rd, reg_data);
+            }
+            RiscvInst::FSW  => {
+                println!("FSW\n");
+                let rs2_data = self.fread_reg(rs2);
+                let addr = self.read_reg(rs1) + Self::extract_sfield(inst)+STACK_BASE;
+                self.fmem_access(MemType::STORE, MemSize::WORD, rs2_data, addr as AddrType);
+            }
+            RiscvInst::FMADDS=>{
+                println!("FMADDS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                let rs3_data=self.fread_reg(rs3);
+                self.fwrite_reg(rd, rs1_data*rs2_data+rs3_data);
+            }
+            RiscvInst::FMSUBS=>{
+                println!("FMSUBS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                let rs3_data=self.fread_reg(rs3);
+                self.fwrite_reg(rd, rs1_data*rs2_data-rs3_data);
+            }
+            RiscvInst::FNMSUBS=>{
+                println!("FNMSUBS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                let rs3_data=self.fread_reg(rs3);
+                self.fwrite_reg(rd, -rs1_data*rs2_data+rs3_data);
+            }
+            RiscvInst::FNMADDS=>{
+                println!("FNMADDS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                let rs3_data=self.fread_reg(rs3);
+                self.fwrite_reg(rd, -rs1_data*rs2_data-rs3_data);
+            }
+            RiscvInst::FADDS=>{
+                println!("FADDS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                self.fwrite_reg(rd, rs1_data+rs2_data);
+            }
+            RiscvInst::FSUBS=>{
+                println!("FSUBS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                self.fwrite_reg(rd, rs1_data-rs2_data);
+            }
+            RiscvInst::FMULS=>{
+                println!("FMULS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                self.fwrite_reg(rd, rs1_data*rs2_data);
+            }
+            RiscvInst::FDIVS=>{
+                println!("FDIVS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                self.fwrite_reg(rd, rs1_data/rs2_data);
+            }
+            RiscvInst::FSQRTS=>{
+                println!("FSQRTS\n");
+                let rs1_data=self.fread_reg(rs1);
+                self.fwrite_reg(rd, rs1_data.sqrt());
+            }
+            RiscvInst::FSGNJS=>{
+                println!("FSGNJS\n");
+                let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
+                let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
+                let data = rs1_data&(!0x8000)|(rs2_data&0x8000);
+                self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
+            }
+            RiscvInst::FSGNJNS=>{
+                println!("FSGNJNS\n");
+                let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
+                let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
+                let data = rs1_data&(!0x8000)|((!rs2_data)&0x8000);
+                self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
+            }
+            RiscvInst::FSGNJXS=>{
+                println!("FSGNJXS\n");
+                let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
+                let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
+                let data = rs1_data&(!0x8000)|(((rs2_data)&0x8000)^((rs1_data)&0x8000));
+                self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
+            }
+            RiscvInst::FMINS=>{
+                println!("FMINS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                if rs1_data > rs2_data{
+                    self.fwrite_reg(rd, rs2_data);
+                }else{
+                    self.fwrite_reg(rd, rs1_data);
+                }                             
+            }
+            RiscvInst::FMAXS=>{
+                println!("FMAXS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                if rs1_data < rs2_data{
+                    self.fwrite_reg(rd, rs2_data);
+                }else{
+                    self.fwrite_reg(rd, rs1_data);
+                }                             
+            }
+            RiscvInst::FEQS=>{
+                println!("FEQS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                if rs1_data==f32::NAN||rs2_data==f32::NAN{
+                    self.write_reg(rd, 0);
+                } else if rs1_data==rs2_data{
+                    self.write_reg(rd, 1);
+                } else{
+                    self.write_reg(rd, 0);
+                }
+            }
+            RiscvInst::FLTS=>{
+                println!("FLTS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                if rs1_data==f32::NAN||rs2_data==f32::NAN{
+                    self.write_reg(rd, 0);
+                } else if rs1_data < rs2_data{
+                    self.write_reg(rd, 1);
+                } else{
+                    self.write_reg(rd, 0);
+                }
+            }
+            RiscvInst::FLES=>{
+                println!("FLES\n");
+                let rs1_data=self.fread_reg(rs1);
+                let rs2_data=self.fread_reg(rs2);
+                if rs1_data==f32::NAN||rs2_data==f32::NAN{
+                    self.write_reg(rd, 0);
+                } else if rs1_data <= rs2_data{
+                    self.write_reg(rd, 1);
+                } else{
+                    self.write_reg(rd, 0);
+                }
+            }
+            RiscvInst::FCLASSS=>{
+                println!("FCLASSS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let res =
+                    if rs1_data == f32::NEG_INFINITY{0}
+                    else if rs1_data == f32::INFINITY{7}
+                    else if rs1_data == f32::NAN{8}//SINANなら9なのだが
+                    else if rs1_data == -0.0 {3}
+                    else if rs1_data == 0.0 {4}
+                    else if !rs1_data.is_normal(){
+                        if rs1_data > 0.0{
+                            5
+                        }else{2}
+                    }
+                    else if rs1_data < 0.0{1}
+                    else {6};
+                    self.write_reg(rd, res)
+            }
+            RiscvInst::FCVTWS=>{
+                println!("FCVTWS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let res =
+                    if rs1_data == f32::NAN||rs1_data==f32::INFINITY{i32::MAX}
+                    else if rs1_data == f32::NEG_INFINITY{i32::MIN}
+                    else if rs1_data as i64 >= i32::MAX as i64{i32::MAX}
+                    else if rs1_data as i64 <= i32::MIN as i64 {i32::MIN}
+                    else {
+                        match rm{
+                            0b000 =>{
+                                let fract = rs1_data.fract();
+                                let mut zantei = rs1_data.trunc() as i32;
+                                if fract == 0.5 &&zantei % 2 == 0 {
+                                }
+                                else{
+                                    zantei = rs1_data.round() as i32;
+                                }
+                                zantei
+                            },
+                            0b001 =>{rs1_data.trunc()as i32},
+                            0b010 => {rs1_data.floor() as i32},
+                            0b011 => {rs1_data.ceil()as i32},
+                            0b110 =>{
+                                let fract = rs1_data.fract();
+                                let mut zantei = rs1_data.trunc() as i32;
+                                if fract != 0.0 {
+                                    if zantei < 0 {zantei = zantei -1 ;}
+                                    else {zantei = zantei + 1;}
+                                }
+                                zantei
+                            }
+                            0b111=>{panic!("DYNAMIC HA MIJISSOU");}
+                            _ =>{panic!("INVALID RM")}
+                        }
+                    };
+                    self.write_reg(rd,res);
+            }
+            RiscvInst::FCVTWUS=>{
+                println!("FCVTWUS\n");
+                let rs1_data=self.fread_reg(rs1);
+                let res =
+                    if rs1_data == f32::NAN||rs1_data==f32::INFINITY{u32::MAX}
+                    else if rs1_data == f32::NEG_INFINITY{u32::MIN}
+                    else if rs1_data as u64 >= u32::MAX as u64{u32::MAX}
+                    else if rs1_data as u64 <= u32::MIN as u64 {u32::MIN}
+                    else {
+                        match rm{
+                            0b000 =>{
+                                let fract = rs1_data.fract();
+                                let mut zantei = rs1_data.trunc() as u32;
+                                if fract == 0.5 &&zantei % 2 == 0 {
+                                }
+                                else{
+                                    zantei = rs1_data.round() as u32;
+                                }
+                                zantei
+                            },
+                            0b001 =>{rs1_data.trunc()as u32},
+                            0b010 => {rs1_data.floor() as u32},
+                            0b011 => {rs1_data.ceil()as u32},
+                            0b110 =>{
+                                let fract = rs1_data.fract();
+                                let mut zantei = rs1_data.trunc() as u32;
+                                if fract != 0.0 {
+                                    zantei += 1;
+                                }
+                                zantei
+                            }
+                            0b111=>{panic!("DYNAMIC HA MIJISSOU");}
+                            _ =>{panic!("INVALID RM")}
+                        }
+                    };
+                    self.write_reg(rd,res as i32);
+            }
+            RiscvInst::FMVXW=>{
+                println!("FMVXW\n");
+                let rs1_data=self.fread_reg(rs1);
+                self.write_reg(rd, EnvBase::float_to_int(rs1_data));
+            }
+            RiscvInst::FMVWX=>{
+                println!("FMVWX\n");
+                let rs1_data=self.read_reg(rs1);
+                self.fwrite_reg(rd, EnvBase::int_to_float(rs1_data as u32));
+            }
+            RiscvInst::FCVTSW=>{
+                println!("FCVTSW\n");
+                let rs1_data = self.read_reg(rs1);
+                self.fwrite_reg(rd,rs1_data as f32);
+            }
+            RiscvInst::FCVTSWU=>{
+                println!("FCVTSW\n");
+                let rs1_data = self.read_reg(rs1)as u32;
+                self.fwrite_reg(rd,rs1_data as f32);
+            }
             _ =>{
                 println!("NEVER\n");
             }
@@ -586,6 +1008,43 @@ impl Riscv64Core for EnvBase{
             }
         }
         return 0;
+    }
+    fn fmem_access (&mut self, op: MemType, size: MemSize, data: f32, addr: AddrType) -> f32
+    {
+        let addr = addr + DRAM_BASE + 10000;
+        match op {
+            MemType::STORE => {
+                if addr == self.m_tohost_addr {
+                    self.m_finish_cpu = true;
+                    self.m_tohost =EnvBase::float_to_int(data);
+                } else if addr == self.m_fromhost_addr {
+                    self.m_finish_cpu = true;
+                    self.m_fromhost =EnvBase::float_to_int(data);
+                } else {
+                    match size {
+                     //   MemSize::BYTE  => self.fwrite_memory_byte (addr, data),
+                      //  MemSize::HWORD => self.fwrite_memory_hword(addr, data),
+                        MemSize::WORD  => self.fwrite_memory_word (addr, data),
+                        _              => 1.0
+                    };
+                }
+            }
+            MemType::LOAD  => {
+                if addr == self.m_tohost_addr {
+                    return EnvBase::int_to_float(self.m_tohost as u32);
+                } else if addr == self.m_fromhost_addr {
+                    return  EnvBase::int_to_float(self.m_fromhost as u32);
+                } else {
+                    match size {
+                       // MemSize::BYTE  => return self.fread_memory_byte (addr),
+                     //   MemSize::HWORD => return self.fread_memory_hword(addr),
+                        MemSize::WORD  => return self.fread_memory_word (addr),
+                        _              => 1
+                    };
+                }
+            }
+        }
+        return 0.0;
     }
     fn get_is_finish_cpu (&mut self) -> bool { return self.m_finish_cpu; }
     fn set_finish_cpu (&mut self)  { self.m_finish_cpu=true; }
