@@ -776,9 +776,11 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FSGNJS=>{
                 println!("FSGNJS\n");
+                let mae = self.fread_reg(rs1);
                 let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
                 let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
                 let data = rs1_data&(!0x8000)|(rs2_data&0x8000);
+                let ato =  EnvBase::int_to_float(data as u32);
                 self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
             }
             RiscvInst::FSGNJNS=>{
@@ -1053,6 +1055,9 @@ impl Riscv64Core for EnvBase{
     fn output_reg(&mut self){
         for i in 0..32{
             println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.m_regs[i].to_string());
+        }
+        for i in 0..32{
+            println!("{}", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
         }
     }
 

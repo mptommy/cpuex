@@ -9,12 +9,12 @@
             "request": "launch",
             "name": "Launch",
             "program": "${workspaceFolder}/target/debug/ringo",
-            "args": ["${workspaceFolder}/target/debug/hello.s","${workspaceFolder}/target/debug/hello.out"],
+            "args": ["${workspaceFolder}/target/debug/hello2.s","/home/kazu/CPUEX/cpuex/yamaimo/target/debug/hello2.out"],
             "cwd": "${workspaceFolder}"
         },
       /*  {
             "name": "(gdb) 起動",
-            "type": "cppdbg",
+            "type": "cpplsdbg",
             "request": "launch",
             "program": "${workspaceFolder}/target/debug/ringo",
             "args": ["${workspaceFolder}/target/debug/hello.s"],

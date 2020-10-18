@@ -38,7 +38,7 @@ fn main() -> Result<(), Box<std::error::Error>>{
 
     for result in filebuf.lines(){
         let l = result?;
-        //println!("{}",l);
+        println!("{}",l);
         let inst = asm::MainParser::new().parse(&l).unwrap();
         meireis = mac.gijimeirei(inst,meireis);
     }
