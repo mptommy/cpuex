@@ -5,11 +5,17 @@ module dist_ram (clk, write_enable, addr, data_write, data_out);
     input [31:0] data_write;
     output [31:0] data_out;
 
-    reg [31:0] ram [1023:0];
+    reg [7:0] ram [1023:0];
 
+    //Little Endian?
     always @ (posedge clk)
     begin
-        if(write_enable) ram[addr] <= data_write;
+        if(write_enable) begin
+            ram[addr+3] <= data_write[31:24];
+            ram[addr+2] <= data_write[23:16];
+            ram[addr+1] <= data_write[15:8];
+            ram[addr] <= data_write[7:0];
+        end
     end
-    assign data_out = ram[addr];
+    assign data_out = {ram[addr+3], ram[addr+2], ram[addr+1], ram[addr]};
 endmodule
