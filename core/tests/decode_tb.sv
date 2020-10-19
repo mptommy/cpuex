@@ -7,10 +7,10 @@ module decode_tb();
 
     wire [31:0] imm;
     wire [3:0] alu_ctl;
-    wire branch_uc, branch_c, mem_read, mem_write, alu_src, reg_write;
+    wire branch_relative, branch_uc, branch_c, mem_read, mem_write, alu_src, reg_write;
     wire [4:0] read_reg1, read_reg2, write_reg;
 
-    decode decode_instance(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c,
+    decode decode_instance(clk, state, instr_raw, imm, alu_ctl, branch_relative, branch_uc, branch_c,
         mem_read, mem_write, alu_src, reg_write,
         read_reg1, read_reg2, write_reg);
 
@@ -27,6 +27,7 @@ module decode_tb();
         //alu_ctl = 2 (add)
         //branch_uc = 0
         //branch_c = 0
+        //branch_relative = 1
         //mem_read = 0
         //mem_write = 0
         //alu_src = 0
@@ -43,6 +44,7 @@ module decode_tb();
         //alu_ctl = 2 (add)
         //branch_uc = 0
         //branch_c = 0
+        //branch_relative = 1
         //mem_read = 0
         //mem_write = 0
         //alu_src = 1
@@ -58,6 +60,7 @@ module decode_tb();
         //alu_ctl = 8 (ge)
         //branch_uc = 0
         //branch_c = 1
+        //branch_relative = 1
         //mem_read = 0
         //mem_write = 0
         //alu_src = 0
@@ -73,6 +76,7 @@ module decode_tb();
         //alu_ctl = 10 (chooseb)
         //branch_uc = 1
         //branch_c = 0
+        //branch_relative = 1
         //mem_read = 0
         //mem_write = 0
         //alu_src = 1
@@ -88,6 +92,7 @@ module decode_tb();
         //alu_ctl = 2 (add)
         //branch_uc = 1
         //branch_c = 0
+        //branch_relative = 0
         //mem_read = 0
         //mem_write = 0
         //alu_src = 1
@@ -103,6 +108,7 @@ module decode_tb();
         //alu_ctl = 2 (add)
         //branch_uc = 0
         //branch_c = 0
+        //branch_relative = 1
         //mem_read = 1
         //mem_write = 0
         //alu_src = 1
@@ -118,6 +124,7 @@ module decode_tb();
         //alu_ctl = 2 (add)
         //branch_uc = 0
         //branch_c = 0
+        //branch_relative = 1
         //mem_read = 0
         //mem_write = 1
         //alu_src = 1

@@ -1,4 +1,4 @@
-module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c,
+module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_relative,
     mem_read, mem_write, alu_src, reg_write,
     read_reg1, read_reg2, write_reg);
     input clk;
@@ -14,13 +14,14 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c,
     input [31:0] instr_raw;
     output reg [31:0] imm;
     output reg [3:0] alu_ctl;
-    output reg branch_c, branch_uc, mem_read, mem_write, alu_src, reg_write;
+    output reg branch_c, branch_uc, branch_relative, mem_read, mem_write, alu_src, reg_write;
 
     initial begin
         imm = 0;
         alu_ctl = 0;
         branch_c = 0;
         branch_uc = 0;
+        branch_relative = 0;
         mem_read = 0;
         mem_write = 0;
         alu_src = 0;
@@ -94,6 +95,8 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c,
                         (opcode == 7'b1101111) ? 10 :
             // default => zero (31)
                         31;
+            // in jalr, use the absolute address
+            branch_relative <= ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 0 : 1;
             write_reg <= instr_raw[11:7];
         end
     end
