@@ -23,11 +23,11 @@ module registerfile_tb();
         WriteReg = 1;
         WriteData = 32;
         RegWrite = 1;
-        #20 WriteReg = 5;
+        #20 WriteReg = 31;
         #0 WriteData = 21;
         #20 RegWrite = 0;
         #0 Read1 = 1;
-        #0 Read2 = 5;
+        #0 Read2 = 31;
         #0 WriteData = 10;
         #20 RegWrite = 1;
         #0 WriteReg = 1;
@@ -35,14 +35,14 @@ module registerfile_tb();
         #20 WriteData = 2;
         #0 RegWrite = 0;
         #0 Read1 = 1;
-        #0 Read2 = 5;
+        #0 Read2 = 31;
         #20 RegWrite = 1;
         #0 WriteReg = 0;
         #0 WriteData = 128;
         #20 WriteData = 2;
         #0 RegWrite = 0;
         #0 Read1 = 0;
-        #0 Read2 = 5;
+        #0 Read2 = 31;
     end
 
     initial begin
