@@ -8,9 +8,13 @@ module fetch(clk, state, pc, instr_out);
     // WRITE = 4
     // TODO: Make the constants global
     input [2:0] state;
-    input [9:0] pc;
+    input [31:0] pc;
     output reg [31:0] instr_out;
     reg [7:0] instr_mem [1023:0];
+
+    // TODO: Remove this to make instr_mem bigger
+    wire [9:0] pc_effective;
+    assign pc_effective = pc[9:0];
 
     integer i;
     //TODO insert valid instructions later
@@ -25,7 +29,8 @@ module fetch(clk, state, pc, instr_out);
     always @(posedge clk) begin
         //TODO? when state != 0, reset the instr...?
         if (state == 0)
-            instr_out <= {instr_mem[pc + 3], instr_mem[pc + 2], instr_mem[pc + 1], instr_mem[pc]};
+            instr_out <= {instr_mem[pc_effective + 3], instr_mem[pc_effective + 2],
+                instr_mem[pc_effective + 1], instr_mem[pc_effective]};
     end
 
 endmodule
