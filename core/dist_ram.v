@@ -7,6 +7,12 @@ module dist_ram (clk, write_enable, addr, data_write, data_out);
 
     reg [7:0] ram [1023:0];
 
+    integer i;
+    initial begin
+        for(i = 0;i<=1023;i=i+1)
+            ram[i] = 0;
+    end
+
     //Little Endian?
     always @ (posedge clk)
     begin
