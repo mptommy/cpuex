@@ -15,6 +15,7 @@ module fetch(clk, state, pc, instr_out);
     integer i;
     //TODO insert valid instructions later
     initial begin
+        instr_out = 0;
         for(i = 0;i<=1023;i=i+1)
             instr_mem[i] = 0;
         for(i = 0;i<=255;i=i+1)

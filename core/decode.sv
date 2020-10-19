@@ -16,6 +16,18 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c,
     output reg [3:0] alu_ctl;
     output reg branch_c, branch_uc, mem_read, mem_write, alu_src, reg_write;
 
+    initial begin
+        imm = 0;
+        alu_ctl = 0;
+        branch_c = 0;
+        branch_uc = 0;
+        mem_read = 0;
+        mem_write = 0;
+        alu_src = 0;
+        reg_write = 0;
+        write_reg = 0;
+    end
+
     //directly go to registerfile
     output wire [4:0] read_reg1, read_reg2;
     //wait until write phase
