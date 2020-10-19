@@ -22,6 +22,7 @@ module fetch(clk, state, pc, instr_out);
     end
 
     always @(posedge clk) begin
+        //TODO? when state != 0, reset the instr...?
         if (state == 0)
             instr_out <= {instr_mem[pc + 3], instr_mem[pc + 2], instr_mem[pc + 1], instr_mem[pc]};
     end
