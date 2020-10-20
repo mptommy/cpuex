@@ -34,10 +34,24 @@ fn main()-> Result<(), Box<std::error::Error>>  {
 
     let mut count = 0;
     let mut finish = false;
+    let mut step = true;
     while !finish&& !riscv64_core.get_is_finish_cpu () {
         let inst_data = riscv64_core.fetch_memory ();
       
         let inst_decode = riscv64_core.decode_inst(inst_data);
+        
+        if step{
+            riscv64_core.output_reg();
+
+            let mut word = String::new();
+            std::io::stdin().read_line(&mut word).ok();
+            let answer = word.trim().to_string();
+            if answer != "s"{
+                step = false;
+            }
+        }
+
+
         riscv64_core.execute_inst(inst_decode, inst_data as InstType);
       //  if zeros{
             if inst_data == 0{

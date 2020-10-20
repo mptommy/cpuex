@@ -557,58 +557,70 @@ impl Riscv64Core for EnvBase{
         let mut update_pc = false;
         match dec_inst{
             RiscvInst::LB  => {
-                println!("LB\n");
                 let rs1_data = self.read_reg(rs1);
-                let addr = self.read_reg(rs1) + Self::extract_ifield(inst)+STACK_BASE;
+                let imm =  Self::extract_ifield(inst);
+                let addr = rs1_data +imm+STACK_BASE;
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr as AddrType);
                 reg_data = Self::extend_sign(reg_data, 7);
                 self.write_reg(rd, reg_data);
+                println!("LB {},{}({})\n",rd,imm,rs1);
             }
             RiscvInst::LH  => {
                 let rs1_data = self.read_reg(rs1);
-                let addr = self.read_reg(rs1) + Self::extract_ifield(inst)+STACK_BASE;
+                let imm =  Self::extract_ifield(inst);
+                let addr =rs1_data +imm+STACK_BASE;
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr as AddrType);
                 reg_data = Self::extend_sign(reg_data, 15);
                 self.write_reg(rd, reg_data);
+                println!("LH {},{}({})\n",rd,imm,rs1);
             }
             RiscvInst::LW  => {
-                println!("LW\n");
                 let rs1_data = self.read_reg(rs1);
-                let addr = self.read_reg(rs1) + Self::extract_ifield(inst)+STACK_BASE;
+                let imm =  Self::extract_ifield(inst);
+                let addr = rs1_data +imm+STACK_BASE;
                 let reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::WORD, rs1_data, addr as AddrType);
                 self.write_reg(rd, reg_data);
+                println!("LW {},{}({})\n",rd,imm,rs1);
+
             }
             RiscvInst::LBU  => {
-                println!("LBU\n");
                 let rs1_data = self.read_reg(rs1);
-                let addr = self.read_reg(rs1) + Self::extract_ifield(inst)+STACK_BASE;
+                let imm =  Self::extract_ifield(inst);
+                let addr = rs1_data +imm+STACK_BASE;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr as AddrType) as UXlenType;
                  self.write_reg(rd, reg_data as XlenType);
+                 println!("LBU {},{}({})\n",rd,imm,rs1);
             }
             RiscvInst::LHU  => {
                 println!("LHU\n");
                 let rs1_data = self.read_reg(rs1);
-                let addr = self.read_reg(rs1) + Self::extract_ifield(inst)+STACK_BASE;
+                let imm =  Self::extract_ifield(inst);
+                let addr = rs1_data +imm+STACK_BASE;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr as AddrType) as UXlenType;
                 self.write_reg(rd, reg_data as XlenType);
+                println!("LHU {},{}({})\n",rd,imm,rs1);
             }
             RiscvInst::SB  => {
-                println!("SB\n");
                 let rs2_data = self.read_reg(rs2);
-                let addr:AddrType = (self.read_reg(rs1) + Self::extract_sfield(inst)+STACK_BASE) as AddrType;
+                let imm =  Self::extract_sfield(inst);
+                let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::BYTE, rs2_data, addr);
+                println!("SB {},{}({})\n",rs2,imm,rs1);
             }
             RiscvInst::SH  => {
-                println!("SH\n");
                 let rs2_data = self.read_reg(rs2);
-                let addr:AddrType = (self.read_reg(rs1) + Self::extract_sfield(inst)+STACK_BASE) as AddrType;
-                self.mem_access(MemType::STORE, MemSize::HWORD, rs2_data, addr);
+                let imm =  Self::extract_sfield(inst);
+                let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
+                 self.mem_access(MemType::STORE, MemSize::HWORD, rs2_data, addr);
+                 println!("SH {},{}({})\n",rs2,imm,rs1);
+              
             }
             RiscvInst::SW  => {
-                println!("SW\n");
                 let rs2_data = self.read_reg(rs2);
-                let addr = self.read_reg(rs1) + Self::extract_sfield(inst)+STACK_BASE;
+                let imm =  Self::extract_sfield(inst);
+                let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::WORD, rs2_data, addr as AddrType);
+                println!("SW {},{}({})\n",rs2,imm,rs1);
             }
             RiscvInst::ADDI => {
                 println!("ADDI\n");
@@ -616,6 +628,7 @@ impl Riscv64Core for EnvBase{
                 let imm_data = Self::extract_ifield(inst);
                 let reg_data:XlenType = (Wrapping(rs1_data)+Wrapping(imm_data)).0;
                 self.write_reg(rd,reg_data);
+                println!("ADDI {},{} {}\n",rd,rs1,imm_data);
             }
             RiscvInst::BEQ | RiscvInst::BNE | RiscvInst::BLT | RiscvInst::BGE | RiscvInst::BLTU | RiscvInst::BGEU => {
                 println!("HIKAKU\n");
@@ -645,27 +658,27 @@ impl Riscv64Core for EnvBase{
                 self.write_reg(rd, imm);
             }
             RiscvInst::ADD => {
-                println!("ADD\n");
                 let rs1_data = self.read_reg(rs1);
                 let rs2_data = self.read_reg(rs2);
                 let reg_data:XlenType = (Wrapping(rs1_data) + Wrapping(rs2_data)).0;
                 self.write_reg(rd, reg_data);
+                println!("ADD {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::SUB => {
                 let rs1_data = self.read_reg(rs1);
                 let rs2_data = self.read_reg(rs2);
                 let reg_data:XlenType = (Wrapping(rs1_data) - Wrapping(rs2_data)).0;
                 self.write_reg(rd, reg_data);
+                println!("SUB {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::JAL => {
-                println!("JAL\n");
                 let addr:AddrType = Self::extract_uj_field(inst) as AddrType;
                 self.write_reg(rd, (self.m_pc-DRAM_BASE + 4) as XlenType);
                 self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
                 update_pc = true;
+                println!("JAL {},{} \n",rd,addr);
             }
             RiscvInst::JALR => {
-                println!("JALR\n");
                 let mut addr: AddrType = Self::extract_ifield (inst) as AddrType;
                 let rs1_data: AddrType = self.read_reg(rs1) as AddrType;
                 addr = (Wrapping(rs1_data) + Wrapping(addr)).0;
@@ -674,6 +687,7 @@ impl Riscv64Core for EnvBase{
                 self.write_reg(rd, (self.m_pc-DRAM_BASE + 4) as XlenType);
                 self.m_pc = addr+DRAM_BASE;
                 update_pc = true;
+                println!("JALR {},{},{} \n",rd,addr,rs1);
             }
             RiscvInst::CSRRW  => {
                 let rs1_data = self.read_reg(rs1);
@@ -706,119 +720,123 @@ impl Riscv64Core for EnvBase{
                 self.write_reg(rd, reg_data);
             }
             RiscvInst::FLW  => {
-                println!("FLW\n");
-                let addr = self.read_reg(rs1) + Self::extract_ifield(inst)+STACK_BASE;
+                let imm = Self::extract_ifield(inst);
+                let addr = self.read_reg(rs1) +imm +STACK_BASE;
                 let reg_data:f32 = self.fmem_access(MemType::LOAD, MemSize::WORD, 0.0, addr as AddrType);
                 self.fwrite_reg(rd, reg_data);
+                println!("LW {},{}({})\n",rd,imm,rs1);
             }
             RiscvInst::FSW  => {
-                println!("FSW\n");
+
                 let rs2_data = self.fread_reg(rs2);
-                let addr = self.read_reg(rs1) + Self::extract_sfield(inst)+STACK_BASE;
+                let imm = Self::extract_sfield(inst);
+                let addr = self.read_reg(rs1) + imm+STACK_BASE;
                 self.fmem_access(MemType::STORE, MemSize::WORD, rs2_data, addr as AddrType);
+                println!("FSW {},{}({})\n",rs2,imm,rs1);
             }
             RiscvInst::FMADDS=>{
-                println!("FMADDS\n");
+               
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 let rs3_data=self.fread_reg(rs3);
                 self.fwrite_reg(rd, rs1_data*rs2_data+rs3_data);
+                println!("FMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);
             }
             RiscvInst::FMSUBS=>{
-                println!("FMSUBS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 let rs3_data=self.fread_reg(rs3);
                 self.fwrite_reg(rd, rs1_data*rs2_data-rs3_data);
+                println!("FMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);
             }
             RiscvInst::FNMSUBS=>{
-                println!("FNMSUBS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 let rs3_data=self.fread_reg(rs3);
                 self.fwrite_reg(rd, -rs1_data*rs2_data+rs3_data);
+                println!("FNMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);
             }
             RiscvInst::FNMADDS=>{
-                println!("FNMADDS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 let rs3_data=self.fread_reg(rs3);
                 self.fwrite_reg(rd, -rs1_data*rs2_data-rs3_data);
+                println!("FNMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);
             }
             RiscvInst::FADDS=>{
-                println!("FADDS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 self.fwrite_reg(rd, rs1_data+rs2_data);
+                println!("FADDS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FSUBS=>{
-                println!("FSUBS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 self.fwrite_reg(rd, rs1_data-rs2_data);
+                println!("FSUBS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FMULS=>{
-                println!("FMULS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 self.fwrite_reg(rd, rs1_data*rs2_data);
+                println!("FMULS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FDIVS=>{
-                println!("FDIVS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 self.fwrite_reg(rd, rs1_data/rs2_data);
+                println!("FDIVS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FSQRTS=>{
-                println!("FSQRTS\n");
                 let rs1_data=self.fread_reg(rs1);
                 self.fwrite_reg(rd, rs1_data.sqrt());
+                println!("SQRTS {},{}\n",rd,rs1);
             }
             RiscvInst::FSGNJS=>{
-                println!("FSGNJS\n");
-                let mae = self.fread_reg(rs1);
-                let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
-                let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
+                let rs1_data = self.fread_reg(rs1);
+                let rs2_data =self.fread_reg(rs2);
+                let rs1_data=EnvBase::float_to_int(rs1_data);
+                let rs2_data=EnvBase::float_to_int(rs2_data);
                 let data = rs1_data&(!0x8000)|(rs2_data&0x8000);
                 let ato =  EnvBase::int_to_float(data as u32);
-                self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
+                self.fwrite_reg(rd, ato);
+                println!("FSGNJS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FSGNJNS=>{
-                println!("FSGNJNS\n");
                 let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
                 let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
                 let data = rs1_data&(!0x8000)|((!rs2_data)&0x8000);
                 self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
+                println!("FSGNJNS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FSGNJXS=>{
-                println!("FSGNJXS\n");
                 let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
                 let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
                 let data = rs1_data&(!0x8000)|(((rs2_data)&0x8000)^((rs1_data)&0x8000));
                 self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
+                println!("FSGNJXS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FMINS=>{
-                println!("FMINS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 if rs1_data > rs2_data{
                     self.fwrite_reg(rd, rs2_data);
                 }else{
                     self.fwrite_reg(rd, rs1_data);
-                }                             
+                }                  
+                println!("FMINS {},{},{}\n",rd,rs1,rs2);           
             }
             RiscvInst::FMAXS=>{
-                println!("FMAXS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 if rs1_data < rs2_data{
                     self.fwrite_reg(rd, rs2_data);
                 }else{
                     self.fwrite_reg(rd, rs1_data);
-                }                             
+                }                 
+                println!("FMAXS {},{},{}\n",rd,rs1,rs2);            
             }
             RiscvInst::FEQS=>{
-                println!("FEQS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
@@ -828,9 +846,9 @@ impl Riscv64Core for EnvBase{
                 } else{
                     self.write_reg(rd, 0);
                 }
+                println!("FEQS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FLTS=>{
-                println!("FLTS\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
@@ -840,9 +858,9 @@ impl Riscv64Core for EnvBase{
                 } else{
                     self.write_reg(rd, 0);
                 }
+                println!("FLTS {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FLES=>{
-                println!("FLES\n");
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
@@ -852,9 +870,10 @@ impl Riscv64Core for EnvBase{
                 } else{
                     self.write_reg(rd, 0);
                 }
+                println!("FLES {},{},{}\n",rd,rs1,rs2);
             }
             RiscvInst::FCLASSS=>{
-                println!("FCLASSS\n");
+                println!("FCLASSS {}\n",rs1);
                 let rs1_data=self.fread_reg(rs1);
                 let res =
                     if rs1_data == f32::NEG_INFINITY{0}
@@ -870,9 +889,10 @@ impl Riscv64Core for EnvBase{
                     else if rs1_data < 0.0{1}
                     else {6};
                     self.write_reg(rd, res)
+                    
             }
             RiscvInst::FCVTWS=>{
-                println!("FCVTWS\n");
+                println!("FCVTWS {}\n",rs1);
                 let rs1_data=self.fread_reg(rs1);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{i32::MAX}
@@ -910,7 +930,7 @@ impl Riscv64Core for EnvBase{
                     self.write_reg(rd,res);
             }
             RiscvInst::FCVTWUS=>{
-                println!("FCVTWUS\n");
+                println!("FCVTWUS {}\n",rs1);
                 let rs1_data=self.fread_reg(rs1);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{u32::MAX}
@@ -947,22 +967,22 @@ impl Riscv64Core for EnvBase{
                     self.write_reg(rd,res as i32);
             }
             RiscvInst::FMVXW=>{
-                println!("FMVXW\n");
+                println!("FMVXW {}\n",rs1);
                 let rs1_data=self.fread_reg(rs1);
                 self.write_reg(rd, EnvBase::float_to_int(rs1_data));
             }
             RiscvInst::FMVWX=>{
-                println!("FMVWX\n");
+                println!("FMVWX {}\n",rs1);
                 let rs1_data=self.read_reg(rs1);
                 self.fwrite_reg(rd, EnvBase::int_to_float(rs1_data as u32));
             }
             RiscvInst::FCVTSW=>{
-                println!("FCVTSW\n");
+                println!("FCVTSW {}\n",rs1);
                 let rs1_data = self.read_reg(rs1);
                 self.fwrite_reg(rd,rs1_data as f32);
             }
             RiscvInst::FCVTSWU=>{
-                println!("FCVTSW\n");
+                println!("FCVTSW {}\n",rs1);
                 let rs1_data = self.read_reg(rs1)as u32;
                 self.fwrite_reg(rd,rs1_data as f32);
             }
