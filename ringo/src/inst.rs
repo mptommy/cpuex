@@ -103,6 +103,14 @@ pub enum Insts{
     FMVWX(u8,u8),
     FLW(u8,i32,u8),
     FSW(u8,i32,u8),
+    MUL(u8,u8,u8),
+    MULH(u8,u8,u8),
+    MULHSU(u8,u8,u8),
+    MULHU(u8,u8,u8),
+    DIV(u8,u8,u8),
+    DIVU(u8,u8,u8),
+    REM(u8,u8,u8),
+    REMU(u8,u8,u8),
 }
 
 pub struct Instruction{
@@ -1216,6 +1224,101 @@ impl Instruction{
                     op15_19:r1,
                     op20_24:r2,
                     op25_31:((i >> 5)&0x7f)as u8,
+                    optype:inst,
+                    ..Default::default()
+                }
+            },
+            Insts::MUL(rd,r1,r2)=>{
+                Instruction{
+                    op0_6:0b0110011,
+                    op7_11:rd,
+                    op15_19:r1,
+                    op20_24:r2,
+                    op25_31:0b1,
+                    optype:inst,
+                    ..Default::default()
+                }
+            },
+            Insts::MULH(rd,r1,r2)=>{
+                Instruction{
+                    op0_6:0b0110011,
+                    op7_11:rd,
+                    op12_14:0b001,
+                    op15_19:r1,
+                    op20_24:r2,
+                    op25_31:0b1,
+                    optype:inst,
+                    ..Default::default()
+                }
+            },
+            Insts::MULHSU(rd,r1,r2)=>{
+                Instruction{
+                    op0_6:0b0110011,
+                    op7_11:rd,
+                    op12_14:0b010,
+                    op15_19:r1,
+                    op20_24:r2,
+                    op25_31:0b1,
+                    optype:inst,
+                    ..Default::default()
+                }
+            },
+            Insts::MULHU(rd,r1,r2)=>{
+                Instruction{
+                    op0_6:0b0110011,
+                    op7_11:rd,
+                    op12_14:0b011,
+                    op15_19:r1,
+                    op20_24:r2,
+                    op25_31:0b1,
+                    optype:inst,
+                    ..Default::default()
+                }
+            },
+            Insts::DIV(rd,r1,r2)=>{
+                Instruction{
+                    op0_6:0b0110011,
+                    op7_11:rd,
+                    op12_14:0b100,
+                    op15_19:r1,
+                    op20_24:r2,
+                    op25_31:0b1,
+                    optype:inst,
+                    ..Default::default()
+                }
+            }, 
+            Insts::DIVU(rd,r1,r2)=>{
+                Instruction{
+                    op0_6:0b0110011,
+                    op7_11:rd,
+                    op12_14:0b101,
+                    op15_19:r1,
+                    op20_24:r2,
+                    op25_31:0b1,
+                    optype:inst,
+                    ..Default::default()
+                }
+            },
+            Insts::REM(rd,r1,r2)=>{
+                Instruction{
+                    op0_6:0b0110011,
+                    op7_11:rd,
+                    op12_14:0b110,
+                    op15_19:r1,
+                    op20_24:r2,
+                    op25_31:0b1,
+                    optype:inst,
+                    ..Default::default()
+                }
+            },
+            Insts::REMU(rd,r1,r2)=>{
+                Instruction{
+                    op0_6:0b0110011,
+                    op7_11:rd,
+                    op12_14:0b111,
+                    op15_19:r1,
+                    op20_24:r2,
+                    op25_31:0b1,
                     optype:inst,
                     ..Default::default()
                 }

@@ -150,6 +150,15 @@ pub Main:Insts={
     "fabs.s"<rd:Reg>","<r1:Reg>=> Insts::FSGNJXS(rd,r1,r1),
     "fneg.s"<rd:Reg>","<r1:Reg>=> Insts::FSGNJNS(rd,r1,r1),
 
+    "mul"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::MUL(rd,r1,r2),
+    "mulh"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::MULH(rd,r1,r2),
+    "mulhsu"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::MULHSU(rd,r1,r2),
+    "mulhu"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::MULHU(rd,r1,r2),
+
+    "div"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::DIV(rd,r1,r2),
+    "divu"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::DIVU(rd,r1,r2),
+    "rem"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::REM(rd,r1,r2),
+    "remu"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::REMU(rd,r1,r2),
 };
 Imm :i32 ={
     <s:r"-*[0-9]+"> => s.parse().unwrap()

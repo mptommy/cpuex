@@ -33,6 +33,7 @@ pub enum RiscvInst{
     WFI,
     FMADDS,FMSUBS,FNMSUBS,FNMADDS,FADDS,FSUBS,FMULS,FDIVS,FSQRTS,FSGNJS,FSGNJNS,FSGNJXS,FMINS,FMAXS,FCVTWS,FCVTWUS,FMVXW,FEQS,FLTS,FLES,FCLASSS,FCVTSW,FCVTSWU,
     FMVWX,FLW,FSW,
+    MUL,MULH,MULHSU,MULHU,DIV,DIVU,REM,REMU
 }
 pub enum MemType {
     LOAD  = 0,
@@ -260,7 +261,7 @@ impl Riscv64Core for EnvBase{
     fn fwrite_reg (&mut self,reg_Addr:RegAddrType,data:f32){
         if reg_Addr !=0{
             self.f_regs[reg_Addr as usize]=data;
-          //  println!("     x{:02} <= {:08x}", reg_Addr, data);
+            println!("     fx{:02} <= {}", reg_Addr, data);
         }
     }
     fn fetch_memory(&mut self)->XlenType{
@@ -540,6 +541,19 @@ impl Riscv64Core for EnvBase{
                             _ => panic!("MM"),
                         }
                     },
+                    0x33=>{
+                        match funct3{
+                            0 => RiscvInst::MUL,
+                            1 => RiscvInst::MULH,
+                            2 => RiscvInst::MULHSU,
+                            3 => RiscvInst::MULHU,
+                            4 => RiscvInst::DIV,
+                            5 => RiscvInst::DIVU,
+                            6 => RiscvInst::REM,
+                            7 => RiscvInst::REMU,
+                            _ => panic!("funct3 strange")
+                        }
+                    }
                     _ =>panic!("MM"),
                 }
             }
@@ -985,6 +999,68 @@ impl Riscv64Core for EnvBase{
                 println!("FCVTSW {}\n",rs1);
                 let rs1_data = self.read_reg(rs1)as u32;
                 self.fwrite_reg(rd,rs1_data as f32);
+            }
+            RiscvInst::MUL =>{
+                println!("MUL {},{},{}",rd,rs1,rs2);
+                let rs1_data = self.read_reg(rs1)as u32 as u64;
+                let rs2_data = self.read_reg(rs2)as u32 as u64;
+                let moto = rs1_data*rs2_data& 0x0000ffff;
+                self.write_reg(rd, moto as i32);
+            }
+            RiscvInst::MULH =>{
+                println!("MULH {},{},{}",rd,rs1,rs2);
+                let rs1_data = self.read_reg(rs1)as i64;
+                let rs2_data = self.read_reg(rs2)as i64;
+                let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
+                self.write_reg(rd, moto as i32);
+            }
+            RiscvInst::MULHSU =>{
+                println!("MULHSU {},{},{}",rd,rs1,rs2);
+               panic!("面倒！");
+            }
+            RiscvInst::MULHU=>{
+                println!("MULH {},{},{}",rd,rs1,rs2);
+                let rs1_data = self.read_reg(rs1)as u32 as u64;
+                let rs2_data = self.read_reg(rs2)as u32 as u64;
+                let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
+                self.write_reg(rd, moto as i32);
+            }
+            RiscvInst::DIV =>{
+                println!("DIV {},{},{}",rd,rs1,rs2);
+                let rs1_data = self.read_reg(rs1);
+                let rs2_data = self.read_reg(rs2);
+                let moto = rs1_data/rs2_data& 0x0000ffff;
+                self.write_reg(rd, moto as i32);
+            }
+            RiscvInst::DIVU =>{
+                println!("DIV {},{},{}",rd,rs1,rs2);
+                let rs1_data = self.read_reg(rs1)as u32;
+                let rs2_data = self.read_reg(rs2)as u32;
+                let moto = rs1_data/rs2_data& 0x0000ffff;
+                self.write_reg(rd, moto as i32);
+            }
+            RiscvInst::REM =>{
+                println!("REM {},{},{}",rd,rs1,rs2);
+                let rs1_data = self.read_reg(rs1);
+                let rs2_data = self.read_reg(rs2);
+                let rs2_data = if rs2_data < 0{-rs2_data}else{rs2_data};
+                let kekka =
+                    if rs1_data < 0{
+                        let rs1_data=-rs1_data;
+                        let zantei = rs1_data%rs2_data;
+                        -zantei
+                    }
+                    else{
+                        rs1_data%rs2_data
+                    };
+                self.write_reg(rd, kekka as i32);
+            }
+            RiscvInst::REMU =>{
+                println!("REMU {},{},{}",rd,rs1,rs2);
+                let rs1_data = self.read_reg(rs1) as u32;
+                let rs2_data = self.read_reg(rs2) as u32;
+                let kekka = rs1_data%rs2_data;
+                self.write_reg(rd,kekka as i32);
             }
             _ =>{
                 println!("NEVER\n");
