@@ -219,6 +219,8 @@ pub trait Riscv64Core{
     fn get_tohost(&mut self)->XlenType;
     fn get_fromhost(&mut self)->XlenType;
     fn output_reg(&mut self);
+    fn output_regi(&mut self,i32);
+    fn output_fregi(&mut self,i32);
 }
 
 impl Riscv64Core for EnvBase{
@@ -273,33 +275,44 @@ impl Riscv64Core for EnvBase{
         return fetch_data;
     }
     fn fread_memory_word(&mut self,addr:AddrType)->f32{
-        return EnvBase::int_to_float(self.read_memory_word(addr)as u32);
+        let data = EnvBase::int_to_float(self.read_memory_word(addr)as u32);
+        println!("FRead Memory Word at {}, data:{}",addr,data);
+        return data;
     }
     fn read_memory_word (&mut self, addr:AddrType) -> XlenType {
         let base_addr: AddrType = addr - DRAM_BASE;
-        return ((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
-               ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
-               ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
-               ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        let data=((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
+        ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
+        ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
+        ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        println!("Read Memory Word at {}, data:{}",addr,data);
+        return data;
     }
 
     fn read_memory_hword (&mut self, addr:AddrType) -> XlenType {
         let base_addr: AddrType = addr - DRAM_BASE;
-        return ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
-               ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        let data=((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
+        ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        println!("Read Memory HWord at {}, data:{}",addr,data);
+        return data;
     }
 
     fn read_memory_byte (&mut self, addr:AddrType) -> XlenType {
+       
         let base_addr: AddrType = addr - DRAM_BASE;
-        return self.m_memory[base_addr as usize + 0] as XlenType;
+        let data = self.m_memory[base_addr as usize + 0] as XlenType;
+        println!("Read Memory Byte at {}, data:{}",addr,data);
+        return data;
     }
 
     fn fwrite_memory_word(&mut self,addr:AddrType,data:f32)->f32{
         let data = EnvBase::float_to_int(data);
+        println!("FWrite Memory Word at {}, data:{}",addr,data);
         self.write_memory_word(addr, data);
         return 0.0;
     }
     fn write_memory_word (&mut self, addr:AddrType, data:XlenType) -> XlenType {
+        println!("Write Memory Word at {}, data:{}",addr,data);
         let base_addr: AddrType = addr - DRAM_BASE;
         self.m_memory[base_addr as usize + 0] = ((data >>  0) & 0x0ff) as u8;
         self.m_memory[base_addr as usize + 1] = ((data >>  8) & 0x0ff) as u8;
@@ -309,6 +322,7 @@ impl Riscv64Core for EnvBase{
     }
 
     fn write_memory_hword (&mut self, addr:AddrType, data:XlenType) -> XlenType {
+        println!("Write Memory HWord at {}, data:{}",addr,data);
         let base_addr: AddrType = addr - DRAM_BASE;
         self.m_memory[base_addr as usize + 0] = ((data >>  0) & 0x0ff) as u8;
         self.m_memory[base_addr as usize + 1] = ((data >>  8) & 0x0ff) as u8;
@@ -317,6 +331,7 @@ impl Riscv64Core for EnvBase{
     }
 
     fn write_memory_byte (&mut self, addr:AddrType, data:XlenType) -> XlenType {
+        println!("Write Memory Byte at {}, data:{}",addr,data);
         let base_addr: AddrType = addr - DRAM_BASE;
         self.m_memory[base_addr as usize] = (data & 0xff) as u8;
         return 0;
@@ -637,7 +652,6 @@ impl Riscv64Core for EnvBase{
                 println!("SW {},{}({})\n",rs2,imm,rs1);
             }
             RiscvInst::ADDI => {
-                println!("ADDI\n");
                 let rs1_data = self.read_reg(rs1);
                 let imm_data = Self::extract_ifield(inst);
                 let reg_data:XlenType = (Wrapping(rs1_data)+Wrapping(imm_data)).0;
@@ -1155,6 +1169,14 @@ impl Riscv64Core for EnvBase{
         for i in 0..32{
             println!("{}", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
         }
+    }
+    fn output_regi(&mut self,i:i32){
+        let i = i as usize;
+        println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.m_regs[i].to_string());
+    }
+    fn output_fregi(&mut self,i:i32){
+        let i = i as usize;
+        println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
     }
 
 }

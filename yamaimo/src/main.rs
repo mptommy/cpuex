@@ -15,7 +15,6 @@ fn main()-> Result<(), Box<std::error::Error>>  {
     if args.len() != 2{
         std::process::exit(1);
     }
-    let mut zeros = true;
     let file = File::open(&args[1]).unwrap();
     let filebuf = BufReader::new(file);
     let mut hex_addr = 0;
@@ -37,7 +36,7 @@ fn main()-> Result<(), Box<std::error::Error>>  {
         let inst_decode = riscv64_core.decode_inst(inst_data);
         
         if step{
-            riscv64_core.output_reg();
+         //   riscv64_core.output_reg();
             let mut word = String::new();
             std::io::stdin().read_line(&mut word).ok();
             let answer = word.trim().to_string();
