@@ -30,23 +30,52 @@ fn main()-> Result<(), Box<std::error::Error>>  {
     let mut count = 0;
     let mut finish = false;
     let mut step = true;
+    let mut renzoku = 0;
     while !finish&& !riscv64_core.get_is_finish_cpu () {
-        let inst_data = riscv64_core.fetch_memory ();
-      
-        let inst_decode = riscv64_core.decode_inst(inst_data);
-        
-        if step{
-         //   riscv64_core.output_reg();
-            let mut word = String::new();
-            std::io::stdin().read_line(&mut word).ok();
-            let answer = word.trim().to_string();
-            if answer != "s"{
-                step = false;
+
+        if step&&renzoku >= 0{
+            let mut looping = true;
+            
+            while  looping{
+                let mut word = String::new();
+                std::io::stdin().read_line(&mut word).ok();
+                //let answer = word.trim().to_string();
+                let mut coms = word.split_whitespace();
+                match coms.next().unwrap(){
+                    "end"=>{
+                        step = false;
+                        looping = false;
+                    }
+                    "r"=>{
+                        let num:i32 = coms.next().unwrap().parse().unwrap();
+                        riscv64_core.output_regi(num);
+                    }
+                    "f"=>{
+                        let num:i32 = coms.next().unwrap().parse().unwrap();
+                        riscv64_core.output_fregi(num);
+                    }
+                    "go"=>{
+                        let num:i32 = coms.next().unwrap().parse().unwrap();
+                        renzoku = -num;
+                        looping = false;
+                    }
+                    "all"=>{
+                        riscv64_core.output_reg();
+                    }
+                    _ =>{looping =false;}
+                }
             }
+            
         }
-
-
+        renzoku = if renzoku < 0 {renzoku + 1 }else{0};
+        println!("{}",count.to_string());
+        let inst_data = riscv64_core.fetch_memory ();
+        let inst_decode = riscv64_core.decode_inst(inst_data);
         riscv64_core.execute_inst(inst_decode, inst_data as InstType);
+       
+
+
+        
       //  if zeros{
             if inst_data == 0{
                 finish = true;
@@ -56,7 +85,7 @@ fn main()-> Result<(), Box<std::error::Error>>  {
                 zeros = false;
             }
          }*/
-        println!("{}",count.to_string());
+
     
         if finish{
            break;

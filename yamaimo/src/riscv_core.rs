@@ -219,8 +219,8 @@ pub trait Riscv64Core{
     fn get_tohost(&mut self)->XlenType;
     fn get_fromhost(&mut self)->XlenType;
     fn output_reg(&mut self);
-    fn output_regi(&mut self,i32);
-    fn output_fregi(&mut self,i32);
+    fn output_regi(&mut self,i:i32);
+    fn output_fregi(&mut self,i:i32);
 }
 
 impl Riscv64Core for EnvBase{
