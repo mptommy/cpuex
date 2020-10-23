@@ -85,7 +85,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   (* 退避の仮想命令の実装 (caml2html: emit_save) *)
   | NonTail(_), Save(x, y) when List.mem x allregs && not (S.mem y !stackset) -> (* Save(r, x)は変数xをレジスタrからスタック上に退避する命令 *)
       save y;
-      Printf.fprintf oc "\tst\t%s, %d(%s)\n" x (offset y) reg_sp 
+      Printf.fprintf oc "\tsw\t%s, %d(%s)\n" x (offset y) reg_sp 
   (* ここから浮動小数点なのでまだ 
   | NonTail(_), Save(x, y) when List.mem x allfregs && not (S.mem y !stackset) ->
       savef y;
@@ -94,7 +94,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(_), Save(x, y) -> assert (S.mem y !stackset); ()
   (* 復帰の仮想命令の実装 (caml2html: emit_restore) *)
   | NonTail(x), Restore(y) when List.mem x allregs -> (* Restore(x)はその退避された変数xをレジスタにロードする仮想命令 *)
-      Printf.fprintf oc "\tld\t%s, %d(%s)\n" x (offset y) reg_sp 
+      Printf.fprintf oc "\tlw\t%s, %d(%s)\n" x (offset y) reg_sp 
   (* ここから浮動小数点なのでまだ 
   | NonTail(x), Restore(y) ->
       assert (List.mem x allfregs);
@@ -127,9 +127,9 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       g'_tail_if oc e1 e2 "be" "bne"x y
   | Tail, IfLE(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_tail_if oc e1 e2 "ble" "bg" reg_sw reg_zero (* 嘘をついています *)
+      g'_tail_if oc e1 e2 "ble" "bgt" reg_sw reg_zero (* 嘘をついています *)
   | Tail, IfLE(x, V(y), e1, e2) ->
-      g'_tail_if oc e1 e2 "ble" "bg"x y (* 嘘をついています *)
+      g'_tail_if oc e1 e2 "ble" "bgt"x y (* 嘘をついています *)
   | Tail, IfGE(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
       g'_tail_if oc e1 e2 "bge" "blt" reg_sw reg_zero
@@ -199,7 +199,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       let ss = stacksize () in
       Printf.fprintf oc "\tsw\t%s, %d(%s)\n" reg_ra (ss - 4) reg_sp;
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sp reg_sp ss;
-      Printf.fprintf oc "\tjalr\t%s\n" x;
+      Printf.fprintf oc "\tjal\t%s\n" x;
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sp reg_sp (-ss);
       Printf.fprintf oc "\tlw\t%s, %d(%s)\n" reg_ra (ss - 4) reg_sp;
       if List.mem a allregs && a <> regs.(0) then
@@ -259,17 +259,17 @@ let h oc { name = Id.L(x); args = _; fargs = _; body = e; ret = _ } =
 
 let f oc (Prog(data, fundefs, e)) =
   Format.eprintf "generating assembly...@.";
-  Printf.fprintf oc ".section\t\".rodata\"\n";
-  Printf.fprintf oc ".align\t8\n";
+  (* Printf.fprintf oc ".section\t\".rodata\"\n"; *)
+  Printf.fprintf oc ".align\t3\n";
   List.iter
     (fun (Id.L(x), d) ->
       Printf.fprintf oc "%s:\t! %f\n" x d;
       Printf.fprintf oc "\t.long\t0x%lx\n" (gethi d);
       Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d))
     data;
-  Printf.fprintf oc ".section\t\".text\"\n";
+  (* Printf.fprintf oc ".section\t\".text\"\n"; *)
   List.iter (fun fundef -> h oc fundef) fundefs;
-  Printf.fprintf oc ".global\tmin_caml_start\n";
+  Printf.fprintf oc ".globl\tmin_caml_start\n";
   Printf.fprintf oc "min_caml_start:\n";
   (* Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n"; (* from gcc; why 112? *) *)
   stackset := S.empty;
