@@ -703,6 +703,7 @@ impl Riscv64Core for EnvBase{
                 let addr:AddrType = Self::extract_uj_field(inst) as AddrType;
                 self.write_reg(rd, (self.m_pc-DRAM_BASE + 4) as XlenType);
                 self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
+                self.m_finish_cpu = addr == 0;
                 update_pc = true;
                 println!("JAL {},{} \n",rd,addr);
             }
@@ -713,6 +714,7 @@ impl Riscv64Core for EnvBase{
                 addr = addr & (!0x01);
 
                 self.write_reg(rd, (self.m_pc-DRAM_BASE + 4) as XlenType);
+                self.m_finish_cpu = addr+DRAM_BASE == self.m_pc;
                 self.m_pc = addr+DRAM_BASE;
                 update_pc = true;
                 println!("JALR {},{},{} \n",rd,addr,rs1);
