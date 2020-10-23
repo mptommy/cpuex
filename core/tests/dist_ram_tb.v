@@ -2,7 +2,7 @@
 module rdist_ram_tb();
     reg clk;
     reg write_enable;
-    reg [9:0] addr;
+    reg [31:0] addr;
     reg [31:0] data_write;
     wire [31:0] data_out;
 
