@@ -5,7 +5,6 @@ use crate::riscv_csr::Riscv64Csr;
 use crate::riscv_csr::CsrAddr;
 use std::collections::HashMap;
 use std::collections::BinaryHeap;
-use std::cmp;
 pub type AddrType=u32;
 pub type XlenType  = i32;
 pub type UXlenType = u32;
@@ -48,7 +47,6 @@ pub enum MemType {
     BYTE  = 0,
     HWORD = 1,
     WORD  = 2,
-    DWORD = 3,
 }
 pub struct EnvBase{
     pub m_pc:AddrType,//Program Counter
@@ -105,6 +103,7 @@ impl EnvBase{
             return me.f
         }
     }
+    #[allow(dead_code)]
     fn int_to_float4(u1:u8,u2:u8,u3:u8,u4:u8)->f32{
         let u1:u32 = u1 as u32;
         let u2 :u32 = u2 as u32;
@@ -116,6 +115,7 @@ impl EnvBase{
             return me.f
         }
     }
+    #[allow(dead_code)]
     fn float_to_inti(f:f32,i:u8)->u8{
         let me = FloatInt{f:f};
         unsafe{
@@ -146,7 +146,7 @@ impl EnvBase{
         return Self::extend_sign (uimm32, 11);
     }
 
-
+    #[allow(dead_code)]
     fn extract_shamt_field (hex: InstType) -> XlenType
     {
         return Self::extract_bit_field (hex, 24, 20);
@@ -209,11 +209,11 @@ pub trait Riscv64Core{
     fn fread_memory_word(&mut self,addr:AddrType)->f32;//word単位で
     fn fwrite_memory_word(&mut self, addr:AddrType, data:f32)->f32;//word単位で
    
-    fn read_reg(&mut self,reg_Addr:RegAddrType)->i32;
-    fn write_reg (&mut self, reg_Addr: RegAddrType, data:XlenType);
+    fn read_reg(&mut self,reg_addr:RegAddrType)->i32;
+    fn write_reg (&mut self, reg_addr: RegAddrType, data:XlenType);
 
-    fn fread_reg(&mut self,reg_Addr:RegAddrType)->f32;
-    fn fwrite_reg (&mut self, reg_Addr: RegAddrType, data:f32);
+    fn fread_reg(&mut self,reg_addr:RegAddrType)->f32;
+    fn fwrite_reg (&mut self, reg_addr: RegAddrType, data:f32);
 
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst;
     fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType);
@@ -247,30 +247,30 @@ impl Riscv64Core for EnvBase{
     fn get_rm_addr (inst:InstType)->RegAddrType{
         return ((inst >> 12)&0x7)as RegAddrType;
     }
-    fn read_reg(&mut self,reg_Addr:RegAddrType)->XlenType{
-        if reg_Addr == 0{
+    fn read_reg(&mut self,reg_addr:RegAddrType)->XlenType{
+        if reg_addr == 0{
             return 0;
         }else{
-            return self.m_regs[reg_Addr as usize];
+            return self.m_regs[reg_addr as usize];
         }
     }
-    fn fread_reg(&mut self,reg_Addr:RegAddrType)->f32{
-        if reg_Addr == 0{
+    fn fread_reg(&mut self,reg_addr:RegAddrType)->f32{
+        if reg_addr == 0{
             return 0.0;
         }else{
-            return self.f_regs[reg_Addr as usize];
+            return self.f_regs[reg_addr as usize];
         }
     }
-    fn write_reg (&mut self,reg_Addr:RegAddrType,data:XlenType){
-        if reg_Addr !=0{
-            self.m_regs[reg_Addr as usize]=data;
-            println!("     x{:02} <= {:08x}", reg_Addr, data);
+    fn write_reg (&mut self,reg_addr:RegAddrType,data:XlenType){
+        if reg_addr !=0{
+            self.m_regs[reg_addr as usize]=data;
+            println!("     x{:02} <= {:08x}", reg_addr, data);
         }
     }
-    fn fwrite_reg (&mut self,reg_Addr:RegAddrType,data:f32){
-        if reg_Addr !=0{
-            self.f_regs[reg_Addr as usize]=data;
-            println!("     fx{:02} <= {}", reg_Addr, data);
+    fn fwrite_reg (&mut self,reg_addr:RegAddrType,data:f32){
+        if reg_addr !=0{
+            self.f_regs[reg_addr as usize]=data;
+            println!("     fx{:02} <= {}", reg_addr, data);
         }
     }
     fn fetch_memory(&mut self)->XlenType{
@@ -1116,7 +1116,6 @@ impl Riscv64Core for EnvBase{
                         MemSize::BYTE  => self.write_memory_byte (addr, data),
                         MemSize::HWORD => self.write_memory_hword(addr, data),
                         MemSize::WORD  => self.write_memory_word (addr, data),
-                        _              => 1
                     };
                 }
             }
@@ -1130,7 +1129,6 @@ impl Riscv64Core for EnvBase{
                         MemSize::BYTE  => return self.read_memory_byte (addr),
                         MemSize::HWORD => return self.read_memory_hword(addr),
                         MemSize::WORD  => return self.read_memory_word (addr),
-                        _              => 1
                     };
                 }
             }
@@ -1198,7 +1196,6 @@ impl Riscv64Core for EnvBase{
         let mut heap:BinaryHeap<(&i32,&RiscvInst)>=BinaryHeap::new();
         for i in (&self.toukei).into_iter() {
             heap.push((i.1,i.0));
-          //  println!("{:?}:{}",i.0,i.1);
         }
         for _k in 0..heap.len(){
             let i = heap.pop().unwrap();

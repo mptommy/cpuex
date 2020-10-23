@@ -10,7 +10,8 @@ use crate::riscv_core::EnvBase;
 use crate::riscv_core::DRAM_BASE;
 use crate::riscv_core::InstType;
 use crate::riscv_core::XlenType;
-fn main()-> Result<(), Box<std::error::Error>>  {
+
+fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let args:Vec<String>=env::args().collect::<Vec<String>>();
     if args.len() != 2{
         std::process::exit(1);

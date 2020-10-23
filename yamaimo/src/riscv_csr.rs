@@ -181,6 +181,7 @@ pub enum CsrAddr {//CSR(制御レジスタ)のアドレス
 }
 
 impl CsrAddr {
+    #[allow(dead_code)]
     pub fn from_i64(n: i64) -> Option<CsrAddr> {
         match n {
             _ => None
@@ -374,6 +375,7 @@ pub struct RiscvCsrBase{
     pub m_csr:XlenType,
 }
 impl RiscvCsrBase {
+    #[allow(dead_code)]
     pub fn new()->RiscvCsrBase{
         RiscvCsrBase{
             m_csr:0x0

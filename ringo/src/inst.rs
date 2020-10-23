@@ -144,21 +144,6 @@ impl Default for Instruction{
     }
 }
 impl Instruction{
-    pub fn new() -> Instruction{
-        Instruction{
-            op0_6:0,
-            op7_11:0,
-            op12_14:0,
-            op15_19:0,
-            op20_24:0,
-            op25_31:0,
-            optype:Insts::ADDI(0,0,0),
-            haslabel:false,
-            label:"s".to_string(),
-            iti:0,
-            buf:0,
-        }
-    }
     pub fn tohex(moto:&Instruction)->u32{
         let hex = (moto.op0_6 as u32)| ((moto.op7_11 as u32) << 7 ) | ((moto.op12_14 as u32) << 12 )| ((moto.op15_19 as u32 )<< 15 )| ((moto.op20_24 as u32 )<<20 )| ((moto.op25_31 as u32) << 25 );
         let hex = hex.to_le();
@@ -187,7 +172,7 @@ impl Instruction{
             buf:moto.buf,
         }
     }
-    pub fn SetImm12J(moto:Instruction,imm:i32)->Instruction{
+    pub fn set_imm12_j(moto:Instruction,imm:i32)->Instruction{
         let imm = imm as u32;
         let imm = ((imm&0xfffff000)>>1)|(imm&0x7fe)|((imm >> 11)&1);
         Instruction{
@@ -204,12 +189,12 @@ impl Instruction{
             buf:moto.buf,
         }
     }
-    pub fn SetImm20J(moto:Instruction,imm:i32)->Instruction{
+    pub fn set_imm20_j(moto:Instruction,imm:i32)->Instruction{
         let imm = imm as u32;
         let choseied = (imm&0xfff00000)|(((imm >> 1)&0x3ff)<<9)|(((imm >> 11)&1)<<8)|((imm >> 12)&0xff);
-        Instruction::SetImm20(moto,choseied)
+        Instruction::set_imm20(moto,choseied)
     }
-    pub fn SetImm20(moto:Instruction,imm:u32)->Instruction{
+    pub fn set_imm20(moto:Instruction,imm:u32)->Instruction{
         Instruction{
             op0_6:moto.op0_6,
             op7_11:moto.op7_11,
@@ -224,7 +209,7 @@ impl Instruction{
             buf:moto.buf,
         }
     }
-    pub fn SetImm12(moto:Instruction,imm:i32)->Instruction{
+    pub fn set_imm12(moto:Instruction,imm:i32)->Instruction{
         let imm = imm as u32;
         Instruction{
             op0_6:moto.op0_6,
@@ -244,7 +229,7 @@ impl Instruction{
     pub fn code(inst:Insts)->Instruction{
         match inst  {
             Insts::LUI(r,i)=>{
-                Instruction::SetImm20(
+                Instruction::set_imm20(
                     Instruction{
                         op0_6:0b0110111,
                         op7_11:r,
@@ -255,7 +240,7 @@ impl Instruction{
             },
             Insts::AUIPC(r,i)=>{
                 let i = if i == -1 {0}else{i};
-                Instruction::SetImm20(
+                Instruction::set_imm20(
                     Instruction{
                         op0_6:0b0010111,
                         op7_11:r,
@@ -265,7 +250,7 @@ impl Instruction{
                 )
             },
             Insts::ADDI(r,r2,i)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0010011,
                         op7_11:r,
@@ -277,7 +262,7 @@ impl Instruction{
                 )
             },
             Insts::SLTI(r,r2,i)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0010011,
                         op7_11:r,
@@ -289,7 +274,7 @@ impl Instruction{
                 )
             },
             Insts::XORI(r,r2,i)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0010011,
                         op7_11:r,
@@ -301,7 +286,7 @@ impl Instruction{
                 )
             },
             Insts::ORI(r,r2,i)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0010011,
                         op7_11:r,
@@ -313,7 +298,7 @@ impl Instruction{
                 )
             },
             Insts::ANDI(r,r2,i)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0010011,
                         op7_11:r,
@@ -503,7 +488,7 @@ impl Instruction{
                 }
             },
             Insts::CSRRW(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b1110011,
                         op7_11:r,
@@ -515,7 +500,7 @@ impl Instruction{
                 )
             },
             Insts::CSRRS(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b1110011,
                         op7_11:r,
@@ -527,7 +512,7 @@ impl Instruction{
                 )
             },
             Insts::CSRRC(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b1110011,
                         op7_11:r,
@@ -539,7 +524,7 @@ impl Instruction{
                 )
             },
             Insts::CSRRWI(r,i,ui)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b1110011,
                         op7_11:r,
@@ -551,7 +536,7 @@ impl Instruction{
                 )
             },
             Insts::CSRRSI(r,i,ui)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b1110011,
                         op7_11:r,
@@ -563,7 +548,7 @@ impl Instruction{
                 )
             },
             Insts::CSRRCI(r,i,ui)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b1110011,
                         op7_11:r,
@@ -637,14 +622,13 @@ impl Instruction{
                     ..Default::default()
                 }
             },
+            #[allow(unused_variables)]
             Insts::SFVMA(r1,r2)=>{
                 panic!("instruction sfence.vma is not supported");
-                Instruction{
-                    ..Default::default()
-                }
+               
             },
             Insts::LB(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0000011,
                         op7_11:r,
@@ -656,7 +640,7 @@ impl Instruction{
                 )
             },
             Insts::LH(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0000011,
                         op7_11:r,
@@ -668,7 +652,7 @@ impl Instruction{
                 )
             },
             Insts::LW(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0000011,
                         op7_11:r,
@@ -680,7 +664,7 @@ impl Instruction{
                 )
             },
             Insts::LBU(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0000011,
                         op7_11:r,
@@ -692,7 +676,7 @@ impl Instruction{
                 )
             },
             Insts::LHU(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0000011,
                         op7_11:r,
@@ -743,7 +727,7 @@ impl Instruction{
                 }
             },
             Insts::JAL(r,i)=>{
-                Instruction::SetImm20J(
+                Instruction::set_imm20_j(
                     Instruction{
                         op0_6:0b1101111,
                         op7_11:r,
@@ -753,7 +737,7 @@ impl Instruction{
                 )
             },
             Insts::JALR(r,r1,i)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b1100111,
                         op7_11:r,
@@ -764,7 +748,7 @@ impl Instruction{
                 )
             },
             Insts::BEQ(r1,r2,i)=>{
-                Instruction::SetImm12J(
+                Instruction::set_imm12_j(
                     Instruction{
                         op0_6:0b1100011,
                         op12_14:0b000,
@@ -776,7 +760,7 @@ impl Instruction{
                 )
             },
             Insts::BNE(r1,r2,i)=>{
-                Instruction::SetImm12J(
+                Instruction::set_imm12_j(
                     Instruction{
                         op0_6:0b1100011,
                         op12_14:0b001,
@@ -788,7 +772,7 @@ impl Instruction{
                 )
             },
             Insts::BLT(r1,r2,i)=>{
-                Instruction::SetImm12J(
+                Instruction::set_imm12_j(
                     Instruction{
                         op0_6:0b1100011,
                         op12_14:0b100,
@@ -800,7 +784,7 @@ impl Instruction{
                 )
             },
             Insts::BGE(r1,r2,i)=>{
-                Instruction::SetImm12J(
+                Instruction::set_imm12_j(
                     Instruction{
                         op0_6:0b1100011,
                         op12_14:0b101,
@@ -812,7 +796,7 @@ impl Instruction{
                 )
             },
             Insts::BLTU(r1,r2,i)=>{
-                Instruction::SetImm12J(
+                Instruction::set_imm12_j(
                     Instruction{
                         op0_6:0b1100011,
                         op12_14:0b110,
@@ -824,7 +808,7 @@ impl Instruction{
                 )
             },
             Insts::BGEU(r1,r2,i)=>{
-                Instruction::SetImm12J(
+                Instruction::set_imm12_j(
                     Instruction{
                         op0_6:0b1100011,
                         op12_14:0b0111,
@@ -1204,7 +1188,7 @@ impl Instruction{
                 }
             },
             Insts::FLW(r,i,r1)=>{
-                Instruction::SetImm12(
+                Instruction::set_imm12(
                     Instruction{
                         op0_6:0b0000111,
                         op7_11:r,
