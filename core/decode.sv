@@ -30,12 +30,9 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
     end
 
     //directly go to registerfile
-    output wire [4:0] read_reg1, read_reg2;
+    output reg [4:0] read_reg1, read_reg2;
     //wait until write phase
     output reg [4:0] write_reg;
-
-    assign read_reg1 = instr_raw[19:15];
-    assign read_reg2 = instr_raw[24:20];
 
     wire [6:0] opcode;
     assign opcode = instr_raw[6:0];
@@ -59,6 +56,9 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
     always @ (posedge clk) begin
         //DECODE
         if(state == 1) begin
+            read_reg1 = instr_raw[19:15];
+            read_reg2 = instr_raw[24:20];
+
             reg_write <= (r_type || i_type || uj_type) ? 1 : 0;
             imm <=  i_type ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
                     s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
