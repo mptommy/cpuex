@@ -1,1 +1,1 @@
-x86/*.ml
+SPARC/*.ml

@@ -1,1 +1,1 @@
-x86/*.mli
+SPARC/*.mli

@@ -56,6 +56,7 @@ let reg_fsw = fregs.(Array.length fregs - 1) (* temporary for swap *)
 let reg_sp = "sp" (* stack pointer *)
 let reg_hp = "gp" (* heap pointer (caml2html: sparcasm_reghp) *)
 let reg_ra = "ra" (* return address *)
+let reg_zero = "zero" (* zero register *)
 let is_reg x = (x.[0] = '%')
 let co_freg_table =
   let ht = Hashtbl.create 16 in

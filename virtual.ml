@@ -67,7 +67,7 @@ let rec g env = function (* 式の仮想マシンコード生成 (caml2html: vir
   | Closure.Let((x, t1), e1, e2) ->
       let e1' = g env e1 in
       let e2' = g (M.add x t1 env) e2 in
-      concat e1' (x, t1) e2'1 (* e1'とe2'はgの返り値なので、AnsかLet。e1'の後ろにe2'をつなげていき、e1の末尾のAnsは変数xのLetに置き換える。 *)
+      concat e1' (x, t1) e2' (* e1'とe2'はgの返り値なので、AnsかLet。e1'の後ろにe2'をつなげていき、e1の末尾のAnsは変数xのLetに置き換える。 *)
   | Closure.Var(x) ->
       (match M.find x env with
       | Type.Unit -> Ans(Nop)
