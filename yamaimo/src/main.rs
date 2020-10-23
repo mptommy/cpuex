@@ -59,6 +59,9 @@ fn main()-> Result<(), Box<std::error::Error>>  {
                         renzoku = -num;
                         looping = false;
                     }
+                    "inst"=>{
+                        riscv64_core.output_toukei();
+                    }
                     "all"=>{
                         riscv64_core.output_reg();
                     }
@@ -95,5 +98,6 @@ fn main()-> Result<(), Box<std::error::Error>>  {
     }
     riscv64_core.set_finish_cpu();
     riscv64_core.output_reg();
+    riscv64_core.output_toukei();
     Ok(())
 }

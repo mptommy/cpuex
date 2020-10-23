@@ -3,6 +3,8 @@ use crate::riscv_csr::RiscvCsr;
 use crate::riscv_csr::RiscvCsrBase;
 use crate::riscv_csr::Riscv64Csr;
 use crate::riscv_csr::CsrAddr;
+use std::collections::HashMap;
+use std::collections::BinaryHeap;
 use std::cmp;
 pub type AddrType=u32;
 pub type XlenType  = i32;
@@ -17,6 +19,8 @@ union FloatInt {
     i: u32,
     f: f32,
 }
+#[derive(PartialEq,Eq,Hash,Copy,Clone,PartialOrd,Ord)]
+#[derive(Debug)]
 pub enum RiscvInst{
     CSRRW , CSRRS , CSRRC ,
     CSRRWI, CSRRSI, CSRRCI,
@@ -57,10 +61,12 @@ pub struct EnvBase{
     m_tohost:XlenType,
     m_fromhost: XlenType,
     m_finish_cpu: bool,
+    pub toukei:HashMap<RiscvInst,i32>,
 }
 impl EnvBase{
     pub fn new() -> EnvBase{
         EnvBase {
+            toukei:HashMap::new(),
             m_pc:DRAM_BASE as AddrType,
             m_memory :[0;DRAM_SIZE],
             m_regs: [0; 32],
@@ -221,6 +227,7 @@ pub trait Riscv64Core{
     fn output_reg(&mut self);
     fn output_regi(&mut self,i:i32);
     fn output_fregi(&mut self,i:i32);
+    fn output_toukei(&mut self);
 }
 
 impl Riscv64Core for EnvBase{
@@ -576,6 +583,13 @@ impl Riscv64Core for EnvBase{
         }
     }
     fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType){
+        
+        if self.toukei.contains_key(&dec_inst){
+            //self.toukei[&dec_inst] =self.toukei[&dec_inst]+1;
+            self.toukei.insert(dec_inst, self.toukei[&dec_inst]+1);
+        }else{
+            self.toukei.insert(dec_inst,1);
+        }
         println!("{:08x} : {:08x} // DASM({:08x})", self.m_pc as u32, inst as u32, inst as u32);
         let rs1 = Self::get_rs1_addr (inst);
         let rs2 = Self::get_rs2_addr (inst);
@@ -1179,6 +1193,17 @@ impl Riscv64Core for EnvBase{
     fn output_fregi(&mut self,i:i32){
         let i = i as usize;
         println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
+    }
+    fn output_toukei(&mut self){
+        let mut heap:BinaryHeap<(&i32,&RiscvInst)>=BinaryHeap::new();
+        for i in (&self.toukei).into_iter() {
+            heap.push((i.1,i.0));
+          //  println!("{:?}:{}",i.0,i.1);
+        }
+        for _k in 0..heap.len(){
+            let i = heap.pop().unwrap();
+            println!("{:?}:{}",i.1,i.0);
+        }
     }
 
 }
