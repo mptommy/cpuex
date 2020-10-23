@@ -31,3 +31,6 @@
 
 ## 資料置き場
 レジスタ名:https://github.com/riscv/riscv-asm-manual/blob/master/riscv-asm.md#general-registers
+
+## シミュレータ係より
+jalrにラベルをどうしても使いたい場合は教えてください……(auipcとの兼ね合いで存在できないようにしています)
