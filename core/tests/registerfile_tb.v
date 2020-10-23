@@ -1,11 +1,11 @@
 `timescale 1ns/1ps
 module registerfile_tb();
-    reg [5:0] Read1, Read2, WriteReg;
+    reg [4:0] Read1, Read2, WriteReg;
     reg [31:0] WriteData;
     reg RegWrite, clk;
-    wire [31:0] Data1, Data2;
+    wire [31:0] Data1, Data2, x1_test;
 
-    registerfile registerfile_instance(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, clk);
+    registerfile registerfile_instance(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, clk, x1_test);
 
     always #10 clk = ~clk;
 

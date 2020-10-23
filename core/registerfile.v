@@ -1,10 +1,13 @@
-module registerfile(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, clk);
-    input [5:0] Read1, Read2, WriteReg; // the register numbers to read or write
+module registerfile(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, clk, x1_test);
+    input [4:0] Read1, Read2, WriteReg; // the register numbers to read or write
     input [31:0] WriteData; // data to write
     input RegWrite, clk; // write control & clock
     output [31:0] Data1, Data2; // the register values read
+    output [31:0] x1_test; // Always give x1; TODO: remove it;
 
     reg [31:0] RF [31:0]; // 32 registers each 32 bits long
+
+    assign x1_test = RF[1];
 
     integer i;
     initial begin
