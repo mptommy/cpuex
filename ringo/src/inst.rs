@@ -1401,7 +1401,7 @@ impl Machine{
         return vecs;
     }
     pub fn link(&mut self){
-        for i in 1 .. self.insts.len(){
+        for i in 0 .. self.insts.len(){
             if self.insts[i].haslabel{
                 self.insts[i].buf = self.labels[&self.insts[i].label];
                 let sa = self.insts[i].buf - (i as i32)*4;                

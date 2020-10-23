@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{Read, Write, BufReader};
+use std::io::{Read, BufReader};
 use std::env;
 
 mod riscv_csr;
