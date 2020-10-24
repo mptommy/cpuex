@@ -16,6 +16,9 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
     output reg [3:0] alu_ctl;
     output reg branch_c, branch_uc, branch_relative, mem_read, mem_write, alu_src, reg_write;
 
+    output reg [4:0] read_reg1, read_reg2;
+    output reg [4:0] write_reg;
+
     initial begin
         imm = 0;
         alu_ctl = 0;
@@ -26,13 +29,11 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
         mem_write = 0;
         alu_src = 0;
         reg_write = 0;
+        read_reg1 = 0;
+        read_reg2 = 0;
         write_reg = 0;
     end
 
-    //directly go to registerfile
-    output reg [4:0] read_reg1, read_reg2;
-    //wait until write phase
-    output reg [4:0] write_reg;
 
     wire [6:0] opcode;
     assign opcode = instr_raw[6:0];
@@ -99,5 +100,20 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
             branch_relative <= ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 0 : 1;
             write_reg <= instr_raw[11:7];
         end
+        //else begin
+        //    read_reg1 = 0;
+        //    read_reg2 = 0;
+        //    reg_write <= 0;
+        //    imm <= 0;
+        //    branch_uc <= 0;
+        //    branch_c <= 0;
+        //    mem_read <= 0;
+        //    mem_write <= 0;
+        //    alu_src <= 0;
+        //    reg_write <= 0;
+        //    alu_ctl <=  0;
+        //    branch_relative <= 0;
+        //    write_reg <= 0;
+        //end
     end
 endmodule

@@ -16,7 +16,7 @@ module core(clk, test);
     wire [4:0] read_reg1, read_reg2, write_reg;
 
     decode decode_instance(clk, state, instr_raw,
-        imm, alu_ctl, branch_relative, branch_uc, branch_c,
+        imm, alu_ctl, branch_uc, branch_c, branch_relative,
         mem_read, mem_write, alu_src, reg_write,
         read_reg1, read_reg2, write_reg);
 
@@ -45,7 +45,7 @@ module core(clk, test);
 
     wire reg_write_state;
 
-    assign reg_write_state = (pc == 4) && reg_write__;
+    assign reg_write_state = (state == 4) && reg_write__;
 
     registerfile registerfile_instance(read_reg1, read_reg2, write_reg__, reg_write_data_, reg_write_state, reg1_data_wire, reg2_data_wire, clk, test);
 

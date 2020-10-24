@@ -24,13 +24,38 @@ module fetch(clk, state, pc, instr_out);
             instr_mem[i] = 0;
         for(i = 0;i<=255;i=i+1)
             instr_mem[i * 4] = i;
+
+        //main:
+        //    jal     x2,step
+        instr_mem[0] = 8'h6f;
+        instr_mem[1] = 8'h01;
+        instr_mem[2] = 8'hc0;
+        instr_mem[3] = 8'h00;
+        //    addi    x1,x0,3
+        instr_mem[4] = 8'h93;
+        instr_mem[5] = 8'h00;
+        instr_mem[6] = 8'h30;
+        instr_mem[7] = 8'h00;
+        //loop:
+        //    jal     x0,loop
+        instr_mem[8] = 8'h6f;
+        instr_mem[9] = 8'h00;
+        instr_mem[10] = 8'h00;
+        instr_mem[11] = 8'h00;
+        //step:
+        //    jalr    x0,0(x2)
+        instr_mem[12] = 8'h67;
+        instr_mem[13] = 8'h00;
+        instr_mem[14] = 8'h01;
+        instr_mem[15] = 8'h00;
     end
 
     always @(posedge clk) begin
-        //TODO? when state != 0, reset the instr...?
         if (state == 0)
             instr_out <= {instr_mem[pc_effective + 3], instr_mem[pc_effective + 2],
                 instr_mem[pc_effective + 1], instr_mem[pc_effective]};
+        //else
+        //    instr_out = 0;
     end
 
 endmodule

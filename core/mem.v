@@ -19,6 +19,8 @@ module mem(clk, state, mem_read, mem_write, mem_write_data, mem_addr,
         branch_out = 0;
         branch_addr_out = 0;
         reg_write_data_out = 0;
+        reg_write_out = 0;
+        write_reg_out = 0;
     end
 
     always @ (posedge clk) begin
@@ -29,5 +31,12 @@ module mem(clk, state, mem_read, mem_write, mem_write_data, mem_addr,
             branch_addr_out <= branch_addr_in;
             reg_write_data_out <= mem_read ? mem_data_read : reg_write_data_in;
         end
+        //else begin
+        //    write_reg_out <= 0;
+        //    reg_write_out <= 0;
+        //    branch_out <= 0;
+        //    branch_addr_out <= 0;
+        //    reg_write_data_out <= 0;
+        //end
     end
 endmodule
