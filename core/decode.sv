@@ -47,11 +47,11 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
     //add
     assign r_type = (opcode == 7'b0110011);
     //addi, jalr, lw
-    assign i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || (opcode == 7'b1100111 && funct3 == 3'b000));
+    assign i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
     //sw
     assign s_type = (opcode == 7'b0100011);
     //bge
-    assign sb_type = ((opcode == 7'b1100111) && (funct3 == 3'b101));
+    assign sb_type = (opcode == 7'b1100011);
     //jal
     assign uj_type = (opcode == 7'b1101111);
     always @ (posedge clk) begin
@@ -91,7 +91,7 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
             // jalr => add (2)
                         ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 2 :
             // bge => ge (8)
-                        ((opcode == 7'b1100111) && (funct3 == 3'b101)) ? 8 :
+                        (opcode == 7'b1100011) ? 8 :
             // jal => chooseb (10)
                         (opcode == 7'b1101111) ? 10 :
             // default => zero (31)
