@@ -50,7 +50,7 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
     assign i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
     //sw
     assign s_type = (opcode == 7'b0100011);
-    //bge
+    //bge, blt
     assign sb_type = (opcode == 7'b1100011);
     //jal
     assign uj_type = (opcode == 7'b1101111);
@@ -90,8 +90,10 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
                         ((opcode == 7'b0000011) && (funct3 == 3'b010)) ? 2 :
             // jalr => add (2)
                         ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 2 :
+            // blt => lt (7)
+                        ((opcode == 7'b1100011) && (funct3 == 3'b100)) ? 7 :
             // bge => ge (8)
-                        (opcode == 7'b1100011) ? 8 :
+                        ((opcode == 7'b1100011) && (funct3 == 3'b101)) ? 8 :
             // jal => chooseb (10)
                         (opcode == 7'b1101111) ? 10 :
             // default => zero (31)

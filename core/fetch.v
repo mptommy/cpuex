@@ -35,10 +35,10 @@ module fetch(clk, state, pc, instr_out);
         instr_mem[5] = 8'h01;
         instr_mem[6] = 8'h30;
         instr_mem[7] = 8'h00;
-        //    bge     x1,x2,truth
+        //    blt     x2,x1,truth
         instr_mem[8] = 8'h63;
-        instr_mem[9] = 8'hd4;
-        instr_mem[10] = 8'h20;
+        instr_mem[9] = 8'h44;
+        instr_mem[10] = 8'h11;
         instr_mem[11] = 8'h00;
         //    jal     x0,loop
         instr_mem[12] = 8'h6f;
