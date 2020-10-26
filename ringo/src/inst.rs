@@ -1363,7 +1363,12 @@ impl Machine{
             },
             Insts::CALL(i)=>{
                 vecs.push(Insts::AUIPC(6,i >> 12));
-                vecs.push(Insts::JALR(1,6,i&0xfff));
+                if i < 0{
+                    vecs.push(Insts::JALR(1,6,(i&0xfff)|((0xfffff000u32)as i32)));
+                }
+                else{
+                    vecs.push(Insts::JALR(1,6,i&0xfff));
+                }
             },
             Insts::CALLL(s)=>{
                 vecs.push(Insts::AUIPCL(6,(&s).to_string()));
@@ -1371,7 +1376,13 @@ impl Machine{
             },
             Insts::TAIL(i)=>{
                 vecs.push(Insts::AUIPC(6,i >> 12));
-                vecs.push(Insts::JALR(0,6,i&0xfff));
+                if i < 0{
+                    vecs.push(Insts::JALR(0,6,(i&0xfff)|((0xfffff000u32)as i32)));
+                }
+                else{
+                    vecs.push(Insts::JALR(0,6,i&0xfff));
+                }
+                
             },
             Insts::TAILL(s)=>{
                 vecs.push(Insts::AUIPCL(6,(&s).to_string()));
@@ -1425,8 +1436,16 @@ impl Machine{
                             self.insts[i] = Instruction::code(Insts::JAL(*r1,sa));
                         },
                         Insts::JALR(r1,r2,_l)=>{
-                            self.insts[i].optype = Insts::JALR(*r1,*r2,(sa+4)&0xfff);
-                            self.insts[i] = Instruction::code(Insts::JALR(*r1,*r2,(sa+4)&0xfff));
+                            
+                            let buf = 
+                            if sa < 0{
+                                Insts::JALR(*r1,*r2,((sa+4)&0xfff)|((0xfffff000u32)as i32))
+                            }
+                            else{
+                                Insts::JALR(*r1,*r2,(sa+4)&0xfff)
+                            };
+                            self.insts[i].optype = buf.clone();
+                            self.insts[i] = Instruction::code(buf);
                             //auipcとの整合を保つために+4しておく
                         },
                         Insts::AUIPC(r1,_l)=>{
