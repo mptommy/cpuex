@@ -64,7 +64,7 @@ module decode(clk, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_r
             imm <=  i_type ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
                     s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
                     sb_type ? { {20{instr_raw[31]}}, instr_raw[7], instr_raw[30:25], instr_raw[11:8], 1'b0 } :
-                    uj_type ? { 11'b0, instr_raw[31], instr_raw[19:12], instr_raw[20], instr_raw[30:21], 1'b0 } :
+                    uj_type ? { {12{instr_raw[31]}}, instr_raw[19:12], instr_raw[20], instr_raw[30:21], 1'b0 } :
                     32'b0;
             branch_uc <= uj_type ? 1 :
                           ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 1 :
