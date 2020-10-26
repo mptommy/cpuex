@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
-
+#[derive(Debug)]
+#[derive(PartialEq,Eq,Hash,Clone,PartialOrd,Ord)]
 pub enum Insts{
     LABEL(String),
     LUI(u8,i32),
@@ -1384,59 +1385,80 @@ impl Machine{
         }
         return vecs;
     }
+    pub fn output_assem(&mut self){
+        for i in 0 .. self.insts.len(){
+            println!("{:?}",self.insts[i].optype);
+        }
+    }
     pub fn link(&mut self){
         for i in 0 .. self.insts.len(){
             if self.insts[i].haslabel{
                 self.insts[i].buf = self.labels[&self.insts[i].label];
                 let sa = self.insts[i].buf - (i as i32)*4;                
-                    match &self.insts[i].optype{
+                    match &(self.insts[i].optype.clone()){
                         Insts::BEQ(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BEQ(*r1,*r2,sa);
                             self.insts[i]=  Instruction::code(Insts::BEQ(*r1,*r2,sa))
                         },
                         Insts::BNE(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BNE(*r1,*r2,sa);
                             self.insts[i]=  Instruction::code(Insts::BNE(*r1,*r2,sa))
                         },
                         Insts::BLT(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BLT(*r1,*r2,sa);
                             self.insts[i]=  Instruction::code(Insts::BLT(*r1,*r2,sa))
                         },
                         Insts::BGE(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BGE(*r1,*r2,sa);
                             self.insts[i]=  Instruction::code(Insts::BGE(*r1,*r2,sa))
                         },
                         Insts::BLTU(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BLTU(*r1,*r2,sa);
                             self.insts[i]=  Instruction::code(Insts::BLTU(*r1,*r2,sa))
                         },
                         Insts::BGEU(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BGEU(*r1,*r2,sa);
                             self.insts[i]=  Instruction::code(Insts::BGEU(*r1,*r2,sa))
                         },
                         Insts::JAL(r1,_l)=>{
+                            self.insts[i].optype = Insts::JAL(*r1,sa);
                             self.insts[i] = Instruction::code(Insts::JAL(*r1,sa));
                         },
                         Insts::JALR(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::JALR(*r1,*r2,(sa+4)&0xfff);
                             self.insts[i] = Instruction::code(Insts::JALR(*r1,*r2,(sa+4)&0xfff));
                             //auipcとの整合を保つために+4しておく
                         },
                         Insts::AUIPC(r1,_l)=>{
+                            self.insts[i].optype = Insts::AUIPC(*r1,sa >> 12);
                             self.insts[i] = Instruction::code(Insts::AUIPC(*r1,sa >> 12));
                         },
                         Insts::ADDI(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::ADDI(*r1,*r2,sa&0xfff);
                             self.insts[i] = Instruction::code(Insts::ADDI(*r1,*r2,sa&0xfff));
                         },
                         Insts::LB(r1,_r2,_l)=>{
+                            self.insts[i].optype = Insts::LB(*r1,sa&0xfff,*r1);
                             self.insts[i] = Instruction::code(Insts::LB(*r1,sa&0xfff,*r1));
                         },
                         Insts::LH(r1,_r2,_l)=>{
+                            self.insts[i].optype = Insts::LH(*r1,sa&0xfff,*r1);
                             self.insts[i] = Instruction::code(Insts::LH(*r1,sa&0xfff,*r1));
                         },
                         Insts::LW(r1,_r2,_l)=>{
+                            self.insts[i].optype = Insts::LW(*r1,sa&0xfff,*r1);
                             self.insts[i] = Instruction::code(Insts::LW(*r1,sa&0xfff,*r1));
                         },
                         Insts::SB(r1,_l,r2)=>{
+                            self.insts[i].optype = Insts::SB(*r1,sa&0xfff,*r2);
                             self.insts[i] = Instruction::code(Insts::SB(*r1,sa&0xfff,*r2));
                         },
                         Insts::SH(r1,_l,r2)=>{
+                            self.insts[i].optype = Insts::SH(*r1,sa&0xfff,*r2);
                             self.insts[i] = Instruction::code(Insts::SH(*r1,sa&0xfff,*r2));
                         },
                         Insts::SW(r1,_l,r2)=>{
+                            self.insts[i].optype = Insts::SW(*r1,sa&0xfff,*r2);
                             self.insts[i] = Instruction::code(Insts::SW(*r1,sa&0xfff,*r2));
                         },
                         _ =>  {
@@ -1449,7 +1471,8 @@ impl Machine{
             }
         }    
     
-}
+
+    }
 
 /*未対応
 fl

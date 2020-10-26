@@ -50,6 +50,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
         mac.insts.push(check);
     }
     mac.link();
+    mac.output_assem();
    /*let path = Path::new("/home/kazu/CPUEX/cpuex/ringo/target/debug/out.s");
     //let path = env::current_dir().unwrap().join(path);
     let file = File::open(path).unwrap();
