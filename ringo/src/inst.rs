@@ -192,7 +192,7 @@ impl Instruction{
     }
     pub fn set_imm20_j(moto:Instruction,imm:i32)->Instruction{
         let imm = imm as u32;
-        let choseied = (imm&0xfff00000)|(((imm >> 1)&0x3ff)<<9)|(((imm >> 11)&1)<<8)|((imm >> 12)&0xff);
+        let choseied = (imm&0xfff80000)|(((imm >> 1)&0x3ff)<<9)|(((imm >> 11)&1)<<8)|((imm >> 12)&0xff);
         Instruction::set_imm20(moto,choseied)
     }
     pub fn set_imm20(moto:Instruction,imm:u32)->Instruction{
