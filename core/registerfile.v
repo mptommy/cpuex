@@ -7,12 +7,14 @@ module registerfile(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, c
 
     reg [31:0] RF [31:0]; // 32 registers each 32 bits long
 
-    assign x1_test = RF[1];
+    assign x1_test = RF[10];
 
     integer i;
     initial begin
         for(i = 0;i<=1023;i=i+1)
             RF[i] = 0;
+        //sp
+        RF[2] = 1000;
     end
 
     assign Data1 = RF[Read1];

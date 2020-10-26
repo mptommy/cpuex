@@ -10,17 +10,15 @@ module fetch(clk, state, pc, instr_out);
     input [2:0] state;
     input [31:0] pc;
     output reg [31:0] instr_out;
-    reg [7:0] instr_mem [1023:0];
+    reg [7:0] instr_mem [2047:0];
 
     // TODO: Remove this to make instr_mem bigger
-    wire [9:0] pc_effective;
-    assign pc_effective = pc[9:0];
+    wire [10:0] pc_effective;
+    assign pc_effective = pc[10:0];
 
-    integer i;
-    //TODO insert valid instructions later
     initial begin
         instr_out = 0;
-        $readmemh("./core/tests/memory.mem", instr_mem);
+        $readmemh("./core/tests/fib_.mem", instr_mem);
     end
 
     always @(posedge clk) begin

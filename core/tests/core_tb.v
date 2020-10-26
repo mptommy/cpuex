@@ -9,7 +9,7 @@ module core_tb();
 
     initial begin
         clk = 0;
-        #1000 $finish();
+        #1000000 $finish();
     end
 
     initial begin
