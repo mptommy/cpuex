@@ -1,11 +1,13 @@
+//オーバーフローとアンダーフローに対応しよう。
+
 `default_nettype none
 module fmul (
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
-    output wire ovf,
+    output wire ovf/*,
     input wire clk,
-    input wire rstn); 
+    input wire rstn*/); 
  
 //reg[31:0] x1rn;
 //reg[31:0] x2rn;
@@ -33,18 +35,22 @@ wire [23:0] lh = lo1 * hi2;
 wire [26:0] mmul = hh + hl[23:11] + lh[23:11] + 2;
 
 // 5. 丸めは行わず、最上位の1から下23bitを答えの仮数部とする。
-wire [22:0] ym =    (mmul[26] == 1) ? mmul[25:3] :
+wire [22:0] ym0 =   (mmul[26] == 1) ? mmul[25:3] :
                     (mmul[25] == 1) ? mmul[24:2] :
                     (mmul[24] == 1) ? mmul[23:1] : mmul[22:0];
 
 // 6. 符号部と繰り上がり前の指数部の計算。
 wire ys = s1 ^ s2;
-wire [8:0] ye0 = e1 + e2 + 129;      //256-127
+wire [9:0] ye0 = e1 + e2 + 129;      //256-127
+assign ovf = (ye0[9] == 1) ? 1 : 0;
 
-// 7. シフト分だけ指数部に加える。(多分1加えすぎてると思うが)
-wire [8:0] ye = (mmul[26] == 1) ? ye0 + 3 :
-                (mmul[25] == 1) ? ye0 + 2 :
-                (mmul[24] == 1) ? ye0 + 1 : ye0;
+// 7. シフト分だけ指数部に加える。オーバーフロー・アンダーフローする場合の指数部の正規化。
+wire [8:0] ye = (ye0[9] == 1) ? 255 :
+                (ye0[8] == 0) ? 0 :
+                (mmul[26] == 1) ? ye0 + 2 :
+                (mmul[25] == 1) ? ye0 + 1 : ye0;
+
+wire [22:0] ym = (ye == 255 || ye == 0) ? 0 : ym0;
 
 assign y = {ys, ye[7:0], ym};
 
@@ -55,6 +61,6 @@ assign y = {ys, ye[7:0], ym};
                       (e1r == 8'd255 && e2r== 8'd255 && s1r == s2r)? {s1r,8'd255,23'b0}:
                       (e1r == 8'd255 && e2r== 8'd255)?{1'b1,8'd255,1'b1,22'b0}:{sy,ey,my};*/
 
-assign ovf = (e1r != 8'b11111111 || m1r != 'b0) && (e2r != 8'b11111111 || m2r != 'b0) && y[30:23] == 8'b11111111 && y[22:0] == 'b0;
+/*assign ovf = (e1r != 8'b11111111 || m1r != 'b0) && (e2r != 8'b11111111 || m2r != 'b0) && y[30:23] == 8'b11111111 && y[22:0] == 'b0;*/
 endmodule
 `default_nettype wire
