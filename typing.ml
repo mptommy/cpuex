@@ -157,7 +157,8 @@ let f e =
   | Type.Unit -> ()
   | _ -> Format.eprintf "warning: final result does not have type unit@.");
 *)
-  (try unify Type.Unit (g M.empty e)
-  with Unify _ -> failwith "top level does not have type unit");
+    let t = g M.empty e in
+  (try unify Type.Unit t
+  with Unify _ -> (try unify Type.Int t with Unify _ -> failwith "top level does not have type unit"));
   extenv := M.map deref_typ !extenv;
   deref_term e
