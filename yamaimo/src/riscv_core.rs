@@ -59,6 +59,7 @@ pub struct EnvBase{
     m_tohost:XlenType,
     m_fromhost: XlenType,
     m_finish_cpu: bool,
+    pub writing:bool,
     pub toukei:HashMap<RiscvInst,i32>,
 }
 impl EnvBase{
@@ -70,6 +71,7 @@ impl EnvBase{
             m_regs: [0; 32],
             f_regs: [0.0;32],
             m_finish_cpu:false,
+            writing:true,
             m_fromhost_addr:(DRAM_BASE+0x001000) as AddrType,
             m_tohost_addr:(DRAM_BASE + 0x001000) as AddrType,
             m_fromhost:0,
@@ -264,13 +266,13 @@ impl Riscv64Core for EnvBase{
     fn write_reg (&mut self,reg_addr:RegAddrType,data:XlenType){
         if reg_addr !=0{
             self.m_regs[reg_addr as usize]=data;
-            println!("     x{:02} <= {:08x}", reg_addr, data);
+            if self.writing {if self.writing {println!("     x{:02} <= {:08x}", reg_addr, data);}}
         }
     }
     fn fwrite_reg (&mut self,reg_addr:RegAddrType,data:f32){
         if reg_addr !=0{
             self.f_regs[reg_addr as usize]=data;
-            println!("     fx{:02} <= {}", reg_addr, data);
+            if self.writing {println!("     fx{:02} <= {}", reg_addr, data);}
         }
     }
     fn fetch_memory(&mut self)->XlenType{
@@ -283,7 +285,7 @@ impl Riscv64Core for EnvBase{
     }
     fn fread_memory_word(&mut self,addr:AddrType)->f32{
         let data = EnvBase::int_to_float(self.read_memory_word(addr)as u32);
-        println!("FRead Memory Word at {}, data:{}",addr,data);
+        if self.writing {println!("FRead Memory Word at {}, data:{}",addr,data);}
         return data;
     }
     fn read_memory_word (&mut self, addr:AddrType) -> XlenType {
@@ -292,7 +294,7 @@ impl Riscv64Core for EnvBase{
         ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
         ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
         ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
-        println!("Read Memory Word at {}, data:{}",addr,data);
+        if self.writing {println!("Read Memory Word at {}, data:{}",addr,data);}
         return data;
     }
 
@@ -300,7 +302,7 @@ impl Riscv64Core for EnvBase{
         let base_addr: AddrType = addr - DRAM_BASE;
         let data=((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
         ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
-        println!("Read Memory HWord at {}, data:{}",addr,data);
+        if self.writing {println!("Read Memory HWord at {}, data:{}",addr,data);}
         return data;
     }
 
@@ -308,18 +310,18 @@ impl Riscv64Core for EnvBase{
        
         let base_addr: AddrType = addr - DRAM_BASE;
         let data = self.m_memory[base_addr as usize + 0] as XlenType;
-        println!("Read Memory Byte at {}, data:{}",addr,data);
+        if self.writing {println!("Read Memory Byte at {}, data:{}",addr,data);}
         return data;
     }
 
     fn fwrite_memory_word(&mut self,addr:AddrType,data:f32)->f32{
         let data = EnvBase::float_to_int(data);
-        println!("FWrite Memory Word at {}, data:{}",addr,data);
+        if self.writing {println!("FWrite Memory Word at {}, data:{}",addr,data);}
         self.write_memory_word(addr, data);
         return 0.0;
     }
     fn write_memory_word (&mut self, addr:AddrType, data:XlenType) -> XlenType {
-        println!("Write Memory Word at {}, data:{}",addr,data);
+        if self.writing {println!("Write Memory Word at {}, data:{}",addr,data);}
         let base_addr: AddrType = addr - DRAM_BASE;
         self.m_memory[base_addr as usize + 0] = ((data >>  0) & 0x0ff) as u8;
         self.m_memory[base_addr as usize + 1] = ((data >>  8) & 0x0ff) as u8;
@@ -329,7 +331,7 @@ impl Riscv64Core for EnvBase{
     }
 
     fn write_memory_hword (&mut self, addr:AddrType, data:XlenType) -> XlenType {
-        println!("Write Memory HWord at {}, data:{}",addr,data);
+        if self.writing {println!("Write Memory HWord at {}, data:{}",addr,data);}
         let base_addr: AddrType = addr - DRAM_BASE;
         self.m_memory[base_addr as usize + 0] = ((data >>  0) & 0x0ff) as u8;
         self.m_memory[base_addr as usize + 1] = ((data >>  8) & 0x0ff) as u8;
@@ -338,7 +340,7 @@ impl Riscv64Core for EnvBase{
     }
 
     fn write_memory_byte (&mut self, addr:AddrType, data:XlenType) -> XlenType {
-        println!("Write Memory Byte at {}, data:{}",addr,data);
+        if self.writing {println!("Write Memory Byte at {}, data:{}",addr,data);}
         let base_addr: AddrType = addr - DRAM_BASE;
         self.m_memory[base_addr as usize] = (data & 0xff) as u8;
         return 0;
@@ -347,10 +349,11 @@ impl Riscv64Core for EnvBase{
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst{
         let opcode = inst & 0x7f;
         let funct3 = (inst >> 12)&0x07;
-        let funct5 = (inst >> 25)&0x07;
+        let funct5 = (inst >> 25)&0x1f;
         let funct2 = (inst >> 25)&0x03;
         let funct7 = (inst >> 25)&0x7f;
         let imm12 = (inst>> 20)&0xfff;
+        let shamt =(inst >> 20)&0x1f;
         match opcode {
             0x0f => {
                 match funct3 {
@@ -362,7 +365,7 @@ impl Riscv64Core for EnvBase{
             0x33 => {
                 match funct3 {
                     0b000 => {
-                        match funct5 {
+                        match funct7 {
                             0b0000000 => RiscvInst::ADD,
                             0b0100000 => RiscvInst::SUB,
                             _         => RiscvInst::NOP
@@ -373,7 +376,7 @@ impl Riscv64Core for EnvBase{
                     0b011 => RiscvInst::SLTU,
                     0b100 => RiscvInst::XOR,
                     0b101 => {
-                        match funct5 {
+                        match funct7 {
                             0b0000000 => RiscvInst::SRL,
                             0b0100000 => RiscvInst::SRA,
                             _         => RiscvInst::NOP
@@ -423,7 +426,7 @@ impl Riscv64Core for EnvBase{
                     0b111 => RiscvInst::ANDI,
                     0b001 => RiscvInst::SLLI,
                     0b101 => {
-                        match funct5 {
+                        match funct7 {
                             0b0000000 => RiscvInst::SRLI,
                             0b0100000 => RiscvInst::SRAI,
                             _         => RiscvInst::NOP
@@ -498,7 +501,7 @@ impl Riscv64Core for EnvBase{
                     0x8=>RiscvInst::FMULS,
                     0xc=>RiscvInst::FDIVS,
                     0x2c=>{
-                        match funct5{
+                        match shamt{
                             0=>RiscvInst::FSQRTS,
                             _ =>panic!("MM")
                         }
@@ -519,14 +522,14 @@ impl Riscv64Core for EnvBase{
                         }
                     },
                     0x60=>{
-                        match funct5{
+                        match shamt{
                             0b0=>RiscvInst::FCVTWS,
                             0b1=>RiscvInst::FCVTWUS,
                             _=>panic!("MM"),
                         }
                     },
                     0x70=>{
-                        match funct5{
+                        match shamt{
                             0=>{
                                 match funct3{
                                     0=> RiscvInst::FMVXW,
@@ -546,14 +549,14 @@ impl Riscv64Core for EnvBase{
                         }
                     },
                     0x68=>{
-                        match funct5{
+                        match shamt{
                             0b0=>RiscvInst::FCVTSW,
                             0b1=>RiscvInst::FCVTSWU,
                             _=>panic!("MM"),
                         }
                     },
                     0x78=>{
-                        match funct5{
+                        match shamt{
                             0b0=>{
                                 match funct3{
                                     0b0 => RiscvInst::FMVWX,
@@ -590,7 +593,7 @@ impl Riscv64Core for EnvBase{
         }else{
             self.toukei.insert(dec_inst,1);
         }
-        println!("{:08x} : {:08x} // DASM({:08x})", self.m_pc as u32, inst as u32, inst as u32);
+        if self.writing {println!("{:08x} : {:08x} // DASM({:08x})", self.m_pc as u32, inst as u32, inst as u32);}
         let rs1 = Self::get_rs1_addr (inst);
         let rs2 = Self::get_rs2_addr (inst);
         let rs3=Self::get_rs3_addr(inst);
@@ -606,7 +609,7 @@ impl Riscv64Core for EnvBase{
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr as AddrType);
                 reg_data = Self::extend_sign(reg_data, 7);
                 self.write_reg(rd, reg_data);
-                println!("LB {},{}({})\n",rd,imm,rs1);
+                if self.writing {println!("LB {},{}({})\n",rd,imm,rs1);}
             }
             RiscvInst::LH  => {
                 let rs1_data = self.read_reg(rs1);
@@ -615,7 +618,7 @@ impl Riscv64Core for EnvBase{
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr as AddrType);
                 reg_data = Self::extend_sign(reg_data, 15);
                 self.write_reg(rd, reg_data);
-                println!("LH {},{}({})\n",rd,imm,rs1);
+                if self.writing {println!("LH {},{}({})\n",rd,imm,rs1);}
             }
             RiscvInst::LW  => {
                 let rs1_data = self.read_reg(rs1);
@@ -623,7 +626,7 @@ impl Riscv64Core for EnvBase{
                 let addr = rs1_data +imm+STACK_BASE;
                 let reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::WORD, rs1_data, addr as AddrType);
                 self.write_reg(rd, reg_data);
-                println!("LW {},{}({})\n",rd,imm,rs1);
+                if self.writing {println!("LW {},{}({})\n",rd,imm,rs1);}
 
             }
             RiscvInst::LBU  => {
@@ -632,30 +635,30 @@ impl Riscv64Core for EnvBase{
                 let addr = rs1_data +imm+STACK_BASE;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr as AddrType) as UXlenType;
                  self.write_reg(rd, reg_data as XlenType);
-                 println!("LBU {},{}({})\n",rd,imm,rs1);
+                 if self.writing {println!("LBU {},{}({})\n",rd,imm,rs1);}
             }
             RiscvInst::LHU  => {
-                println!("LHU\n");
+                if self.writing {println!("LHU\n");}
                 let rs1_data = self.read_reg(rs1);
                 let imm =  Self::extract_ifield(inst);
                 let addr = rs1_data +imm+STACK_BASE;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr as AddrType) as UXlenType;
                 self.write_reg(rd, reg_data as XlenType);
-                println!("LHU {},{}({})\n",rd,imm,rs1);
+                if self.writing {println!("LHU {},{}({})\n",rd,imm,rs1);}
             }
             RiscvInst::SB  => {
                 let rs2_data = self.read_reg(rs2);
                 let imm =  Self::extract_sfield(inst);
                 let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::BYTE, rs2_data, addr);
-                println!("SB {},{}({})\n",rs2,imm,rs1);
+                if self.writing {println!("SB {},{}({})\n",rs2,imm,rs1);}
             }
             RiscvInst::SH  => {
                 let rs2_data = self.read_reg(rs2);
                 let imm =  Self::extract_sfield(inst);
                 let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
                  self.mem_access(MemType::STORE, MemSize::HWORD, rs2_data, addr);
-                 println!("SH {},{}({})\n",rs2,imm,rs1);
+                 if self.writing {println!("SH {},{}({})\n",rs2,imm,rs1);}
               
             }
             RiscvInst::SW  => {
@@ -663,17 +666,17 @@ impl Riscv64Core for EnvBase{
                 let imm =  Self::extract_sfield(inst);
                 let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::WORD, rs2_data, addr as AddrType);
-                println!("SW {},{}({})\n",rs2,imm,rs1);
+                if self.writing {println!("SW {},{}({})\n",rs2,imm,rs1);}
             }
             RiscvInst::ADDI => {
                 let rs1_data = self.read_reg(rs1);
                 let imm_data = Self::extract_ifield(inst);
                 let reg_data:XlenType = (Wrapping(rs1_data)+Wrapping(imm_data)).0;
                 self.write_reg(rd,reg_data);
-                println!("ADDI {},{} {}\n",rd,rs1,imm_data);
+                if self.writing {println!("ADDI {},{} {}\n",rd,rs1,imm_data);}
             }
             RiscvInst::BEQ | RiscvInst::BNE | RiscvInst::BLT | RiscvInst::BGE | RiscvInst::BLTU | RiscvInst::BGEU => {
-                println!("HIKAKU\n");
+                if self.writing {println!("HIKAKU\n");}
                 let rs1_data:XlenType = self.read_reg(rs1);
                 let rs2_data:XlenType = self.read_reg(rs2);
                 let addr:AddrType = Self::extract_sb_field(inst) as AddrType;
@@ -694,7 +697,7 @@ impl Riscv64Core for EnvBase{
                 }
             }
             RiscvInst::AUIPC => {
-                println!("AUIPC\n");
+                if self.writing {println!("AUIPC\n");}
                 let mut imm: XlenType = Self::extend_sign (Self::extract_bit_field (inst, 31, 12), 19);
                 imm = (Wrapping(imm << 12) + Wrapping((self.m_pc - DRAM_BASE) as XlenType)).0;
                 self.write_reg(rd, imm);
@@ -704,14 +707,14 @@ impl Riscv64Core for EnvBase{
                 let rs2_data = self.read_reg(rs2);
                 let reg_data:XlenType = (Wrapping(rs1_data) + Wrapping(rs2_data)).0;
                 self.write_reg(rd, reg_data);
-                println!("ADD {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("ADD {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::SUB => {
                 let rs1_data = self.read_reg(rs1);
                 let rs2_data = self.read_reg(rs2);
                 let reg_data:XlenType = (Wrapping(rs1_data) - Wrapping(rs2_data)).0;
                 self.write_reg(rd, reg_data);
-                println!("SUB {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("SUB {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::JAL => {
                 let addr:AddrType = Self::extract_uj_field(inst) as AddrType;
@@ -719,7 +722,7 @@ impl Riscv64Core for EnvBase{
                 self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
                 self.m_finish_cpu = addr == 0;
                 update_pc = true;
-                println!("JAL {},{} \n",rd,addr);
+                if self.writing {println!("JAL {},{} \n",rd,addr);}
             }
             RiscvInst::JALR => {
                 let mut addr: AddrType = Self::extract_ifield (inst) as AddrType;
@@ -731,7 +734,7 @@ impl Riscv64Core for EnvBase{
                 self.m_finish_cpu = addr+DRAM_BASE == self.m_pc;
                 self.m_pc = addr+DRAM_BASE;
                 update_pc = true;
-                println!("JALR {},{},{} \n",rd,addr,rs1);
+                if self.writing {println!("JALR {},{},{} \n",rd,addr,rs1);}
             }
             RiscvInst::CSRRW  => {
                 let rs1_data = self.read_reg(rs1);
@@ -768,7 +771,7 @@ impl Riscv64Core for EnvBase{
                 let addr = self.read_reg(rs1) +imm +STACK_BASE;
                 let reg_data:f32 = self.fmem_access(MemType::LOAD, MemSize::WORD, 0.0, addr as AddrType);
                 self.fwrite_reg(rd, reg_data);
-                println!("LW {},{}({})\n",rd,imm,rs1);
+                if self.writing {println!("LW {},{}({})\n",rd,imm,rs1);}
             }
             RiscvInst::FSW  => {
 
@@ -776,7 +779,7 @@ impl Riscv64Core for EnvBase{
                 let imm = Self::extract_sfield(inst);
                 let addr = self.read_reg(rs1) + imm+STACK_BASE;
                 self.fmem_access(MemType::STORE, MemSize::WORD, rs2_data, addr as AddrType);
-                println!("FSW {},{}({})\n",rs2,imm,rs1);
+                if self.writing {println!("FSW {},{}({})\n",rs2,imm,rs1);}
             }
             RiscvInst::FMADDS=>{
                
@@ -784,57 +787,57 @@ impl Riscv64Core for EnvBase{
                 let rs2_data=self.fread_reg(rs2);
                 let rs3_data=self.fread_reg(rs3);
                 self.fwrite_reg(rd, rs1_data*rs2_data+rs3_data);
-                println!("FMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);
+                if self.writing {println!("FMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);}
             }
             RiscvInst::FMSUBS=>{
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 let rs3_data=self.fread_reg(rs3);
                 self.fwrite_reg(rd, rs1_data*rs2_data-rs3_data);
-                println!("FMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);
+                if self.writing {println!("FMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);}
             }
             RiscvInst::FNMSUBS=>{
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 let rs3_data=self.fread_reg(rs3);
                 self.fwrite_reg(rd, -rs1_data*rs2_data+rs3_data);
-                println!("FNMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);
+                if self.writing {println!("FNMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);}
             }
             RiscvInst::FNMADDS=>{
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 let rs3_data=self.fread_reg(rs3);
                 self.fwrite_reg(rd, -rs1_data*rs2_data-rs3_data);
-                println!("FNMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);
+                if self.writing {println!("FNMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);}
             }
             RiscvInst::FADDS=>{
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 self.fwrite_reg(rd, rs1_data+rs2_data);
-                println!("FADDS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FADDS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FSUBS=>{
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 self.fwrite_reg(rd, rs1_data-rs2_data);
-                println!("FSUBS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FSUBS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FMULS=>{
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 self.fwrite_reg(rd, rs1_data*rs2_data);
-                println!("FMULS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FMULS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FDIVS=>{
                 let rs1_data=self.fread_reg(rs1);
                 let rs2_data=self.fread_reg(rs2);
                 self.fwrite_reg(rd, rs1_data/rs2_data);
-                println!("FDIVS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FDIVS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FSQRTS=>{
                 let rs1_data=self.fread_reg(rs1);
                 self.fwrite_reg(rd, rs1_data.sqrt());
-                println!("SQRTS {},{}\n",rd,rs1);
+                if self.writing {println!("SQRTS {},{}\n",rd,rs1);}
             }
             RiscvInst::FSGNJS=>{
                 let rs1_data = self.fread_reg(rs1);
@@ -844,21 +847,21 @@ impl Riscv64Core for EnvBase{
                 let data = rs1_data&(!0x8000)|(rs2_data&0x8000);
                 let ato =  EnvBase::int_to_float(data as u32);
                 self.fwrite_reg(rd, ato);
-                println!("FSGNJS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FSGNJS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FSGNJNS=>{
                 let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
                 let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
                 let data = rs1_data&(!0x8000)|((!rs2_data)&0x8000);
                 self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
-                println!("FSGNJNS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FSGNJNS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FSGNJXS=>{
                 let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
                 let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
                 let data = rs1_data&(!0x8000)|(((rs2_data)&0x8000)^((rs1_data)&0x8000));
                 self.fwrite_reg(rd, EnvBase::int_to_float(data as u32));
-                println!("FSGNJXS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FSGNJXS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FMINS=>{
                 let rs1_data=self.fread_reg(rs1);
@@ -868,7 +871,7 @@ impl Riscv64Core for EnvBase{
                 }else{
                     self.fwrite_reg(rd, rs1_data);
                 }                  
-                println!("FMINS {},{},{}\n",rd,rs1,rs2);           
+                if self.writing {println!("FMINS {},{},{}\n",rd,rs1,rs2);           }
             }
             RiscvInst::FMAXS=>{
                 let rs1_data=self.fread_reg(rs1);
@@ -878,7 +881,7 @@ impl Riscv64Core for EnvBase{
                 }else{
                     self.fwrite_reg(rd, rs1_data);
                 }                 
-                println!("FMAXS {},{},{}\n",rd,rs1,rs2);            
+                if self.writing {println!("FMAXS {},{},{}\n",rd,rs1,rs2);            }
             }
             RiscvInst::FEQS=>{
                 let rs1_data=self.fread_reg(rs1);
@@ -890,7 +893,7 @@ impl Riscv64Core for EnvBase{
                 } else{
                     self.write_reg(rd, 0);
                 }
-                println!("FEQS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FEQS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FLTS=>{
                 let rs1_data=self.fread_reg(rs1);
@@ -902,7 +905,7 @@ impl Riscv64Core for EnvBase{
                 } else{
                     self.write_reg(rd, 0);
                 }
-                println!("FLTS {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FLTS {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FLES=>{
                 let rs1_data=self.fread_reg(rs1);
@@ -914,10 +917,10 @@ impl Riscv64Core for EnvBase{
                 } else{
                     self.write_reg(rd, 0);
                 }
-                println!("FLES {},{},{}\n",rd,rs1,rs2);
+                if self.writing {println!("FLES {},{},{}\n",rd,rs1,rs2);}
             }
             RiscvInst::FCLASSS=>{
-                println!("FCLASSS {}\n",rs1);
+                if self.writing {println!("FCLASSS {}\n",rs1);}
                 let rs1_data=self.fread_reg(rs1);
                 let res =
                     if rs1_data == f32::NEG_INFINITY{0}
@@ -936,7 +939,7 @@ impl Riscv64Core for EnvBase{
                     
             }
             RiscvInst::FCVTWS=>{
-                println!("FCVTWS {}\n",rs1);
+                if self.writing {println!("FCVTWS {}\n",rs1);}
                 let rs1_data=self.fread_reg(rs1);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{i32::MAX}
@@ -974,7 +977,7 @@ impl Riscv64Core for EnvBase{
                     self.write_reg(rd,res);
             }
             RiscvInst::FCVTWUS=>{
-                println!("FCVTWUS {}\n",rs1);
+                if self.writing {println!("FCVTWUS {}\n",rs1);}
                 let rs1_data=self.fread_reg(rs1);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{u32::MAX}
@@ -1011,66 +1014,66 @@ impl Riscv64Core for EnvBase{
                     self.write_reg(rd,res as i32);
             }
             RiscvInst::FMVXW=>{
-                println!("FMVXW {}\n",rs1);
+                if self.writing {println!("FMVXW {}\n",rs1);}
                 let rs1_data=self.fread_reg(rs1);
                 self.write_reg(rd, EnvBase::float_to_int(rs1_data));
             }
             RiscvInst::FMVWX=>{
-                println!("FMVWX {}\n",rs1);
+                if self.writing {println!("FMVWX {}\n",rs1);}
                 let rs1_data=self.read_reg(rs1);
                 self.fwrite_reg(rd, EnvBase::int_to_float(rs1_data as u32));
             }
             RiscvInst::FCVTSW=>{
-                println!("FCVTSW {}\n",rs1);
+                if self.writing {println!("FCVTSW {}\n",rs1);}
                 let rs1_data = self.read_reg(rs1);
                 self.fwrite_reg(rd,rs1_data as f32);
             }
             RiscvInst::FCVTSWU=>{
-                println!("FCVTSW {}\n",rs1);
+                if self.writing {println!("FCVTSW {}\n",rs1);}
                 let rs1_data = self.read_reg(rs1)as u32;
                 self.fwrite_reg(rd,rs1_data as f32);
             }
             RiscvInst::MUL =>{
-                println!("MUL {},{},{}",rd,rs1,rs2);
+                if self.writing {println!("MUL {},{},{}",rd,rs1,rs2);}
                 let rs1_data = self.read_reg(rs1)as u32 as u64;
                 let rs2_data = self.read_reg(rs2)as u32 as u64;
                 let moto = rs1_data*rs2_data& 0x0000ffff;
                 self.write_reg(rd, moto as i32);
             }
             RiscvInst::MULH =>{
-                println!("MULH {},{},{}",rd,rs1,rs2);
+                if self.writing {println!("MULH {},{},{}",rd,rs1,rs2);}
                 let rs1_data = self.read_reg(rs1)as i64;
                 let rs2_data = self.read_reg(rs2)as i64;
                 let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
                 self.write_reg(rd, moto as i32);
             }
             RiscvInst::MULHSU =>{
-                println!("MULHSU {},{},{}",rd,rs1,rs2);
+                if self.writing {println!("MULHSU {},{},{}",rd,rs1,rs2);}
                panic!("面倒！");
             }
             RiscvInst::MULHU=>{
-                println!("MULH {},{},{}",rd,rs1,rs2);
+                if self.writing {println!("MULH {},{},{}",rd,rs1,rs2);}
                 let rs1_data = self.read_reg(rs1)as u32 as u64;
                 let rs2_data = self.read_reg(rs2)as u32 as u64;
                 let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
                 self.write_reg(rd, moto as i32);
             }
             RiscvInst::DIV =>{
-                println!("DIV {},{},{}",rd,rs1,rs2);
+                if self.writing {println!("DIV {},{},{}",rd,rs1,rs2);}
                 let rs1_data = self.read_reg(rs1);
                 let rs2_data = self.read_reg(rs2);
                 let moto = rs1_data/rs2_data& 0x0000ffff;
                 self.write_reg(rd, moto as i32);
             }
             RiscvInst::DIVU =>{
-                println!("DIV {},{},{}",rd,rs1,rs2);
+                if self.writing {println!("DIV {},{},{}",rd,rs1,rs2);}
                 let rs1_data = self.read_reg(rs1)as u32;
                 let rs2_data = self.read_reg(rs2)as u32;
                 let moto = rs1_data/rs2_data& 0x0000ffff;
                 self.write_reg(rd, moto as i32);
             }
             RiscvInst::REM =>{
-                println!("REM {},{},{}",rd,rs1,rs2);
+                if self.writing {println!("REM {},{},{}",rd,rs1,rs2);}
                 let rs1_data = self.read_reg(rs1);
                 let rs2_data = self.read_reg(rs2);
                 let rs2_data = if rs2_data < 0{-rs2_data}else{rs2_data};
@@ -1086,14 +1089,14 @@ impl Riscv64Core for EnvBase{
                 self.write_reg(rd, kekka as i32);
             }
             RiscvInst::REMU =>{
-                println!("REMU {},{},{}",rd,rs1,rs2);
+                if self.writing {println!("REMU {},{},{}",rd,rs1,rs2);}
                 let rs1_data = self.read_reg(rs1) as u32;
                 let rs2_data = self.read_reg(rs2) as u32;
                 let kekka = rs1_data%rs2_data;
                 self.write_reg(rd,kekka as i32);
             }
             _ =>{
-                println!("NEVER\n");
+                if self.writing {println!("NEVER\n");}
             }
         }
         if update_pc == false {
@@ -1181,7 +1184,7 @@ impl Riscv64Core for EnvBase{
             println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.m_regs[i].to_string());
         }
         for i in 0..32{
-            println!("{}", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
+          println!("{}", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
         }
     }
     fn output_regi(&mut self,i:i32){
@@ -1190,7 +1193,7 @@ impl Riscv64Core for EnvBase{
     }
     fn output_fregi(&mut self,i:i32){
         let i = i as usize;
-        println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
+       println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
     }
     fn output_toukei(&mut self){
         let mut heap:BinaryHeap<(&i32,&RiscvInst)>=BinaryHeap::new();

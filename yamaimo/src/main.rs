@@ -22,13 +22,14 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
 
     let mut riscv64_core = EnvBase::new();
     //riscv64_core.m_pc = 66398+riscv64_core.m_pc;
+
     for result in filebuf.bytes(){
         let l:u8 = result?;
         riscv64_core.write_memory_byte(hex_addr + DRAM_BASE,l as XlenType);
         hex_addr=hex_addr+1;
     }
 
-    let mut count = 0;
+    let mut count:u64 = 0;
     let mut finish = false;
     let mut step = true;
     let mut renzoku = 0;
@@ -43,6 +44,11 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                 //let answer = word.trim().to_string();
                 let mut coms = word.split_whitespace();
                 match coms.next().unwrap(){
+                    "nend"=>{
+                        step=false;
+                        looping = false;
+                        riscv64_core.writing = false;
+                    }
                     "end"=>{
                         step = false;
                         looping = false;
@@ -72,8 +78,12 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             
         }
         renzoku = if renzoku < 0 {renzoku + 1 }else{0};
-        println!("{}",count.to_string());
+       if riscv64_core.writing{ println!("{}",count.to_string());}
         let inst_data = riscv64_core.fetch_memory ();
+        if inst_data == 0{
+            riscv64_core.m_pc+=4;
+            continue;
+        }
         let inst_decode = riscv64_core.decode_inst(inst_data);
         riscv64_core.execute_inst(inst_decode, inst_data as InstType);
        
@@ -81,10 +91,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
 
         
       //  if zeros{
-            if inst_data == 0{
-                finish = true;
-                continue;
-            }
+           
        /*     else{
                 zeros = false;
             }
@@ -97,6 +104,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         }
         count+=1;
     }
+    println!("STEPSUM:{}",count);
     riscv64_core.set_finish_cpu();
     riscv64_core.output_reg();
     riscv64_core.output_toukei();
