@@ -1,7 +1,7 @@
 
 `timescale 1ns/1ps
 module decode_tb();
-    reg clk;
+    reg clk, rst;
     reg [2:0] state;
     reg [31:0] instr_raw;
 
@@ -10,7 +10,7 @@ module decode_tb();
     wire branch_relative, branch_uc, branch_c, mem_read, mem_write, alu_src, reg_write;
     wire [4:0] read_reg1, read_reg2, write_reg;
 
-    decode decode_instance(clk, state, instr_raw, imm, alu_ctl, branch_relative, branch_uc, branch_c,
+    decode decode_instance(clk, rst, state, instr_raw, imm, alu_ctl, branch_relative, branch_uc, branch_c,
         mem_read, mem_write, alu_src, reg_write,
         read_reg1, read_reg2, write_reg);
 
@@ -20,6 +20,8 @@ module decode_tb();
         clk = 0;
         state = 0;
         instr_raw = 0;
+        rst = 1;
+        #55 rst = 0;
         //全命令を一回ずつ試す
         //期待される挙動も書く
         //add x1 x2 x1

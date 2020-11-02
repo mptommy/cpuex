@@ -2,10 +2,10 @@
 module registerfile_tb();
     reg [4:0] Read1, Read2, WriteReg;
     reg [31:0] WriteData;
-    reg RegWrite, clk;
+    reg RegWrite, clk, rst;
     wire [31:0] Data1, Data2, x1_test;
 
-    registerfile registerfile_instance(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, clk, x1_test);
+    registerfile registerfile_instance(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, clk, rst, x1_test);
 
     always #10 clk = ~clk;
 
@@ -16,9 +16,11 @@ module registerfile_tb();
         WriteData = 0;
         RegWrite = 0;
         clk = 0;
+        rst = 1;
     end
 
     initial begin
+        #55 rst = 0;
         #55 RegWrite = 1;
         WriteReg = 1;
         WriteData = 32;

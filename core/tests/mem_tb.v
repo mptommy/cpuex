@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 module mem_tb();
-    reg clk;
+    reg clk, rst;
     reg [2:0] state;
     reg mem_read, mem_write, branch_in, reg_write_in;
     reg [31:0] mem_write_data, mem_addr, branch_addr_in, reg_write_data_in;
@@ -9,7 +9,7 @@ module mem_tb();
     wire [31:0] branch_addr_out, reg_write_data_out;
     wire [4:0] write_reg_out;
 
-    mem mem_instance(clk, state, mem_read, mem_write, mem_write_data, mem_addr, branch_in, reg_write_in, write_reg_in, branch_addr_in, reg_write_data_in,
+    mem mem_instance(clk, rst, state, mem_read, mem_write, mem_write_data, mem_addr, branch_in, reg_write_in, write_reg_in, branch_addr_in, reg_write_data_in,
     branch_out, reg_write_out, write_reg_out, branch_addr_out, reg_write_data_out);
 
     always #10 clk = ~clk;
@@ -26,6 +26,9 @@ module mem_tb();
         mem_addr = 0;
         branch_addr_in = 0;
         reg_write_data_in = 0;
+        rst = 1;
+        #55
+        rst = 0;
         #55
         state = 3;
         mem_read = 0;

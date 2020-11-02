@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 module exec_tb();
-    reg clk;
+    reg clk, rst;
     reg [31:0] pc;
     reg [2:0] state;
     reg [31:0] imm;
@@ -17,7 +17,7 @@ module exec_tb();
     wire [31:0] mem_write_data;
     wire [31:0] reg_write_data;
 
-    exec exec_instance(clk, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relative,
+    exec exec_instance(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relative,
         mem_read_in, mem_write_in, alu_src, reg_write_in, reg1_data, reg2_data,
         write_reg_in,
         mem_read_out, mem_write_out, reg_write_out, write_reg_out,
@@ -41,6 +41,8 @@ module exec_tb();
         reg1_data = 0;
         reg2_data = 0;
         write_reg_in = 0;
+        rst = 1;
+        #55 rst = 0;
         //全命令を一回ずつ試す
         //期待される挙動も書く
         #55
