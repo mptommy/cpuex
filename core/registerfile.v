@@ -11,7 +11,7 @@ module registerfile(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, c
 
     integer i;
     initial begin
-        for(i = 0;i<=1023;i=i+1)
+        for(i = 0;i<=31;i=i+1)
             RF[i] = 0;
         //sp
         RF[2] = 1000;
@@ -20,7 +20,7 @@ module registerfile(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, c
     assign Data1 = RF[Read1];
     assign Data2 = RF[Read2];
 
-    always begin
-        @(posedge clk) if (RegWrite && (WriteReg != 0)) RF[WriteReg] <= WriteData;
+    always @(posedge clk) begin
+        if (RegWrite && (WriteReg != 0)) RF[WriteReg] <= WriteData;
     end
 endmodule
