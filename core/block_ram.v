@@ -6,11 +6,11 @@ module block_ram(clk, we, rst, addr, di, dout);
     input [31:0] di;
     output reg [31:0] dout;
 
-    (* ram_style "BLOCK" *) reg [31:0] ram [255:0];
+    (* ram_style = "BLOCK" *) reg [31:0] ram [255:0];
 
     always @ (posedge clk)
     begin
-        if (we) begin
+        if (we)
             ram[{2'b00, addr[31:2]}] <= di;
         if (rst)
             dout <= 0;
