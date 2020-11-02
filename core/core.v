@@ -8,7 +8,13 @@ module core(clk, test);
 
     wire [31:0] instr_raw;
 
-    fetch fetch_instance(clk, state, pc, instr_raw);
+    wire fetch_we, fetch_rst;
+    assign fetch_we = 0;
+    assign fetch_rst = 0;
+
+    wire [31:0] fetch_di;
+    assign fetch_di = 0;
+    fetch fetch_instance(clk, fetch_we, fetch_rst, state, pc, fetch_di, instr_raw);
 
     wire [31:0] imm;
     wire [3:0] alu_ctl;
