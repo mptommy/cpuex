@@ -31,8 +31,10 @@ module fetch(clk, we, rst, state, pc, di, instr_out);
         end
         if (rst)
             instr_out <= 0;
-        else
-            instr_out <=  {instr_mem[pc_effective+3], instr_mem[pc_effective+2], instr_mem[pc_effective+1], instr_mem[pc_effective]};
+        else begin
+            if (state == 0)
+                instr_out <=  {instr_mem[pc_effective+3], instr_mem[pc_effective+2], instr_mem[pc_effective+1], instr_mem[pc_effective]};  
+        end
     end
 
 endmodule
