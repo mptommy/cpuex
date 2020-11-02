@@ -1,6 +1,5 @@
-module fetch(clk, we, rst, state, pc, di, instr_out);
-    //TODO: delete we? (Is it required to infer a block ram?)
-    input clk, we, rst;
+module fetch(clk, rst, state, pc, instr_out);
+    input clk, rst;
     // FETCH = 0
     // DECODE = 1
     // EXEC = 2
@@ -9,32 +8,9 @@ module fetch(clk, we, rst, state, pc, di, instr_out);
     // TODO: Make the constants global
     input [2:0] state;
     input [31:0] pc;
-    //TODO: delete di? (Is it required to infer a block ram?)
-    input [31:0] di;
-    output reg [31:0] instr_out;
-    reg [7:0] instr_mem [1023:0];
+    output [31:0] instr_out;
+    wire en;
+    assign en = (state == 0);
 
-    // TODO: Remove this to make instr_mem bigger
-    wire [9:0] pc_effective;
-    assign pc_effective = pc[9:0];
-
-    initial begin
-        $readmemh("./core/tests/fib_.mem", instr_mem);
-    end
-
-    always @(posedge clk) begin
-        if (we) begin
-            instr_mem[pc_effective+3] <= di[31:24];
-            instr_mem[pc_effective+2] <= di[23:16];
-            instr_mem[pc_effective+1] <= di[15:8];
-            instr_mem[pc_effective] <= di[7:0];
-        end
-        if (rst)
-            instr_out <= 0;
-        else begin
-            if (state == 0)
-                instr_out <=  {instr_mem[pc_effective+3], instr_mem[pc_effective+2], instr_mem[pc_effective+1], instr_mem[pc_effective]};  
-        end
-    end
-
+    instr_mem instr_mem_instance(clk, en, rst, pc, instr_out);
 endmodule

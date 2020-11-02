@@ -1,19 +1,19 @@
-module block_ram(clk, en, we, rst, addr, di, dout);
+module instr_mem(clk, en, rst, addr, dout);
     input clk;
     input en;
-    input we;
     input rst;
     input [31:0] addr;
-    input [31:0] di;
     output reg [31:0] dout;
 
     (* ram_style = "BLOCK" *) reg [31:0] ram [255:0];
 
+    initial begin
+        $readmemh("./core/tests/fib_.mem", ram);
+    end
+
     always @ (posedge clk)
     begin
         if(en) begin
-            if (we)
-                ram[{2'b00, addr[31:2]}] <= di;
             if (rst)
                 dout <= 0;
             else

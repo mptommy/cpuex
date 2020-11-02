@@ -2,13 +2,14 @@
 `timescale 1ns/1ps
 module block_ram_tb();
     reg clk;
+    reg en;
     reg we;
     reg rst;
     reg [31:0] addr;
     reg [31:0] di;
     wire [31:0] dout;
 
-    block_ram block_ram_instance(clk, we, rst, addr, di, dout);
+    block_ram block_ram_instance(clk, en, we, rst, addr, di, dout);
 
     always #10 clk = ~clk;
 
@@ -18,6 +19,7 @@ module block_ram_tb();
         rst = 1;
         addr = 0;
         di = 0;
+        en = 1;
     end
 
     initial begin

@@ -4,11 +4,7 @@ module fetch_tb();
     reg [2:0] state;
     reg [31:0] pc;
     wire [31:0] instr_out;
-    wire we;
-    wire [31:0] di;
-    assign we = 0;
-    assign di = 0;
-    fetch fetch_instance(clk, we, rst, state, pc, di, instr_out);
+    fetch fetch_instance(clk, rst, state, pc, instr_out);
 
     always #10 clk = ~clk;
     always #20 pc = pc + 4;

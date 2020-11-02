@@ -11,13 +11,13 @@ module mem(clk, rst, state, mem_read, mem_write, mem_write_data, mem_addr,
     output wire [31:0] reg_write_data_out;
     output reg [4:0] write_reg_out;
 
-    wire mem_write_state;
-    assign mem_write_state = (state == 3) && mem_write;
+    wire mem_en;
+    assign mem_en = (state == 3);
 
     wire [31:0] mem_data_read;
     assign reg_write_data_out = mem_read ? mem_data_read : reg_write_data_in;
 
-    block_ram block_ram_instance(clk, mem_write_state, rst, mem_addr, mem_write_data, mem_data_read);
+    block_ram block_ram_instance(clk, mem_en, mem_write, rst, mem_addr, mem_write_data, mem_data_read);
     always @ (posedge clk) begin
         if (rst) begin
             branch_out <= 0;
