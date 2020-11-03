@@ -8,7 +8,7 @@ module instr_mem(clk, en, rst, addr, dout);
     (* ram_style = "BLOCK" *) reg [31:0] ram [255:0];
 
     initial begin
-        $readmemh("./core/tests/fib_.mem", ram);
+        $readmemb("./core/tests/fib_b.mem", ram);
     end
 
     always @ (posedge clk)
