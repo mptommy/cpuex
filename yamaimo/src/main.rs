@@ -108,5 +108,6 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     riscv64_core.set_finish_cpu();
     riscv64_core.output_reg();
     riscv64_core.output_toukei();
+    riscv64_core.output_regtoukei();
     Ok(())
 }
