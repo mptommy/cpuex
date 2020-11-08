@@ -81,9 +81,9 @@ pub struct EnvBase{
     m_fromhost: XlenType,
     m_finish_cpu: bool,
     pub writing:bool,
-    pub toukei:HashMap<RiscvInst,i32>,
-    pub regtoukei:[i32;32],
-    pub fregtoukei:[i32;32],
+    pub toukei:HashMap<RiscvInst,u64>,
+    pub regtoukei:[u64;32],
+    pub fregtoukei:[u64;32],
 }
 impl EnvBase{
     pub fn new() -> EnvBase{
@@ -1351,10 +1351,13 @@ impl Riscv64Core for EnvBase{
     fn get_tohost (&mut self) -> XlenType { return self.m_tohost; }
     fn get_fromhost (&mut self) -> XlenType { return self.m_fromhost; }
     fn output_reg(&mut self){
+        println!("レジスタダンプ");
         for i in 0..32{
+            if self.m_regs[i]==0{continue;}
             println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.m_regs[i].to_string());
         }
         for i in 0..32{
+            if self.f_regs[i]==0.0{continue;}
           println!("{}", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
         }
     }
@@ -1367,7 +1370,8 @@ impl Riscv64Core for EnvBase{
        println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
     }
     fn output_toukei(&mut self){
-        let mut heap:BinaryHeap<(&i32,&RiscvInst)>=BinaryHeap::new();
+        println!("命令統計");
+        let mut heap:BinaryHeap<(&u64,&RiscvInst)>=BinaryHeap::new();
         for i in (&self.toukei).into_iter() {
             heap.push((i.1,i.0));
         }
