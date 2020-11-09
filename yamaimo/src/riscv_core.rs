@@ -61,13 +61,14 @@ pub struct ForMem{
     pub fdata:f32,
     pub addr:AddrType
 }
-#[derive(Copy,Clone)]
+#[derive(Copy,Clone,Default)]
 pub struct ForWrite{
     pub rd:u8,
     pub isint:bool,
     pub data:i32,
     pub fdata:f32,
     pub issigned:bool,
+    pub forwarding:bool,
 }
 pub struct EnvBase{
     pub m_pc:AddrType,//Program Counter
@@ -242,8 +243,10 @@ pub trait Riscv64Core{
     fn fread_reg(&mut self,reg_addr:RegAddrType)->f32;
     fn fwrite_reg (&mut self, reg_addr: RegAddrType, data:f32);
 
+    fn read_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite)->i32;
+    fn fread_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite)->f32;
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst;
-    fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType)->(ForMem,ForWrite);
+    fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite)->(ForMem,ForWrite);
 
     fn mem_access(&mut self,op:MemType,size:MemSize,data:XlenType,addr:AddrType)->XlenType;
     fn fmem_access(&mut self,op:MemType,size:MemSize,data:f32,addr:AddrType)->f32;
@@ -285,11 +288,24 @@ impl Riscv64Core for EnvBase{
         }
     }
     fn fread_reg(&mut self,reg_addr:RegAddrType)->f32{
+        return self.f_regs[reg_addr as usize];
+    }
+    fn read_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite)->XlenType{
         if reg_addr == 0{
-            return 0.0;
+            return 0;
         }else{
-            return self.f_regs[reg_addr as usize];
+            if reg_addr == forwarding.rd && forwarding.isint&&forwarding.forwarding{
+                return forwarding.data;
+            }
+            return self.m_regs[reg_addr as usize];
         }
+    }
+    fn fread_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite)->f32{
+        if reg_addr == forwarding.rd && !forwarding.isint&&forwarding.forwarding{
+            return forwarding.fdata;
+        }
+        return self.f_regs[reg_addr as usize];
+        
     }
     fn write_reg (&mut self,reg_addr:RegAddrType,data:XlenType){
         if reg_addr !=0{
@@ -615,7 +631,7 @@ impl Riscv64Core for EnvBase{
             _    => RiscvInst::WFI,
         }
     }
-    fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType)->(ForMem,ForWrite){
+    fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite)->(ForMem,ForWrite){
         
         if self.toukei.contains_key(&dec_inst){
             //self.toukei[&dec_inst] =self.toukei[&dec_inst]+1;
@@ -634,94 +650,94 @@ impl Riscv64Core for EnvBase{
         let (formem,forwrite)=
         match dec_inst{
             RiscvInst::LB  => {
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr);
                 reg_data = Self::extend_sign(reg_data, 7);
                 self.write_reg(rd, reg_data);
                 if self.writing {println!("LB {},{}({})\n",rd,imm,rs1);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:true})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{forwarding:false,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             RiscvInst::LH  => {
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr);
                 reg_data = Self::extend_sign(reg_data, 15);
                 self.write_reg(rd, reg_data);
                 if self.writing {println!("LH {},{}({})\n",rd,imm,rs1);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{data:-1,rd:rd,fdata:-1.0,isint:true,issigned:true})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{forwarding:false,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             RiscvInst::LW  => {
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE) as AddrType;
                 let reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::WORD, rs1_data, addr );
                 self.write_reg(rd, reg_data);
                 if self.writing {println!("LW {},{}({})\n",rd,imm,rs1);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::WORD,data:rs1_data,addr:addr},ForWrite{data:-1,rd:rd,fdata:-1.0,isint:true,issigned:true})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::WORD,data:rs1_data,addr:addr},ForWrite{forwarding:false,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             RiscvInst::LBU  => {
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE)as AddrType;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr) as UXlenType;
                  self.write_reg(rd, reg_data as XlenType);
                  if self.writing {println!("LBU {},{}({})\n",rd,imm,rs1);}
-                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{forwarding:false,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::LHU  => {
                 if self.writing {println!("LHU\n");}
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let imm =  Self::extract_ifield(inst);
                 let addr =( rs1_data +imm+STACK_BASE)as AddrType;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr) as UXlenType;
                 self.write_reg(rd, reg_data as XlenType);
                 if self.writing {println!("LHU {},{}({})\n",rd,imm,rs1);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{forwarding:false,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::SB  => {
-                let rs2_data = self.read_reg(rs2);
+                let rs2_data = self.read_regfor(rs2,forwarding);
                 let imm =  Self::extract_sfield(inst);
-                let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (self.read_regfor(rs1,forwarding) +imm+STACK_BASE) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::BYTE, rs2_data, addr);
                 if self.writing {println!("SB {},{}({})\n",rs2,imm,rs1);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::BYTE,data:rs2_data,addr:addr},ForWrite{data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::BYTE,data:rs2_data,addr:addr},ForWrite{forwarding:false,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::SH  => {
-                let rs2_data = self.read_reg(rs2);
+                let rs2_data = self.read_regfor(rs2,forwarding);
                 let imm =  Self::extract_sfield(inst);
-                let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (self.read_regfor(rs1,forwarding) +imm+STACK_BASE) as AddrType;
                  self.mem_access(MemType::STORE, MemSize::HWORD, rs2_data, addr);
                  if self.writing {println!("SH {},{}({})\n",rs2,imm,rs1);}
-                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::HWORD,data:rs2_data,addr:addr},ForWrite{data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::HWORD,data:rs2_data,addr:addr},ForWrite{forwarding:false,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::SW  => {
-                let rs2_data = self.read_reg(rs2);
+                let rs2_data = self.read_regfor(rs2,forwarding);
                 let imm =  Self::extract_sfield(inst);
-                let addr:AddrType = (self.read_reg(rs1) +imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (self.read_regfor(rs1,forwarding) +imm+STACK_BASE) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::WORD, rs2_data, addr);
                 if self.writing {println!("SW {},{}({})\n",rs2,imm,rs1);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::WORD,data:rs2_data,addr:addr},ForWrite{data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::WORD,data:rs2_data,addr:addr},ForWrite{forwarding:false,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             
                
             }
             RiscvInst::ADDI => {
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let imm_data = Self::extract_ifield(inst);
                 let reg_data:XlenType = (Wrapping(rs1_data)+Wrapping(imm_data)).0;
                 self.write_reg(rd,reg_data);
                 if self.writing {println!("ADDI {},{} {}\n",rd,rs1,imm_data);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::BEQ | RiscvInst::BNE | RiscvInst::BLT | RiscvInst::BGE | RiscvInst::BLTU | RiscvInst::BGEU => {
                 if self.writing {println!("HIKAKU\n");}
-                let rs1_data:XlenType = self.read_reg(rs1);
-                let rs2_data:XlenType = self.read_reg(rs2);
+                let rs1_data:XlenType = self.read_regfor(rs1,forwarding);
+                let rs2_data:XlenType = self.read_regfor(rs2,forwarding);
                 let addr:AddrType = Self::extract_sb_field(inst) as AddrType;
                 let jump_en: bool;
                 jump_en = 
@@ -738,7 +754,7 @@ impl Riscv64Core for EnvBase{
                     self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
                     update_pc = true;
                 }
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:false,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::AUIPC => {
@@ -747,24 +763,24 @@ impl Riscv64Core for EnvBase{
                 imm = (Wrapping(imm << 12) + Wrapping((self.m_pc - DRAM_BASE) as XlenType)).0;
                 self.write_reg(rd, imm);
 
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:imm,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:imm,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::ADD => {
-                let rs1_data = self.read_reg(rs1);
-                let rs2_data = self.read_reg(rs2);
+                let rs1_data = self.read_regfor(rs1,forwarding);
+                let rs2_data = self.read_regfor(rs2,forwarding);
                 let reg_data:XlenType = (Wrapping(rs1_data) + Wrapping(rs2_data)).0;
                 self.write_reg(rd, reg_data);
                 if self.writing {println!("ADD {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::SUB => {
-                let rs1_data = self.read_reg(rs1);
-                let rs2_data = self.read_reg(rs2);
+                let rs1_data = self.read_regfor(rs1,forwarding);
+                let rs2_data = self.read_regfor(rs2,forwarding);
                 let reg_data:XlenType = (Wrapping(rs1_data) - Wrapping(rs2_data)).0;
                 self.write_reg(rd, reg_data);
                 if self.writing {println!("SUB {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::JAL => {
                 let addr:AddrType = Self::extract_uj_field(inst) as AddrType;
@@ -773,11 +789,11 @@ impl Riscv64Core for EnvBase{
                 self.m_finish_cpu = addr == 0;
                 update_pc = true;
                 if self.writing {println!("JAL {},{} \n",rd,addr);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:false,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::JALR => {
                 let mut addr: AddrType = Self::extract_ifield (inst) as AddrType;
-                let rs1_data: AddrType = self.read_reg(rs1) as AddrType;
+                let rs1_data: AddrType = self.read_regfor(rs1,forwarding) as AddrType;
                 addr = (Wrapping(rs1_data) + Wrapping(addr)).0;
                 addr = addr & (!0x01);
                 let reg_data = (self.m_pc-DRAM_BASE + 4) as XlenType;
@@ -786,191 +802,191 @@ impl Riscv64Core for EnvBase{
                 self.m_pc = addr+DRAM_BASE;
                 update_pc = true;
                 if self.writing {println!("JALR {},{},{} \n",rd,addr,rs1);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::CSRRW  => {
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let reg_data:XlenType = self.m_csr.csrrw (csr_addr, rs1_data);
                 self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::CSRRS  => {
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let reg_data:XlenType = self.m_csr.csrrs (csr_addr, rs1_data);
                 self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::CSRRC  => {
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let reg_data:XlenType = self.m_csr.csrrc (csr_addr, rs1_data);
                 self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::CSRRWI => {
                 let zimm: XlenType = ((inst >> 15) & 0x1f) as XlenType;
                 let reg_data:XlenType = self.m_csr.csrrw (csr_addr, zimm);
                 self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::CSRRSI => {
                 let zimm: XlenType = ((inst >> 15) & 0x1f) as XlenType;
                 let reg_data:XlenType = self.m_csr.csrrs (csr_addr, zimm);
                 self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::CSRRCI => {
                 let zimm: XlenType = ((inst >> 15) & 0x1f) as XlenType;
                 let reg_data:XlenType = self.m_csr.csrrc (csr_addr, zimm);
                 self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::FLW  => {
                 let imm = Self::extract_ifield(inst);
-                let addr = (self.read_reg(rs1) +imm +STACK_BASE)  as AddrType;
+                let addr = (self.read_regfor(rs1,forwarding) +imm +STACK_BASE)  as AddrType;
                 let reg_data:f32 = self.fmem_access(MemType::LOAD, MemSize::WORD, 0.0, addr);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("LW {},{}({})\n",rd,imm,rs1);}
-                (ForMem{fdata:0.0,isint:false,memtype:MemType::LOAD,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{data:-1,rd:rd,fdata:-1.0,isint:false,issigned:true})
+                (ForMem{fdata:0.0,isint:false,memtype:MemType::LOAD,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{forwarding:true,data:-1,rd:rd,fdata:-1.0,isint:false,issigned:true})
             
             }
             RiscvInst::FSW  => {
 
-                let rs2_data = self.fread_reg(rs2);
+                let rs2_data = self.fread_regfor(rs2,forwarding);
                 let imm = Self::extract_sfield(inst);
-                let addr = (self.read_reg(rs1) +imm +STACK_BASE)  as AddrType;
+                let addr = (self.read_regfor(rs1,forwarding) +imm +STACK_BASE)  as AddrType;
                 self.fmem_access(MemType::STORE, MemSize::WORD, rs2_data, addr);
                 if self.writing {println!("FSW {},{}({})\n",rs2,imm,rs1);}
-                (ForMem{fdata:rs2_data,isint:false,memtype:MemType::STORE,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{data:-1,rd:0,fdata:-1.0,isint:true,issigned:true})
+                (ForMem{fdata:rs2_data,isint:false,memtype:MemType::STORE,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{forwarding:false,data:-1,rd:0,fdata:-1.0,isint:true,issigned:true})
             
             }
             RiscvInst::FMADDS=>{
                
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
-                let rs3_data=self.fread_reg(rs3);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
+                let rs3_data=self.fread_regfor(rs3,forwarding);
                 let reg_data = rs1_data*rs2_data+rs3_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             
             }
             RiscvInst::FMSUBS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
-                let rs3_data=self.fread_reg(rs3);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
+                let rs3_data=self.fread_regfor(rs3,forwarding);
                 let reg_data = rs1_data*rs2_data-rs3_data;
                 self.fwrite_reg(rd,reg_data);
                 if self.writing {println!("FMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FNMSUBS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
-                let rs3_data=self.fread_reg(rs3);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
+                let rs3_data=self.fread_regfor(rs3,forwarding);
                 let reg_data = -rs1_data*rs2_data+rs3_data;
                 self.fwrite_reg(rd,reg_data);
                 if self.writing {println!("FNMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FNMADDS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
-                let rs3_data=self.fread_reg(rs3);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
+                let rs3_data=self.fread_regfor(rs3,forwarding);
                 let reg_data = -rs1_data*rs2_data-rs3_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FNMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FADDS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                 let reg_data = rs1_data+rs2_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FADDS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSUBS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                 let reg_data = rs1_data-rs2_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FSUBS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FMULS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                 let reg_data = rs1_data *rs2_data;
                 self.fwrite_reg(rd,reg_data);
                 if self.writing {println!("FMULS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FDIVS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                 let reg_data = rs1_data / rs2_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FDIVS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSQRTS=>{
-                let rs1_data=self.fread_reg(rs1);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
                 let reg_data = rs1_data.sqrt();
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("SQRTS {},{}\n",rd,rs1);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSGNJS=>{
-                let rs1_data = self.fread_reg(rs1);
-                let rs2_data =self.fread_reg(rs2);
+                let rs1_data = self.fread_regfor(rs1,forwarding);
+                let rs2_data =self.fread_regfor(rs2,forwarding);
                 let rs1_data=EnvBase::float_to_int(rs1_data);
                 let rs2_data=EnvBase::float_to_int(rs2_data);
                 let data = rs1_data&(!0x8000)|(rs2_data&0x8000);
                 let ato =  EnvBase::int_to_float(data as u32);
                 self.fwrite_reg(rd, ato);
                 if self.writing {println!("FSGNJS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:ato,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:ato,isint:false,issigned:false})
             }
             RiscvInst::FSGNJNS=>{
-                let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
-                let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
+                let rs1_data=EnvBase::float_to_int(self.fread_regfor(rs1,forwarding));
+                let rs2_data=EnvBase::float_to_int(self.fread_regfor(rs2,forwarding));
                 let data = rs1_data&(!0x8000)|((!rs2_data)&0x8000);
                 let reg_data = EnvBase::int_to_float(data as u32);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FSGNJNS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSGNJXS=>{
-                let rs1_data=EnvBase::float_to_int(self.fread_reg(rs1));
-                let rs2_data=EnvBase::float_to_int(self.fread_reg(rs2));
+                let rs1_data=EnvBase::float_to_int(self.fread_regfor(rs1,forwarding));
+                let rs2_data=EnvBase::float_to_int(self.fread_regfor(rs2,forwarding));
                 let data = rs1_data&(!0x8000)|(((rs2_data)&0x8000)^((rs1_data)&0x8000));
                 let reg_data = EnvBase::int_to_float(data as u32);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FSGNJXS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FMINS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                 let reg_data = if rs1_data > rs2_data {rs2_data}else{rs1_data};
                 self.fwrite_reg(rd,reg_data);               
                 if self.writing {println!("FMINS {},{},{}\n",rd,rs1,rs2); }
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FMAXS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                 let reg_data = if rs1_data > rs2_data{rs1_data}else{rs2_data};
                 self.fwrite_reg(rd,reg_data);         
                 if self.writing {println!("FMAXS {},{},{}\n",rd,rs1,rs2);            }
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FEQS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                let reg_data = 
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
                    0
@@ -981,11 +997,11 @@ impl Riscv64Core for EnvBase{
                 };
                 self.write_reg(rd,reg_data);
                 if self.writing {println!("FEQS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FLTS=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                 let reg_data = 
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
                    0
@@ -996,11 +1012,11 @@ impl Riscv64Core for EnvBase{
                 };
                 self.write_reg(rd,reg_data);
                 if self.writing {println!("FLTS {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FLES=>{
-                let rs1_data=self.fread_reg(rs1);
-                let rs2_data=self.fread_reg(rs2);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
+                let rs2_data=self.fread_regfor(rs2,forwarding);
                 let reg_data =
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
                    0
@@ -1011,11 +1027,11 @@ impl Riscv64Core for EnvBase{
                 };
                 self.write_reg(rd,reg_data);
                 if self.writing {println!("FLES {},{},{}\n",rd,rs1,rs2);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FCLASSS=>{
                 if self.writing {println!("FCLASSS {}\n",rs1);}
-                let rs1_data=self.fread_reg(rs1);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
                 let res =
                     if rs1_data == f32::NEG_INFINITY{0}
                     else if rs1_data == f32::INFINITY{7}
@@ -1030,11 +1046,11 @@ impl Riscv64Core for EnvBase{
                     else if rs1_data < 0.0{1}
                     else {6};
                     self.write_reg(rd, res);
-                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:res,rd:rd,fdata:0.0,isint:true,issigned:false})
+                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:res,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FCVTWS=>{
                 if self.writing {println!("FCVTWS {}\n",rs1);}
-                let rs1_data=self.fread_reg(rs1);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{i32::MAX}
                     else if rs1_data == f32::NEG_INFINITY{i32::MIN}
@@ -1069,11 +1085,11 @@ impl Riscv64Core for EnvBase{
                         }
                     };
                     self.write_reg(rd,res);
-                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:res,rd:rd,fdata:0.0,isint:true,issigned:false})
+                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:res,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FCVTWUS=>{
                 if self.writing {println!("FCVTWUS {}\n",rs1);}
-                let rs1_data=self.fread_reg(rs1);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{u32::MAX}
                     else if rs1_data == f32::NEG_INFINITY{u32::MIN}
@@ -1107,56 +1123,56 @@ impl Riscv64Core for EnvBase{
                         }
                     };
                     self.write_reg(rd,res as i32);
-                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:res as i32,rd:rd,fdata:0.0,isint:true,issigned:false})
+                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:res as i32,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FMVXW=>{
                 if self.writing {println!("FMVXW {}\n",rs1);}
-                let rs1_data=self.fread_reg(rs1);
+                let rs1_data=self.fread_regfor(rs1,forwarding);
                 let reg_data = EnvBase::float_to_int(rs1_data);
                 self.write_reg(rd,reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FMVWX=>{
                 if self.writing {println!("FMVWX {}\n",rs1);}
-                let rs1_data=self.read_reg(rs1);
+                let rs1_data=self.read_regfor(rs1,forwarding);
                 let reg_data = EnvBase::int_to_float(rs1_data as u32);
                 self.fwrite_reg(rd, EnvBase::int_to_float(rs1_data as u32));
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             
             }
             RiscvInst::FCVTSW=>{
                 if self.writing {println!("FCVTSW {}\n",rs1);}
-                let rs1_data = self.read_reg(rs1);
+                let rs1_data = self.read_regfor(rs1,forwarding);
                 let reg_data = rs1_data as f32;
                 self.fwrite_reg(rd,reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FCVTSWU=>{
                 if self.writing {println!("FCVTSW {}\n",rs1);}
-                let rs1_data = self.read_reg(rs1)as u32;
+                let rs1_data = self.read_regfor(rs1,forwarding)as u32;
                 let reg_data = rs1_data as f32;
                 self.fwrite_reg(rd,reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             
             }
             RiscvInst::MUL =>{
                 if self.writing {println!("MUL {},{},{}",rd,rs1,rs2);}
-                let rs1_data = self.read_reg(rs1)as u32 as u64;
-                let rs2_data = self.read_reg(rs2)as u32 as u64;
+                let rs1_data = self.read_regfor(rs1,forwarding)as u32 as u64;
+                let rs2_data = self.read_regfor(rs2,forwarding)as u32 as u64;
                 let moto = rs1_data*rs2_data& 0x0000ffff;
                 let moto = moto as i32;
                 self.write_reg(rd, moto);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::MULH =>{
                 if self.writing {println!("MULH {},{},{}",rd,rs1,rs2);}
-                let rs1_data = self.read_reg(rs1)as i64;
-                let rs2_data = self.read_reg(rs2)as i64;
+                let rs1_data = self.read_regfor(rs1,forwarding)as i64;
+                let rs2_data = self.read_regfor(rs2,forwarding)as i64;
                 let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
                 let moto = moto as i32;
                 self.write_reg(rd, moto );
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::MULHSU =>{
@@ -1165,38 +1181,38 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::MULHU=>{
                 if self.writing {println!("MULH {},{},{}",rd,rs1,rs2);}
-                let rs1_data = self.read_reg(rs1)as u32 as u64;
-                let rs2_data = self.read_reg(rs2)as u32 as u64;
+                let rs1_data = self.read_regfor(rs1,forwarding)as u32 as u64;
+                let rs2_data = self.read_regfor(rs2,forwarding)as u32 as u64;
                 let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
                 let moto = moto as i32;
                 self.write_reg(rd, moto);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::DIV =>{
                 if self.writing {println!("DIV {},{},{}",rd,rs1,rs2);}
-                let rs1_data = self.read_reg(rs1);
-                let rs2_data = self.read_reg(rs2);
+                let rs1_data = self.read_regfor(rs1,forwarding);
+                let rs2_data = self.read_regfor(rs2,forwarding);
                 let moto = (rs1_data/rs2_data)& 0x0000ffff;
                 let moto = moto as i32;
                 self.write_reg(rd, moto as i32);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::DIVU =>{
                 if self.writing {println!("DIV {},{},{}",rd,rs1,rs2);}
-                let rs1_data = self.read_reg(rs1)as u32;
-                let rs2_data = self.read_reg(rs2)as u32;
+                let rs1_data = self.read_regfor(rs1,forwarding)as u32;
+                let rs2_data = self.read_regfor(rs2,forwarding)as u32;
                 let moto = (rs1_data/rs2_data)& 0x0000ffff;
                 let moto = moto as i32;
                 self.write_reg(rd, moto as i32);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::REM =>{
                 if self.writing {println!("REM {},{},{}",rd,rs1,rs2);}
-                let rs1_data = self.read_reg(rs1);
-                let rs2_data = self.read_reg(rs2);
+                let rs1_data = self.read_regfor(rs1,forwarding);
+                let rs2_data = self.read_regfor(rs2,forwarding);
                 let rs2_data = if rs2_data < 0{-rs2_data}else{rs2_data};
                 let moto =
                     if rs1_data < 0{
@@ -1209,21 +1225,21 @@ impl Riscv64Core for EnvBase{
                     };
                 let moto = moto as i32;
                 self.write_reg(rd, moto);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             RiscvInst::REMU =>{
                 if self.writing {println!("REMU {},{},{}",rd,rs1,rs2);}
-                let rs1_data = self.read_reg(rs1) as u32;
-                let rs2_data = self.read_reg(rs2) as u32;
+                let rs1_data = self.read_regfor(rs1,forwarding) as u32;
+                let rs2_data = self.read_regfor(rs2,forwarding) as u32;
                 let moto = (rs1_data%rs2_data)as i32;
                 self.write_reg(rd,moto);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
             _ =>{
                 if self.writing {println!("NEVER\n");}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{forwarding:true,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             
             }
         };

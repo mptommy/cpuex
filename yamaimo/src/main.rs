@@ -6,7 +6,8 @@ mod riscv_csr;
 mod riscv_core;
 use crate::riscv_core::Riscv64Core;
 use crate::riscv_core::EnvBase;
-
+use crate::riscv_core::ForWrite;
+use crate::riscv_core::ForMem;
 use crate::riscv_core::DRAM_BASE;
 use crate::riscv_core::InstType;
 use crate::riscv_core::XlenType;
@@ -30,9 +31,11 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     }
 
     let mut count:u64 = 0;
-    let mut finish = false;
+    let finish = false;
     let mut step = true;
     let mut renzoku = 0;
+    let mut forwarding:ForWrite=ForWrite{rd:0,isint:true,..Default::default()};
+    let mut formem:ForMem;
     while !finish&& !riscv64_core.get_is_finish_cpu () {
 
         if step&&renzoku >= 0{
@@ -85,8 +88,9 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             continue;
         }
         let inst_decode = riscv64_core.decode_inst(inst_data);
-        riscv64_core.execute_inst(inst_decode, inst_data as InstType);
-       
+        let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,forwarding);
+       formem = formembuf;
+       forwarding = forwardingbuf;
 
 
         
