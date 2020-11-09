@@ -6,8 +6,6 @@ mod riscv_csr;
 mod riscv_core;
 use crate::riscv_core::Riscv64Core;
 use crate::riscv_core::EnvBase;
-use crate::riscv_core::ForWrite;
-use crate::riscv_core::ForMem;
 use crate::riscv_core::DRAM_BASE;
 use crate::riscv_core::InstType;
 use crate::riscv_core::XlenType;
@@ -86,8 +84,9 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             continue;
         }
         let inst_decode = riscv64_core.decode_inst(inst_data);
-        let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,riscv64_core.maeforwrite);
+        let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,riscv64_core.maeforwrite,riscv64_core.mae2forwrite);
        riscv64_core.nowformem = formembuf;
+       riscv64_core.mae2forwrite=riscv64_core.maeforwrite;
        riscv64_core.maeforwrite = riscv64_core.nowforwrite;
        riscv64_core.nowforwrite=forwardingbuf;
 

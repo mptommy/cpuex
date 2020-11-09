@@ -77,6 +77,7 @@ pub struct EnvBase{
     pub nowformem:ForMem,
     pub nowforwrite:ForWrite,
     pub maeforwrite:ForWrite,
+    pub mae2forwrite:ForWrite,
 
     pub m_pc:AddrType,//Program Counter
     pub m_regs:[XlenType;32],
@@ -99,7 +100,8 @@ impl EnvBase{
             fetch_pc:DRAM_BASE as AddrType,
             nowinst:0,
             nowdecinst:RiscvInst::WFI,
-            maeforwrite:ForWrite{rd:0,..Default::default()},
+            maeforwrite:ForWrite{rd:0,isint:true,..Default::default()},
+            mae2forwrite:ForWrite{rd:0,isint:true,..Default::default()},
             nowformem:ForMem{addr:0,data:0,fdata:0.0,isint:true,memsize:MemSize::WORD,memtype:MemType::NOP},
             nowforwrite:Default::default(),
             toukei:HashMap::new(),
@@ -256,10 +258,10 @@ pub trait Riscv64Core{
     fn fread_reg(&mut self,reg_addr:RegAddrType)->f32;
     fn fwrite_reg (&mut self, reg_addr: RegAddrType, data:f32);
 
-    fn read_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite)->(i32,bool);
-    fn fread_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite)->(f32,bool);
+    fn read_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite,forwarding2:ForWrite)->(i32,bool);
+    fn fread_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite,forwarding2:ForWrite)->(f32,bool);
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst;
-    fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite)->(ForMem,ForWrite);
+    fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite,forwarding2:ForWrite)->(ForMem,ForWrite);
 
     fn mem_access(&mut self,op:MemType,size:MemSize,data:XlenType,addr:AddrType)->XlenType;
     fn fmem_access(&mut self,op:MemType,size:MemSize,data:f32,addr:AddrType)->f32;
@@ -303,7 +305,7 @@ impl Riscv64Core for EnvBase{
     fn fread_reg(&mut self,reg_addr:RegAddrType)->f32{
         return self.f_regs[reg_addr as usize];
     }
-    fn read_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite)->(XlenType,bool){
+    fn read_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite,forwarding2:ForWrite)->(XlenType,bool){
         if reg_addr == 0{
             return (0,false);
         }else{
@@ -321,14 +323,42 @@ impl Riscv64Core for EnvBase{
                     _ =>{ return (self.m_regs[reg_addr as usize],false);}
                 }
             }
+            if reg_addr == forwarding2.rd && forwarding2.isint{
+                match forwarding2.typ{
+                    0=>{
+                        return (forwarding2.data,false);
+                    }
+                    1=>{
+                        return (self.m_regs[reg_addr as usize],true);
+                    }
+                    2=>{
+                        return (self.m_regs[reg_addr as usize],false);
+                    }
+                    _ =>{ return (self.m_regs[reg_addr as usize],false);}
+                }
+            }
             return (self.m_regs[reg_addr as usize],false);
         }
     }
-    fn fread_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite)->(f32,bool){
+    fn fread_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite,forwarding2:ForWrite)->(f32,bool){
         if reg_addr == forwarding.rd && !forwarding.isint{
             match forwarding.typ{
                 0=>{
                     return (forwarding.fdata,false);
+                }
+                1=>{
+                    return (self.f_regs[reg_addr as usize],true);
+                }
+                2=>{
+                    return (self.f_regs[reg_addr as usize],false);
+                }
+                _ =>{ return (self.f_regs[reg_addr as usize],false);}
+            }
+        }
+        if reg_addr == forwarding2.rd && !forwarding2.isint{
+            match forwarding2.typ{
+                0=>{
+                    return (forwarding2.fdata,false);
                 }
                 1=>{
                     return (self.f_regs[reg_addr as usize],true);
@@ -667,7 +697,7 @@ impl Riscv64Core for EnvBase{
         }
     }
     #[allow(unused_variables)]
-    fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite)->(ForMem,ForWrite){
+    fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite,forwarding2:ForWrite)->(ForMem,ForWrite){
         
         if self.toukei.contains_key(&dec_inst){
             //self.toukei[&dec_inst] =self.toukei[&dec_inst]+1;
@@ -686,7 +716,7 @@ impl Riscv64Core for EnvBase{
         let (formem,forwrite)=
         match dec_inst{
             RiscvInst::LB  => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr);
@@ -696,7 +726,7 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{typ:1,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             RiscvInst::LH  => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr);
@@ -706,7 +736,7 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             RiscvInst::LW  => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE) as AddrType;
                 let reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::WORD, rs1_data, addr );
@@ -715,7 +745,7 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::WORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             RiscvInst::LBU  => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE)as AddrType;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr) as UXlenType;
@@ -725,7 +755,7 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::LHU  => {
                 if self.writing {println!("LHU\n");}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
                 let addr =( rs1_data +imm+STACK_BASE)as AddrType;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr) as UXlenType;
@@ -734,9 +764,9 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::SB  => {
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let imm =  Self::extract_sfield(inst);
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::BYTE, rs2_data, addr);
                 if self.writing {println!("SB {},{}({})\n",rs2,imm,rs1);}
@@ -744,9 +774,9 @@ impl Riscv64Core for EnvBase{
             
             }
             RiscvInst::SH  => {
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let imm =  Self::extract_sfield(inst);
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
                  self.mem_access(MemType::STORE, MemSize::HWORD, rs2_data, addr);
                  if self.writing {println!("SH {},{}({})\n",rs2,imm,rs1);}
@@ -754,9 +784,9 @@ impl Riscv64Core for EnvBase{
             
             }
             RiscvInst::SW  => {
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let imm =  Self::extract_sfield(inst);
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::WORD, rs2_data, addr);
                 if self.writing {println!("SW {},{}({})\n",rs2,imm,rs1);}
@@ -765,7 +795,7 @@ impl Riscv64Core for EnvBase{
                
             }
             RiscvInst::ADDI => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm_data = Self::extract_ifield(inst);
                 let reg_data:XlenType = (Wrapping(rs1_data)+Wrapping(imm_data)).0;
                 self.write_reg(rd,reg_data);
@@ -775,8 +805,8 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::BEQ | RiscvInst::BNE | RiscvInst::BLT | RiscvInst::BGE | RiscvInst::BLTU | RiscvInst::BGEU => {
                 if self.writing {println!("HIKAKU\n");}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let addr:AddrType = Self::extract_sb_field(inst) as AddrType;
                 let jump_en: bool;
                 jump_en = 
@@ -806,16 +836,16 @@ impl Riscv64Core for EnvBase{
             
             }
             RiscvInst::ADD => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let reg_data:XlenType = (Wrapping(rs1_data) + Wrapping(rs2_data)).0;
                 self.write_reg(rd, reg_data);
                 if self.writing {println!("ADD {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::SUB => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let reg_data:XlenType = (Wrapping(rs1_data) - Wrapping(rs2_data)).0;
                 self.write_reg(rd, reg_data);
                 if self.writing {println!("SUB {},{},{}\n",rd,rs1,rs2);}
@@ -832,7 +862,7 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::JALR => {
                 let mut addr: AddrType = Self::extract_ifield (inst) as AddrType;
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data = rs1_data as AddrType;
                 addr = (Wrapping(rs1_data) + Wrapping(addr)).0;
                 addr = addr & (!0x01);
@@ -846,19 +876,19 @@ impl Riscv64Core for EnvBase{
             
             }
             RiscvInst::CSRRW  => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let reg_data:XlenType = self.m_csr.csrrw (csr_addr, rs1_data);
                 self.write_reg(rd, reg_data);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::CSRRS  => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let reg_data:XlenType = self.m_csr.csrrs (csr_addr, rs1_data);
                 self.write_reg(rd, reg_data);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::CSRRC  => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let reg_data:XlenType = self.m_csr.csrrc (csr_addr, rs1_data);
                 self.write_reg(rd, reg_data);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
@@ -884,7 +914,7 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::FLW  => {
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE) as AddrType;
                 let reg_data:f32 = self.fmem_access(MemType::LOAD, MemSize::WORD, 0.0, addr);
@@ -895,8 +925,8 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FSW  => {
 
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
                 let addr = (rs1_data +imm+STACK_BASE) as AddrType;
                 self.fmem_access(MemType::STORE, MemSize::WORD, rs2_data, addr);
@@ -906,9 +936,9 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FMADDS=>{
                
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
-                let (rs3_data,stall)  = self.fread_regfor (rs3,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
                 let reg_data = rs1_data*rs2_data+rs3_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);}
@@ -916,74 +946,74 @@ impl Riscv64Core for EnvBase{
             
             }
             RiscvInst::FMSUBS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
-                let (rs3_data,stall)  = self.fread_regfor (rs3,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
                 let reg_data = rs1_data*rs2_data-rs3_data;
                 self.fwrite_reg(rd,reg_data);
                 if self.writing {println!("FMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FNMSUBS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
-                let (rs3_data,stall)  = self.fread_regfor (rs3,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
                 let reg_data = -rs1_data*rs2_data+rs3_data;
                 self.fwrite_reg(rd,reg_data);
                 if self.writing {println!("FNMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FNMADDS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
-                let (rs3_data,stall)  = self.fread_regfor (rs3,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
                 let reg_data = -rs1_data*rs2_data-rs3_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FNMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FADDS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let reg_data = rs1_data+rs2_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FADDS {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSUBS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let reg_data = rs1_data-rs2_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FSUBS {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FMULS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let reg_data = rs1_data *rs2_data;
                 self.fwrite_reg(rd,reg_data);
                 if self.writing {println!("FMULS {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FDIVS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let reg_data = rs1_data / rs2_data;
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FDIVS {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSQRTS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let reg_data = rs1_data.sqrt();
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("SQRTS {},{}\n",rd,rs1);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSGNJS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let rs1_data=EnvBase::float_to_int(rs1_data);
                 let rs2_data=EnvBase::float_to_int(rs2_data);
                 let data = rs1_data&(!0x8000)|(rs2_data&0x8000);
@@ -993,8 +1023,8 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:ato,isint:false,issigned:false})
             }
             RiscvInst::FSGNJNS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
 
                 let rs1_data=EnvBase::float_to_int(rs1_data);
                 let rs2_data=EnvBase::float_to_int(rs2_data);
@@ -1005,8 +1035,8 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSGNJXS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
 
                 let rs1_data=EnvBase::float_to_int(rs1_data);
                 let rs2_data=EnvBase::float_to_int(rs2_data);
@@ -1017,24 +1047,24 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FMINS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let reg_data = if rs1_data > rs2_data {rs2_data}else{rs1_data};
                 self.fwrite_reg(rd,reg_data);               
                 if self.writing {println!("FMINS {},{},{}\n",rd,rs1,rs2); }
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FMAXS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let reg_data = if rs1_data > rs2_data{rs1_data}else{rs2_data};
                 self.fwrite_reg(rd,reg_data);         
                 if self.writing {println!("FMAXS {},{},{}\n",rd,rs1,rs2);            }
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FEQS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                let reg_data = 
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
                    0
@@ -1048,8 +1078,8 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FLTS=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let reg_data = 
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
                    0
@@ -1063,8 +1093,8 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FLES=>{
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.fread_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let reg_data =
                 if rs1_data==f32::NAN||rs2_data==f32::NAN{
                    0
@@ -1079,7 +1109,7 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FCLASSS=>{
                 if self.writing {println!("FCLASSS {}\n",rs1);}
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let res =
                     if rs1_data == f32::NEG_INFINITY{0}
                     else if rs1_data == f32::INFINITY{7}
@@ -1098,7 +1128,7 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FCVTWS=>{
                 if self.writing {println!("FCVTWS {}\n",rs1);}
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{i32::MAX}
                     else if rs1_data == f32::NEG_INFINITY{i32::MIN}
@@ -1137,7 +1167,7 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FCVTWUS=>{
                 if self.writing {println!("FCVTWUS {}\n",rs1);}
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{u32::MAX}
                     else if rs1_data == f32::NEG_INFINITY{u32::MIN}
@@ -1175,14 +1205,14 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FMVXW=>{
                 if self.writing {println!("FMVXW {}\n",rs1);}
-                let (rs1_data,stall)  = self.fread_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let reg_data = EnvBase::float_to_int(rs1_data);
                 self.write_reg(rd,reg_data);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FMVWX=>{
                 if self.writing {println!("FMVWX {}\n",rs1);}
-                let (rs1_data,stall)=self.read_regfor(rs1,forwarding);
+                let (rs1_data,stall)=self.read_regfor(rs1,forwarding,forwarding2);
                 let reg_data = EnvBase::int_to_float(rs1_data as u32);
                 self.fwrite_reg(rd, EnvBase::int_to_float(rs1_data as u32));
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
@@ -1190,14 +1220,14 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FCVTSW=>{
                 if self.writing {println!("FCVTSW {}\n",rs1);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let reg_data = rs1_data as f32;
                 self.fwrite_reg(rd,reg_data);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FCVTSWU=>{
                 if self.writing {println!("FCVTSW {}\n",rs1);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data = rs1_data as u32;
                 let reg_data = rs1_data as f32;
                 self.fwrite_reg(rd,reg_data);
@@ -1206,9 +1236,9 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::MUL =>{
                 if self.writing {println!("MUL {},{},{}",rd,rs1,rs2);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data =rs1_data as u32 as u64;
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let rs2_data =rs2_data as u32 as u64;
                 let moto = rs1_data*rs2_data& 0x0000ffff;
                 let moto = moto as i32;
@@ -1218,9 +1248,9 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::MULH =>{
                 if self.writing {println!("MULH {},{},{}",rd,rs1,rs2);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data = rs1_data as i64;
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let rs2_data = rs2_data as i64;
                 let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
                 let moto = moto as i32;
@@ -1234,9 +1264,9 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::MULHU=>{
                 if self.writing {println!("MULH {},{},{}",rd,rs1,rs2);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data =rs1_data as u32 as u64;
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let rs2_data =rs2_data as u32 as u64;
                 let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
                 let moto = moto as i32;
@@ -1246,8 +1276,8 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::DIV =>{
                 if self.writing {println!("DIV {},{},{}",rd,rs1,rs2);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let moto = (rs1_data/rs2_data)& 0x0000ffff;
                 let moto = moto as i32;
                 self.write_reg(rd, moto as i32);
@@ -1256,9 +1286,9 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::DIVU =>{
                 if self.writing {println!("DIV {},{},{}",rd,rs1,rs2);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data =rs1_data as u32;
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let rs2_data =rs2_data as u32;
                 let moto = (rs1_data/rs2_data)& 0x0000ffff;
                 let moto = moto as i32;
@@ -1268,8 +1298,8 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::REM =>{
                 if self.writing {println!("REM {},{},{}",rd,rs1,rs2);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let rs2_data = if rs2_data < 0{-rs2_data}else{rs2_data};
                 let moto =
                     if rs1_data < 0{
@@ -1287,9 +1317,9 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::REMU =>{
                 if self.writing {println!("REMU {},{},{}",rd,rs1,rs2);}
-                let (rs1_data,stall)  = self.read_regfor (rs1,forwarding);
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data =rs1_data as u32;
-                let (rs2_data,stall)  = self.read_regfor (rs2,forwarding);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let rs2_data =rs2_data as u32;
                 let moto = (rs1_data%rs2_data)as i32;
                 self.write_reg(rd,moto);
