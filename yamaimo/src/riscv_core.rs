@@ -71,6 +71,13 @@ pub struct ForWrite{
     pub typ:u8,//0:forwarding,1:stall,2:not_access
 }
 pub struct EnvBase{
+    pub fetch_pc:AddrType,
+    pub nowinst:u32,
+    pub nowdecinst:RiscvInst,
+    pub nowformem:ForMem,
+    pub nowforwrite:ForWrite,
+    pub maeforwrite:ForWrite,
+
     pub m_pc:AddrType,//Program Counter
     pub m_regs:[XlenType;32],
     pub f_regs:[f32;32],
@@ -89,6 +96,12 @@ pub struct EnvBase{
 impl EnvBase{
     pub fn new() -> EnvBase{
         EnvBase {
+            fetch_pc:DRAM_BASE as AddrType,
+            nowinst:0,
+            nowdecinst:RiscvInst::WFI,
+            maeforwrite:ForWrite{rd:0,..Default::default()},
+            nowformem:ForMem{addr:0,data:0,fdata:0.0,isint:true,memsize:MemSize::WORD,memtype:MemType::NOP},
+            nowforwrite:Default::default(),
             toukei:HashMap::new(),
             m_pc:DRAM_BASE as AddrType,
             m_memory :[0;DRAM_SIZE],

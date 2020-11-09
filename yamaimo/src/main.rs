@@ -34,8 +34,6 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let finish = false;
     let mut step = true;
     let mut renzoku = 0;
-    let mut forwarding:ForWrite=ForWrite{rd:0,isint:true,..Default::default()};
-    let mut formem:ForMem;
     while !finish&& !riscv64_core.get_is_finish_cpu () {
 
         if step&&renzoku >= 0{
@@ -88,9 +86,10 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             continue;
         }
         let inst_decode = riscv64_core.decode_inst(inst_data);
-        let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,forwarding);
-       formem = formembuf;
-       forwarding = forwardingbuf;
+        let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,riscv64_core.maeforwrite);
+       riscv64_core.nowformem = formembuf;
+       riscv64_core.maeforwrite = riscv64_core.nowforwrite;
+       riscv64_core.nowforwrite=forwardingbuf;
 
 
         
