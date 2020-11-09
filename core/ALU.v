@@ -13,10 +13,10 @@ module ALU (ALUctl, A, B, ALUOut, Zero);
         case (ALUctl)
             0: ALUOut <= A & B;
             1: ALUOut <= A | B;
-            2: ALUOut <= A + B;
-            6: ALUOut <= A - B;
-            7: ALUOut <= A < B ? 1 : 0;
-            8: ALUOut <= A >= B ? 1 : 0;
+            2: ALUOut <= $signed(A) + $signed(B);
+            6: ALUOut <= $signed(A) - $signed(B);
+            7: ALUOut <= $signed(A) < $signed(B) ? 1 : 0;
+            8: ALUOut <= $signed(A) >= $signed(B) ? 1 : 0;
             9: ALUOut <= A;
             10: ALUOut <= B;
             12: ALUOut <= ~ (A | B); //nor

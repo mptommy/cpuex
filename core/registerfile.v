@@ -15,7 +15,7 @@ module registerfile(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, c
     always @(posedge clk) begin
         if (rst) begin
             RF[0] <= 0;
-            RF[2] <= 1000;
+            RF[2] <= 524284;
         end else begin
             if (RegWrite && (WriteReg != 0)) RF[WriteReg] <= WriteData;
         end

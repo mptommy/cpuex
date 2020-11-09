@@ -7,7 +7,7 @@ module block_ram(clk, en, we, rst, addr, di, dout);
     input [31:0] di;
     output reg [31:0] dout;
 
-    (* ram_style = "BLOCK" *) reg [31:0] ram [255:0];
+    (* ram_style = "BLOCK" *) reg [31:0] ram [131071:0];
 
     always @ (posedge clk)
     begin
