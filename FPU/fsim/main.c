@@ -5,14 +5,16 @@
 #include "util.h"
 #include "faddsub.h"
 #include "fmul.h"
+#include "finv.h"
 
 int main(){
   char command[8], opc[8];
   int n, miss;
   float a, b, ans, trueans;
-  unsigned int ua, ub;
+  unsigned int ua, ub, uans, utrueans, diff;
   OPERATOR oper;
   srand((unsigned)time(NULL));
+  LoadTable();
   while(1){
     printf("command: ");
     scanf("%s", command);
@@ -88,6 +90,27 @@ int main(){
       printf("my answer: %f\n", ans);
       PrintFloatBin(ans);
     }
+    else if(strcmp(command, "inv") == 0){
+      printf("Inverting number: ");
+      scanf("%f", &a);
+      PrintFloatBin(a);
+      printf("true answer: %f\n", 1 / a);
+      PrintFloatBin(1 / a);
+      ans = normalize(InvFloat(a));
+      printf("my answer: %f\n", ans);
+      PrintFloatBin(ans);
+    }
+    else if(strcmp(command, "invu") == 0){
+      printf("inverting number(uint): ");
+      scanf("%u", &ua);
+      a = utof(ua);
+      PrintFloatBin(a);
+      printf("true answer: %f\n", 1 / a);
+      PrintFloatBin(1 / a);
+      ans = normalize(InvFloat(a));
+      printf("my answer: %f\n", ans);
+      PrintFloatBin(ans);
+    }
     else if(strcmp(command, "rand") == 0){
       printf("Verifying opecode: ");
       scanf("%s", opc);
@@ -97,6 +120,8 @@ int main(){
         oper = SUB;
       else if(strcmp(opc, "mul") == 0)
         oper = MUL;
+      else if(strcmp(opc, "inv") == 0)
+        oper = INV;
       else
         continue;
       printf("sample number: ");
@@ -118,12 +143,19 @@ int main(){
             ans = MulFloat(a, b);
             trueans = a * b;
             break;
+          case INV:
+            ans = InvFloat(a);
+            trueans = 1 / a;
+            break;
         }
         //printf("%f %f %f %f ", a, b, a+b, ans);
         /*if(ans == a + b){
           printf("OK\n");
         }*/
-        if(ans != trueans){
+        uans = ftou(ans);
+        utrueans = ftou(trueans);
+        diff = (uans >= utrueans) ? uans - utrueans : utrueans - uans;
+        if(ans != trueans && oper != INV){
           miss++;
           printf("%f %f %f %f NG\n", a, b, trueans, ans);
           printf("uint: %u %u\n", ftou(a), ftou(b));
@@ -131,6 +163,17 @@ int main(){
           PrintFloatBin(b);
           PrintFloatBin(trueans);
           PrintFloatBin(ans);
+        }
+        else if(ans != trueans && oper == INV){
+          printf("diff = %u\n", diff);
+          if(diff >= 5 && GetE(a) != 0 && GetE(a) != emask && GetE(trueans) != 0 && GetE(trueans) != emask){
+            miss++;
+            printf("%f %f %f NG\n", a, trueans, ans);
+            printf("uint: %u\n", ftou(a));
+            PrintFloatBin(a);
+            PrintFloatBin(trueans);
+            PrintFloatBin(ans);
+          }
         }
       }
       if(!miss)

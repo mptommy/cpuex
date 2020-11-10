@@ -22,6 +22,8 @@ unsigned int ftou(float a);
 float utof(unsigned int u);
 void PrintUIntBin(unsigned int u);
 void PrintULLBin(unsigned long long ull);
+void GetCharUIntBin_NoSpace(unsigned int u, char s[]);
+void GetCharULLBin_NoSpace(unsigned long long ull, char s[]);
 void PrintFloatBin(float a);
 unsigned int GetS(float a);
 unsigned int GetE(float a);

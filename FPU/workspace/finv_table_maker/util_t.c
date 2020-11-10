@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "util.h"
+#include <string.h>
+#include "util_t.h"
 
 const unsigned int emask = ((1 << 8) - 1) << 23;
 const unsigned int fmask =  (1 << 23) - 1;
@@ -46,6 +47,26 @@ void PrintULLBin(unsigned long long ull){
     }
   }
   printf("%s\n", bin);
+}
+
+void GetCharUIntBin_NoSpace(unsigned int u, char s[]){
+  char bin[33];
+  bin[32] = '\0';
+  for(int i=31;i >= 0;i--){
+    bin[i] = (u % 2) + '0';
+    u >>= 1;
+  }
+  strncpy(s, bin, 33);
+}
+
+void GetCharULLBin_NoSpace(unsigned long long ull, char s[]){
+  char bin[65];
+  bin[64] = '\0';
+  for(int i=63;i >= 0;i--){
+    bin[i] = (ull % 2) + '0';
+    ull >>= 1;
+  }
+  strncpy(s, bin, 65);
 }
 
 void PrintFloatBin(float a){

@@ -1,22 +1,31 @@
 `default_nettype none
 module finv (
-    input wire [31:0] x1,
-    input wire [31:0] x2,
+    input wire [31:0] x,
     output wire [31:0] y,
-    output wire ovf/*,
+    //output wire ovf,
     input wire clk,
-    input wire rstn*/); 
- 
+    input wire rstn); 
 //reg[31:0] x1rn;
-//reg[31:0] x2rn;
+// 1. {s,e,m} = x
+wire s = x[31];
+wire [7:0] e = x[30:23];
+wire [9:0] a0 = x[22:13];
+wire [12:0] a1 = x[12:0];
+wire [57:0] cst;
+wire [34:0] grd;
+wire [47:0] a1grd;
+wire [57:0] mtmp;
+wire [7:0] ye;
+wire [22:0] ym;
 
-// 1. {s1,e1,m1} = x1、{s2,e2,m2} = x2
-wire s1 = x1[31];
-wire [7:0] e1= x1[30:23];
-wire [22:0] m1 = x1[22:0];
-wire s2 = x2[31];
-wire [7:0] e2= x2[30:23];
-wire [22:0] m2 = x2[22:0];
+finv_load_const_table u1 (a0, cst, clk);
+finv_load_grad_table u2 (a0, grd, clk);
+
+assign ye = 253 - e;  //e = 254がアヤシイ
+assign a1grd = a1 * grd;
+assign mtmp = cst - a1grd;
+assign ym = mtmp[56:34] + mtmp[33];  //適当に丸めている
+assign y = {s, ye, ym};
 
 /*assign y = (e1r == 8'd255 && e2r!= 8'd255)? {s1r,8'd255,nzm1,m1r[21:0]}:
                       (e1r != 8'd255 && e2r== 8'd255)? {s2r,8'd255,nzm2,m2r[21:0]}:
