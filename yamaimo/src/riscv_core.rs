@@ -39,6 +39,97 @@ pub enum RiscvInst{
     MUL,MULH,MULHSU,MULHU,DIV,DIVU,REM,REMU
 }
 #[derive(Copy,Clone)]
+#[derive(Debug)]
+pub enum NRiscvInst{
+    LUI(u8,i32),
+    AUIPC(u8,i32),
+    ADDI(u8,i32,i32),
+    SLTI(u8,i32,i32),
+    SLTIU(u8,i32,i32),
+    XORI(u8,i32,i32),
+    ORI(u8,i32,i32),
+    ANDI(u8,i32,i32),
+    SLLI(u8,i32,i32),
+    SRAI(u8,i32,i32),
+    SRLI(u8,i32,i32),
+    ADD(u8,i32,i32),
+    SUB(u8,i32,i32),
+    SLL(u8,i32,i32),
+    SLT(u8,i32,i32),
+    SLTU(u8,i32,i32),
+    XOR(u8,i32,i32),
+    SRL(u8,i32,i32),
+    SRA(u8,i32,i32),
+    OR(u8,i32,i32),
+    AND(u8,i32,i32),
+    FENCE(i32,i32),
+    FENCEI,
+    CSRRW(u8,i32,u8),
+    CSRRS(u8,i32,u8),
+    CSRRC(u8,i32,u8),
+    CSRRWI(u8,i32,i32),
+    CSRRSI(u8,i32,i32),
+    CSRRCI(u8,i32,i32),
+    ECALL,
+    EBREAK,
+    URET,
+    SRET,
+    MRET,
+    WFI,
+    SFVMA(u8,u8),
+    LB(u8,i32,i32),
+    LH(u8,i32,i32),
+    LW(u8,i32,i32),
+    LBU(u8,i32,i32),
+    LHU(u8,i32,i32),
+    SB(u8,i32,i32),
+    SH(u8,i32,i32),
+    SW(u8,i32,i32),
+    JAL(u8,i32),
+    JALR(u8,i32,i32),
+    BEQ(i32,i32,i32),
+    BNE(i32,i32,i32),
+    BLT(i32,i32,i32),
+    BGE(i32,i32,i32),
+    BLTU(i32,i32,i32),
+    BGEU(i32,i32,i32),
+    LA(u8,i32),
+    FMADDS(u8,f32,f32,f32),
+    FMSUBS(u8,f32,f32,f32),
+    FNMADDS(u8,f32,f32,f32),
+    FNMSUBS(u8,f32,f32,f32),
+    FADDS(u8,f32,f32),
+    FSUBS(u8,f32,f32),
+    FMULS(u8,f32,f32),
+    FDIVS(u8,f32,f32),
+    FSQRTS(u8,f32),
+    FSGNJS(u8,f32,f32),
+    FSGNJNS(u8,f32,f32),
+    FSGNJXS(u8,f32,f32),
+    FMINS(u8,f32,f32),
+    FMAXS(u8,f32,f32),
+    FCVTWS(u8,f32),
+    FCVTWUS(u8,f32),
+    FMVXW(u8,f32),
+    FEQS(u8,f32,f32),
+    FLTS(u8,f32,f32),
+    FLES(u8,f32,f32),
+    FCLASSS(u8,f32),
+    FCVTSW(u8,f32),
+    FCVTSWU(u8,f32),
+    FMVWX(u8,i32),
+    FLW(u8,i32,i32),
+    FSW(u8,i32,i32),
+    MUL(u8,i32,i32),
+    MULH(u8,i32,i32),
+    MULHSU(u8,i32,i32),
+    MULHU(u8,i32,i32),
+    DIV(u8,i32,i32),
+    DIVU(u8,i32,i32),
+    REM(u8,i32,i32),
+    REMU(u8,i32,i32),
+}
+#[derive(Copy,Clone)]
 pub enum MemType {
     LOAD  = 0,
     STORE = 1,
@@ -263,6 +354,7 @@ pub trait Riscv64Core{
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst;
     fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite,forwarding2:ForWrite)->(ForMem,ForWrite);
 
+    fn decode(&mut self,inst:XlenType,forwarding:ForWrite,forwarding2:ForWrite)->NRiscvInst;
     fn mem_access(&mut self,op:MemType,size:MemSize,data:XlenType,addr:AddrType)->XlenType;
     fn fmem_access(&mut self,op:MemType,size:MemSize,data:f32,addr:AddrType)->f32;
     fn mem_access_unit(&mut self,mem:ForMem,write:ForWrite)->ForWrite;
@@ -456,7 +548,297 @@ impl Riscv64Core for EnvBase{
         self.m_memory[base_addr as usize] = (data & 0xff) as u8;
         return 0;
     }
+    #[allow(unused_variables)]
+    fn decode(&mut self,inst:XlenType,forwarding:ForWrite,forwarding2:ForWrite)->NRiscvInst{
+        let instu = inst as InstType;
+        let rs1 = Self::get_rs1_addr(instu);
+        let rs2 = Self::get_rs2_addr(instu);
+        let rs3=Self::get_rs3_addr(instu);
+        let rd  = Self::get_rd_addr(instu);
+        let rm = Self::get_rm_addr(instu);
+        let csr_addr =CsrAddr::from_u64(((inst>>20)&0x0fff)as u64);
 
+        let opcode = inst & 0x7f;
+        let funct3 = (inst >> 12)&0x07;
+        //let funct5 = (inst >> 25)&0x1f;
+        let funct2 = (inst >> 25)&0x03;
+        let funct7 = (inst >> 25)&0x7f;
+        let imm12 = (inst>> 20)&0xfff;
+        let shamt =(inst >> 20)&0x1f;
+        let imm =  Self::extract_ifield(instu);
+        let addimm = Self::extract_uj_field(instu);
+        match opcode {
+            0x0f => {
+                match funct3 {
+                    0b000 => NRiscvInst::FENCE(0,0),//とりあえずの0
+                    0b001 => NRiscvInst::FENCEI,
+                    _     => NRiscvInst::ADDI(0,0,0),
+                }
+            }
+            0x33 => {
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                match funct3 {
+                    0b000 => { 
+                       
+                        match funct7 {
+            
+                            0b0000000 => NRiscvInst::ADD(rd,rs1_data,rs2_data),
+                            0b0100000 => NRiscvInst::SUB(rd,rs1_data,rs2_data),
+                            _         => NRiscvInst::ADDI(0,0,0),
+                        }
+                    }
+                    0b001 => NRiscvInst::SLL(rd,rs1_data,rs2_data),
+                    0b010 => NRiscvInst::SLT(rd,rs1_data,rs2_data),
+                    0b011 => NRiscvInst::SLTU(rd,rs1_data,rs2_data),
+                    0b100 => NRiscvInst::XOR(rd,rs1_data,rs2_data),
+                    0b101 => {
+                        match funct7 {
+                            0b0000000 => NRiscvInst::SRL(rd,rs1_data,rs2_data),
+                            0b0100000 => NRiscvInst::SRA(rd,rs1_data,rs2_data),
+                            _         => NRiscvInst::ADDI(0,0,0)
+                        }
+                    }
+                    0b110 => NRiscvInst::OR(rd,rs1_data,rs2_data),
+                    0b111 => NRiscvInst::AND(rd,rs1_data,rs2_data),
+                    _     => NRiscvInst::ADDI(0,0,0),
+                }
+            }
+            0x03 =>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                match funct3 {
+                    0b000 => NRiscvInst::LB(rd,rs1_data,imm),
+                    0b001 => NRiscvInst::LH(rd,rs1_data,imm),
+                    0b010 => NRiscvInst::LW(rd,rs1_data,imm),
+                    0b100 => NRiscvInst::LBU(rd,rs1_data,imm),
+                    0b101 => NRiscvInst::LHU(rd,rs1_data,imm),
+                    _     => NRiscvInst::ADDI(0,0,0),
+                }
+            }
+            0x23 =>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                match funct3 {
+                    0b000 => NRiscvInst::SB(rd,rs1_data,imm),
+                    0b001 => NRiscvInst::SH(rd,rs1_data,imm),
+                    0b010 => NRiscvInst::SW(rd,rs1_data,imm),
+                    _     => NRiscvInst::ADDI(0,0,0),
+                }
+            }
+            0x37 => NRiscvInst::LUI(rd,imm),
+            0x17 => NRiscvInst::AUIPC(rd,imm),
+            0x63 => {
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                match funct3 {
+                    0b000 => NRiscvInst::BEQ(rs1_data,rs2_data,imm),
+                    0b001 => NRiscvInst::BNE(rs1_data,rs2_data,imm),
+                    0b100 => NRiscvInst::BLT(rs1_data,rs2_data,imm),
+                    0b101 => NRiscvInst::BGE(rs1_data,rs2_data,imm),
+                    0b110 => NRiscvInst::BLTU(rs1_data,rs2_data,imm),
+                    0b111 => NRiscvInst::BGEU(rs1_data,rs2_data,imm),
+                    _     => NRiscvInst::ADDI(0,0,0),
+                }
+            }
+            0x13 => {
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                match funct3 {
+                    0b000 => NRiscvInst::ADDI(rd,rs1_data,imm),
+                    0b010 => NRiscvInst::SLTI(rd,rs1_data,imm),
+                    0b011 => NRiscvInst::SLTIU(rd,rs1_data,imm),
+                    0b100 => NRiscvInst::XORI(rd,rs1_data,imm),
+                    0b110 => NRiscvInst::ORI(rd,rs1_data,imm),
+                    0b111 => NRiscvInst::ANDI(rd,rs1_data,imm),
+                    0b001 => NRiscvInst::SLLI(rd,rs1_data,imm),
+                    0b101 => {
+                        match funct7 {
+                            0b0000000 => NRiscvInst::SRLI(rd,rs1_data,imm),
+                            0b0100000 => NRiscvInst::SRAI(rd,rs1_data,imm),
+                            _         => NRiscvInst::ADDI(0,0,0),
+                        }
+                    }
+                    _     => NRiscvInst::ADDI(0,0,0),
+                }
+            }
+            0x6f => NRiscvInst::JAL(rd,addimm),
+            0x67 =>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                 NRiscvInst::JALR(rd,rs1_data,addimm)},
+            0x73 => {
+                match funct3 {
+                    0x000 => {
+                        match imm12 {
+                            0x000 => NRiscvInst::ECALL,
+                            0x001 => NRiscvInst::EBREAK,
+                            0x002 => NRiscvInst::URET,
+                            0x102 => NRiscvInst::SRET,
+                            0x302 => NRiscvInst::MRET,
+                            _     => NRiscvInst::ADDI(0,0,0),
+                        }
+                    }
+                    0b001 => NRiscvInst::CSRRW(0,0,0)  ,//暫定
+                    0b010 => NRiscvInst::CSRRS(0,0,0)   ,
+                    0b011 => NRiscvInst::CSRRC(0,0,0)   ,
+                    0b101 => NRiscvInst::CSRRWI(0,0,0)  ,
+                    0b110 => NRiscvInst::CSRRSI(0,0,0)  ,
+                    0b111 => NRiscvInst::CSRRCI(0,0,0)  ,
+                    _     => NRiscvInst::ADDI(0,0,0)    ,
+                }
+            },
+            0x07 =>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                match funct3{
+                    0b010 =>NRiscvInst::FLW(rd,rs1_data,imm),
+                    _ => panic!("見落とし"),
+                    }
+            },
+            0x27 =>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                match funct3{
+                    0b010 => NRiscvInst::FSW(rd,rs1_data,imm),
+                    _ => panic!("見落とし"),
+                }
+            },
+            0x43=>{
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
+                match funct2{
+                    0b00 => NRiscvInst::FMADDS(rd,rs1_data,rs2_data,rs3_data),
+                    _ => panic!("見落とし"),
+                }
+            },
+            0x47 =>{
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
+                match funct2{
+                    0b00 => NRiscvInst::FMSUBS(rd,rs1_data,rs2_data,rs3_data),
+                    _=>panic!("見落とし"),
+                }
+            },
+            0b1001011=>{
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
+                match funct2 {
+                    0b00=>NRiscvInst::FNMSUBS(rd,rs1_data,rs2_data,rs3_data),
+                    _=>panic!("MM"),
+                }
+            },
+            0b1001111=>{
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
+                match funct2 {
+                    0b00 => NRiscvInst::FNMADDS(rd,rs1_data,rs2_data,rs3_data),
+                    _ =>panic!("MM"),
+                }
+            },
+            0b1010011=>{
+                
+                
+                match funct7{
+                    0b0=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);NRiscvInst::FADDS(rd,rs1_data,rs2_data)},
+                    0x4=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);NRiscvInst::FSUBS(rd,rs1_data,rs2_data)},
+                    0x8=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);NRiscvInst::FMULS(rd,rs1_data,rs2_data)},
+                    0xc=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);NRiscvInst::FDIVS(rd,rs1_data,rs2_data)},
+                    0x2c=>{
+                        match shamt{
+                            0=>{let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);NRiscvInst::FSQRTS(rd,rs1_data)},
+                            _ =>panic!("MM")
+                        }
+                    },
+                    0x10=>{
+                        let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                        let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                        match funct3{
+                            0b000 =>NRiscvInst::FSGNJS(rd,rs1_data,rs2_data),
+                            0b001 => NRiscvInst::FSGNJNS(rd,rs1_data,rs2_data),
+                            0b010 => NRiscvInst::FSGNJXS(rd,rs1_data,rs2_data),
+                            _ => panic!("MM"),
+                        }
+                    },
+                    0x14=>{
+                        let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                        let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                        match funct3{
+                            0b000=>NRiscvInst::FMINS(rd,rs1_data,rs2_data),
+                            0b001 =>NRiscvInst::FMAXS(rd,rs1_data,rs2_data),
+                            _ =>panic!("MM"),
+                        }
+                    },
+                    0x60=>{
+                        let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                        match shamt{
+                            0b0=>NRiscvInst::FCVTWS(rd,rs1_data),
+                            0b1=>NRiscvInst::FCVTWUS(rd,rs1_data),
+                            _=>panic!("MM"),
+                        }
+                    },
+                    0x70=>{
+                        match shamt{
+                            0=>{
+                                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                                match funct3{
+                                    0=> NRiscvInst::FMVXW(rd,rs1_data),
+                                    1=>NRiscvInst::FCLASSS(rd,rs1_data),
+                                    _ => panic!("MM")
+                                }
+                            }
+                            _=>panic!("MM"),
+                        }
+                    },
+                    0x50=>{
+                        let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                        let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
+                        match funct3{    
+                            0b010=>NRiscvInst::FEQS(rd,rs1_data,rs2_data),
+                            0b001=>NRiscvInst::FLTS(rd,rs1_data,rs2_data),
+                            0b000=>NRiscvInst::FLES(rd,rs1_data,rs2_data),
+                            _ => panic!("MM"),
+                        }
+                    },
+                    0x68=>{
+                        let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                        match shamt{
+                            0b0=>NRiscvInst::FCVTSW(rd,rs1_data),
+                            0b1=>NRiscvInst::FCVTSWU(rd,rs1_data),
+                            _=>panic!("MM"),
+                        }
+                    },
+                    0x78=>{
+                        match shamt{
+                            0b0=>{
+                                let (rs1_data,stall)=self.read_regfor(rs1,forwarding,forwarding2);
+                                match funct3{
+                                    0b0 => NRiscvInst::FMVWX(rd,rs1_data),
+                                    _ => panic!("MM"),
+                                }
+                            },
+                            _ => panic!("MM"),
+                        }
+                    },
+                    0x33=>{
+                        let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                        let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                        match funct3{
+                            0 => NRiscvInst::MUL(rd,rs1_data,rs2_data),
+                            1 => NRiscvInst::MULH(rd,rs1_data,rs2_data),
+                            2 => NRiscvInst::MULHSU(rd,rs1_data,rs2_data),
+                            3 => NRiscvInst::MULHU(rd,rs1_data,rs2_data),
+                            4 => NRiscvInst::DIV(rd,rs1_data,rs2_data),
+                            5 => NRiscvInst::DIVU(rd,rs1_data,rs2_data),
+                            6 => NRiscvInst::REM(rd,rs1_data,rs2_data),
+                            7 => NRiscvInst::REMU(rd,rs1_data,rs2_data),
+                            _ => panic!("funct3 strange")
+                        }
+                    }
+                    _ =>panic!("MM"),
+                }
+            }
+            _    => NRiscvInst::WFI,
+        }
+    }
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst{
         let opcode = inst & 0x7f;
         let funct3 = (inst >> 12)&0x07;
