@@ -82,9 +82,9 @@ pub enum NRiscvInst{
     LW(u8,i32,i32),
     LBU(u8,i32,i32),
     LHU(u8,i32,i32),
-    SB(u8,i32,i32),
-    SH(u8,i32,i32),
-    SW(u8,i32,i32),
+    SB(i32,i32,i32),
+    SH(i32,i32,i32),
+    SW(i32,i32,i32),
     JAL(u8,i32),
     JALR(u8,i32,i32),
     BEQ(i32,i32,i32),
@@ -108,8 +108,8 @@ pub enum NRiscvInst{
     FSGNJXS(u8,f32,f32),
     FMINS(u8,f32,f32),
     FMAXS(u8,f32,f32),
-    FCVTWS(u8,f32),
-    FCVTWUS(u8,f32),
+    FCVTWS(u8,f32,u8),
+    FCVTWUS(u8,f32,u8),
     FMVXW(u8,f32),
     FEQS(u8,f32,f32),
     FLTS(u8,f32,f32),
@@ -119,7 +119,7 @@ pub enum NRiscvInst{
     FCVTSWU(u8,f32),
     FMVWX(u8,i32),
     FLW(u8,i32,i32),
-    FSW(u8,i32,i32),
+    FSW(i32,f32,i32),
     MUL(u8,i32,i32),
     MULH(u8,i32,i32),
     MULHSU(u8,i32,i32),
@@ -353,7 +353,7 @@ pub trait Riscv64Core{
     fn fread_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite,forwarding2:ForWrite)->(f32,bool);
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst;
     fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite,forwarding2:ForWrite)->(ForMem,ForWrite);
-
+    fn execute(&mut self,dec_inst:NRiscvInst,inst:InstType)->(ForMem,ForWrite);
     fn decode(&mut self,inst:XlenType,forwarding:ForWrite,forwarding2:ForWrite)->NRiscvInst;
     fn mem_access(&mut self,op:MemType,size:MemSize,data:XlenType,addr:AddrType)->XlenType;
     fn fmem_access(&mut self,op:MemType,size:MemSize,data:f32,addr:AddrType)->f32;
@@ -566,7 +566,8 @@ impl Riscv64Core for EnvBase{
         let imm12 = (inst>> 20)&0xfff;
         let shamt =(inst >> 20)&0x1f;
         let imm =  Self::extract_ifield(instu);
-        let addimm = Self::extract_uj_field(instu);
+        let sbimm =Self::extract_sb_field(instu);
+        let ujimm = Self::extract_uj_field(instu);
         match opcode {
             0x0f => {
                 match funct3 {
@@ -583,86 +584,87 @@ impl Riscv64Core for EnvBase{
                        
                         match funct7 {
             
-                            0b0000000 => NRiscvInst::ADD(rd,rs1_data,rs2_data),
-                            0b0100000 => NRiscvInst::SUB(rd,rs1_data,rs2_data),
+                            0b0000000 => {if self.writing {println!("ADD {},{},{}\n",rd,rs1,rs2);}NRiscvInst::ADD(rd,rs1_data,rs2_data)},
+                            0b0100000 => {if self.writing {println!("SUB {},{},{}\n",rd,rs1,rs2);}NRiscvInst::SUB(rd,rs1_data,rs2_data)},
                             _         => NRiscvInst::ADDI(0,0,0),
                         }
                     }
-                    0b001 => NRiscvInst::SLL(rd,rs1_data,rs2_data),
-                    0b010 => NRiscvInst::SLT(rd,rs1_data,rs2_data),
-                    0b011 => NRiscvInst::SLTU(rd,rs1_data,rs2_data),
-                    0b100 => NRiscvInst::XOR(rd,rs1_data,rs2_data),
+                    0b001 => {if self.writing {println!("SLL {},{},{}\n",rd,rs1,rs2);}NRiscvInst::SLL(rd,rs1_data,rs2_data)},
+                    0b010 => {if self.writing {println!("SLT {},{},{}\n",rd,rs1,rs2);}NRiscvInst::SLT(rd,rs1_data,rs2_data)},
+                    0b011 => {if self.writing {println!("SLTU {},{},{}\n",rd,rs1,rs2);}NRiscvInst::SLTU(rd,rs1_data,rs2_data)},
+                    0b100 => {if self.writing {println!("XOR {},{},{}\n",rd,rs1,rs2);}NRiscvInst::XOR(rd,rs1_data,rs2_data)},
                     0b101 => {
                         match funct7 {
-                            0b0000000 => NRiscvInst::SRL(rd,rs1_data,rs2_data),
-                            0b0100000 => NRiscvInst::SRA(rd,rs1_data,rs2_data),
+                            0b0000000 => {if self.writing {println!("SRL {},{},{}\n",rd,rs1,rs2);}NRiscvInst::SRL(rd,rs1_data,rs2_data)},
+                            0b0100000 => {if self.writing {println!("SRA {},{},{}\n",rd,rs1,rs2);}NRiscvInst::SRA(rd,rs1_data,rs2_data)},
                             _         => NRiscvInst::ADDI(0,0,0)
                         }
                     }
-                    0b110 => NRiscvInst::OR(rd,rs1_data,rs2_data),
-                    0b111 => NRiscvInst::AND(rd,rs1_data,rs2_data),
+                    0b110 => {if self.writing {println!("OR {},{},{}\n",rd,rs1,rs2);}NRiscvInst::OR(rd,rs1_data,rs2_data)},
+                    0b111 => {if self.writing {println!("AND {},{},{}\n",rd,rs1,rs2);}NRiscvInst::AND(rd,rs1_data,rs2_data)},
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
             0x03 =>{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 match funct3 {
-                    0b000 => NRiscvInst::LB(rd,rs1_data,imm),
-                    0b001 => NRiscvInst::LH(rd,rs1_data,imm),
-                    0b010 => NRiscvInst::LW(rd,rs1_data,imm),
-                    0b100 => NRiscvInst::LBU(rd,rs1_data,imm),
-                    0b101 => NRiscvInst::LHU(rd,rs1_data,imm),
+                    0b000 => {if self.writing {println!("LB {},{}({})\n",rd,imm,rs1);}NRiscvInst::LB(rd,rs1_data,imm)},
+                    0b001 => {if self.writing {println!("LH {},{}({})\n",rd,imm,rs1);}NRiscvInst::LH(rd,rs1_data,imm)},
+                    0b010 => {if self.writing {println!("LW {},{}({})\n",rd,imm,rs1);}NRiscvInst::LW(rd,rs1_data,imm)},
+                    0b100 => {if self.writing {println!("LBU {},{}({})\n",rd,imm,rs1);}NRiscvInst::LBU(rd,rs1_data,imm)},
+                    0b101 => {if self.writing {println!("LHU {},{}({})\n",rd,imm,rs1);}NRiscvInst::LHU(rd,rs1_data,imm)},
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
             0x23 =>{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 match funct3 {
-                    0b000 => NRiscvInst::SB(rd,rs1_data,imm),
-                    0b001 => NRiscvInst::SH(rd,rs1_data,imm),
-                    0b010 => NRiscvInst::SW(rd,rs1_data,imm),
+                    0b000 => {if self.writing {println!("SB {},{}({})\n",rs2,imm,rs1);}NRiscvInst::SB(rs1_data,rs2_data,imm)},
+                    0b001 => {if self.writing {println!("SH {},{}({})\n",rs2,imm,rs1);}NRiscvInst::SH(rs1_data,rs2_data,imm)},
+                    0b010 => {if self.writing {println!("SW {},{}({})\n",rs2,imm,rs1);}NRiscvInst::SW(rs1_data,rs2_data,imm)},
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
-            0x37 => NRiscvInst::LUI(rd,imm),
-            0x17 => NRiscvInst::AUIPC(rd,imm),
+            0x37 =>  {if self.writing {println!("LUI {},{}\n",rd,imm);}NRiscvInst::LUI(rd,imm)},
+            0x17 => {if self.writing {println!("AUIPC {},{}\n",rd,imm);}NRiscvInst::AUIPC(rd,imm)},
             0x63 => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 match funct3 {
-                    0b000 => NRiscvInst::BEQ(rs1_data,rs2_data,imm),
-                    0b001 => NRiscvInst::BNE(rs1_data,rs2_data,imm),
-                    0b100 => NRiscvInst::BLT(rs1_data,rs2_data,imm),
-                    0b101 => NRiscvInst::BGE(rs1_data,rs2_data,imm),
-                    0b110 => NRiscvInst::BLTU(rs1_data,rs2_data,imm),
-                    0b111 => NRiscvInst::BGEU(rs1_data,rs2_data,imm),
+                    0b000 =>{if self.writing {println!("BEQ {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BEQ(rs1_data,rs2_data,imm)},
+                    0b001 => {if self.writing {println!("BNE {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BNE(rs1_data,rs2_data,imm)},
+                    0b100 => {if self.writing {println!("BLT {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BLT(rs1_data,rs2_data,imm)},
+                    0b101 => {if self.writing {println!("BGE {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BGE(rs1_data,rs2_data,imm)},
+                    0b110 => {if self.writing {println!("BLTU {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BLTU(rs1_data,rs2_data,imm)},
+                    0b111 => {if self.writing {println!("BGEU {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BGEU(rs1_data,rs2_data,imm)},
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
             0x13 => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 match funct3 {
-                    0b000 => NRiscvInst::ADDI(rd,rs1_data,imm),
-                    0b010 => NRiscvInst::SLTI(rd,rs1_data,imm),
-                    0b011 => NRiscvInst::SLTIU(rd,rs1_data,imm),
-                    0b100 => NRiscvInst::XORI(rd,rs1_data,imm),
-                    0b110 => NRiscvInst::ORI(rd,rs1_data,imm),
-                    0b111 => NRiscvInst::ANDI(rd,rs1_data,imm),
-                    0b001 => NRiscvInst::SLLI(rd,rs1_data,imm),
+                    0b000 => {if self.writing {println!("ADDI {},{},{}\n",rd,rs1,imm);} NRiscvInst::ADDI(rd,rs1_data,imm)},
+                    0b010 => {if self.writing {println!("SLTI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SLTI(rd,rs1_data,imm)},
+                    0b011 => {if self.writing {println!("SLTIU {},{},{}\n",rd,rs1,imm);}NRiscvInst::SLTIU(rd,rs1_data,imm)},
+                    0b100 => {if self.writing {println!("XORI {},{},{}\n",rd,rs1,imm);}NRiscvInst::XORI(rd,rs1_data,imm)},
+                    0b110 => {if self.writing {println!("ORI {},{},{}\n",rd,rs1,imm);}NRiscvInst::ORI(rd,rs1_data,imm)},
+                    0b111 => {if self.writing {println!("ANDI {},{},{}\n",rd,rs1,imm);}NRiscvInst::ANDI(rd,rs1_data,imm)},
+                    0b001 => {if self.writing {println!("SLLI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SLLI(rd,rs1_data,imm)},
                     0b101 => {
                         match funct7 {
-                            0b0000000 => NRiscvInst::SRLI(rd,rs1_data,imm),
-                            0b0100000 => NRiscvInst::SRAI(rd,rs1_data,imm),
+                            0b0000000 => {if self.writing {println!("SRLI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SRLI(rd,rs1_data,imm)},
+                            0b0100000 => {if self.writing {println!("SRAI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SRAI(rd,rs1_data,imm)},
                             _         => NRiscvInst::ADDI(0,0,0),
                         }
                     }
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
-            0x6f => NRiscvInst::JAL(rd,addimm),
+            0x6f => NRiscvInst::JAL(rd,ujimm),
             0x67 =>{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
-                 NRiscvInst::JALR(rd,rs1_data,addimm)},
+                 NRiscvInst::JALR(rd,rs1_data,imm)},
             0x73 => {
                 match funct3 {
                     0x000 => {
@@ -687,14 +689,15 @@ impl Riscv64Core for EnvBase{
             0x07 =>{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 match funct3{
-                    0b010 =>NRiscvInst::FLW(rd,rs1_data,imm),
+                    0b010 =>{if self.writing {println!("FLW {},{}({})\n",rd,imm,rs1);}NRiscvInst::FLW(rd,rs1_data,imm)},
                     _ => panic!("見落とし"),
                     }
             },
             0x27 =>{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 match funct3{
-                    0b010 => NRiscvInst::FSW(rd,rs1_data,imm),
+                    0b010 => {if self.writing {println!("FSW {},{}({})\n",rs2,imm,rs1);}NRiscvInst::FSW(rs1_data,rs2_data,imm)},
                     _ => panic!("見落とし"),
                 }
             },
@@ -703,7 +706,7 @@ impl Riscv64Core for EnvBase{
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
                 match funct2{
-                    0b00 => NRiscvInst::FMADDS(rd,rs1_data,rs2_data,rs3_data),
+                    0b00 => {if self.writing {println!("FMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);}NRiscvInst::FMADDS(rd,rs1_data,rs2_data,rs3_data)},
                     _ => panic!("見落とし"),
                 }
             },
@@ -712,7 +715,7 @@ impl Riscv64Core for EnvBase{
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
                 match funct2{
-                    0b00 => NRiscvInst::FMSUBS(rd,rs1_data,rs2_data,rs3_data),
+                    0b00 => {if self.writing {println!("FMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);}NRiscvInst::FMSUBS(rd,rs1_data,rs2_data,rs3_data)},
                     _=>panic!("見落とし"),
                 }
             },
@@ -721,7 +724,7 @@ impl Riscv64Core for EnvBase{
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
                 match funct2 {
-                    0b00=>NRiscvInst::FNMSUBS(rd,rs1_data,rs2_data,rs3_data),
+                    0b00=>{if self.writing {println!("FNMSUBS {},{},{},{}\n",rd,rs1,rs2,rs3);}NRiscvInst::FNMSUBS(rd,rs1_data,rs2_data,rs3_data)},
                     _=>panic!("MM"),
                 }
             },
@@ -730,7 +733,7 @@ impl Riscv64Core for EnvBase{
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let (rs3_data,stall)  = self.fread_regfor(rs3,forwarding,forwarding2);
                 match funct2 {
-                    0b00 => NRiscvInst::FNMADDS(rd,rs1_data,rs2_data,rs3_data),
+                    0b00 => {if self.writing {println!("FNMADDS {},{},{},{}\n",rd,rs1,rs2,rs3);}NRiscvInst::FNMADDS(rd,rs1_data,rs2_data,rs3_data)},
                     _ =>panic!("MM"),
                 }
             },
@@ -738,10 +741,10 @@ impl Riscv64Core for EnvBase{
                 
                 
                 match funct7{
-                    0b0=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);NRiscvInst::FADDS(rd,rs1_data,rs2_data)},
-                    0x4=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);NRiscvInst::FSUBS(rd,rs1_data,rs2_data)},
-                    0x8=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);NRiscvInst::FMULS(rd,rs1_data,rs2_data)},
-                    0xc=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);NRiscvInst::FDIVS(rd,rs1_data,rs2_data)},
+                    0b0=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);if self.writing {println!("FADDS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FADDS(rd,rs1_data,rs2_data)},
+                    0x4=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);if self.writing {println!("FSUBS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FSUBS(rd,rs1_data,rs2_data)},
+                    0x8=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);if self.writing {println!("FMULS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FMULS(rd,rs1_data,rs2_data)},
+                    0xc=>{ let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);if self.writing {println!("FDIVS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FDIVS(rd,rs1_data,rs2_data)},
                     0x2c=>{
                         match shamt{
                             0=>{let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);NRiscvInst::FSQRTS(rd,rs1_data)},
@@ -752,9 +755,9 @@ impl Riscv64Core for EnvBase{
                         let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                         let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                         match funct3{
-                            0b000 =>NRiscvInst::FSGNJS(rd,rs1_data,rs2_data),
-                            0b001 => NRiscvInst::FSGNJNS(rd,rs1_data,rs2_data),
-                            0b010 => NRiscvInst::FSGNJXS(rd,rs1_data,rs2_data),
+                            0b000 =>{if self.writing {println!("FSGNJS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FSGNJS(rd,rs1_data,rs2_data)},
+                            0b001 => {if self.writing {println!("FSGNJNS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FSGNJNS(rd,rs1_data,rs2_data)},
+                            0b010 => {if self.writing {println!("FSGNJXS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FSGNJXS(rd,rs1_data,rs2_data)},
                             _ => panic!("MM"),
                         }
                     },
@@ -762,16 +765,16 @@ impl Riscv64Core for EnvBase{
                         let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                         let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                         match funct3{
-                            0b000=>NRiscvInst::FMINS(rd,rs1_data,rs2_data),
-                            0b001 =>NRiscvInst::FMAXS(rd,rs1_data,rs2_data),
+                            0b000=>{if self.writing {println!("FMINS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FMINS(rd,rs1_data,rs2_data)},
+                            0b001 =>{if self.writing {println!("FMAXS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FMAXS(rd,rs1_data,rs2_data)},
                             _ =>panic!("MM"),
                         }
                     },
                     0x60=>{
                         let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                         match shamt{
-                            0b0=>NRiscvInst::FCVTWS(rd,rs1_data),
-                            0b1=>NRiscvInst::FCVTWUS(rd,rs1_data),
+                            0b0=>{if self.writing {println!("FCVTWS {},{}\n",rd,rs1);}NRiscvInst::FCVTWS(rd,rs1_data,rm)},
+                            0b1=>{if self.writing {println!("FCVTWS {},{}\n",rd,rs1);}NRiscvInst::FCVTWUS(rd,rs1_data,rm)},
                             _=>panic!("MM"),
                         }
                     },
@@ -780,8 +783,8 @@ impl Riscv64Core for EnvBase{
                             0=>{
                                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                                 match funct3{
-                                    0=> NRiscvInst::FMVXW(rd,rs1_data),
-                                    1=>NRiscvInst::FCLASSS(rd,rs1_data),
+                                    0=> {if self.writing {println!("FMVXW {},{}\n",rd,rs1);}NRiscvInst::FMVXW(rd,rs1_data)},
+                                    1=>{if self.writing {println!("FCLASSS {},{}\n",rd,rs1);}NRiscvInst::FCLASSS(rd,rs1_data)},
                                     _ => panic!("MM")
                                 }
                             }
@@ -792,17 +795,17 @@ impl Riscv64Core for EnvBase{
                         let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                         let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                         match funct3{    
-                            0b010=>NRiscvInst::FEQS(rd,rs1_data,rs2_data),
-                            0b001=>NRiscvInst::FLTS(rd,rs1_data,rs2_data),
-                            0b000=>NRiscvInst::FLES(rd,rs1_data,rs2_data),
+                            0b010=>{if self.writing {println!("FEQS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FEQS(rd,rs1_data,rs2_data)},
+                            0b001=>{if self.writing {println!("FLTS {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FLTS(rd,rs1_data,rs2_data)},
+                            0b000=>{if self.writing {println!("FLES {},{},{}\n",rd,rs1,rs2);}NRiscvInst::FLES(rd,rs1_data,rs2_data)},
                             _ => panic!("MM"),
                         }
                     },
                     0x68=>{
                         let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                         match shamt{
-                            0b0=>NRiscvInst::FCVTSW(rd,rs1_data),
-                            0b1=>NRiscvInst::FCVTSWU(rd,rs1_data),
+                            0b0=>{if self.writing {println!("FCVTSW {},{}\n",rd,rs1);}NRiscvInst::FCVTSW(rd,rs1_data)},
+                            0b1=>{if self.writing {println!("FCVTSWU {},{}\n",rd,rs1);}NRiscvInst::FCVTSWU(rd,rs1_data)},
                             _=>panic!("MM"),
                         }
                     },
@@ -811,7 +814,7 @@ impl Riscv64Core for EnvBase{
                             0b0=>{
                                 let (rs1_data,stall)=self.read_regfor(rs1,forwarding,forwarding2);
                                 match funct3{
-                                    0b0 => NRiscvInst::FMVWX(rd,rs1_data),
+                                    0b0 => {if self.writing {println!("FMVWX {},{}\n",rd,rs1);}NRiscvInst::FMVWX(rd,rs1_data)},
                                     _ => panic!("MM"),
                                 }
                             },
@@ -822,14 +825,14 @@ impl Riscv64Core for EnvBase{
                         let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                         let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                         match funct3{
-                            0 => NRiscvInst::MUL(rd,rs1_data,rs2_data),
-                            1 => NRiscvInst::MULH(rd,rs1_data,rs2_data),
-                            2 => NRiscvInst::MULHSU(rd,rs1_data,rs2_data),
-                            3 => NRiscvInst::MULHU(rd,rs1_data,rs2_data),
-                            4 => NRiscvInst::DIV(rd,rs1_data,rs2_data),
-                            5 => NRiscvInst::DIVU(rd,rs1_data,rs2_data),
-                            6 => NRiscvInst::REM(rd,rs1_data,rs2_data),
-                            7 => NRiscvInst::REMU(rd,rs1_data,rs2_data),
+                            0 => {if self.writing {println!("MUL {},{},{}\n",rd,rs1,rs2);}NRiscvInst::MUL(rd,rs1_data,rs2_data)},
+                            1 => {if self.writing {println!("MULH {},{},{}\n",rd,rs1,rs2);}NRiscvInst::MULH(rd,rs1_data,rs2_data)},
+                            2 => {if self.writing {println!("MULHSU {},{},{}\n",rd,rs1,rs2);}NRiscvInst::MULHSU(rd,rs1_data,rs2_data)},
+                            3 => {if self.writing {println!("MULHU {},{},{}\n",rd,rs1,rs2);}NRiscvInst::MULHU(rd,rs1_data,rs2_data)},
+                            4 => {if self.writing {println!("DIV {},{},{}\n",rd,rs1,rs2);}NRiscvInst::DIV(rd,rs1_data,rs2_data)},
+                            5 => {if self.writing {println!("DIVU {},{},{}\n",rd,rs1,rs2);}NRiscvInst::DIVU(rd,rs1_data,rs2_data)},
+                            6 => {if self.writing {println!("REM {},{},{}\n",rd,rs1,rs2);}NRiscvInst::REM(rd,rs1_data,rs2_data)},
+                            7 => {if self.writing {println!("REMU {},{},{}\n",rd,rs1,rs2);}NRiscvInst::REMU(rd,rs1_data,rs2_data)},
                             _ => panic!("funct3 strange")
                         }
                     }
@@ -1078,6 +1081,364 @@ impl Riscv64Core for EnvBase{
             _    => RiscvInst::WFI,
         }
     }
+    fn execute(&mut self,dec_inst:NRiscvInst,inst:InstType)->(ForMem,ForWrite){
+        let mut update_pc = false;
+        let (formem,forwrite)=
+        match dec_inst{
+            NRiscvInst::LB(rd,rs1_data,imm)=>{
+                
+                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{typ:1,data:0,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::LH(rd,rs1_data,imm)=>{
+                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:0,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::LW(rd,rs1_data,imm)=>{
+                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::WORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:0,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::LBU(rd,rs1_data,imm)=>{
+                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::LHU(rd,rs1_data,imm)=>{
+                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::SB(rs1_data,rs2_data,imm)=>{
+                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::BYTE,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::SW(rs1_data,rs2_data,imm)=>{
+                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::HWORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::SH(rs1_data,rs2_data,imm)=>{
+                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::WORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::ADDI(rd,rs1_data,imm)=>{
+                let reg_data:XlenType = (Wrapping(rs1_data)+Wrapping(imm)).0;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::BEQ(rs1_data,rs2_data,imm)|NRiscvInst::BNE(rs1_data,rs2_data,imm) | NRiscvInst::BLT(rs1_data,rs2_data,imm) | NRiscvInst::BGE(rs1_data,rs2_data,imm) | NRiscvInst::BLTU(rs1_data,rs2_data,imm) | NRiscvInst::BGEU(rs1_data,rs2_data,imm) =>{
+                let addr = imm as AddrType;
+                let jump_en: bool;
+                jump_en = 
+                    match dec_inst {
+                        NRiscvInst::BEQ(_,_,_)  => rs1_data == rs2_data,
+                        NRiscvInst::BNE(_,_,_)  => rs1_data != rs2_data,
+                        NRiscvInst::BLT(_,_,_)  => rs1_data <  rs2_data,
+                        NRiscvInst::BGE(_,_,_)  => rs1_data >= rs2_data,
+                        NRiscvInst::BLTU(_,_,_) => (rs1_data as UXlenType) <  (rs2_data as UXlenType),
+                        NRiscvInst::BGEU(_,_,_) => (rs1_data as UXlenType) >= (rs2_data as UXlenType),
+                        _               => panic!("Unknown value Branch"),
+                };
+                if jump_en {
+                    self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
+                    update_pc = true;
+                }
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::AUIPC(rd,imm)=>{
+                let imm:XlenType = Self::extend_sign (imm,19);
+                let imm = (Wrapping(imm << 12) + Wrapping((self.m_pc - DRAM_BASE) as XlenType)).0;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:imm,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::ADD(rd,rs1_data,rs2_data)=>{
+                let reg_data:XlenType = (Wrapping(rs1_data) + Wrapping(rs2_data)).0;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::SUB(rd,rs1_data,rs2_data)=>{
+                let reg_data:XlenType = (Wrapping(rs1_data) - Wrapping(rs2_data)).0;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::JAL(rd,imm)=>{
+                let addr = imm as AddrType;
+                self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
+                self.m_finish_cpu = addr == 0;
+                update_pc = true;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:(self.m_pc-DRAM_BASE + 4) as XlenType,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::JALR(rd,rs1_data,imm)=>{
+                let mut addr = imm as AddrType;
+                let rs1_data = rs1_data as AddrType;
+                addr = (Wrapping(rs1_data) + Wrapping(addr)).0;
+                addr = addr & (!0x01);
+                let reg_data = (self.m_pc-DRAM_BASE + 4) as XlenType;
+                self.m_finish_cpu = addr+DRAM_BASE == self.m_pc;
+                self.m_pc = addr+DRAM_BASE;
+                update_pc = true;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::FLW(rd,rs1_data,imm)=>{
+                let addr = (rs1_data +imm+STACK_BASE) as AddrType;
+                (ForMem{fdata:0.0,isint:false,memtype:MemType::LOAD,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:false,issigned:true})
+            }
+            NRiscvInst::FSW(rs1_data,rs2_data,imm)=>{
+                let addr = (rs1_data +imm+STACK_BASE) as AddrType;
+                (ForMem{fdata:rs2_data,isint:false,memtype:MemType::STORE,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::FMADDS(rd,rs1_data,rs2_data,rs3_data)=>{
+                let reg_data = rs1_data*rs2_data+rs3_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FMSUBS(rd,rs1_data,rs2_data,rs3_data)=>{
+                let reg_data = rs1_data*rs2_data-rs3_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FNMSUBS(rd,rs1_data,rs2_data,rs3_data)=>{
+                let reg_data = -rs1_data*rs2_data-rs3_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FNMADDS(rd,rs1_data,rs2_data,rs3_data)=>{
+                let reg_data = -rs1_data*rs2_data+rs3_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FADDS(rd,rs1_data,rs2_data)=>{
+                let reg_data = rs1_data+rs2_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FSUBS(rd,rs1_data,rs2_data)=>{
+                let reg_data = rs1_data-rs2_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FMULS(rd,rs1_data,rs2_data)=>{
+                let reg_data = rs1_data*rs2_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FDIVS(rd,rs1_data,rs2_data)=>{
+                let reg_data = rs1_data/rs2_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FSQRTS(rd,rs1_data)=>{
+                let reg_data = rs1_data.sqrt();
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FSGNJNS(rd,rs1_data,rs2_data)=>{
+                let rs1_data=EnvBase::float_to_int(rs1_data);
+                let rs2_data=EnvBase::float_to_int(rs2_data);
+                let data = rs1_data&(!0x8000)|((!rs2_data)&0x8000);
+                let reg_data = EnvBase::int_to_float(data as u32);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FSGNJXS(rd,rs1_data,rs2_data)=>{
+                let rs1_data=EnvBase::float_to_int(rs1_data);
+                let rs2_data=EnvBase::float_to_int(rs2_data);
+                let data = rs1_data&(!0x8000)|(((rs2_data)&0x8000)^((rs1_data)&0x8000));
+                let reg_data = EnvBase::int_to_float(data as u32);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FMINS(rd,rs1_data,rs2_data)=>{
+                let reg_data = if rs1_data > rs2_data {rs2_data}else{rs1_data};
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FMAXS(rd,rs1_data,rs2_data)=>{
+                let reg_data = if rs1_data < rs2_data {rs2_data}else{rs1_data};
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FEQS(rd,rs1_data,rs2_data)=>{
+                let reg_data = 
+                if rs1_data==f32::NAN||rs2_data==f32::NAN{
+                   0
+                } else if rs1_data==rs2_data{
+                   1
+                } else{
+                    0
+                };
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+            }
+            NRiscvInst::FLTS(rd,rs1_data,rs2_data)=>{
+                let reg_data = 
+                if rs1_data==f32::NAN||rs2_data==f32::NAN{
+                   0
+                } else if rs1_data<rs2_data{
+                   1
+                } else{
+                    0
+                };
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+            }
+            NRiscvInst::FLES(rd,rs1_data,rs2_data)=>{
+                let reg_data = 
+                if rs1_data==f32::NAN||rs2_data==f32::NAN{
+                   0
+                } else if rs1_data<=rs2_data{
+                   1
+                } else{
+                    0
+                };
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+            }
+            NRiscvInst::FCLASSS(rd,rs1_data)=>{
+                let res =
+                    if rs1_data == f32::NEG_INFINITY{0}
+                    else if rs1_data == f32::INFINITY{7}
+                    else if rs1_data == f32::NAN{8}//SINANなら9なのだが
+                    else if rs1_data == -0.0 {3}
+                    else if rs1_data == 0.0 {4}
+                    else if !rs1_data.is_normal(){
+                        if rs1_data > 0.0{
+                            5
+                        }else{2}
+                    }
+                    else if rs1_data < 0.0{1}
+                    else {6};
+                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:res,rd:rd,fdata:0.0,isint:true,issigned:false})
+            }
+            NRiscvInst::FCVTWS(rd,rs1_data,rm)=>{
+                let res =
+                    if rs1_data == f32::NAN||rs1_data==f32::INFINITY{i32::MAX}
+                    else if rs1_data == f32::NEG_INFINITY{i32::MIN}
+                    else if rs1_data as i64 >= i32::MAX as i64{i32::MAX}
+                    else if rs1_data as i64 <= i32::MIN as i64 {i32::MIN}
+                    else {
+                        match rm{
+                            0b000 =>{
+                                let fract = rs1_data.fract();
+                                let mut zantei = rs1_data.trunc() as i32;
+                                if fract == 0.5 &&zantei % 2 == 0 {
+                                }
+                                else{
+                                    zantei = rs1_data.round() as i32;
+                                }
+                                zantei
+                            },
+                            0b001 =>{rs1_data.trunc()as i32},
+                            0b010 => {rs1_data.floor() as i32},
+                            0b011 => {rs1_data.ceil()as i32},
+                            0b110 =>{
+                                let fract = rs1_data.fract();
+                                let mut zantei = rs1_data.trunc() as i32;
+                                if fract != 0.0 {
+                                    if zantei < 0 {zantei = zantei -1 ;}
+                                    else {zantei = zantei + 1;}
+                                }
+                                zantei
+                            }
+                            0b111=>{panic!("DYNAMIC HA MIJISSOU");}
+                            _ =>{panic!("INVALID RM")}
+                        }
+                    };
+                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:res,rd:rd,fdata:0.0,isint:true,issigned:false})
+            }
+            NRiscvInst::FCVTWUS(rd,rs1_data,rm)=>{
+                let res =
+                    if rs1_data == f32::NAN||rs1_data==f32::INFINITY{u32::MAX}
+                    else if rs1_data == f32::NEG_INFINITY{u32::MIN}
+                    else if rs1_data as u64 >= u32::MAX as u64{u32::MAX}
+                    else if rs1_data as u64 <= u32::MIN as u64 {u32::MIN}
+                    else {
+                        match rm{
+                            0b000 =>{
+                                let fract = rs1_data.fract();
+                                let mut zantei = rs1_data.trunc() as u32;
+                                if fract == 0.5 &&zantei % 2 == 0 {
+                                }
+                                else{
+                                    zantei = rs1_data.round() as u32;
+                                }
+                                zantei
+                            },
+                            0b001 =>{rs1_data.trunc()as u32},
+                            0b010 => {rs1_data.floor() as u32},
+                            0b011 => {rs1_data.ceil()as u32},
+                            0b110 =>{
+                                let fract = rs1_data.fract();
+                                let mut zantei = rs1_data.trunc() as u32;
+                                if fract != 0.0 {
+                                    zantei += 1;
+                                }
+                                zantei
+                            }
+                            0b111=>{panic!("DYNAMIC HA MIJISSOU");}
+                            _ =>{panic!("INVALID RM")}
+                        }
+                    };
+                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:res as i32,rd:rd,fdata:0.0,isint:true,issigned:false})
+            }
+            NRiscvInst::FMVXW(rd,rs1_data)=>{
+                let reg_data = EnvBase::float_to_int(rs1_data);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+            }
+            NRiscvInst::FMVWX(rd,rs1_data)=>{
+                let reg_data = EnvBase::int_to_float(rs1_data as u32);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FCVTSW(rd,rs1_data)=>{
+                let reg_data = rs1_data as f32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FCVTSWU(rd,rs1_data)=>{
+                let rs1_data = rs1_data as u32;
+                let reg_data = rs1_data as f32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::MUL(rd,rs1_data,rs2_data)=>{
+                let rs1_data =rs1_data as u32 as u64;
+                let rs2_data =rs2_data as u32 as u64;
+                let moto = (rs1_data*rs2_data)& 0x0000ffff;
+                let moto = moto as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::MULH(rd,rs1_data,rs2_data)=>{
+                let rs1_data = rs1_data as i64;
+                let rs2_data = rs2_data as i64;
+                let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
+                let moto = moto as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::MULHU(rd,rs1_data,rs2_data)=>{
+                let rs1_data =rs1_data as u32 as u64;
+                let rs2_data =rs2_data as u32 as u64;
+                let moto = (rs1_data*rs2_data >> 32)& 0x0000ffff;
+                let moto = moto as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::DIV(rd,rs1_data,rs2_data)=>{
+                let moto = (rs1_data/rs2_data)& 0x0000ffff;
+                let moto = moto as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::DIVU(rd,rs1_data,rs2_data)=>{
+                let rs1_data =rs1_data as u32;
+                let rs2_data =rs2_data as u32;
+                let moto = (rs1_data/rs2_data)& 0x0000ffff;
+                let moto = moto as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::REM(rd,rs1_data,rs2_data)=>{
+                let rs2_data = if rs2_data < 0{-rs2_data}else{rs2_data};
+                let moto =
+                    if rs1_data < 0{
+                        let rs1_data=-rs1_data;
+                        let zantei = rs1_data%rs2_data;
+                        -zantei
+                    }
+                    else{
+                        rs1_data%rs2_data
+                    };
+                let moto = moto as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            NRiscvInst::REMU(rd,rs1_data,rs2_data)=>{
+                let rs1_data =rs1_data as u32;
+                let rs2_data =rs2_data as u32;
+                let moto = (rs1_data%rs2_data)as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
+            }
+            _ =>{
+                if self.writing {println!("NEVER\n");}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+            
+            }
+        };
+        if update_pc == false {
+            self.m_pc += 4;
+        }
+        return (formem,forwrite);
+    }
     #[allow(unused_variables)]
     fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite,forwarding2:ForWrite)->(ForMem,ForWrite){
         
@@ -1240,7 +1601,7 @@ impl Riscv64Core for EnvBase{
                 self.m_finish_cpu = addr == 0;
                 update_pc = true;
                 if self.writing {println!("JAL {},{} \n",rd,addr);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:(self.m_pc-DRAM_BASE + 4) as XlenType,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::JALR => {
                 let mut addr: AddrType = Self::extract_ifield (inst) as AddrType;
@@ -1638,7 +1999,6 @@ impl Riscv64Core for EnvBase{
                 let moto = moto as i32;
                 self.write_reg(rd, moto );
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:moto,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            
             }
             RiscvInst::MULHSU =>{
                 if self.writing {println!("MULHSU {},{},{}",rd,rs1,rs2);}
