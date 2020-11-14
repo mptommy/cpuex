@@ -1,5 +1,5 @@
 module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_relative,
-    mem_read, mem_write, alu_src, reg_write,
+    mem_read, mem_write, alu_pc, alu_src, reg_write,
     read_reg1, read_reg2, write_reg);
     input clk, rst;
 
@@ -14,7 +14,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     input [31:0] instr_raw;
     output reg [31:0] imm;
     output reg [3:0] alu_ctl;
-    output reg branch_c, branch_uc, branch_relative, mem_read, mem_write, alu_src, reg_write;
+    output reg branch_c, branch_uc, branch_relative, mem_read, mem_write, alu_pc, alu_src, reg_write;
 
     output reg [4:0] read_reg1, read_reg2;
     output reg [4:0] write_reg;
@@ -31,16 +31,12 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
 
     wire r_type, i_type, s_type, sb_type, uj_type;
 
-    //add
     assign r_type = (opcode == 7'b0110011);
-    //addi, jalr, lw
     assign i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
-    //sw
     assign s_type = (opcode == 7'b0100011);
-    //bge, blt
     assign sb_type = (opcode == 7'b1100011);
-    //jal
     assign uj_type = (opcode == 7'b1101111);
+    assign u_type = (opcode == 7'b0110111 || opcode == 7'b0010111);
     always @ (posedge clk) begin
         //DECODE
         if (rst) begin
@@ -51,6 +47,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
             branch_relative <= 0;
             mem_read <= 0;
             mem_write <= 0;
+            alu_pc <= 0;
             alu_src <= 0;
             reg_write <= 0;
             read_reg1 <= 0;
@@ -66,6 +63,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                         s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
                         sb_type ? { {20{instr_raw[31]}}, instr_raw[7], instr_raw[30:25], instr_raw[11:8], 1'b0 } :
                         uj_type ? { {12{instr_raw[31]}}, instr_raw[19:12], instr_raw[20], instr_raw[30:21], 1'b0 } :
+                        u_type ? { instr_raw[31:12], 12'd0} :
                         32'b0;
                 branch_uc <= uj_type ? 1 :
                             ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 1 :
@@ -76,12 +74,16 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 mem_read <= (i_type && (funct3 == 3'b010));
                 //sw
                 mem_write <= (s_type && (funct3 == 3'b010));
+                // use pc as the first src?
+                alu_pc <= (opcode == 7'b0010111) ? 1 : 0;
                 // 1: imm, 0: reg2
                 alu_src <= (r_type || sb_type) ? 0 : 1;
                 // only s_type and sb_type does not write
                 reg_write <= (s_type || sb_type) ? 0 : 1;
 
                 alu_ctl <=
+                //  u_type: add (2)
+                            u_type ? 2 :
                 // addi => add (2)
                             ((opcode == 7'b0010011) && (funct3 == 3'b000)) ? 2 :
                 // slti => lt (7)

@@ -12,12 +12,12 @@ module core(clk, rst, test);
 
     wire [31:0] imm;
     wire [3:0] alu_ctl;
-    wire branch_relative, branch_uc, branch_c, mem_read, mem_write, alu_src, reg_write;
+    wire branch_relative, branch_uc, branch_c, mem_read, mem_write, alu_pc, alu_src, reg_write;
     wire [4:0] read_reg1, read_reg2, write_reg;
 
     decode decode_instance(clk, rst, state, instr_raw,
         imm, alu_ctl, branch_uc, branch_c, branch_relative,
-        mem_read, mem_write, alu_src, reg_write,
+        mem_read, mem_write, alu_pc, alu_src, reg_write,
         read_reg1, read_reg2, write_reg);
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
@@ -29,7 +29,7 @@ module core(clk, rst, test);
     wire [31:0] mem_addr, mem_write_data, reg_write_data;
 
     exec exec_instance(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relative,
-        mem_read, mem_write, alu_src, reg_write, reg1_data_wire, reg2_data_wire,
+        mem_read, mem_write, alu_pc, alu_src, reg_write, reg1_data_wire, reg2_data_wire,
         write_reg,
         mem_read_, mem_write_, reg_write_, write_reg_,
         branch_addr, branch, mem_addr, mem_write_data, reg_write_data);

@@ -1,5 +1,5 @@
 module exec(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relative,
-    mem_read_in, mem_write_in, alu_src, reg_write_in, reg1_data, reg2_data,
+    mem_read_in, mem_write_in, alu_pc, alu_src, reg_write_in, reg1_data, reg2_data,
     write_reg_in,
     mem_read_out, mem_write_out, reg_write_out, write_reg_out,
     branch_addr, branch, mem_addr, mem_write_data, reg_write_data);
@@ -9,7 +9,7 @@ module exec(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relat
     input [2:0] state;
     input [31:0] imm;
     input [3:0] alu_ctl;
-    input branch_uc, branch_c, branch_relative, mem_read_in, mem_write_in, alu_src, reg_write_in;
+    input branch_uc, branch_c, branch_relative, mem_read_in, mem_write_in, alu_pc, alu_src, reg_write_in;
     input [31:0] reg1_data, reg2_data;
     input [4:0] write_reg_in;
 
@@ -21,13 +21,16 @@ module exec(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relat
     output reg [31:0] mem_write_data;
     output reg [31:0] reg_write_data;
 
+    wire [31:0] alu_src1;
+    assign alu_src1 = alu_pc ? pc : reg1_data;
+
     wire [31:0] alu_src2;
     assign alu_src2 = alu_src ? imm : reg2_data;
 
     wire [31:0] alu_out;
     wire alu_zero;
 
-    ALU ALU_instance(alu_ctl, reg1_data, alu_src2, alu_out, alu_zero);
+    ALU ALU_instance(alu_ctl, alu_src1, alu_src2, alu_out, alu_zero);
 
     always @(posedge clk) begin
         if (rst) begin
