@@ -14,12 +14,19 @@ module ALU (ALUctl, A, B, ALUOut, Zero);
             0: ALUOut <= A & B;
             1: ALUOut <= A | B;
             2: ALUOut <= $signed(A) + $signed(B);
+            3: ALUOut <= A ^ B; //xor
+            4: ALUOut <= A << B; // logical left shift
+            5: ALUOut <= A >> B; // logical right shift
             6: ALUOut <= $signed(A) - $signed(B);
             7: ALUOut <= $signed(A) < $signed(B) ? 1 : 0;
             8: ALUOut <= $signed(A) >= $signed(B) ? 1 : 0;
             9: ALUOut <= A;
             10: ALUOut <= B;
-            12: ALUOut <= ~ (A | B); //nor
+            11: ALUOut <= A == B;
+            12: ALUOut <= A != B;
+            13: ALUOut <= A < B ? 1 : 0; // lt: unsigned
+            14: ALUOut <= A >= B ? 1 : 0; // ge: unsigned
+            15: ALUOut <= $signed(A) >>> B; // arithmetic right shift
             default: ALUOut <= 0;
         endcase
     end
