@@ -26,6 +26,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign funct3 = instr_raw[14:12];
     wire [6:0] funct7;
     assign funct7 = instr_raw[31:25];
+    wire [5:0] funct6;
+    assign funct6 = funct7[6:1];
 
     wire r_type, i_type, s_type, sb_type, uj_type;
 
@@ -79,22 +81,65 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 // only s_type and sb_type does not write
                 reg_write <= (s_type || sb_type) ? 0 : 1;
 
-                // add => add (2)
-                alu_ctl <=  ((opcode == 7'b0110011) && (funct3 == 3'b000) && (funct7 == 7'b0000000)) ? 2 :
+                alu_ctl <=
                 // addi => add (2)
                             ((opcode == 7'b0010011) && (funct3 == 3'b000)) ? 2 :
+                // slti => lt (7)
+                            ((opcode == 7'b0010011) && (funct3 == 3'b010)) ? 7 :
+                // sltiu => ltu (13)
+                            ((opcode == 7'b0010011) && (funct3 == 3'b011)) ? 13 :
+                // xori => xor (3)
+                            ((opcode == 7'b0010011) && (funct3 == 3'b100)) ? 3 :
+                // ori => or (1)
+                            ((opcode == 7'b0010011) && (funct3 == 3'b110)) ? 1 :
+                // andi => and (0)
+                            ((opcode == 7'b0010011) && (funct3 == 3'b111)) ? 0 :
+                // slli => sll (4)
+                            ((opcode == 7'b0010011) && (funct3 == 3'b001)) ? 4 :
+                // srli => srl (5)
+                            ((opcode == 7'b0010011) && (funct3 == 3'b101) && (funct6 == 6'b000000)) ? 5 :
+                // srai => sra (15)
+                            ((opcode == 7'b0010011) && (funct3 == 3'b101) && (funct6 == 6'b010000)) ? 15 :
+                // add => add (2)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b000) && (funct7 == 7'b0000000)) ? 2 :
+                // sub => sub (6)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b000) && (funct7 == 7'b0100000)) ? 6 :
+                // sll => sll (4)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b001) && (funct7 == 7'b0000000)) ? 4 :
+                // slt => lt (7)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b010) && (funct7 == 7'b0000000)) ? 7 :
+                // sltu => slt (13)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b011) && (funct7 == 7'b0000000)) ? 13 :
+                // xor => xor (3)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b100) && (funct7 == 7'b0000000)) ? 3 :
+                // srl => srl (5)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b101) && (funct7 == 7'b0000000)) ? 5 :
+                // sra => sra (15)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b101) && (funct7 == 7'b0100000)) ? 15 :
+                // or => or (1)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b110) && (funct7 == 7'b0000000)) ? 1 :
+                // and => and (0)
+                            ((opcode == 7'b0110011) && (funct3 == 3'b111) && (funct7 == 7'b0000000)) ? 0 :
                 // sw => add (2)
                             ((opcode == 7'b0100011) && (funct3 == 3'b010)) ? 2 :
                 // lw => add (2)
                             ((opcode == 7'b0000011) && (funct3 == 3'b010)) ? 2 :
+                // jal => chooseb (10)
+                            (opcode == 7'b1101111) ? 10 :
                 // jalr => add (2)
                             ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 2 :
+                // beq => eq (11)
+                            ((opcode == 7'b1100011) && (funct3 == 3'b000)) ? 11 :
+                // bne => ne (12)
+                            ((opcode == 7'b1100011) && (funct3 == 3'b001)) ? 12 :
                 // blt => lt (7)
                             ((opcode == 7'b1100011) && (funct3 == 3'b100)) ? 7 :
                 // bge => ge (8)
                             ((opcode == 7'b1100011) && (funct3 == 3'b101)) ? 8 :
-                // jal => chooseb (10)
-                            (opcode == 7'b1101111) ? 10 :
+                // bltu => ltu (13)
+                            ((opcode == 7'b1100011) && (funct3 == 3'b110)) ? 13 :
+                // bgeu => geu (14)
+                            ((opcode == 7'b1100011) && (funct3 == 3'b111)) ? 14 :
                 // default => zero (31)
                             31;
                 // in jalr, use the absolute address
