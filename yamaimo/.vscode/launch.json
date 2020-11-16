@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/target/debug/yamaimo",
-            "args": ["${workspaceFolder}/target/debug/8.out"],
+            "args": ["${workspaceFolder}/target/debug/srli.out"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

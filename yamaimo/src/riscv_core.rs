@@ -279,6 +279,11 @@ impl EnvBase{
         let uimm32:XlenType = Self::extract_bit_field (hex, 31, 20);
         return Self::extend_sign (uimm32, 11);
     }
+    fn extract_ufield (hex: InstType) -> XlenType
+    {
+        let uimm32:XlenType = Self::extract_bit_field (hex, 31, 12);
+        return Self::extend_sign (uimm32, 20);
+    }
 
     #[allow(dead_code)]
     fn extract_shamt_field (hex: InstType) -> XlenType
@@ -563,6 +568,7 @@ impl Riscv64Core for EnvBase{
         //let funct5 = (inst >> 25)&0x1f;
         let funct2 = (inst >> 25)&0x03;
         let funct7 = (inst >> 25)&0x7f;
+        let imm20 = Self::extract_ufield(instu);
         let imm12 = (inst>> 20)&0xfff;
         let shamt =(inst >> 20)&0x1f;
         let imm =  Self::extract_ifield(instu);
@@ -626,8 +632,8 @@ impl Riscv64Core for EnvBase{
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
-            0x37 =>  {if self.writing {println!("LUI {},{}\n",rd,imm);}NRiscvInst::LUI(rd,imm)},
-            0x17 => {if self.writing {println!("AUIPC {},{}\n",rd,imm);}NRiscvInst::AUIPC(rd,imm)},
+            0x37 =>  {if self.writing {println!("LUI {},{}\n",rd,imm20);}NRiscvInst::LUI(rd,imm)},
+            0x17 => {if self.writing {println!("AUIPC {},{}\n",rd,imm20);}NRiscvInst::AUIPC(rd,imm)},
             0x63 => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
@@ -650,11 +656,11 @@ impl Riscv64Core for EnvBase{
                     0b100 => {if self.writing {println!("XORI {},{},{}\n",rd,rs1,imm);}NRiscvInst::XORI(rd,rs1_data,imm)},
                     0b110 => {if self.writing {println!("ORI {},{},{}\n",rd,rs1,imm);}NRiscvInst::ORI(rd,rs1_data,imm)},
                     0b111 => {if self.writing {println!("ANDI {},{},{}\n",rd,rs1,imm);}NRiscvInst::ANDI(rd,rs1_data,imm)},
-                    0b001 => {if self.writing {println!("SLLI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SLLI(rd,rs1_data,imm)},
+                    0b001 => {if self.writing {println!("SLLI {},{},{}\n",rd,rs1,shamt);}NRiscvInst::SLLI(rd,rs1_data,shamt)},
                     0b101 => {
                         match funct7 {
-                            0b0000000 => {if self.writing {println!("SRLI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SRLI(rd,rs1_data,imm)},
-                            0b0100000 => {if self.writing {println!("SRAI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SRAI(rd,rs1_data,imm)},
+                            0b0000000 => {if self.writing {println!("SRLI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SRLI(rd,rs1_data,shamt)},
+                            0b0100000 => {if self.writing {println!("SRAI {},{},{}\n",rd,rs1,imm);}NRiscvInst::SRAI(rd,rs1_data,shamt)},
                             _         => NRiscvInst::ADDI(0,0,0),
                         }
                     }
@@ -1085,6 +1091,70 @@ impl Riscv64Core for EnvBase{
         let mut update_pc = false;
         let (formem,forwrite)=
         match dec_inst{
+            NRiscvInst::LUI(rd,imm)=>{
+                let ans = imm << 12;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::AUIPC(rd,imm)=>{
+                let ans = self.m_pc + (imm << 12) as u32;
+                update_pc = true;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans as i32,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SLTI(rd,rs1_data,imm)=>{
+                let ans = if rs1_data < imm {1}else{0};
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SLTIU(rd,rs1_data,imm)=>{
+                let rs1_data = rs1_data as u32;
+                let imm = imm as u32;
+                let ans = if rs1_data < imm {1}else{0};
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::XORI(rd,rs1_data,imm)=>{
+                let ans = rs1_data ^ imm;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::ORI(rd,rs1_data,imm)=>{
+                let ans = rs1_data | imm;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::ANDI(rd,rs1_data,imm)=>{
+                let ans = rs1_data & imm;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SLLI(rd,rs1_data,imm)=>{
+                let rs1_data = rs1_data as u32;
+                let ans = rs1_data << imm;
+                let ans = ans as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SRLI(rd,rs1_data,imm)=>{
+                let rs1_data = rs1_data as u32;
+                let ans = rs1_data >> imm;
+                let ans = ans as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SRAI(rd,rs1_data,imm)=>{
+                let ans = rs1_data >> imm;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SLL(rd,rs1_data,rs2_data)=>{
+                let rs1_data = rs1_data as u32;
+                let rs2_data = (rs2_data & 0x1f) as u32;
+                let ans = rs1_data << rs2_data;
+                let ans = ans as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SLT(rd,rs1_data,rs2_data)=>{
+                let ans = if rs1_data < rs2_data {1}else{0};
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SLTU(rd,rs1_data,rs2_data)=>{
+                let rs1_data = rs1_data as u32;
+                let rs2_data = rs2_data as u32;
+                let ans = if rs1_data < rs2_data {1}else{0};
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
             NRiscvInst::LB(rd,rs1_data,imm)=>{
                 
                 let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
@@ -1141,11 +1211,11 @@ impl Riscv64Core for EnvBase{
                 }
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             }
-            NRiscvInst::AUIPC(rd,imm)=>{
+           /* NRiscvInst::AUIPC(rd,imm)=>{
                 let imm:XlenType = Self::extend_sign (imm,19);
                 let imm = (Wrapping(imm << 12) + Wrapping((self.m_pc - DRAM_BASE) as XlenType)).0;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:imm,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            }
+            }*/
             NRiscvInst::ADD(rd,rs1_data,rs2_data)=>{
                 let reg_data:XlenType = (Wrapping(rs1_data) + Wrapping(rs2_data)).0;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
@@ -1458,6 +1528,120 @@ impl Riscv64Core for EnvBase{
         let mut update_pc = false;
         let (formem,forwrite)=
         match dec_inst{
+            RiscvInst::LUI=>{
+                let imm =  Self::extract_ufield(inst);
+                let ans = imm << 12;
+                if self.writing {println!("LUI {},{}\n",rd,imm);}
+                self.write_reg(rd, ans);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::AUIPC=>{
+                let imm =  Self::extract_ufield(inst);
+                let ans = self.m_pc + (imm << 12) as u32;
+                update_pc = true;
+                if self.writing {println!("AUIPC {},{}\n",rd,imm);}
+                self.write_reg(rd, ans as i32);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans as i32,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SLTI=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let imm =  Self::extract_ifield(inst);
+                let ans = if rs1_data < imm {1}else{0};
+                self.write_reg(rd, ans);
+                if self.writing {println!("SLTI {},{},{}\n",rd,rs1,imm);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SLTIU=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let imm =  Self::extract_ifield(inst);
+                let rs1_data = rs1_data as u32;
+                let imm = imm as u32;
+                let ans = if rs1_data < imm {1}else{0};
+                self.write_reg(rd, ans);
+                if self.writing {println!("SLTIU {},{},{}\n",rd,rs1,imm);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::XORI=>{
+                let imm =  Self::extract_ifield(inst);
+                if self.writing {println!("XORI {},{},{}\n",rd,rs1,imm);}
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let ans = rs1_data^imm;
+                self.write_reg(rd, ans);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::ORI=>{
+                let imm =  Self::extract_ifield(inst);
+                if self.writing {println!("ORI {},{},{}\n",rd,rs1,imm);}
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let ans = rs1_data|imm;
+                self.write_reg(rd, ans);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::ANDI=>{
+                let imm =  Self::extract_ifield(inst);
+                if self.writing {println!("ANDI {},{},{}\n",rd,rs1,imm);}
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let ans = rs1_data&imm;
+                self.write_reg(rd, ans);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SLLI=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let rs1_data = rs1_data as u32;
+                let shamt =Self::extract_shamt_field(inst);
+                let ans = rs1_data >> shamt;
+                let ans = ans as i32;
+                self.write_reg(rd, ans);
+                if self.writing {println!("SLLI {},{},{}\n",rd,rs1,shamt);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SRLI=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let rs1_data = rs1_data as u32;
+                let shamt =Self::extract_shamt_field(inst);
+                let ans = rs1_data >> shamt;
+                let ans = ans as i32;
+                self.write_reg(rd, ans);
+                if self.writing {println!("SRAI {},{},{}\n",rd,rs1,shamt);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SRAI=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let shamt =Self::extract_shamt_field(inst);
+                let ans = rs1_data >> shamt;
+                self.write_reg(rd, ans);
+                if self.writing {println!("SRAI {},{},{}\n",rd,rs1,shamt);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SLL=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                let rs1_data = rs1_data as u32;
+                let rs2_data = (rs2_data & 0x1f) as u32;
+                let ans = rs1_data << rs2_data;
+                let ans = ans as i32;
+                self.write_reg(rd, ans);
+                if self.writing {println!("SLL {},{},{}\n",rd,rs1,rs2);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SLT=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                let ans = if rs1_data < rs2_data {1}else{0};
+                self.write_reg(rd, ans);
+                if self.writing {println!("SLT {},{},{}\n",rd,rs1,rs2);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SLTU=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                let rs1_data = rs1_data as u32;
+                let rs2_data = rs2_data as u32;
+                if self.writing {println!("SLTU {},{},{}\n",rd,rs1,rs2);}
+                let ans = if rs1_data < rs2_data {1}else{0};
+                self.write_reg(rd, ans);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
             RiscvInst::LB  => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
@@ -1569,7 +1753,7 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             
             }
-            RiscvInst::AUIPC => {
+           /* RiscvInst::AUIPC => {
                 if self.writing {println!("AUIPC\n");}
                 let mut imm: XlenType = Self::extend_sign (Self::extract_bit_field (inst, 31, 12), 19);
                 imm = (Wrapping(imm << 12) + Wrapping((self.m_pc - DRAM_BASE) as XlenType)).0;
@@ -1577,7 +1761,7 @@ impl Riscv64Core for EnvBase{
 
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:imm,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
-            }
+            }*/
             RiscvInst::ADD => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
@@ -2201,11 +2385,11 @@ impl Riscv64Core for EnvBase{
         println!("レジスタダンプ");
         for i in 0..32{
             if self.m_regs[i]==0{continue;}
-            println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.m_regs[i].to_string());
+            println!("{}({:08x}) ", "REG".to_owned()+&i.to_string()+":"+&self.m_regs[i].to_string(),&self.m_regs[i]);
         }
         for i in 0..32{
             if self.f_regs[i]==0.0{continue;}
-          println!("{}", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
+          println!("{}({:08x}) ", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string(),&self.m_regs[i]);
         }
     }
     fn output_regi(&mut self,i:i32){

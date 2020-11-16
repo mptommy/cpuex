@@ -267,6 +267,18 @@ impl Instruction{
                     Instruction{
                         op0_6:0b0010011,
                         op7_11:r,
+                        op12_14:0b010,
+                        op15_19:r2,
+                        optype:inst,
+                        ..Default::default()
+                    },i
+                )
+            },
+            Insts::SLTIU(r,r2,i)=>{
+                Instruction::set_imm12(
+                    Instruction{
+                        op0_6:0b0010011,
+                        op7_11:r,
                         op12_14:0b011,
                         op15_19:r2,
                         optype:inst,
