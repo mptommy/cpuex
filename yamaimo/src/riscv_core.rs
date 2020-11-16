@@ -1155,6 +1155,32 @@ impl Riscv64Core for EnvBase{
                 let ans = if rs1_data < rs2_data {1}else{0};
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
+            NRiscvInst::XOR(rd,rs1_data,rs2_data)=>{
+               let ans = rs1_data ^ rs2_data;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SRL(rd,rs1_data,rs2_data)=>{
+                let rs1_data = rs1_data as u32;
+                let rs2_data = (rs2_data & 0x1f) as u32;
+                let ans = rs1_data >> rs2_data;
+                let ans = ans as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::SRA(rd,rs1_data,rs2_data)=>{
+                let rs1_data = rs1_data;
+                let rs2_data = (rs2_data & 0x1f) as u32;
+                let ans = rs1_data >> rs2_data;
+                let ans = ans as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::OR(rd,rs1_data,rs2_data)=>{
+                let ans = rs1_data | rs2_data;
+                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+             }
+             NRiscvInst::AND(rd,rs1_data,rs2_data)=>{
+                let ans = rs1_data & rs2_data;
+                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+             }
             NRiscvInst::LB(rd,rs1_data,imm)=>{
                 
                 let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
@@ -1640,6 +1666,51 @@ impl Riscv64Core for EnvBase{
                 if self.writing {println!("SLTU {},{},{}\n",rd,rs1,rs2);}
                 let ans = if rs1_data < rs2_data {1}else{0};
                 self.write_reg(rd, ans);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::XOR=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                let ans = rs1_data ^ rs2_data;
+                self.write_reg(rd, ans);
+                if self.writing {println!("XOR {},{},{}\n",rd,rs1,rs2);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SRL=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                let rs1_data = rs1_data as u32;
+                let rs2_data = (rs2_data & 0x1f) as u32;
+                let ans = rs1_data >> rs2_data;
+                let ans = ans as i32;
+                self.write_reg(rd, ans);
+                if self.writing {println!("SRL {},{},{}\n",rd,rs1,rs2);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::SRA=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                let rs2_data = (rs2_data & 0x1f) as u32;
+                let ans = rs1_data >> rs2_data;
+                let ans = ans as i32;
+                self.write_reg(rd, ans);
+                if self.writing {println!("SRA {},{},{}\n",rd,rs1,rs2);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::OR=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                let ans = rs1_data | rs2_data;
+                self.write_reg(rd, ans);
+                if self.writing {println!("OR {},{},{}\n",rd,rs1,rs2);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::AND=>{
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
+                let ans = rs1_data ^ rs2_data;
+                self.write_reg(rd, ans);
+                if self.writing {println!("AND {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             RiscvInst::LB  => {
