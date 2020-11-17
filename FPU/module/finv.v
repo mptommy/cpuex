@@ -9,6 +9,7 @@ module finv (
 // 1. {s,e,m} = x
 wire s = x[31];
 wire [7:0] e = x[30:23];
+wire [22:0] m = x[22:0];
 wire [9:0] a0 = x[22:13];
 wire [12:0] a1 = x[12:0];
 wire [57:0] cst;
@@ -21,10 +22,10 @@ wire [22:0] ym;
 finv_load_const_table u1 (a0, cst, clk);
 finv_load_grad_table u2 (a0, grd, clk);
 
-assign ye = 253 - e;  //e = 254がアヤシイ
+assign ye = (m == 0) ? 254 - e : 253 - e;  //e = 254がアヤシイ
 assign a1grd = a1 * grd;
 assign mtmp = cst - a1grd;
-assign ym = mtmp[56:34] + mtmp[33];  //適当に丸めている
+assign ym = (m == 0) ? 0 : mtmp[56:34] + mtmp[33];  //適当に丸めている
 assign y = {s, ye, ym};
 
 /*assign y = (e1r == 8'd255 && e2r!= 8'd255)? {s1r,8'd255,nzm1,m1r[21:0]}:

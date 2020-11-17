@@ -6,6 +6,12 @@ const unsigned int emask = ((1 << 8) - 1) << 23;
 const unsigned int fmask =  (1 << 23) - 1;
 const unsigned int efmask = (1 << 31) - 1;
 
+unsigned int itou(int i){
+  iu t;
+  t.i = i;
+  return t.u;
+}
+
 unsigned int ftou(float a){
   fu t;
   t.f = a;
