@@ -1628,7 +1628,7 @@ impl Riscv64Core for EnvBase{
                 let ans = rs1_data >> shamt;
                 let ans = ans as i32;
                 self.write_reg(rd, ans);
-                if self.writing {println!("SRAI {},{},{}\n",rd,rs1,shamt);}
+                if self.writing {println!("SRLI {},{},{}\n",rd,rs1,shamt);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             RiscvInst::SRAI=>{
