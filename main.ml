@@ -32,6 +32,8 @@ let rec print_syntax_t s = match (s:Syntax.t) with
   | Neg(e) -> Printf.printf "NEG\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1
   | Add(e1, e2) -> Printf.printf "ADD\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
   | Sub(e1, e2) -> Printf.printf "SUB\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Mul(e1, e2) -> Printf.printf "MUL\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Div(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
   | Eq(e1, e2) -> Printf.printf "EQ\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
   | LE(e1, e2) -> Printf.printf "LE\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
   | FNeg(e) -> Printf.printf "FNEG\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1
@@ -65,6 +67,8 @@ let rec print_knormal_t k = match (k:KNormal.t) with
   | Neg(e) -> Printf.printf "NEG\n"; count_LR := !count_LR + 1; put_tab (); print_id e; Printf.printf "\n"; count_LR := !count_LR - 1
   | Add(e1, e2) -> Printf.printf "ADD\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
   | Sub(e1, e2) -> Printf.printf "SUB\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | Mul(e1, e2) -> Printf.printf "MUL\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | Div(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
   | FNeg(e) -> Printf.printf "FNEG\n"; count_LR := !count_LR + 1; put_tab (); print_id e; Printf.printf "\n"; count_LR := !count_LR - 1
   | FAdd(e1, e2) -> Printf.printf "FAdd\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
   | FSub(e1, e2) -> Printf.printf "FSUB\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1

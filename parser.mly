@@ -14,6 +14,8 @@ let addtyp x = (x, Type.gentyp ()) (* xを未定義の型変数とする *)
 %token PLUS
 %token MINUS_DOT
 %token PLUS_DOT
+%token AST
+%token SLASH
 %token AST_DOT
 %token SLASH_DOT
 %token EQUAL
@@ -48,7 +50,7 @@ let addtyp x = (x, Type.gentyp ()) (* xを未定義の型変数とする *)
 %left COMMA
 %left EQUAL LESS_GREATER LESS GREATER LESS_EQUAL GREATER_EQUAL
 %left PLUS MINUS PLUS_DOT MINUS_DOT
-%left AST_DOT SLASH_DOT
+%left AST SLASH AST_DOT SLASH_DOT
 %right prec_unary_minus
 %left prec_app
 %left DOT
@@ -77,6 +79,8 @@ simple_exp: /* (* 括弧をつけなくても関数の引数になれる式 (cam
 
 exp: /* (* 一般の式 (caml2html: parser_exp) *) */
 | simple_exp
+    { $1 }
+| exp SEMICOLON
     { $1 }
 | NOT exp
     %prec prec_app
@@ -112,6 +116,10 @@ exp: /* (* 一般の式 (caml2html: parser_exp) *) */
     { FAdd($1, $3) }
 | exp MINUS_DOT exp
     { FSub($1, $3) }
+| exp AST exp
+    { Mul($1, $3) }
+| exp SLASH exp
+    { FDiv($1, $3) }
 | exp AST_DOT exp
     { FMul($1, $3) }
 | exp SLASH_DOT exp

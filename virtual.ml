@@ -4,7 +4,7 @@ open Asm
 
 let data = ref [] (* 浮動小数点数の定数テーブル (caml2html: virtual_data) *)
 
-let classify xts ini addf addi = 
+let classify xts ini addf addi = (* List.fold_left f a [b1; ...; bn] は f (... (f (f a b1) b2) ...) bn です。 *)
   List.fold_left
     (fun acc (x, t) ->
       match t with
@@ -27,7 +27,7 @@ let expand xts ini addf addi = (* レコード中の変数のオフセットを�
     ini
     (fun (offset, acc) x ->
       let offset = align offset in (* 引数offsetが8で割り切れるとき引数がかえり、それ以外なら（余りが4なら）引数に4を足して返す *)
-      (offset + 8, addf x offset acc))
+      (offset + 8, addf x offset acc)) (* (次に入れるべき場所, addf x offset acc) *)
     (fun (offset, acc) x t ->
       (offset + 4, addi x t offset acc))
 
@@ -49,6 +49,8 @@ let rec g env = function (* 式の仮想マシンコード生成 (caml2html: vir
   | Closure.Neg(x) -> Ans(Neg(x))
   | Closure.Add(x, y) -> Ans(Add(x, V(y))) (* Vは即値ではなく変数であるという意味 *)
   | Closure.Sub(x, y) -> Ans(Sub(x, V(y)))
+  | Closure.Mul(x, y) -> Ans(Mul(x, V(y)))
+  | Closure.Div(x, y) -> Ans(Div(x, V(y)))
   | Closure.FNeg(x) -> Ans(FNegD(x))
   | Closure.FAdd(x, y) -> Ans(FAddD(x, y))
   | Closure.FSub(x, y) -> Ans(FSubD(x, y))
@@ -80,20 +82,20 @@ let rec g env = function (* 式の仮想マシンコード生成 (caml2html: vir
         expand (* オフセットを計算しながらリスト中の変数の型に応じて与えられた関数を呼ぶ *)
           (List.map (fun y -> (y, M.find y env)) ys)
           (4, e2')
-          (fun y offset store_fv -> seq(StDF(y, x, C(offset)), store_fv))
+          (fun y offset store_fv -> seq(StDF(y, x, C(offset)), store_fv)) (* 引数をoffsetを計算しつつストアしていき、unitでe2' *)
           (fun y _ offset store_fv -> seq(St(y, x, C(offset)), store_fv)) in
-      Let((x, t), Mov(reg_hp),
-          Let((reg_hp, Type.Int), Add(reg_hp, C(align offset)),
+      Let((x, t), Mov(reg_hp), (* xにヒープポインタを保存 *)
+          Let((reg_hp, Type.Int), Add(reg_hp, C(align offset)), (* ヒープポインタから、先ほど入れることに決まった引数たち分のオフセット足したものをヒープポインタに入れる *)
               let z = Id.genid "l" in
-              Let((z, Type.Int), SetL(l),
-                  seq(St(z, x, C(0)),
-                      store_fv))))
+              Let((z, Type.Int), SetL(l), (* 新しい変数zに関数のラベルを代入 *)
+                  seq(St(z, x, C(0)), (* zをxにストアして *)
+                      store_fv)))) (* 引数をヒープにおいて行って、e2' *)
   | Closure.AppCls(x, ys) ->
       let (int, float) = separate (List.map (fun y -> (y, M.find y env)) ys) in
-      Ans(CallCls(x, int, float))
+      Ans(CallCls(x, int, float)) (* 引数をintリストとfloatリストに分けて、CallCls *)
   | Closure.AppDir(Id.L(x), ys) ->
       let (int, float) = separate (List.map (fun y -> (y, M.find y env)) ys) in
-      Ans(CallDir(Id.L(x), int, float))
+      Ans(CallDir(Id.L(x), int, float)) (* 引数をintリストとfloatリストに分けて、CallDir *)
   | Closure.Tuple(xs) -> (* 組の生成 (caml2html: virtual_tuple) *)
       let y = Id.genid "t" in
       let (offset, store) =

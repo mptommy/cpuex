@@ -1,5 +1,3 @@
-.align	3
-.globl	main
 main:
 	addi	a0, zero, 30
 	sw	ra, -4(sp)
@@ -7,7 +5,6 @@ main:
 	jal	fib.9
 	addi	sp, sp, 8
 	lw	ra, -4(sp)
-	ret
 halt:
 	jal	halt
 fib.9:

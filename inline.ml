@@ -14,18 +14,18 @@ let rec g env = function (* インライン展開ルーチン本体 (caml2html: 
   | IfLE(x, y, e1, e2) -> IfLE(x, y, g env e1, g env e2)
   | Let(xt, e1, e2) -> Let(xt, g env e1, g env e2)
   | LetRec({ name = (x, t); args = yts; body = e1 }, e2) -> (* 関数定義の場合 (caml2html: inline_letrec) *)
-      let env = if size e1 > !threshold then env else M.add x (yts, e1) env in
+      let env = if size e1 > !threshold then env else M.add x (yts, e1) env in (* envには関数名と、仮引数のリストと関数処理の組の対応を入れる *)
       LetRec({ name = (x, t); args = yts; body = g env e1}, g env e2)
   | App(x, ys) when M.mem x env -> (* 関数適用の場合 (caml2html: inline_app) *)
-      let (zs, e) = M.find x env in
+      let (zs, e) = M.find x env in (* zsとeはそれぞれ仮引数と処理 *)
       Format.eprintf "inlining %s@." x;
       let env' =
         List.fold_left2
-          (fun env' (z, t) y -> M.add z y env')
+          (fun env' (z, t) y -> M.add z y env') (* zは仮引数、yは実引数 *)
           M.empty
           zs
           ys in
-      Alpha.g env' e
+      Alpha.g env' e (* 仮引数と実引数の対応を持ってα。仮引数を古い名前、実引数を新しい名前としている。 *)
   | LetTuple(xts, y, e) -> LetTuple(xts, y, g env e)
   | e -> e
 

@@ -19,14 +19,16 @@ let rec deref_typ = function (* 型変数を中身で置き換える関数 (caml
   | Type.Var({ contents = Some(t) } as r) ->
       let t' = deref_typ t in (* なに型を表す型変数だったのかを中身で置き換えて *)
       r := Some(t'); (* この型変数はこの型ですよ *)
-      t' (* 型円数自体をt'で置き換え *)
+      t' (* 型変数自体をt'で置き換え *)
   | t -> t (* 以上の型のいずれでもない（曖昧性がない）ときはそのまま返します *)
-let rec deref_id_typ (x, t) = (x, deref_typ t)
-let rec deref_term = function (* 抽象構文木を再帰的に解析、型変数を中身で置き換え *)
+let rec deref_id_typ (x, t) = (x, deref_typ t) (* 変数の型について、型変数を中身で置き換え *)
+let rec deref_term = function (* 抽象構文木を再帰的に解析、型変数を中身で置き換え *) (* 抽象構文木を入力し、内部の型変数が全て型に置き換わったものを出力 *)
   | Not(e) -> Not(deref_term e)
   | Neg(e) -> Neg(deref_term e)
   | Add(e1, e2) -> Add(deref_term e1, deref_term e2)
   | Sub(e1, e2) -> Sub(deref_term e1, deref_term e2)
+  | Mul(e1, e2) -> Mul(deref_term e1, deref_term e2)
+  | Div(e1, e2) -> Div(deref_term e1, deref_term e2)
   | Eq(e1, e2) -> Eq(deref_term e1, deref_term e2)
   | LE(e1, e2) -> LE(deref_term e1, deref_term e2)
   | FNeg(e) -> FNeg(deref_term e)
@@ -49,7 +51,7 @@ let rec deref_term = function (* 抽象構文木を再帰的に解析、型変�
   | Put(e1, e2, e3) -> Put(deref_term e1, deref_term e2, deref_term e3)
   | e -> e
 
-let rec occur r1 = function (* occur check (caml2html: typing_occur) *)
+let rec occur r1 = function (* occur check (caml2html: typing_occur) *) (* occur r t は型rが型変数t内に出現しているかを判定する *)
   | Type.Fun(t2s, t2) -> List.exists (occur r1) t2s || occur r1 t2
   | Type.Tuple(t2s) -> List.exists (occur r1) t2s
   | Type.Array(t2) -> occur r1 t2
@@ -58,11 +60,11 @@ let rec occur r1 = function (* occur check (caml2html: typing_occur) *)
   | Type.Var({ contents = Some(t2) }) -> occur r1 t2
   | _ -> false
 
-let rec unify t1 t2 = (* 型が合うように、型変数への代入をする (caml2html: typing_unify) *)
+let rec unify t1 t2 = (* 型が合うように、型変数への代入をする (caml2html: typing_unify) *) (* 型が合わなければ例外が発生。型が合うようなら、合うように型操作をしたうえで、最終的にはunitを返す *)
   match t1, t2 with
   | Type.Unit, Type.Unit | Type.Bool, Type.Bool | Type.Int, Type.Int | Type.Float, Type.Float -> ()
   | Type.Fun(t1s, t1'), Type.Fun(t2s, t2') ->
-      (try List.iter2 unify t1s t2s (* List.iter2 f [a1; ...; an] [b1; ...; bn] は f a1 b1; ...; f an bn の順に関数を評価します。2 つのリストの長さが異なる場合、例外 Invalid_argument を発生します。 *)
+      (try List.iter2 unify t1s t2s (* List.iter2 f [a1; ...; an] [b1; ...; bn] は f a1 b1; ...; f an bn の順に関数を評価します。2つのリストの長さが異なる場合、例外 Invalid_argument を発生します。 *)
       with Invalid_argument(_) -> raise (Unify(t1, t2)));
       unify t1' t2'
   | Type.Tuple(t1s), Type.Tuple(t2s) ->
@@ -80,7 +82,7 @@ let rec unify t1 t2 = (* 型が合うように、型変数への代入をする 
       r2 := Some(t1)
   | _, _ -> raise (Unify(t1, t2))
 
-let rec g env e = (* 型推論ルーチン (caml2html: typing_g) *)
+let rec g env e = (* 型推論ルーチン (caml2html: typing_g) *) (* 構文木を入力して、型を返す *)
   try
     match e with
     | Unit -> Type.Unit
@@ -93,7 +95,7 @@ let rec g env e = (* 型推論ルーチン (caml2html: typing_g) *)
     | Neg(e) ->
         unify Type.Int (g env e);
         Type.Int
-    | Add(e1, e2) | Sub(e1, e2) -> (* 足し算と引き算の型推論 (caml2html: typing_add) *)
+    | Add(e1, e2) | Sub(e1, e2) | Mul(e1, e2) | Div(e1, e2) -> (* 足し算と引き算の型推論 (caml2html: typing_add) *)
         unify Type.Int (g env e1);
         unify Type.Int (g env e2);
         Type.Int
@@ -117,8 +119,8 @@ let rec g env e = (* 型推論ルーチン (caml2html: typing_g) *)
         unify t (g env e1);
         g (M.add x t env) e2 (* 型環境にx:tを加えたものを環境としてe2の型をつけ、返す *)
     | Var(x) when M.mem x env -> M.find x env (* 変数の型推論 (caml2html: typing_var) *)
-    | Var(x) when M.mem x !extenv -> M.find x !extenv
-    | Var(x) -> (* 外部変数の型推論 (caml2html: typing_extvar) *)
+    | Var(x) when M.mem x !extenv -> M.find x !extenv (* 外部変数の型推論 (caml2html: typing_extvar) *)
+    | Var(x) -> (* envにもextenvにもいないとき、新しく型変数を作ってextenvに追加し、この型を返す *)
         Format.eprintf "free variable %s assumed as external@." x;
         let t = Type.gentyp () in (* 新しい型変数を作る *)
         extenv := M.add x t !extenv;
@@ -136,12 +138,12 @@ let rec g env e = (* 型推論ルーチン (caml2html: typing_g) *)
         unify (Type.Tuple(List.map snd xts)) (g env e1); 
         g (M.add_list xts env) e2
     | Array(e1, e2) -> (* must be a primitive for "polymorphic" typing *)
-        unify (g env e1) Type.Int;
+        unify (g env e1) Type.Int; (* 要素数 *)
         Type.Array(g env e2)
     | Get(e1, e2) ->
         let t = Type.gentyp () in
-        unify (Type.Array(t)) (g env e1);
-        unify Type.Int (g env e2);
+        unify (Type.Array(t)) (g env e1); (* t型の配列 *)
+        unify Type.Int (g env e2); (* n番目 *)
         t
     | Put(e1, e2, e3) ->
         let t = g env e3 in
@@ -157,7 +159,7 @@ let f e =
   | Type.Unit -> ()
   | _ -> Format.eprintf "warning: final result does not have type unit@.");
 *)
-    let t = g M.empty e in
+    let t = g M.empty e in (* eの型をtとして *)
   (try unify Type.Unit t
   with Unify _ -> (try unify Type.Int t with Unify _ -> failwith "top level does not have type unit"));
   extenv := M.map deref_typ !extenv;

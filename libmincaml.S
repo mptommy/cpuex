@@ -1,5 +1,3 @@
-.section ".text"
-.globl min_caml_print_newline
 min_caml_print_newline:
 	set	10, %o0
 	st	%o7, [%i0]
@@ -8,7 +6,6 @@ min_caml_print_newline:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_print_int
 min_caml_print_int:
 	set	format_int, %o0
 	mov	%i2, %o1
@@ -18,7 +15,6 @@ min_caml_print_int:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_print_byte
 min_caml_print_byte:
 	mov	%i2, %o0
 	st	%o7, [%i0]
@@ -27,7 +23,6 @@ min_caml_print_byte:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_prerr_int
 min_caml_prerr_int:
 	set	min_caml_stderr, %o0
 	set	format_int, %o1
@@ -38,7 +33,6 @@ min_caml_prerr_int:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_prerr_byte
 min_caml_prerr_byte:
 	mov	%i2, %o0
 	set	min_caml_stderr, %o1
@@ -48,7 +42,6 @@ min_caml_prerr_byte:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_prerr_float
 min_caml_prerr_float:
 	set	min_caml_stderr, %o0
 	set	format_float, %o1
@@ -60,7 +53,6 @@ min_caml_prerr_float:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_read_int
 min_caml_read_int:
 	set	format_int, %o0
 	st	%o7, [%i0]
@@ -70,7 +62,6 @@ min_caml_read_int:
 	ld	[%fp-20], %i2
 	retl
 	nop
-.globl min_caml_read_float
 min_caml_read_float:
 	set	format_float, %o0
 	st	%o7, [%i0]
@@ -80,7 +71,6 @@ min_caml_read_float:
 	ldd	[%fp-24], %f0
 	retl
 	nop
-.globl min_caml_create_array
 min_caml_create_array:
 	mov	%i2, %i4
 	mov	%i1, %i2
@@ -101,7 +91,6 @@ create_array_cont:
 	add	%i1, 4, %i1
 	b	create_array_loop
 	nop
-.globl min_caml_create_float_array
 min_caml_create_float_array:
 	mov	%i2, %i3
 	mov	%i1, %i2
@@ -117,17 +106,14 @@ create_float_array_cont:
 	add	%i1, 8, %i1
 	b	create_float_array_loop
 	nop
-.globl min_caml_abs_float
 min_caml_abs_float:
 	fabss	%f0, %f0
 	retl
 	nop
-.globl min_caml_sqrt
 min_caml_sqrt:
 	fsqrtd	%f0, %f0
 	retl
 	nop
-.globl min_caml_floor
 min_caml_floor:
 	std	%f0, [%i0]
 	ldd	[%i0], %o0
@@ -137,23 +123,19 @@ min_caml_floor:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_int_of_float
 min_caml_int_of_float:
-.globl min_caml_truncate
 min_caml_truncate:
 	fdtoi	%f0, %f0
 	st	%f0, [%i0]
 	ld	[%i0], %i2
 	retl
 	nop
-.globl min_caml_float_of_int
 min_caml_float_of_int:
 	st	%i2, [%i0]
 	ld	[%i0], %f0
 	fitod	%f0, %f0
 	retl
 	nop
-.globl min_caml_cos
 min_caml_cos:
 	std	%f0, [%i0]
 	ldd	[%i0], %o0
@@ -163,7 +145,6 @@ min_caml_cos:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_sin
 min_caml_sin:
 	std	%f0, [%i0]
 	ldd	[%i0], %o0
@@ -173,7 +154,6 @@ min_caml_sin:
 	ld	[%i0], %o7
 	retl
 	nop
-.globl min_caml_atan
 min_caml_atan:
 	std	%f0, [%i0]
 	ldd	[%i0], %o0
