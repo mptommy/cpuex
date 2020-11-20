@@ -182,7 +182,7 @@ pub struct EnvBase{
     m_tohost:XlenType,
     m_fromhost: XlenType,
     m_finish_cpu: bool,
-    pub is_branch:bool,
+    pub is_branch:u8,
     pub writing:bool,
     pub toukei:HashMap<RiscvInst,u64>,
     pub regtoukei:[u64;32],
@@ -191,8 +191,8 @@ pub struct EnvBase{
 impl EnvBase{
     pub fn new() -> EnvBase{
         EnvBase {
-            is_branch:false,
-            fetch_pc:DRAM_BASE -4 as AddrType,
+            is_branch:0,
+            fetch_pc:DRAM_BASE as AddrType,
             nowinst:0,
             nowdecinst:RiscvInst::WFI,
             maeforwrite:ForWrite{rd:0,isint:true,..Default::default()},
@@ -1174,8 +1174,8 @@ impl Riscv64Core for EnvBase{
         }
     }
     fn execute(&mut self,dec_inst:NRiscvInst,inst:InstType)->(ForMem,ForWrite){
-        if self.is_branch{
-            self.is_branch = false;
+        if self.is_branch > 0{
+            self.is_branch -=1;
             self.fetch_pc += 4;
             return  (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true}); 
         }
@@ -1189,6 +1189,7 @@ impl Riscv64Core for EnvBase{
   
               }
             NRiscvInst::STALL=>{
+                self.fetch_pc += 4;
               return  (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true});
                     
             }
@@ -1642,7 +1643,8 @@ impl Riscv64Core for EnvBase{
             self.m_pc += 4;
             self.fetch_pc += 4;
         }else{
-            self.is_branch = true;
+            self.is_branch = 2;
+          
         }
         return (formem,forwrite);
     }

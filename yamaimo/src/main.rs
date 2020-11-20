@@ -99,17 +99,17 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             riscv64_core.m_pc+=4;
             continue;
         }*/
-
+        let inst_data = riscv64_core.fetch_memory ();
         let (formembuf,forwardingbuf) = riscv64_core.execute(decoded, inst_data2 as InstType);
         riscv64_core.write_back(forwrite1);
-        let inst_data = riscv64_core.fetch_memory ();
+        
         riscv64_core.nowformem = formembuf;
         riscv64_core.mae2forwrite=riscv64_core.maeforwrite;
         riscv64_core.maeforwrite = riscv64_core.nowforwrite;
         riscv64_core.nowforwrite=forwardingbuf;
         let forwrite = riscv64_core.mem_access_unit(formembuf1, forwardingbuf1);
         let decode = riscv64_core.decode(inst_data1, riscv64_core.nowforwrite, forwrite);
-        let stalled = if let NRiscvInst::STALL = decode{true}else{false};
+        let stalled = if let NRiscvInst::STALL = decode{riscv64_core.fetch_pc -= 4;true}else{false};
       //  let (formembuf,forwardingbuf) = riscv64_core.execute(decode, inst_data as InstType);
         //let forwrite = riscv64_core.mem_access_unit(formembuf, forwardingbuf);
         
