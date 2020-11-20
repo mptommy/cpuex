@@ -9,6 +9,7 @@ main:
 	lw	ra,28(sp)
 	lw	s0,24(sp)
 	addi	sp,sp,32
+halt:
 	j	halt
 fib:
 	addi	sp,sp,-32
@@ -16,8 +17,7 @@ fib:
 	sw	s0,24(sp)
 	sw	s1,20(sp)
 	addi	s0,sp,32
-	sw	a0,-20(s0)
-	lw	a4,-20(s0)
+	mv 	a4,a0
 	li	a5,1
 	bgt	a4,a5,.L4
 	lw	a5,-20(s0)
@@ -47,4 +47,3 @@ fib:
 	lw	s1,20(sp)
 	addi	sp,sp,32
 	jr	ra
-halt:

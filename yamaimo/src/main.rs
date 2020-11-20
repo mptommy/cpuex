@@ -6,6 +6,11 @@ mod riscv_csr;
 mod riscv_core;
 use crate::riscv_core::Riscv64Core;
 use crate::riscv_core::EnvBase;
+use crate::riscv_core::NRiscvInst;
+use crate::riscv_core::ForMem;
+use crate::riscv_core::MemSize;
+use crate::riscv_core::MemType;
+use crate::riscv_core::ForWrite;
 use crate::riscv_core::DRAM_BASE;
 use crate::riscv_core::InstType;
 use crate::riscv_core::XlenType;
@@ -32,8 +37,19 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let finish = false;
     let mut step = true;
     let mut renzoku = 0;
-    while !finish&& !riscv64_core.get_is_finish_cpu () {
-
+    let mut decoded = NRiscvInst::FIRST;
+    let mut inst_data1=0;
+    let mut inst_data2=0;
+    let mut forwrite1=ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+    let mut formembuf1=ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
+    let mut forwardingbuf1=ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+    let mut finishcount = 0;
+    while !finish&& finishcount < 4{
+        if !riscv64_core.get_is_finish_cpu(){
+            finishcount = 0;
+        }else{
+            finishcount = finishcount + 1;
+        }
         if step&&renzoku >= 0{
             let mut looping = true;
             
@@ -78,23 +94,35 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         }
         renzoku = if renzoku < 0 {renzoku + 1 }else{0};
        if riscv64_core.writing{ println!("{}",count.to_string());}
-        let inst_data = riscv64_core.fetch_memory ();
-        if inst_data == 0{
+       // let inst_data = riscv64_core.fetch_memory ();
+        /*if inst_data == 0{
             riscv64_core.m_pc+=4;
             continue;
-        }
-        let decode = riscv64_core.decode(inst_data, riscv64_core.nowforwrite, riscv64_core.maeforwrite);
-        let (formembuf,forwardingbuf) = riscv64_core.execute(decode, inst_data as InstType);
-        let forwrite = riscv64_core.mem_access_unit(formembuf, forwardingbuf);
-        riscv64_core.write_back(forwrite);
+        }*/
+
+        let (formembuf,forwardingbuf) = riscv64_core.execute(decoded, inst_data2 as InstType);
+        riscv64_core.write_back(forwrite1);
+        let inst_data = riscv64_core.fetch_memory ();
+        riscv64_core.nowformem = formembuf;
+        riscv64_core.mae2forwrite=riscv64_core.maeforwrite;
+        riscv64_core.maeforwrite = riscv64_core.nowforwrite;
+        riscv64_core.nowforwrite=forwardingbuf;
+        let forwrite = riscv64_core.mem_access_unit(formembuf1, forwardingbuf1);
+        let decode = riscv64_core.decode(inst_data1, riscv64_core.nowforwrite, forwrite);
+        let stalled = if let NRiscvInst::STALL = decode{true}else{false};
+      //  let (formembuf,forwardingbuf) = riscv64_core.execute(decode, inst_data as InstType);
+        //let forwrite = riscv64_core.mem_access_unit(formembuf, forwardingbuf);
+        
 
         //let inst_decode = riscv64_core.decode_inst(inst_data);
         //let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,riscv64_core.nowforwrite,riscv64_core.maeforwrite);
-       riscv64_core.nowformem = formembuf;
-       riscv64_core.mae2forwrite=riscv64_core.maeforwrite;
-       riscv64_core.maeforwrite = riscv64_core.nowforwrite;
-       riscv64_core.nowforwrite=forwardingbuf;
 
+        decoded = decode;
+        inst_data2 = if stalled {inst_data2}else{inst_data1};
+        inst_data1 = if stalled {inst_data1}else{inst_data};
+        formembuf1 = formembuf;
+        forwrite1  = forwrite;
+        forwardingbuf1 = forwardingbuf;
 
         
       //  if zeros{
