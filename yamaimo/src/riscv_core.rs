@@ -573,6 +573,7 @@ impl Riscv64Core for EnvBase{
         let shamt =(inst >> 20)&0x1f;
         let imm =  Self::extract_ifield(instu);
         let sbimm =Self::extract_sb_field(instu);
+        let simm =  Self::extract_sfield(instu);
         let ujimm = Self::extract_uj_field(instu);
         match opcode {
             0x0f => {
@@ -626,24 +627,24 @@ impl Riscv64Core for EnvBase{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 match funct3 {
-                    0b000 => {if self.writing {println!("SB {},{}({})\n",rs2,imm,rs1);}NRiscvInst::SB(rs1_data,rs2_data,imm)},
-                    0b001 => {if self.writing {println!("SH {},{}({})\n",rs2,imm,rs1);}NRiscvInst::SH(rs1_data,rs2_data,imm)},
-                    0b010 => {if self.writing {println!("SW {},{}({})\n",rs2,imm,rs1);}NRiscvInst::SW(rs1_data,rs2_data,imm)},
+                    0b000 => {if self.writing {println!("SB {},{}({})\n",rs2,simm,rs1);}NRiscvInst::SB(rs1_data,rs2_data,simm)},
+                    0b001 => {if self.writing {println!("SH {},{}({})\n",rs2,simm,rs1);}NRiscvInst::SH(rs1_data,rs2_data,simm)},
+                    0b010 => {if self.writing {println!("SW {},{}({})\n",rs2,simm,rs1);}NRiscvInst::SW(rs1_data,rs2_data,simm)},
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
-            0x37 =>  {if self.writing {println!("LUI {},{}\n",rd,imm20);}NRiscvInst::LUI(rd,imm)},
-            0x17 => {if self.writing {println!("AUIPC {},{}\n",rd,imm20);}NRiscvInst::AUIPC(rd,imm)},
+            0x37 =>  {if self.writing {println!("LUI {},{}\n",rd,imm20);}NRiscvInst::LUI(rd,imm20)},
+            0x17 => {if self.writing {println!("AUIPC {},{}\n",rd,imm20);}NRiscvInst::AUIPC(rd,imm20)},
             0x63 => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 match funct3 {
-                    0b000 =>{if self.writing {println!("BEQ {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BEQ(rs1_data,rs2_data,imm)},
-                    0b001 => {if self.writing {println!("BNE {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BNE(rs1_data,rs2_data,imm)},
-                    0b100 => {if self.writing {println!("BLT {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BLT(rs1_data,rs2_data,imm)},
-                    0b101 => {if self.writing {println!("BGE {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BGE(rs1_data,rs2_data,imm)},
-                    0b110 => {if self.writing {println!("BLTU {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BLTU(rs1_data,rs2_data,imm)},
-                    0b111 => {if self.writing {println!("BGEU {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BGEU(rs1_data,rs2_data,imm)},
+                    0b000 =>{if self.writing {println!("BEQ {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BEQ(rs1_data,rs2_data,sbimm)},
+                    0b001 => {if self.writing {println!("BNE {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BNE(rs1_data,rs2_data,sbimm)},
+                    0b100 => {if self.writing {println!("BLT {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BLT(rs1_data,rs2_data,sbimm)},
+                    0b101 => {if self.writing {println!("BGE {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BGE(rs1_data,rs2_data,sbimm)},
+                    0b110 => {if self.writing {println!("BLTU {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BLTU(rs1_data,rs2_data,sbimm)},
+                    0b111 => {if self.writing {println!("BGEU {},{},{}\n",rs1,rs2,sbimm);} NRiscvInst::BGEU(rs1_data,rs2_data,sbimm)},
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
@@ -667,9 +668,10 @@ impl Riscv64Core for EnvBase{
                     _     => NRiscvInst::ADDI(0,0,0),
                 }
             }
-            0x6f => NRiscvInst::JAL(rd,ujimm),
+            0x6f => {if self.writing {println!("JAL {},{}\n",rd,ujimm);}NRiscvInst::JAL(rd,ujimm)},
             0x67 =>{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                if self.writing {println!("JALR {},{},{}\n",rd,rs1_data,imm);}
                  NRiscvInst::JALR(rd,rs1_data,imm)},
             0x73 => {
                 match funct3 {
@@ -1097,7 +1099,7 @@ impl Riscv64Core for EnvBase{
             }
             NRiscvInst::AUIPC(rd,imm)=>{
                 let ans = self.m_pc + (imm << 12) as u32;
-                update_pc = true;
+                //update_pc = true;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans as i32,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             NRiscvInst::SLTI(rd,rs1_data,imm)=>{
@@ -1208,11 +1210,11 @@ impl Riscv64Core for EnvBase{
             }
             NRiscvInst::SW(rs1_data,rs2_data,imm)=>{
                 let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::HWORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::WORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::SH(rs1_data,rs2_data,imm)=>{
                 let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::WORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::HWORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::ADDI(rd,rs1_data,imm)=>{
                 let reg_data:XlenType = (Wrapping(rs1_data)+Wrapping(imm)).0;
@@ -1252,10 +1254,11 @@ impl Riscv64Core for EnvBase{
             }
             NRiscvInst::JAL(rd,imm)=>{
                 let addr = imm as AddrType;
+                let pc_bak = self.m_pc;
                 self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
                 self.m_finish_cpu = addr == 0;
                 update_pc = true;
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:(self.m_pc-DRAM_BASE + 4) as XlenType,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:(pc_bak-DRAM_BASE + 4) as XlenType,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::JALR(rd,rs1_data,imm)=>{
                 let mut addr = imm as AddrType;
@@ -1852,11 +1855,12 @@ impl Riscv64Core for EnvBase{
             RiscvInst::JAL => {
                 let addr:AddrType = Self::extract_uj_field(inst) as AddrType;
                 self.write_reg(rd, (self.m_pc-DRAM_BASE + 4) as XlenType);
+                let pc_bak = self.m_pc;
                 self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
                 self.m_finish_cpu = addr == 0;
                 update_pc = true;
                 if self.writing {println!("JAL {},{} \n",rd,addr);}
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:(self.m_pc-DRAM_BASE + 4) as XlenType,rd:rd,fdata:-1.0,isint:true,issigned:false})
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:(pc_bak-DRAM_BASE + 4) as XlenType,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             RiscvInst::JALR => {
                 let mut addr: AddrType = Self::extract_ifield (inst) as AddrType;

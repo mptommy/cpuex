@@ -83,8 +83,13 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             riscv64_core.m_pc+=4;
             continue;
         }
-        let inst_decode = riscv64_core.decode_inst(inst_data);
-        let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,riscv64_core.nowforwrite,riscv64_core.maeforwrite);
+        let decode = riscv64_core.decode(inst_data, riscv64_core.nowforwrite, riscv64_core.maeforwrite);
+        let (formembuf,forwardingbuf) = riscv64_core.execute(decode, inst_data as InstType);
+        let forwrite = riscv64_core.mem_access_unit(formembuf, forwardingbuf);
+        riscv64_core.write_back(forwrite);
+
+        //let inst_decode = riscv64_core.decode_inst(inst_data);
+        //let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,riscv64_core.nowforwrite,riscv64_core.maeforwrite);
        riscv64_core.nowformem = formembuf;
        riscv64_core.mae2forwrite=riscv64_core.maeforwrite;
        riscv64_core.maeforwrite = riscv64_core.nowforwrite;

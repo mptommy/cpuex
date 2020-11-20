@@ -92,8 +92,8 @@ pub enum Insts{
     FSGNJXS(u8,u8,u8),
     FMINS(u8,u8,u8),
     FMAXS(u8,u8,u8),
-    FCVTWS(u8,u8),
-    FCVTWUS(u8,u8),
+    FCVTWS(u8,u8,i32),
+    FCVTWUS(u8,u8,i32),
     FMVXW(u8,u8),
     FEQS(u8,u8,u8),
     FLTS(u8,u8,u8),
@@ -1080,11 +1080,11 @@ impl Instruction{
                     ..Default::default()
                 }
             },
-            Insts::FCVTWS(rd,r1)=>{
+            Insts::FCVTWS(rd,r1,i)=>{
                 Instruction{
                     op0_6:0b1010011,
                     op7_11:rd,
-                    op12_14:0,//rm.とりあえず0にしとく
+                    op12_14:(i & 0xff)as u8,//rm.とりあえず0にしとく
                     op15_19:r1,
                     op20_24:0,
                     op25_31:0b1100000,
@@ -1092,11 +1092,11 @@ impl Instruction{
                     ..Default::default()
                 }
             },
-            Insts::FCVTWUS(rd,r1)=>{
+            Insts::FCVTWUS(rd,r1,i)=>{
                 Instruction{
                     op0_6:0b1010011,
                     op7_11:rd,
-                    op12_14:0,//rm.とりあえず0にしとく
+                    op12_14:(i & 0xff)as u8,//rm.とりあえず0にしとく
                     op15_19:r1,
                     op20_24:0b00001,
                     op25_31:0b1100000,
