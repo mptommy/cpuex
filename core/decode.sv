@@ -14,7 +14,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     input [31:0] instr_raw;
     output reg [31:0] imm;
     output reg [3:0] alu_ctl;
-    output reg branch_c, branch_uc, branch_relative, mem_read, mem_write, alu_pc, alu_src, reg_write;
+    output reg branch_c, branch_uc, branch_relative, mem_read, mem_write, alu_pc, alu_src, reg_write, data_out;
 
     output reg [4:0] read_reg1, read_reg2;
     output reg [4:0] write_reg;

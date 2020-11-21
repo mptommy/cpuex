@@ -1,13 +1,13 @@
 `default_nettype none
 
-module uart_rx #(CLK_PER_HALF_BIT = 434) (
+module uart_rx (
                output logic [7:0] rdata,
                output logic       rdata_ready,
                output logic       ferr,
                input wire         rxd,
                input wire         clk,
                input wire         rstn);
-
+   parameter CLK_PER_HALF_BIT = 434;
    localparam e_3on2wait = CLK_PER_HALF_BIT * 3 -1;
    localparam e_fullwait = CLK_PER_HALF_BIT * 2 -1;
    logic next;
@@ -102,6 +102,6 @@ module uart_rx #(CLK_PER_HALF_BIT = 434) (
          end
       end
    end
-   
+
 endmodule
 `default_nettype wire

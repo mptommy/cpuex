@@ -1,4 +1,4 @@
-module core #(CLK_PER_HALF_BIT_UART = 434) (clk, rst, test, uart_output);
+module core (clk, rst, test, uart_output);
 
     input clk, rst;
     output wire [31:0] test;
@@ -38,10 +38,10 @@ module core #(CLK_PER_HALF_BIT_UART = 434) (clk, rst, test, uart_output);
         mem_read_, mem_write_, reg_write_, write_reg_,
         branch_addr, branch, mem_addr, mem_write_data, reg_write_data);
 
-    wire [7:0] data_out_wire;
-    assign out_data_wire = reg1_data_wire[24:31];
+    wire [7:0] out_data_wire;
+    assign out_data_wire = reg1_data_wire[7:0];
     wire tx_busy;
-    uart_tx #(CLK_PER_HALF_BIT_UART) (data_out_wire, data_out, tx_busy, uart_output, clk, rstn);
+    uart_tx uart_tx_instance(out_data_wire, data_out, tx_busy, uart_output, clk, rstn);
 
     wire [31:0] branch_addr_;
     wire branch_, reg_write__;

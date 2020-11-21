@@ -1,24 +1,24 @@
 `default_nettype none
 
-module uart_tx #(CLK_PER_HALF_BIT = 434) (
+module uart_tx (
                input wire [7:0] sdata,
                input wire       tx_start,
                output logic     tx_busy,
                output logic     txd,
                input wire       clk,
                input wire       rstn);
-   
+   parameter CLK_PER_HALF_BIT = 434;
    localparam e_clk_bit = CLK_PER_HALF_BIT * 2 - 1;
 
    localparam e_clk_stop_bit = (CLK_PER_HALF_BIT*2*9)/10 - 1;
-   
+
    logic [7:0]                  txbuf;
    logic [3:0]                  status;
    logic [31:0]                 counter;
    logic                        next;
    logic                        fin_stop_bit;
    logic                        rst_ctr;
-   
+
    localparam s_idle = 0;
    localparam s_start_bit = 1;
    localparam s_bit_0 = 2;
@@ -30,7 +30,7 @@ module uart_tx #(CLK_PER_HALF_BIT = 434) (
    localparam s_bit_6 = 8;
    localparam s_bit_7 = 9;
    localparam s_stop_bit = 10;
-   
+
    // generate event signal
    always @(posedge clk) begin
       if (~rstn) begin
@@ -65,7 +65,7 @@ module uart_tx #(CLK_PER_HALF_BIT = 434) (
          tx_busy <= 0;
       end else begin
          rst_ctr <= 0;
-         
+
          if (status == s_idle) begin
             if (tx_start) begin
                txbuf <= sdata;
