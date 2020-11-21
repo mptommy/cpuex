@@ -1,6 +1,6 @@
 module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_relative,
     mem_read, mem_write, alu_pc, alu_src, reg_write,
-    read_reg1, read_reg2, write_reg);
+    read_reg1, read_reg2, write_reg, data_out);
     input clk, rst;
 
     // FETCH = 0
@@ -37,6 +37,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign sb_type = (opcode == 7'b1100011);
     assign uj_type = (opcode == 7'b1101111);
     assign u_type = (opcode == 7'b0110111 || opcode == 7'b0010111);
+    assign out_type = (opcode == 7'b0000001);
+
     always @ (posedge clk) begin
         //DECODE
         if (rst) begin
@@ -53,6 +55,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
             read_reg1 <= 0;
             read_reg2 <= 0;
             write_reg <= 0;
+            data_out <= 0;
         end else begin
             if(state == 1) begin
                 read_reg1 = instr_raw[19:15];
@@ -147,6 +150,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 // in jalr, use the absolute address
                 branch_relative <= ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 0 : 1;
                 write_reg <= instr_raw[11:7];
+                data_out <= out_type;
             end
         end
     end

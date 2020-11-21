@@ -1,24 +1,28 @@
-module core(clk, rst, test);
+module core #(CLK_PER_HALF_BIT_UART = 434) (clk, rst, test, uart_output);
 
     input clk, rst;
     output wire [31:0] test;
+    output wire uart_output;
+
+    localparam state_out = 5;
 
     reg [31:0] pc;
     reg [2:0] state;
 
     wire [31:0] instr_raw;
-
+    wire rstn;
+    assign rstn = ~rst;
     fetch fetch_instance(clk, rst, state, pc, instr_raw);
 
     wire [31:0] imm;
     wire [3:0] alu_ctl;
-    wire branch_relative, branch_uc, branch_c, mem_read, mem_write, alu_pc, alu_src, reg_write;
+    wire branch_relative, branch_uc, branch_c, mem_read, mem_write, alu_pc, alu_src, reg_write, data_out;
     wire [4:0] read_reg1, read_reg2, write_reg;
 
     decode decode_instance(clk, rst, state, instr_raw,
         imm, alu_ctl, branch_uc, branch_c, branch_relative,
         mem_read, mem_write, alu_pc, alu_src, reg_write,
-        read_reg1, read_reg2, write_reg);
+        read_reg1, read_reg2, write_reg, data_out);
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
     wire mem_read_, mem_write_, reg_write_;
@@ -33,6 +37,11 @@ module core(clk, rst, test);
         write_reg,
         mem_read_, mem_write_, reg_write_, write_reg_,
         branch_addr, branch, mem_addr, mem_write_data, reg_write_data);
+
+    wire [7:0] data_out_wire;
+    assign out_data_wire = reg1_data_wire[24:31];
+    wire tx_busy;
+    uart_tx #(CLK_PER_HALF_BIT_UART) (data_out_wire, data_out, tx_busy, uart_output, clk, rstn);
 
     wire [31:0] branch_addr_;
     wire branch_, reg_write__;
@@ -59,12 +68,18 @@ module core(clk, rst, test);
             end else if (state == 1) begin
                 state <= 2;
             end else if (state == 2) begin
-                state <= 3;
+                if (data_out)
+                    state <= state_out;
+                else
+                    state <= 3;
             end else if (state == 3) begin
                 state <= 4;
             end else if (state == 4) begin
                 pc <= branch_ ? branch_addr : pc + 4;
                 state <= 0;
+            end else if (state == state_out) begin
+                if (~tx_busy)
+                    state <= 3;
             end
         end
     end
