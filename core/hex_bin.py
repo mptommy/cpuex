@@ -1,4 +1,4 @@
-with open("./core/tests/fib_from_compiler_out.mem", "r") as f:
+with open("./core/tests/fib_from_compiler_in_out.mem", "r") as f:
   for line in f:
     stripped_line = line.strip()
     if (stripped_line == ''):

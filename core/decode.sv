@@ -1,6 +1,6 @@
 module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_relative,
     mem_read, mem_write, alu_pc, alu_src, reg_write,
-    read_reg1, read_reg2, write_reg, data_out);
+    read_reg1, read_reg2, write_reg, data_out, data_in);
     input clk, rst;
 
     // FETCH = 0
@@ -14,7 +14,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     input [31:0] instr_raw;
     output reg [31:0] imm;
     output reg [3:0] alu_ctl;
-    output reg branch_c, branch_uc, branch_relative, mem_read, mem_write, alu_pc, alu_src, reg_write, data_out;
+    output reg branch_c, branch_uc, branch_relative, mem_read, mem_write, alu_pc, alu_src, reg_write, data_out, data_in;
 
     output reg [4:0] read_reg1, read_reg2;
     output reg [4:0] write_reg;
@@ -38,6 +38,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign uj_type = (opcode == 7'b1101111);
     assign u_type = (opcode == 7'b0110111 || opcode == 7'b0010111);
     assign out_type = (opcode == 7'b0000001);
+    assign in_type = (opcode == 7'b0000000);
 
     always @ (posedge clk) begin
         //DECODE
@@ -56,6 +57,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
             read_reg2 <= 0;
             write_reg <= 0;
             data_out <= 0;
+            data_in <= 0;
         end else begin
             if(state == 1) begin
                 read_reg1 = instr_raw[19:15];
@@ -81,7 +83,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 alu_pc <= (opcode == 7'b0010111) ? 1 : 0;
                 // 1: imm, 0: reg2
                 alu_src <= (r_type || sb_type) ? 0 : 1;
-                // only s_type and sb_type does not write
+                // only s_type and sb_type and out_type do not write
                 reg_write <= (s_type || sb_type) ? 0 : 1;
 
                 alu_ctl <=
@@ -151,6 +153,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 branch_relative <= ((opcode == 7'b1100111) && (funct3 == 3'b000)) ? 0 : 1;
                 write_reg <= instr_raw[11:7];
                 data_out <= out_type;
+                data_in <= in_type;
             end
         end
     end
