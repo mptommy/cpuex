@@ -2669,7 +2669,7 @@ impl Riscv64Core for EnvBase{
         while !self.outqueue.is_empty(){
             let ans = self.outqueue.pop_front();
             if let Some(i) = ans {
-                println!("{:b}",i);
+                println!("{:0>8b}",i);
             }
             
         }
