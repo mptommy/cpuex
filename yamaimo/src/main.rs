@@ -32,17 +32,19 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         riscv64_core.write_memory_byte(hex_addr + DRAM_BASE,l as XlenType);
         hex_addr=hex_addr+1;
     }
-    let file = File::open("contest.sld").unwrap();
-    let filebuf = BufReader::new(file);
-    for result in filebuf.lines(){
-        let result = result?;
-        let iter = result.split_whitespace().map(|i| i.parse::<f32>().unwrap());
-        for fs in iter{
-            let beints = fs.to_le_bytes();
-            riscv64_core.inqueue.push_back(beints[0]as i8);
-            riscv64_core.inqueue.push_back(beints[1]as i8);
-            riscv64_core.inqueue.push_back(beints[2]as i8);
-            riscv64_core.inqueue.push_back(beints[3]as i8);
+    let file = File::open("contest.sld");
+    if let Ok(file) = file {
+        let filebuf = BufReader::new(file);
+        for result in filebuf.lines(){
+            let result = result?;
+            let iter = result.split_whitespace().map(|i| i.parse::<f32>().unwrap());
+            for fs in iter{
+                let beints = fs.to_le_bytes();
+                riscv64_core.inqueue.push_back(beints[0]as i8);
+                riscv64_core.inqueue.push_back(beints[1]as i8);
+                riscv64_core.inqueue.push_back(beints[2]as i8);
+                riscv64_core.inqueue.push_back(beints[3]as i8);
+            }
         }
     }
     let mut count:u64 = 0;

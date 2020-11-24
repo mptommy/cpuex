@@ -27,10 +27,12 @@ fn main()
 fn main() -> Result<(), Box<dyn std::error::Error>>{
     let args: Vec<String> = env::args().collect::<Vec<String>>();
 
-    if args.len() != 3{
+    if args.len() != 2{
         writeln!(std::io::stderr(), "file").unwrap();
         std::process::exit(1);
     }
+    let split:Vec<&str>= (&args[1]).split(".").collect();
+    let moto = split[0];
     let mut mac= Machine::new();
     let mut meireis:Vec<Insts>=Vec::new();
     let file = File::open(&args[1]).unwrap();
@@ -43,7 +45,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
         meireis = mac.gijimeirei(inst,meireis);
     }
 
-    let file = File::create(&args[2]).unwrap();
+    let file = File::create(moto.to_string()+".out").unwrap();
     let mut filebuf = BufWriter::new (file);
     for inst in meireis{
         let check = Instruction::code(inst);
@@ -55,9 +57,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
     //let path = env::current_dir().unwrap().join(path);
     let file = File::open(path).unwrap();
    let mut filebuf = BufWriter::new (file);*/
+   let file2 = File::create(moto.to_string()+".mem").unwrap();
+   let mut filebuf2 = BufWriter::new (file2);
     for inst in mac.insts{
         filebuf.write_all(&Instruction::tohex4(&inst))?;
-        println!("{:>08x}",Instruction::tohex(&inst));
+        let strs = format!("{:0>32b}",Instruction::tohex(&inst));  // "4.40"
+       let check = &strs;
+       writeln!(filebuf2,"{}", format!("{}",check));
+        //filebuf2.writeln!(strs);
+       // println!("{:>08b}",Instruction::tohex(&inst));
         //writeln!(filebuf,"{:>08x}\n",Instruction::tohex(inst)).unwrap();
     }
     Ok(())
