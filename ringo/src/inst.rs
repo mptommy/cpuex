@@ -112,6 +112,8 @@ pub enum Insts{
     DIVU(u8,u8,u8),
     REM(u8,u8,u8),
     REMU(u8,u8,u8),
+    IN(u8),
+    OUT(u8)
 }
 
 pub struct Instruction{
@@ -229,6 +231,21 @@ impl Instruction{
 
     pub fn code(inst:Insts)->Instruction{
         match inst  {
+            Insts::OUT(rs1)=>{
+                Instruction{
+                    op0_6:0b00000001,
+                    op15_19:rs1,
+                    optype:inst,
+                    ..Default::default()
+                }
+        },
+            Insts::IN(rd)=>{
+                    Instruction{
+                        op7_11:rd,
+                        optype:inst,
+                        ..Default::default()
+                    }
+            },
             Insts::LUI(r,i)=>{
                 Instruction::set_imm20(
                     Instruction{

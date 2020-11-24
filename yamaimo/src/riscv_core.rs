@@ -5,6 +5,7 @@ use crate::riscv_csr::Riscv64Csr;
 use crate::riscv_csr::CsrAddr;
 use std::collections::HashMap;
 use std::collections::BinaryHeap;
+use std::collections::VecDeque;
 pub type AddrType=u32;
 pub type XlenType  = i32;
 pub type UXlenType = u32;
@@ -36,7 +37,7 @@ pub enum RiscvInst{
     WFI,
     FMADDS,FMSUBS,FNMSUBS,FNMADDS,FADDS,FSUBS,FMULS,FDIVS,FSQRTS,FSGNJS,FSGNJNS,FSGNJXS,FMINS,FMAXS,FCVTWS,FCVTWUS,FMVXW,FEQS,FLTS,FLES,FCLASSS,FCVTSW,FCVTSWU,
     FMVWX,FLW,FSW,
-    MUL,MULH,MULHSU,MULHU,DIV,DIVU,REM,REMU
+    MUL,MULH,MULHSU,MULHU,DIV,DIVU,REM,REMU,IN,OUT
 }
 #[derive(Copy,Clone)]
 #[derive(Debug)]
@@ -130,6 +131,8 @@ pub enum NRiscvInst{
     REM(u8,i32,i32),
     REMU(u8,i32,i32),
     STALL,
+    IN(u8),
+    OUT(i8),
 }
 #[derive(Copy,Clone)]
 pub enum MemType {
@@ -187,10 +190,14 @@ pub struct EnvBase{
     pub toukei:HashMap<RiscvInst,u64>,
     pub regtoukei:[u64;32],
     pub fregtoukei:[u64;32],
+    pub inqueue:VecDeque<i8>,
+    pub outqueue:VecDeque<i8>,
 }
 impl EnvBase{
     pub fn new() -> EnvBase{
         EnvBase {
+            inqueue:VecDeque::new(),
+            outqueue:VecDeque::new(),
             is_branch:0,
             fetch_pc:DRAM_BASE as AddrType,
             nowinst:0,
@@ -377,6 +384,7 @@ pub trait Riscv64Core{
     fn output_fregi(&mut self,i:i32);
     fn output_toukei(&mut self);
     fn output_regtoukei(&mut self);
+    fn output_outs(&mut self);
 }
 
 impl Riscv64Core for EnvBase{
@@ -581,6 +589,19 @@ impl Riscv64Core for EnvBase{
         let simm =  Self::extract_sfield(instu);
         let ujimm = Self::extract_uj_field(instu);
         match opcode {
+            0x00=>{
+                if self.writing {println!("IN {}\n",rd);}
+                NRiscvInst::IN(rd)
+            }
+            0x01=>{
+                if self.writing {println!("OUT {}\n",rs1);}
+                let (rs1_data,stall1)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let data = (rs1_data & 0xff) as i8;
+                if stall1{
+                    return NRiscvInst::STALL;
+                }
+                NRiscvInst::OUT(data)
+            }
             0x0f => {
                 match funct3 {
                     0b000 => NRiscvInst::FENCE(0,0),//とりあえずの0
@@ -943,6 +964,12 @@ impl Riscv64Core for EnvBase{
         let imm12 = (inst>> 20)&0xfff;
         let shamt =(inst >> 20)&0x1f;
         match opcode {
+            0x00 =>{
+                RiscvInst::IN
+            }
+            0x01 =>{
+                RiscvInst::OUT
+            }
             0x0f => {
                 match funct3 {
                     0b000 => RiscvInst::FENCE,
@@ -1183,10 +1210,22 @@ impl Riscv64Core for EnvBase{
         let mut update_pc = false;
         let (formem,forwrite)=
         match dec_inst{
+            NRiscvInst::IN(rd)=>{
+                let ans = self.inqueue.pop_front();
+                let ans = match ans{
+                    Some(i) => i,
+                    None => panic!("IN TUKITA")
+                };
+                let ans = ((ans as u8)as u32) as i32;
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            NRiscvInst::OUT(data)=>{
+                 self.outqueue.push_back(data);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:0,rd:0,fdata:-1.0,isint:true,issigned:true})
+            }
             NRiscvInst::FIRST=>{
                 self.fetch_pc += 4;
                 return (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true})
-  
               }
             NRiscvInst::STALL=>{
                 self.fetch_pc += 4;
@@ -1667,6 +1706,24 @@ impl Riscv64Core for EnvBase{
         let mut update_pc = false;
         let (formem,forwrite)=
         match dec_inst{
+            RiscvInst::IN=>{
+                if self.writing {println!("IN {}\n",rd);}
+                let ans = self.inqueue.pop_front();
+                let ans = match ans{
+                    Some(i) => i,
+                    None => panic!("IN TUKITA")
+                } ;
+                let ans = ((ans as u8)as u32) as i32;
+                self.write_reg(rd, ans);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
+            }
+            RiscvInst::OUT=>{
+                if self.writing {println!("OUT {}\n",rs1);}
+                let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
+                let rs1_data = (rs1_data & 0xff) as i8;
+                self.outqueue.push_back(rs1_data);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:0,rd:0,fdata:-1.0,isint:true,issigned:true})
+            }
             RiscvInst::LUI=>{
                 let imm =  Self::extract_ufield(inst);
                 let ans = imm << 12;
@@ -2605,6 +2662,16 @@ impl Riscv64Core for EnvBase{
         for i in 0..32{
             if self.fregtoukei[i] == 0 {continue;}
             println!("fr{}:{}",i,self.fregtoukei[i]);
+        }
+    }
+    fn output_outs(&mut self){
+        println!("OUTS");
+        while !self.outqueue.is_empty(){
+            let ans = self.outqueue.pop_front();
+            if let Some(i) = ans {
+                println!("{:b}",i);
+            }
+            
         }
     }
 
