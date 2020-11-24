@@ -25,7 +25,7 @@ float IntToFloat(int i){
   unsigned int u = itou(i);
   //PrintUIntBin(u);
   if((u & (1 << 31)) > 0){
-    ans.s = 1;
+    ans.s = 1 << 31;
     i = -i;
     u = itou(i);
   }

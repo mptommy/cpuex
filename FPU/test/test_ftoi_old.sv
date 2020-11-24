@@ -2,13 +2,12 @@
 `default_nettype none
 
 module test_ftoi
-    #(parameter REPEATNUM = 5000,
+    #(parameter REPEATNUM = 1000,
       parameter RANDSEED = 2) ();
 
 wire [31:0] x1,y;
 logic [31:0] x1i;
-shortreal    fx1, floor;
-int ri;
+shortreal    fx1;
 //int fy;
 //int          i,j,k,it,jt;
 bit [7:0] e1;
@@ -51,11 +50,7 @@ initial begin
         x1i = $urandom();
         fx1 = $bitstoshortreal(x1i);
         //fy = $rtoi(fx1);
-        ri = $rtoi(fx1);
-        floor = $itor(ri);
-        fybit = (ri == {1'b1, 31'b0}) ? ri :
-                (fx1 - floor >= 0.5) ? ri + 1 :
-                (fx1 - floor <= -0.5) ? ri - 1 : ri ;
+        fybit = $rtoi(fx1);
 
         #1;
 
