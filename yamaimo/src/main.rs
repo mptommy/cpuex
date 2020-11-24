@@ -58,6 +58,14 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let mut formembuf1=ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
     let mut forwardingbuf1=ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
     let mut finishcount = 0;
+
+    println!("PIPELINE?[y/n]");
+    let mut read = String::new();
+    std::io::stdin().read_line(&mut read).ok();
+    let mut reads = read.split_whitespace();
+    let ispipe =match reads.next().unwrap(){
+        "y"=> true,"n"=>false,_=>false
+    };
     while !finish&& finishcount < 4{
         if !riscv64_core.get_is_finish_cpu(){
             finishcount = 0;
@@ -69,6 +77,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             
             while  looping{
                 let mut word = String::new();
+                println!("COMMAND?");
                 std::io::stdin().read_line(&mut word).ok();
                 //let answer = word.trim().to_string();
                 let mut coms = word.split_whitespace();
@@ -113,6 +122,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             riscv64_core.m_pc+=4;
             continue;
         }*/
+        if ispipe{
         let inst_data = riscv64_core.fetch_memory ();
         let (formembuf,forwardingbuf) = riscv64_core.execute(decoded, inst_data2 as InstType);
         riscv64_core.write_back(forwrite1);
@@ -137,7 +147,22 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         formembuf1 = formembuf;
         forwrite1  = forwrite;
         forwardingbuf1 = forwardingbuf;
-
+        }else{
+            if riscv64_core.get_is_finish_cpu(){
+                break;
+            }
+            let inst_data = riscv64_core.fetch_memory ();
+            if inst_data == 0{
+                riscv64_core.fetch_pc+=4;
+                continue;
+            }
+            let inst_decode = riscv64_core.decode_inst(inst_data);
+            let (formembuf,forwardingbuf) = riscv64_core.execute_inst(inst_decode, inst_data as InstType,riscv64_core.nowforwrite,riscv64_core.maeforwrite);
+           riscv64_core.nowformem = formembuf;
+           riscv64_core.mae2forwrite=riscv64_core.maeforwrite;
+           riscv64_core.maeforwrite = riscv64_core.nowforwrite;
+           riscv64_core.nowforwrite=forwardingbuf;
+        }
         
       //  if zeros{
            

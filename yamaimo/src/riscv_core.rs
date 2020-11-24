@@ -495,6 +495,7 @@ impl Riscv64Core for EnvBase{
             if self.writing {println!("     fx{:02} <= {}", reg_addr, data);}
         }
     }
+ 
     fn fetch_memory(&mut self)->XlenType{
         let base_addr:AddrType = self.fetch_pc-DRAM_BASE;
         let fetch_data = ((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
@@ -1696,7 +1697,7 @@ impl Riscv64Core for EnvBase{
         }else{
             self.toukei.insert(dec_inst,1);
         }
-        if self.writing {println!("{:08x} : {:08x} // DASM({:08x})", self.m_pc as u32, inst as u32, inst as u32);}
+        if self.writing {println!("{:08x} : {:08x} // DASM({:08x})", self.fetch_pc as u32, inst as u32, inst as u32);}
         let rs1 = Self::get_rs1_addr (inst);
         let rs2 = Self::get_rs2_addr (inst);
         let rs3=Self::get_rs3_addr(inst);
@@ -1733,7 +1734,7 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::AUIPC=>{
                 let imm =  Self::extract_ufield(inst) as u32;
-                let ans = self.m_pc + (imm << 12) as u32;
+                let ans = self.fetch_pc + (imm << 12) as u32;
                 //update_pc = true;
                 if self.writing {println!("AUIPC {},{}\n",rd,imm);}
                 self.write_reg(rd, ans as i32);
@@ -1988,7 +1989,7 @@ impl Riscv64Core for EnvBase{
                         _               => panic!("Unknown value Branch"),
                 };
                 if jump_en {
-                    self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
+                    self.fetch_pc = (Wrapping(self.fetch_pc) + Wrapping(addr)).0;
                     update_pc = true;
                 }
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
@@ -1997,7 +1998,7 @@ impl Riscv64Core for EnvBase{
            /* RiscvInst::AUIPC => {
                 if self.writing {println!("AUIPC\n");}
                 let mut imm: XlenType = Self::extend_sign (Self::extract_bit_field (inst, 31, 12), 19);
-                imm = (Wrapping(imm << 12) + Wrapping((self.m_pc - DRAM_BASE) as XlenType)).0;
+                imm = (Wrapping(imm << 12) + Wrapping((self.fetch_pc - DRAM_BASE) as XlenType)).0;
                 self.write_reg(rd, imm);
 
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:imm,rd:rd,fdata:-1.0,isint:true,issigned:false})
@@ -2021,9 +2022,9 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::JAL => {
                 let addr:AddrType = Self::extract_uj_field(inst) as AddrType;
-                self.write_reg(rd, (self.m_pc-DRAM_BASE + 4) as XlenType);
-                let pc_bak = self.m_pc;
-                self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
+                self.write_reg(rd, (self.fetch_pc-DRAM_BASE + 4) as XlenType);
+                let pc_bak = self.fetch_pc;
+                self.fetch_pc = (Wrapping(self.fetch_pc) + Wrapping(addr)).0;
                 self.m_finish_cpu = addr == 0;
                 update_pc = true;
                 if self.writing {println!("JAL {},{} \n",rd,addr);}
@@ -2035,10 +2036,10 @@ impl Riscv64Core for EnvBase{
                 let rs1_data = rs1_data as AddrType;
                 addr = (Wrapping(rs1_data) + Wrapping(addr)).0;
                 addr = addr & (!0x01);
-                let reg_data = (self.m_pc-DRAM_BASE + 4) as XlenType;
+                let reg_data = (self.fetch_pc-DRAM_BASE + 4) as XlenType;
                 self.write_reg(rd, reg_data);
-                self.m_finish_cpu = addr+DRAM_BASE == self.m_pc;
-                self.m_pc = addr+DRAM_BASE;
+                self.m_finish_cpu = addr+DRAM_BASE == self.fetch_pc;
+                self.fetch_pc = addr+DRAM_BASE;
                 update_pc = true;
                 if self.writing {println!("JALR {},{},{} \n",rd,addr,rs1);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
@@ -2501,7 +2502,7 @@ impl Riscv64Core for EnvBase{
             }
         };
         if update_pc == false {
-            self.m_pc += 4;
+            self.fetch_pc += 4;
         }
         return (formem,forwrite);
     }
