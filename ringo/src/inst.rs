@@ -6,6 +6,7 @@ pub enum Insts{
     LABEL(String),
     LUI(u8,i32),
     AUIPC(u8,i32),
+    AUIPCLOAD(u8,i32),
     ADDI(u8,u8,i32),
     SLTI(u8,u8,i32),
     SLTIU(u8,u8,i32),
@@ -65,6 +66,7 @@ pub enum Insts{
     JALL(u8,String),
     JALRL(u8,u8,String),
     AUIPCL(u8,String),
+    AUIPCLL(u8,String),
     ADDIL(u8,u8,String),
     LA(u8,i32),
     LAL(u8,String),
@@ -113,7 +115,8 @@ pub enum Insts{
     REM(u8,u8,u8),
     REMU(u8,u8,u8),
     IN(u8),
-    OUT(u8)
+    OUT(u8),
+    IMM(i32),
 }
 
 pub struct Instruction{
@@ -231,6 +234,18 @@ impl Instruction{
 
     pub fn code(inst:Insts)->Instruction{
         match inst  {
+            Insts::IMM(imm)=>{
+                Instruction{
+                    op0_6:(((imm as u32) as u8)  & 0x7f),
+                    op7_11:(((imm as u32)>> 7) as u8) &0x1f,
+                    op12_14:(((imm as u32)  >> 12)as u8)&0x7,
+                    op15_19:(((imm as u32)>>15) as u8)&0x1f,
+                    op20_24:(((imm as u32) >>20)as u8)&0x1f,
+                    op25_31:(((imm as u32) >>25)as u8)&0x7f,
+                    optype:inst,
+                    ..Default::default()
+                }
+            }
             Insts::OUT(rs1)=>{
                 Instruction{
                     op0_6:0b00000001,
@@ -267,6 +282,17 @@ impl Instruction{
                     },i as u32
                 )
             },
+         /*   Insts::AUIPCLOAD(r,i)=>{
+                let i = if i == -1 {0}else{i};
+                Instruction::set_imm20(
+                    Instruction{
+                        op0_6:0b0010111,
+                        op7_11:r,
+                        optype:inst,
+                        ..Default::default()
+                    },i as u32
+                )
+            },*/
             Insts::ADDI(r,r2,i)=>{
                 Instruction::set_imm12(
                     Instruction{
@@ -894,6 +920,11 @@ impl Instruction{
                     Instruction::code(Insts::AUIPC(r1,0)),s
                 )
             },
+            /*Insts::AUIPCLL(r1,s)=>{
+                Instruction::labeling(
+                    Instruction::code(Insts::AUIPCLOAD(r1,0)),s
+                )
+            },*/
             Insts::ADDIL(r1,r2,s)=>{
                 Instruction::labeling(
                     Instruction::code(Insts::ADDI(r1,r2,0)),s
@@ -1481,33 +1512,37 @@ impl Machine{
                             self.insts[i].optype = Insts::AUIPC(*r1,sa >> 12);
                             self.insts[i] = Instruction::code(Insts::AUIPC(*r1,sa >> 12));
                         },
+                        Insts::AUIPCLOAD(r1,_l)=>{
+                            self.insts[i].optype = Insts::AUIPC(*r1,self.insts[i].buf >> 12);
+                            self.insts[i] = Instruction::code(Insts::AUIPC(*r1,self.insts[i].buf >> 12));
+                        },
                         Insts::ADDI(r1,r2,_l)=>{
                             self.insts[i].optype = Insts::ADDI(*r1,*r2,sa&0xfff);
                             self.insts[i] = Instruction::code(Insts::ADDI(*r1,*r2,sa&0xfff));
                         },
                         Insts::LB(r1,_r2,_l)=>{
-                            self.insts[i].optype = Insts::LB(*r1,sa&0xfff,*r1);
-                            self.insts[i] = Instruction::code(Insts::LB(*r1,sa&0xfff,*r1));
+                            self.insts[i].optype = Insts::LB(*r1,(sa+4)&0xfff,*r1);
+                            self.insts[i] = Instruction::code(Insts::LB(*r1,(sa+4)&0xfff,*r1));
                         },
                         Insts::LH(r1,_r2,_l)=>{
-                            self.insts[i].optype = Insts::LH(*r1,sa&0xfff,*r1);
-                            self.insts[i] = Instruction::code(Insts::LH(*r1,sa&0xfff,*r1));
+                            self.insts[i].optype = Insts::LH(*r1,(sa+4)&0xfff,*r1);
+                            self.insts[i] = Instruction::code(Insts::LH(*r1,(sa+4)&0xfff,*r1));
                         },
                         Insts::LW(r1,_r2,_l)=>{
-                            self.insts[i].optype = Insts::LW(*r1,sa&0xfff,*r1);
-                            self.insts[i] = Instruction::code(Insts::LW(*r1,sa&0xfff,*r1));
+                            self.insts[i].optype = Insts::LW(*r1,(sa+4)&0xfff,*r1);
+                            self.insts[i] = Instruction::code(Insts::LW(*r1,(sa+4)&0xfff,*r1));
                         },
                         Insts::SB(r1,_l,r2)=>{
-                            self.insts[i].optype = Insts::SB(*r1,sa&0xfff,*r2);
-                            self.insts[i] = Instruction::code(Insts::SB(*r1,sa&0xfff,*r2));
+                            self.insts[i].optype = Insts::SB(*r1,(sa+4)&0xfff,*r2);
+                            self.insts[i] = Instruction::code(Insts::SB(*r1,(sa+4)&0xfff,*r2));
                         },
                         Insts::SH(r1,_l,r2)=>{
-                            self.insts[i].optype = Insts::SH(*r1,sa&0xfff,*r2);
-                            self.insts[i] = Instruction::code(Insts::SH(*r1,sa&0xfff,*r2));
+                            self.insts[i].optype = Insts::SH(*r1,(sa+4)&0xfff,*r2);
+                            self.insts[i] = Instruction::code(Insts::SH(*r1,(sa+4)&0xfff,*r2));
                         },
                         Insts::SW(r1,_l,r2)=>{
-                            self.insts[i].optype = Insts::SW(*r1,sa&0xfff,*r2);
-                            self.insts[i] = Instruction::code(Insts::SW(*r1,sa&0xfff,*r2));
+                            self.insts[i].optype = Insts::SW(*r1,(sa+4)&0xfff,*r2);
+                            self.insts[i] = Instruction::code(Insts::SW(*r1,(sa+4)&0xfff,*r2));
                         },
                         _ =>  {
 

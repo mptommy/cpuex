@@ -12,7 +12,7 @@ pub type UXlenType = u32;
 pub type InstType = u32;
 pub type RegAddrType = u8;
 
-pub const DRAM_BASE:AddrType = 0x8000_0000;
+pub const DRAM_BASE:AddrType = 0;
 pub const STACK_BASE:i32 = 0x0010000;
 pub const DRAM_SIZE:usize = 0x0100000;
 union FloatInt {
@@ -2508,7 +2508,7 @@ impl Riscv64Core for EnvBase{
     }
     fn mem_access (&mut self, op: MemType, size: MemSize, data: XlenType, addr: AddrType) -> XlenType
     {
-        let addr = addr + DRAM_BASE + 10000;
+        //let addr = addr + DRAM_BASE + 10000;
         match op {
             MemType::STORE => {
                 if addr == self.m_tohost_addr {
@@ -2544,7 +2544,7 @@ impl Riscv64Core for EnvBase{
     }
     fn fmem_access (&mut self, op: MemType, size: MemSize, data: f32, addr: AddrType) -> f32
     {
-        let addr = addr + DRAM_BASE + 10000;
+       // let addr = addr + DRAM_BASE + 10000;
         match op {
             MemType::STORE => {
                 if addr == self.m_tohost_addr {

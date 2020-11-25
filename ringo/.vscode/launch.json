@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch",
             "program": "${workspaceFolder}/target/debug/ringo",
-            "args": ["${workspaceFolder}/target/debug/hello.s","/home/kazu/CPUEX/cpuex/yamaimo/target/debug/8.out"],
+            "args": ["${workspaceFolder}/target/debug/lwlabel2.s"],
             "cwd": "${workspaceFolder}"
         },
       /*  {

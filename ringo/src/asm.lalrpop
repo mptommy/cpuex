@@ -167,6 +167,7 @@ pub Main:Insts={
     "remu"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::REMU(rd,r1,r2),
     "in"<rd:Reg> =>Insts::IN(rd),
     "out"<rs1:Reg> => Insts::OUT(rs1),
+    <imm:Imm>=>Insts::IMM(imm),
 };
 Imm :i32 ={
     <s:r"-*[0-9]+"> => s.parse().unwrap()
