@@ -1879,7 +1879,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::AND=>{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
-                let ans = rs1_data ^ rs2_data;
+                let ans = rs1_data & rs2_data;
                 self.write_reg(rd, ans);
                 if self.writing {println!("AND {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
