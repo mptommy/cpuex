@@ -32,6 +32,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         riscv64_core.write_memory_byte(hex_addr + DRAM_BASE,l as XlenType);
         hex_addr=hex_addr+1;
     }
+    riscv64_core.write_reg(2,riscv_core::STACK_BASE);
     let file = File::open("contest.sld");
     if let Ok(file) = file {
         let filebuf = BufReader::new(file);

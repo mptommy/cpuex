@@ -1326,35 +1326,35 @@ impl Riscv64Core for EnvBase{
              }
             NRiscvInst::LB(rd,rs1_data,imm)=>{
                 
-                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                let addr = (rs1_data +imm)  as AddrType;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{typ:1,data:0,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             NRiscvInst::LH(rd,rs1_data,imm)=>{
-                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                let addr = (rs1_data +imm)  as AddrType;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:0,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             NRiscvInst::LW(rd,rs1_data,imm)=>{
-                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                let addr = (rs1_data +imm)  as AddrType;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::WORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:0,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
             NRiscvInst::LBU(rd,rs1_data,imm)=>{
-                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                let addr = (rs1_data +imm)  as AddrType;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::BYTE,data:rs1_data,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::LHU(rd,rs1_data,imm)=>{
-                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                let addr = (rs1_data +imm)  as AddrType;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::LOAD,memsize:MemSize::HWORD,data:rs1_data,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::SB(rs1_data,rs2_data,imm)=>{
-                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (rs1_data+imm) as AddrType;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::BYTE,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::SW(rs1_data,rs2_data,imm)=>{
-                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (rs1_data+imm) as AddrType;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::WORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::SH(rs1_data,rs2_data,imm)=>{
-                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (rs1_data+imm) as AddrType;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::HWORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::ADDI(rd,rs1_data,imm)=>{
@@ -1417,11 +1417,11 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             NRiscvInst::FLW(rd,rs1_data,imm)=>{
-                let addr = (rs1_data +imm+STACK_BASE) as AddrType;
+                let addr = (rs1_data +imm) as AddrType;
                 (ForMem{fdata:0.0,isint:false,memtype:MemType::LOAD,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:false,issigned:true})
             }
             NRiscvInst::FSW(rs1_data,rs2_data,imm)=>{
-                let addr = (rs1_data +imm+STACK_BASE) as AddrType;
+                let addr = (rs1_data +imm) as AddrType;
                 (ForMem{fdata:rs2_data,isint:false,memtype:MemType::STORE,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:true})
             }
             NRiscvInst::FMADDS(rd,rs1_data,rs2_data,rs3_data)=>{
@@ -1887,7 +1887,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::LB  => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
-                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                let addr = (rs1_data +imm)  as AddrType;
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr);
                 reg_data = Self::extend_sign(reg_data, 7);
                 self.write_reg(rd, reg_data);
@@ -1897,7 +1897,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::LH  => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
-                let addr = (rs1_data +imm+STACK_BASE)  as AddrType;
+                let addr = (rs1_data +imm)  as AddrType;
                 let mut reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr);
                 reg_data = Self::extend_sign(reg_data, 15);
                 self.write_reg(rd, reg_data);
@@ -1907,7 +1907,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::LW  => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
-                let addr = (rs1_data +imm+STACK_BASE) as AddrType;
+                let addr = (rs1_data +imm) as AddrType;
                 let reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::WORD, rs1_data, addr );
                 self.write_reg(rd, reg_data);
                 if self.writing {println!("LW {},{}({})\n",rd,imm,rs1);}
@@ -1916,7 +1916,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::LBU  => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
-                let addr = (rs1_data +imm+STACK_BASE)as AddrType;
+                let addr = (rs1_data +imm)as AddrType;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::BYTE, rs1_data, addr) as UXlenType;
                  self.write_reg(rd, reg_data as XlenType);
                  if self.writing {println!("LBU {},{}({})\n",rd,imm,rs1);}
@@ -1926,7 +1926,7 @@ impl Riscv64Core for EnvBase{
                 if self.writing {println!("LHU\n");}
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
-                let addr =( rs1_data +imm+STACK_BASE)as AddrType;
+                let addr =( rs1_data +imm)as AddrType;
                 let reg_data:UXlenType = self.mem_access(MemType::LOAD, MemSize::HWORD, rs1_data, addr) as UXlenType;
                 self.write_reg(rd, reg_data as XlenType);
                 if self.writing {println!("LHU {},{}({})\n",rd,imm,rs1);}
@@ -1936,7 +1936,7 @@ impl Riscv64Core for EnvBase{
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let imm =  Self::extract_sfield(inst);
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
-                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (rs1_data+imm) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::BYTE, rs2_data, addr);
                 if self.writing {println!("SB {},{}({})\n",rs2,imm,rs1);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::BYTE,data:rs2_data,addr:addr},ForWrite{typ:1,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
@@ -1946,7 +1946,7 @@ impl Riscv64Core for EnvBase{
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let imm =  Self::extract_sfield(inst);
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
-                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (rs1_data+imm) as AddrType;
                  self.mem_access(MemType::STORE, MemSize::HWORD, rs2_data, addr);
                  if self.writing {println!("SH {},{}({})\n",rs2,imm,rs1);}
                  (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::HWORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
@@ -1956,7 +1956,7 @@ impl Riscv64Core for EnvBase{
                 let (rs2_data,stall)  = self.read_regfor(rs2,forwarding,forwarding2);
                 let imm =  Self::extract_sfield(inst);
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
-                let addr:AddrType = (rs1_data+imm+STACK_BASE) as AddrType;
+                let addr:AddrType = (rs1_data+imm) as AddrType;
                 self.mem_access(MemType::STORE, MemSize::WORD, rs2_data, addr);
                 if self.writing {println!("SW {},{}({})\n",rs2,imm,rs1);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::STORE,memsize:MemSize::WORD,data:rs2_data,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
@@ -2086,7 +2086,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FLW  => {
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
-                let addr = (rs1_data +imm+STACK_BASE) as AddrType;
+                let addr = (rs1_data +imm) as AddrType;
                 let reg_data:f32 = self.fmem_access(MemType::LOAD, MemSize::WORD, 0.0, addr);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("LW {},{}({})\n",rd,imm,rs1);}
@@ -2098,7 +2098,7 @@ impl Riscv64Core for EnvBase{
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let imm =  Self::extract_ifield(inst);
-                let addr = (rs1_data +imm+STACK_BASE) as AddrType;
+                let addr = (rs1_data +imm) as AddrType;
                 self.fmem_access(MemType::STORE, MemSize::WORD, rs2_data, addr);
                 if self.writing {println!("FSW {},{}({})\n",rs2,imm,rs1);}
                 (ForMem{fdata:rs2_data,isint:false,memtype:MemType::STORE,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:true})
