@@ -1460,17 +1460,24 @@ impl Riscv64Core for EnvBase{
                 let reg_data = rs1_data.sqrt();
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
+            NRiscvInst::FSGNJS(rd,rs1_data,rs2_data)=>{
+                let rs1_data=EnvBase::float_to_int(rs1_data) as u32;
+                let rs2_data=EnvBase::float_to_int(rs2_data) as u32;
+                let data = rs1_data&(!0x80000000)|((rs2_data)&0x80000000);
+                let reg_data = EnvBase::int_to_float(data as u32);
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
             NRiscvInst::FSGNJNS(rd,rs1_data,rs2_data)=>{
-                let rs1_data=EnvBase::float_to_int(rs1_data);
-                let rs2_data=EnvBase::float_to_int(rs2_data);
-                let data = rs1_data&(!0x8000)|((!rs2_data)&0x8000);
+                let rs1_data=EnvBase::float_to_int(rs1_data) as u32;
+                let rs2_data=EnvBase::float_to_int(rs2_data) as u32;
+                let data = rs1_data&(!0x80000000)|((!rs2_data)&0x80000000);
                 let reg_data = EnvBase::int_to_float(data as u32);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             NRiscvInst::FSGNJXS(rd,rs1_data,rs2_data)=>{
-                let rs1_data=EnvBase::float_to_int(rs1_data);
-                let rs2_data=EnvBase::float_to_int(rs2_data);
-                let data = rs1_data&(!0x8000)|(((rs2_data)&0x8000)^((rs1_data)&0x8000));
+                let rs1_data=EnvBase::float_to_int(rs1_data) as u32;
+                let rs2_data=EnvBase::float_to_int(rs2_data) as u32;
+                let data = rs1_data&(!0x80000000)|(((rs2_data)&0x80000000)^((rs1_data)&0x80000000));
                 let reg_data = EnvBase::int_to_float(data as u32);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
@@ -2184,9 +2191,9 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FSGNJS=>{
                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
-                let rs1_data=EnvBase::float_to_int(rs1_data);
-                let rs2_data=EnvBase::float_to_int(rs2_data);
-                let data = rs1_data&(!0x8000)|(rs2_data&0x8000);
+                let rs1_data=EnvBase::float_to_int(rs1_data) as u32;
+                let rs2_data=EnvBase::float_to_int(rs2_data) as u32;
+                let data = rs1_data&(!0x80000000)|(rs2_data&0x80000000);
                 let ato =  EnvBase::int_to_float(data as u32);
                 self.fwrite_reg(rd, ato);
                 if self.writing {println!("FSGNJS {},{},{}\n",rd,rs1,rs2);}
@@ -2196,9 +2203,9 @@ impl Riscv64Core for EnvBase{
                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
 
-                let rs1_data=EnvBase::float_to_int(rs1_data);
-                let rs2_data=EnvBase::float_to_int(rs2_data);
-                let data = rs1_data&(!0x8000)|((!rs2_data)&0x8000);
+                let rs1_data=EnvBase::float_to_int(rs1_data)as u32;
+                let rs2_data=EnvBase::float_to_int(rs2_data)as u32;
+                let data = rs1_data&(!0x80000000)|((!rs2_data)&0x80000000);
                 let reg_data = EnvBase::int_to_float(data as u32);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FSGNJNS {},{},{}\n",rd,rs1,rs2);}
@@ -2208,9 +2215,9 @@ impl Riscv64Core for EnvBase{
                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
 
-                let rs1_data=EnvBase::float_to_int(rs1_data);
-                let rs2_data=EnvBase::float_to_int(rs2_data);
-                let data = rs1_data&(!0x8000)|(((rs2_data)&0x8000)^((rs1_data)&0x8000));
+                let rs1_data=EnvBase::float_to_int(rs1_data)as u32;
+                let rs2_data=EnvBase::float_to_int(rs2_data)as u32;
+                let data = rs1_data&(!0x80000000)|(((rs2_data)&0x80000000)^((rs1_data)&0x80000000));
                 let reg_data = EnvBase::int_to_float(data as u32);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FSGNJXS {},{},{}\n",rd,rs1,rs2);}
@@ -2632,7 +2639,7 @@ impl Riscv64Core for EnvBase{
         }
         for i in 0..32{
             if self.f_regs[i]==0.0{continue;}
-          println!("{}({:08x}) ", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string(),&self.m_regs[i]);
+          println!("{}({:08x}) ", "FREG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string(),&self.f_regs[i].to_bits());
         }
     }
     fn output_regi(&mut self,i:i32){
