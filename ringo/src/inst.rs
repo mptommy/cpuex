@@ -76,6 +76,8 @@ pub enum Insts{
     SBL(u8,String,u8),
     SHL(u8,String,u8),
     SWL(u8,String,u8),
+    FLWL(u8,String),
+    FSWL(u8,String,u8),
     CALL(i32),
     CALLL(String),
     TAIL(i32),
@@ -945,6 +947,11 @@ impl Instruction{
                     Instruction::code(Insts::LW(r1,0,r1)),s
                 )
             },
+            Insts::FLWL(r1,s)=>{
+                Instruction::labeling(
+                    Instruction::code(Insts::FLW(r1,0,r1)),s
+                )
+            },
             Insts::SBL(r1,s,r2)=>{
                 Instruction::labeling(
                     Instruction::code(Insts::SB(r1,0,r2)),s
@@ -958,6 +965,11 @@ impl Instruction{
             Insts::SWL(r1,s,r2)=>{
                 Instruction::labeling(
                     Instruction::code(Insts::SW(r1,0,r2)),s
+                )
+            },
+            Insts::FSWL(r1,s,r2)=>{
+                Instruction::labeling(
+                    Instruction::code(Insts::FSW(r1,0,r2)),s
                 )
             },
             Insts::FMADDS(rd,r1,r2,r3)=>{
@@ -1409,6 +1421,10 @@ impl Machine{
                 vecs.push(Insts::AUIPCL(r1,(&s).to_string()));
                 vecs.push(Insts::LWL(r1,(&s).to_string()));
             },
+            Insts::FLWL(r1,s)=>{
+                vecs.push(Insts::AUIPCL(31,(&s).to_string()));
+                vecs.push(Insts::FLWL(r1,(&s).to_string()));
+            },
             Insts::SBL(rd,s,rt)=>{
                 vecs.push(Insts::AUIPCL(rt,(&s).to_string()));
                 vecs.push(Insts::SBL(rd,(&s).to_string(),rt));
@@ -1420,6 +1436,10 @@ impl Machine{
             Insts::SWL(rd,s,rt)=>{
                 vecs.push( Insts::AUIPCL(rt,(&s).to_string()));
                 vecs.push(Insts::SWL(rd,(&s).to_string(),rt));
+            },
+            Insts::FSWL(rd,s,_rt)=>{
+                vecs.push( Insts::AUIPCL(31,(&s).to_string()));
+                vecs.push(Insts::FSWL(rd,(&s).to_string(),31));
             },
             Insts::CALL(i)=>{
                 vecs.push(Insts::AUIPC(6,i >> 12));
@@ -1532,6 +1552,10 @@ impl Machine{
                             self.insts[i].optype = Insts::LW(*r1,(sa+4)&0xfff,*r1);
                             self.insts[i] = Instruction::code(Insts::LW(*r1,(sa+4)&0xfff,*r1));
                         },
+                        Insts::FLW(r1,_r2,_l)=>{
+                            self.insts[i].optype = Insts::FLW(*r1,(sa+4)&0xfff,31);
+                            self.insts[i] = Instruction::code(Insts::FLW(*r1,(sa+4)&0xfff,31));
+                        },
                         Insts::SB(r1,_l,r2)=>{
                             self.insts[i].optype = Insts::SB(*r1,(sa+4)&0xfff,*r2);
                             self.insts[i] = Instruction::code(Insts::SB(*r1,(sa+4)&0xfff,*r2));
@@ -1543,6 +1567,10 @@ impl Machine{
                         Insts::SW(r1,_l,r2)=>{
                             self.insts[i].optype = Insts::SW(*r1,(sa+4)&0xfff,*r2);
                             self.insts[i] = Instruction::code(Insts::SW(*r1,(sa+4)&0xfff,*r2));
+                        },
+                        Insts::FSW(r1,_l,r2)=>{
+                            self.insts[i].optype = Insts::FSW(*r1,(sa+4)&0xfff,31);
+                            self.insts[i] = Instruction::code(Insts::FSW(*r1,(sa+4)&0xfff,31));
                         },
                         _ =>  {
 

@@ -2089,7 +2089,7 @@ impl Riscv64Core for EnvBase{
                 let addr = (rs1_data +imm) as AddrType;
                 let reg_data:f32 = self.fmem_access(MemType::LOAD, MemSize::WORD, 0.0, addr);
                 self.fwrite_reg(rd, reg_data);
-                if self.writing {println!("LW {},{}({})\n",rd,imm,rs1);}
+                if self.writing {println!("FLW {},{}({})\n",rd,imm,rs1);}
                 (ForMem{fdata:0.0,isint:false,memtype:MemType::LOAD,memsize:MemSize::WORD,data:-1,addr:addr},ForWrite{typ:1,data:-1,rd:rd,fdata:-1.0,isint:false,issigned:true})
             
             }

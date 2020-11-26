@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/target/debug/yamaimo",
-            "args": ["${workspaceFolder}/target/debug/lwlabel.out"],
+            "args": ["${workspaceFolder}/target/debug/flwlabel.out"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
