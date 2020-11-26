@@ -176,7 +176,8 @@ pub Main:Insts={
     <imm:Imm>=>Insts::IMM(imm),
 };
 Imm :i32 ={
-    <s:r"-*[0-9]+"> => s.parse().unwrap()
+    <s:r"-*[0-9]+"> => s.parse().unwrap(),
+    <s:r"-*[0-9]+,[0-9]+"> => s.replace(",",".").parse::<f32>().unwrap().to_bits() as i32
 };
 
 Label :String = {

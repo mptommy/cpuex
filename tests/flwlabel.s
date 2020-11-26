@@ -8,6 +8,6 @@ fmul fa2,fa0,fa1
 halt:
 j halt
 data:
--1077936128
+1,5
 data2:
 -1073741824
