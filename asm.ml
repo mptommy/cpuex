@@ -17,14 +17,21 @@ and exp = (* 一つ一つの命令に対応する式 (caml2html: sparcasm_exp) *
   | SLL of Id.t * id_or_imm
   | Ld of Id.t * id_or_imm
   | St of Id.t * Id.t * id_or_imm
-  | FMovD of Id.t
-  | FNegD of Id.t
-  | FAddD of Id.t * Id.t
-  | FSubD of Id.t * Id.t
-  | FMulD of Id.t * Id.t
-  | FDivD of Id.t * Id.t
-  | LdDF of Id.t * id_or_imm
-  | StDF of Id.t * Id.t * id_or_imm
+  | FMov of Id.t
+  | FNeg of Id.t
+  | FAdd of Id.t * Id.t
+  | FSub of Id.t * Id.t
+  | FMul of Id.t * Id.t
+  | FDiv of Id.t * Id.t
+  | FInv of Id.t
+  | FSqrt of Id.t
+  | FToI of Id.t
+  | IToF of Id.t
+  | Floor of Id.t
+  | In
+  | Out of Id.t
+  | LdF of Id.t * id_or_imm
+  | StF of Id.t * Id.t * id_or_imm
   | Comment of string
   (* virtual instructions *)
   | IfEq of Id.t * id_or_imm * t * t
@@ -45,24 +52,35 @@ let fletd(x, e1, e2) = Let((x, Type.Float), e1, e2)
 let seq(e1, e2) = Let((Id.gentmp Type.Unit, Type.Unit), e1, e2)
 
 let regs = (* Array.init 16 (fun i -> Printf.sprintf "%%r%d" i) *)
-  [| "a0"; "a1"; "a2"; "a3"; "a4"; "a5"; "a6"; "a7" |]
-let regs_tmp = 
-  [| "t0"; "t1"; "t2"; "t3"; "t4"; "t5"; "t6";
-     "s2"; "s3"; "s4"; "s5"; "s6"; "s7"; "s8"; "s9"; "s10"; "s11" |]
+  [| "%t0"; "%t1"; "%t2";
+     "%s0";
+     "%s1"; 
+     "%a0"; "%a1"; "%a2"; "%a3"; "%a4"; "%a5"; "%a6"; "%a7";
+     "%s2"; "%s3"; "%s4"; "%s5"; "%s6"; "%s7"; "%s8"; "%s9"; "%s10"; "%s11";
+     "%t3"; "%t4"; "%t5"; "%t6" |]
+(* let regs_tmp = 
+  [| "%t0"; "%t1"; "%t2"; "%t3"; "%t4"; "%t5"; "%t6";
+     "%s2"; "%s3"; "%s4"; "%s5"; "%s6"; "%s7"; "%s8"; "%s9"; "%s10"; "%s11" |]
 let regs_st = 
-  [| "s0"; "s1";
-     "s2"; "s3"; "s4"; "s5"; "s6"; "s7"; "s8"; "s9"; "s10"; "s11" |]
-let fregs = Array.init 16 (fun i -> Printf.sprintf "%%f%d" (i * 2))
+  [| "%s0"; "%s1";
+     "%s2"; "%s3"; "%s4"; "%s5"; "%s6"; "%s7"; "%s8"; "%s9"; "%s10"; "%s11" |] *)
+let fregs = 
+  [| "%ft0"; "%ft1"; "%ft2"; "%ft3"; "%ft4"; "%ft5"; "%ft6"; "%ft7"; 
+     "%fs0"; "%fs1"; 
+     "%fa0"; "%fa1";
+     "%fa2"; "%fa3"; "%fa4"; "%fa5"; "%fa6"; "%fa7"; 
+     "%fs2"; "%fs3"; "%fs4"; "%fs5"; "%fs6"; "%fs7"; "%fs8"; "%fs9"; "%fs10"; "%fs11";
+     "%ft8"; "%ft9"; "%ft10"; "%ft11" |]
 let allregs = Array.to_list regs
 let allfregs = Array.to_list fregs
 let reg_cl = regs.(Array.length regs - 1) (* closure address (caml2html: sparcasm_regcl) *)
 let reg_sw = regs.(Array.length regs - 2) (* temporary for swap *)
 let reg_fsw = fregs.(Array.length fregs - 1) (* temporary for swap *)
-let reg_sp = "sp" (* stack pointer *)
-let reg_hp = "gp" (* heap pointer (caml2html: sparcasm_reghp) *)
-let reg_ra = "ra" (* return address *)
-let reg_zero = "zero" (* zero register *)
-let is_reg x = (x.[0] = '%')
+let reg_sp = "%sp" (* stack pointer *)
+let reg_hp = "%gp" (* heap pointer (caml2html: sparcasm_reghp) *)
+let reg_ra = "%ra" (* return address *)
+let reg_zero = "%zero" (* zero register *)
+let is_reg x = (x.[0] = '%') (* xの一文字目が%ならレジスタ *)
 let co_freg_table =
   let ht = Hashtbl.create 16 in
   for i = 0 to 15 do
@@ -83,11 +101,11 @@ let rec remove_and_uniq xs = function
 (* free variables in the order of use (for spilling) (caml2html: sparcasm_fv) *)
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
-  | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) -> []
-  | Mov(x) | Neg(x) | FMovD(x) | FNegD(x) | Save(x, _) -> [x]
-  | Add(x, y') | Sub(x, y') | SLL(x, y') | Ld(x, y') | LdDF(x, y') -> x :: fv_id_or_imm y'
-  | St(x, y, z') | StDF(x, y, z') -> x :: y :: fv_id_or_imm z'
-  | FAddD(x, y) | FSubD(x, y) | FMulD(x, y) | FDivD(x, y) -> [x; y]
+  | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) | In -> []
+  | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | Out(x) | FSqrt(x) | FInv(x) | FToI(x) | IToF(x) | Floor(x) -> [x]
+  | Add(x, y') | Sub(x, y') | Mul(x, y') | Div(x, y') | SLL(x, y') | Ld(x, y') | LdF(x, y') -> x :: fv_id_or_imm y'
+  | St(x, y, z') | StF(x, y, z') -> x :: y :: fv_id_or_imm z'
+  | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y]
   | IfEq(x, y', e1, e2) | IfLE(x, y', e1, e2) | IfGE(x, y', e1, e2) -> x :: fv_id_or_imm y' @ remove_and_uniq S.empty (fv e1 @ fv e2) (* uniq here just for efficiency *)
   | IfFEq(x, y, e1, e2) | IfFLE(x, y, e1, e2) -> x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2) (* uniq here just for efficiency *)
   | CallCls(x, ys, zs) -> x :: ys @ zs

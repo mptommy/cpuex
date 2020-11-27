@@ -1,6 +1,3 @@
-open Syntax
-open KNormal
-
 let limit = ref 1000
 
 (* ここから、第一回の問一 *)
@@ -24,34 +21,34 @@ let put_tab () =
   in put !count_LR
   
 let rec print_syntax_t s = match (s:Syntax.t) with
-  | Unit -> Printf.printf "UNIT\n"
-  | Bool(b) -> Printf.printf "BOOL %B\n" b
-  | Int(i) -> Printf.printf "INT %i\n" i
-  | Float(f) -> Printf.printf "FLOAT %f\n" f
-  | Not(e) -> Printf.printf "NOT\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1
-  | Neg(e) -> Printf.printf "NEG\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1
-  | Add(e1, e2) -> Printf.printf "ADD\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Sub(e1, e2) -> Printf.printf "SUB\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Mul(e1, e2) -> Printf.printf "MUL\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Div(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Eq(e1, e2) -> Printf.printf "EQ\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | LE(e1, e2) -> Printf.printf "LE\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | FNeg(e) -> Printf.printf "FNEG\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1
-  | FAdd(e1, e2) -> Printf.printf "FAdd\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | FSub(e1, e2) -> Printf.printf "FSUB\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | FMul(e1, e2) -> Printf.printf "FMUL\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | FDiv(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | If(e1, e2, e3) -> Printf.printf "IF\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; put_tab (); print_syntax_t e3; count_LR := !count_LR - 1
-  | Let(xt, e1, e2) -> Printf.printf "LET\n"; count_LR := !count_LR + 1; put_tab (); print_id_t xt; Printf.printf "\n"; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Var(e) -> Printf.printf "VAR "; print_id e; Printf.printf "\n"
-  | LetRec({ name = xt; args = yts; body = e1 }, e2) ->
+  | Syntax.Unit -> Printf.printf "UNIT\n"
+  | Syntax.Bool(b) -> Printf.printf "BOOL %B\n" b
+  | Syntax.Int(i) -> Printf.printf "INT %i\n" i
+  | Syntax.Float(f) -> Printf.printf "FLOAT %f\n" f
+  | Syntax.Not(e) -> Printf.printf "NOT\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1
+  | Syntax.Neg(e) -> Printf.printf "NEG\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1
+  | Syntax.Add(e1, e2) -> Printf.printf "ADD\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.Sub(e1, e2) -> Printf.printf "SUB\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.Mul(e1, e2) -> Printf.printf "MUL\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.Div(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.Eq(e1, e2) -> Printf.printf "EQ\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.LE(e1, e2) -> Printf.printf "LE\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.FNeg(e) -> Printf.printf "FNEG\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1
+  | Syntax.FAdd(e1, e2) -> Printf.printf "FAdd\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.FSub(e1, e2) -> Printf.printf "FSUB\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.FMul(e1, e2) -> Printf.printf "FMUL\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.FDiv(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.If(e1, e2, e3) -> Printf.printf "IF\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; put_tab (); print_syntax_t e3; count_LR := !count_LR - 1
+  | Syntax.Let(xt, e1, e2) -> Printf.printf "LET\n"; count_LR := !count_LR + 1; put_tab (); print_id_t xt; Printf.printf "\n"; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.Var(e) -> Printf.printf "VAR "; print_id e; Printf.printf "\n"
+  | Syntax.LetRec({ Syntax.name = xt; Syntax.args = yts; Syntax.body = e1 }, e2) ->
       Printf.printf "LETREC {\n"; count_LR := !count_LR + 1; put_tab (); Printf.printf "name = "; print_id_t xt; Printf.printf "args = "; print_id_t_list yts; Printf.printf "\n"; put_tab (); Printf.printf "body = \n"; put_tab (); print_syntax_t e1; put_tab (); Printf.printf "}\n"; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | App(e, es) -> Printf.printf "APP\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; put_tab (); print_syntax_t_list es; count_LR := !count_LR - 1
-  | Tuple(es) -> Printf.printf "TUPLE\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t_list es; count_LR := !count_LR - 1
-  | LetTuple(xts, e1, e2) -> Printf.printf "LETTUPLE\n"; count_LR := !count_LR + 1; put_tab (); print_id_t_list xts; Printf.printf "\n"; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Array(e1, e2) -> Printf.printf "ARRAY\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Get(e1, e2) -> Printf.printf "GET\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Put(e1, e2, e3) -> Printf.printf "PUT\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; put_tab (); print_syntax_t e3; count_LR := !count_LR - 1
+  | Syntax.App(e, es) -> Printf.printf "APP\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; put_tab (); print_syntax_t_list es; count_LR := !count_LR - 1
+  | Syntax.Tuple(es) -> Printf.printf "TUPLE\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t_list es; count_LR := !count_LR - 1
+  | Syntax.LetTuple(xts, e1, e2) -> Printf.printf "LETTUPLE\n"; count_LR := !count_LR + 1; put_tab (); print_id_t_list xts; Printf.printf "\n"; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.Array(e1, e2) -> Printf.printf "ARRAY\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.Get(e1, e2) -> Printf.printf "GET\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.Put(e1, e2, e3) -> Printf.printf "PUT\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; put_tab (); print_syntax_t e3; count_LR := !count_LR - 1
 and print_syntax_t_list = function
   | [] -> ()
   | e :: es -> print_syntax_t e; print_syntax_t_list es
@@ -61,32 +58,32 @@ let parse_print f d l =
   (if (d = 0) then () else Printf.printf "\n\nprint syntax tree\n\n"; print_syntax_t result); result
 
 let rec print_knormal_t k = match (k:KNormal.t) with
-  | Unit -> Printf.printf "UNIT\n"
-  | Int(i) -> Printf.printf "INT %i\n" i
-  | Float(f) -> Printf.printf "FLOAT %f\n" f
-  | Neg(e) -> Printf.printf "NEG\n"; count_LR := !count_LR + 1; put_tab (); print_id e; Printf.printf "\n"; count_LR := !count_LR - 1
-  | Add(e1, e2) -> Printf.printf "ADD\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | Sub(e1, e2) -> Printf.printf "SUB\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | Mul(e1, e2) -> Printf.printf "MUL\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | Div(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | FNeg(e) -> Printf.printf "FNEG\n"; count_LR := !count_LR + 1; put_tab (); print_id e; Printf.printf "\n"; count_LR := !count_LR - 1
-  | FAdd(e1, e2) -> Printf.printf "FAdd\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | FSub(e1, e2) -> Printf.printf "FSUB\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | FMul(e1, e2) -> Printf.printf "FMUL\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | FDiv(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | IfEq(e1, e2, e3, e4) -> Printf.printf "IFEQ\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; put_tab (); print_knormal_t e3; put_tab (); print_knormal_t e4; count_LR := !count_LR - 1
-  | IfLE(e1, e2, e3, e4) -> Printf.printf "IFLE\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; put_tab (); print_knormal_t e3; put_tab (); print_knormal_t e4; count_LR := !count_LR - 1
-  | Let(xt, e1, e2) -> Printf.printf "LET\n"; count_LR := !count_LR + 1; put_tab (); print_id_t xt; Printf.printf "\n"; put_tab (); print_knormal_t e1; put_tab (); print_knormal_t e2; count_LR := !count_LR - 1
-  | Var(e) -> Printf.printf "VAR "; print_id e; Printf.printf "\n"
-  | LetRec({ name = xt; args = yts; body = e1 }, e2) ->
+  | KNormal.Unit -> Printf.printf "UNIT\n"
+  | KNormal.Int(i) -> Printf.printf "INT %i\n" i
+  | KNormal.Float(f) -> Printf.printf "FLOAT %f\n" f
+  | KNormal.Neg(e) -> Printf.printf "NEG\n"; count_LR := !count_LR + 1; put_tab (); print_id e; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.Add(e1, e2) -> Printf.printf "ADD\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.Sub(e1, e2) -> Printf.printf "SUB\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.Mul(e1, e2) -> Printf.printf "MUL\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.Div(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.FNeg(e) -> Printf.printf "FNEG\n"; count_LR := !count_LR + 1; put_tab (); print_id e; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.FAdd(e1, e2) -> Printf.printf "FAdd\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.FSub(e1, e2) -> Printf.printf "FSUB\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.FMul(e1, e2) -> Printf.printf "FMUL\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.FDiv(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.IfEq(e1, e2, e3, e4) -> Printf.printf "IFEQ\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; put_tab (); print_knormal_t e3; put_tab (); print_knormal_t e4; count_LR := !count_LR - 1
+  | KNormal.IfLE(e1, e2, e3, e4) -> Printf.printf "IFLE\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; put_tab (); print_knormal_t e3; put_tab (); print_knormal_t e4; count_LR := !count_LR - 1
+  | KNormal.Let(xt, e1, e2) -> Printf.printf "LET\n"; count_LR := !count_LR + 1; put_tab (); print_id_t xt; Printf.printf "\n"; put_tab (); print_knormal_t e1; put_tab (); print_knormal_t e2; count_LR := !count_LR - 1
+  | KNormal.Var(e) -> Printf.printf "VAR "; print_id e; Printf.printf "\n"
+  | KNormal.LetRec({ KNormal.name = xt; KNormal.args = yts; KNormal.body = e1 }, e2) ->
       Printf.printf "LETREC {\n"; count_LR := !count_LR + 1; put_tab (); Printf.printf "name = "; print_id_t xt; Printf.printf "args = "; print_id_t_list yts; Printf.printf "\n"; put_tab (); Printf.printf "body = \n"; put_tab (); print_knormal_t e1; put_tab (); Printf.printf "}\n"; put_tab (); print_knormal_t e2; count_LR := !count_LR - 1
-  | App(e, es) -> Printf.printf "APP\n"; count_LR := !count_LR + 1; put_tab (); print_id e; Printf.printf "\n"; put_tab (); print_id_list es; Printf.printf "\n"; count_LR := !count_LR - 1
-  | Tuple(es) -> Printf.printf "TUPLE\n"; count_LR := !count_LR + 1; put_tab (); print_id_list es; Printf.printf "\n"; count_LR := !count_LR - 1
-  | LetTuple(xts, e1, e2) -> Printf.printf "LETTUPLE\n"; count_LR := !count_LR + 1; put_tab (); print_id_t_list xts; Printf.printf "\n"; print_id e1; Printf.printf "\n"; put_tab (); print_knormal_t e2; count_LR := !count_LR - 1
-  | Get(e1, e2) -> Printf.printf "GET\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | Put(e1, e2, e3) -> Printf.printf "PUT\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; put_tab (); print_id e3; Printf.printf "\n"; count_LR := !count_LR - 1
-  | ExtArray(e) -> Printf.printf "EXTARRAY\n"; count_LR := !count_LR + 1; put_tab () ; print_id e; Printf.printf "\n"; count_LR := !count_LR - 1
-  | ExtFunApp(e, es) -> Printf.printf "EXTFUNAPP\n"; count_LR := !count_LR + 1; put_tab () ; print_id e; Printf.printf "\n"; put_tab (); print_id_list es; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.App(e, es) -> Printf.printf "APP\n"; count_LR := !count_LR + 1; put_tab (); print_id e; Printf.printf "\n"; put_tab (); print_id_list es; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.Tuple(es) -> Printf.printf "TUPLE\n"; count_LR := !count_LR + 1; put_tab (); print_id_list es; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.LetTuple(xts, e1, e2) -> Printf.printf "LETTUPLE\n"; count_LR := !count_LR + 1; put_tab (); print_id_t_list xts; Printf.printf "\n"; print_id e1; Printf.printf "\n"; put_tab (); print_knormal_t e2; count_LR := !count_LR - 1
+  | KNormal.Get(e1, e2) -> Printf.printf "GET\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.Put(e1, e2, e3) -> Printf.printf "PUT\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; put_tab (); print_id e3; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.ExtArray(e) -> Printf.printf "EXTARRAY\n"; count_LR := !count_LR + 1; put_tab () ; print_id e; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.ExtFunApp(e, es) -> Printf.printf "EXTFUNAPP\n"; count_LR := !count_LR + 1; put_tab () ; print_id e; Printf.printf "\n"; put_tab (); print_id_list es; Printf.printf "\n"; count_LR := !count_LR - 1
 
 let normal_print f s d e = 
   let result = f e in
