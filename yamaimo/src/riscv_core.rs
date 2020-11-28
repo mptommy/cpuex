@@ -495,11 +495,11 @@ impl Riscv64Core for EnvBase{
         }
     }
     fn fwrite_reg (&mut self,reg_addr:RegAddrType,data:f32){
-        if reg_addr !=0{
+        
             self.fregtoukei[reg_addr as usize]=self.fregtoukei[reg_addr as usize]+1;
             self.f_regs[reg_addr as usize]=data;
             if self.writing {println!("     fx{:02} <= {}", reg_addr, data);}
-        }
+        
     }
  
     fn fetch_memory(&mut self)->XlenType{
@@ -762,7 +762,7 @@ impl Riscv64Core for EnvBase{
                     return NRiscvInst::STALL;
                 }
                 match funct3{
-                    0b010 => {if self.writing {println!("FSW {},{}({})\n",rs2,imm,rs1);}NRiscvInst::FSW(rs1_data,rs2_data,imm)},
+                    0b010 => {if self.writing {println!("FSW {},{}({})\n",rs2,simm,rs1);}NRiscvInst::FSW(rs1_data,rs2_data,imm)},
                     _ => panic!("見落とし"),
                 }
             },
@@ -2110,7 +2110,7 @@ impl Riscv64Core for EnvBase{
 
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
-                let imm =  Self::extract_ifield(inst);
+                let imm =  Self::extract_sfield(inst);
                 let addr = (rs1_data +imm) as AddrType;
                 self.fmem_access(MemType::STORE, MemSize::WORD, rs2_data, addr);
                 if self.writing {println!("FSW {},{}({})\n",rs2,imm,rs1);}
