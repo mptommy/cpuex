@@ -2,7 +2,7 @@ module exec(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relat
     mem_read_in, mem_write_in, alu_pc, alu_src, reg_write_in, reg1_data, reg2_data,
     write_reg_in,
     mem_read_out, mem_write_out, reg_write_out, write_reg_out,
-    branch_addr, branch, mem_addr, mem_write_data, reg_write_data);
+    branch_addr, branch, mem_addr, mem_write_data, reg_write_data, writef_in, writef_out);
 
     input clk, rst;
     input [31:0] pc;
@@ -12,6 +12,7 @@ module exec(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relat
     input branch_uc, branch_c, branch_relative, mem_read_in, mem_write_in, alu_pc, alu_src, reg_write_in;
     input [31:0] reg1_data, reg2_data;
     input [4:0] write_reg_in;
+    input writef_in;
 
     output reg mem_read_out, mem_write_out, reg_write_out;
     output reg [4:0] write_reg_out;
@@ -20,6 +21,7 @@ module exec(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relat
     output reg [31:0] mem_addr;
     output reg [31:0] mem_write_data;
     output reg [31:0] reg_write_data;
+    output reg writef_out;
 
     wire [31:0] alu_src1;
     assign alu_src1 = alu_pc ? pc : reg1_data;
@@ -55,6 +57,7 @@ module exec(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relat
                 mem_addr <= alu_out;
                 mem_write_data <= reg2_data;
                 reg_write_data <= branch_uc ? (pc + 4) : alu_out;
+                writef_out <= writef_in;
             end
         end
     end
