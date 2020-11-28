@@ -1537,8 +1537,8 @@ impl Machine{
                             self.insts[i] = Instruction::code(Insts::AUIPC(*r1,self.insts[i].buf >> 12));
                         },
                         Insts::ADDI(r1,r2,_l)=>{
-                            self.insts[i].optype = Insts::ADDI(*r1,*r2,sa&0xfff);
-                            self.insts[i] = Instruction::code(Insts::ADDI(*r1,*r2,sa&0xfff));
+                            self.insts[i].optype = Insts::ADDI(*r1,*r2,(sa+4)&0xfff);
+                            self.insts[i] = Instruction::code(Insts::ADDI(*r1,*r2,(sa+4)&0xfff));
                         },
                         Insts::LB(r1,_r2,_l)=>{
                             self.insts[i].optype = Insts::LB(*r1,(sa+4)&0xfff,*r1);

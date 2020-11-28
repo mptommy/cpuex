@@ -80,13 +80,14 @@ pub fn Fmul(f1:f32,f2:f32)->f32{
     let b = FandU::new(f2);
     let mut ans = FandU::default();
     ans.s = a.s^b.s;
-    ans.e = a.e+b.e - (127 << 23);
     if a.e + b.e < (127  << 23) || a.e == 0 || b.e == 0{
         ans.e = 0;
         ans.f = 0;
         ans = ans.makeflo();
         return ans.flo;
     }
+    ans.e = a.e+b.e - (127 << 23);
+   
     if (ans.e & (1<<31))>0{
         ans.e = EMASK;
         ans.f = 0;
