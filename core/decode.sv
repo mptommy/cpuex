@@ -154,6 +154,9 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 write_reg <= instr_raw[11:7];
                 data_out <= out_type;
                 data_in <= in_type;
+            end else begin
+                data_out <= 0;
+                data_in <= 0;
             end
         end
     end
