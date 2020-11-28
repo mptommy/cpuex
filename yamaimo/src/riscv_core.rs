@@ -3,6 +3,8 @@ use crate::riscv_csr::RiscvCsr;
 use crate::riscv_csr::RiscvCsrBase;
 use crate::riscv_csr::Riscv64Csr;
 use crate::riscv_csr::CsrAddr;
+mod fpu;
+use fpu::FPUCore;
 use std::collections::HashMap;
 use std::collections::BinaryHeap;
 use std::collections::VecDeque;
@@ -192,10 +194,14 @@ pub struct EnvBase{
     pub fregtoukei:[u64;32],
     pub inqueue:VecDeque<i8>,
     pub outqueue:VecDeque<i8>,
+    pub fpucore:FPUCore,
 }
 impl EnvBase{
     pub fn new() -> EnvBase{
+        let fpucore = FPUCore::new();
+        let fpucore = fpucore.load_table();
         EnvBase {
+            fpucore:fpucore,
             inqueue:VecDeque::new(),
             outqueue:VecDeque::new(),
             is_branch:0,
@@ -2152,7 +2158,8 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FADDS=>{
                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
-                let reg_data = rs1_data+rs2_data;
+                //let reg_data = rs1_data+rs2_data;
+                let reg_data = fpu::Fadd(rs1_data,rs2_data);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FADDS {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
@@ -2160,7 +2167,8 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FSUBS=>{
                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
-                let reg_data = rs1_data-rs2_data;
+                //let reg_data = rs1_data-rs2_data;
+                let reg_data = fpu::Fsub(rs1_data,rs2_data);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FSUBS {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
@@ -2168,7 +2176,8 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FMULS=>{
                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
-                let reg_data = rs1_data *rs2_data;
+                //let reg_data = rs1_data *rs2_data;
+                let reg_data = fpu::Fmul(rs1_data,rs2_data);
                 self.fwrite_reg(rd,reg_data);
                 if self.writing {println!("FMULS {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
@@ -2176,7 +2185,8 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FDIVS=>{
                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let (rs2_data,stall)  = self.fread_regfor(rs2,forwarding,forwarding2);
-                let reg_data = rs1_data / rs2_data;
+                //let reg_data = rs1_data / rs2_data;
+                let reg_data = fpu::Fdiv(rs1_data,rs2_data,&self.fpucore);
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("FDIVS {},{},{}\n",rd,rs1,rs2);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
