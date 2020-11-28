@@ -36,10 +36,10 @@ type token =
 open Parsing;;
 let _ = parse_error;;
 # 2 "parser.mly"
-(* p��利用する変数、関数、型などの定義 *)
+(* parserが利用する変数、関数、型などの定義 *)
 open Syntax
-let addtyp x = (x, Type.gentyp ()) (* x��未定義の型変数とする *)
-(* %p S��よりデフォルトの優先度と関連性を、指定されたシンボルのものに上書き出来る。 *)
+let addtyp x = (x, Type.gentyp ()) (* xを未定義の型変数とする *)
+(* %prec Symbolによりデフォルトの優先度と関連性を、指定されたシンボルのものに上書き出来る。 *)
 # 44 "parser.ml"
 let yytransl_const = [|
   260 (* NOT *);

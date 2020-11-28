@@ -99,10 +99,10 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(x), Floor(y) -> Printf.fprintf oc "\tfloot\t%s, %s\n" x y
   | NonTail(x), In -> Printf.fprintf oc "\tin\t%s\n" x
   | NonTail(_), Out(x) -> Printf.fprintf oc "\tout\t%s\n" x
-  (* ダブルワードのロードストア *)
-  | NonTail(x), LdF(y, z') -> Printf.fprintf oc "\tlw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
-  | NonTail(_), StF(x, y, z') -> Printf.fprintf oc "\tsw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
-  (* ダブルワードのロードストア *)
+  (* 浮動小数点のロードストア *)
+  | NonTail(x), LdF(y, z') -> Printf.fprintf oc "\tflw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
+  | NonTail(_), StF(x, y, z') -> Printf.fprintf oc "\tfsw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
+  (* 浮動小数点のロードストア *)
   | NonTail(_), Comment(s) -> Printf.fprintf oc "\t! %s\n" s
   (* 退避の仮想命令の実装 (caml2html: emit_save) *)
   | NonTail(_), Save(x, y) when List.mem x allregs && not (S.mem y !stackset) -> (* Save(x, y)は変数yをレジスタxからスタック上に退避する命令 *)
@@ -110,14 +110,14 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\tsw\t%s, %d(%s)\n" x (-(offset y)) reg_sp 
   | NonTail(_), Save(x, y) when List.mem x allfregs && not (S.mem y !stackset) ->
       savef y;
-      Printf.fprintf oc "\tsw\t%s, %d(%s)\n" x (-(offset y)) reg_sp 
+      Printf.fprintf oc "\tfsw\t%s, %d(%s)\n" x (-(offset y)) reg_sp 
   | NonTail(_), Save(x, y) -> assert (S.mem y !stackset); ()
   (* 復帰の仮想命令の実装 (caml2html: emit_restore) *)
   | NonTail(x), Restore(y) when List.mem x allregs -> (* Restore(x)はその退避された変数xをレジスタにロードする仮想命令 *)
       Printf.fprintf oc "\tlw\t%s, %d(%s)\n" x (-(offset y)) reg_sp 
   | NonTail(x), Restore(y) ->
       assert (List.mem x allfregs);
-      Printf.fprintf oc "\tlw\t%s, %d(%s)\n" x (-(offset y)) reg_sp 
+      Printf.fprintf oc "\tflw\t%s, %d(%s)\n" x (-(offset y)) reg_sp 
   (* 末尾だったら計算結果を第一レジスタにセットしてret (caml2html: emit_tailret) *)
   | Tail, (Nop | St _ | StF _ | Comment _ | Save _ | In | Out _ as exp) ->
       g' oc (NonTail(Id.gentmp Type.Unit), exp);
@@ -251,7 +251,7 @@ and g'_args oc x_reg_cl ys zs =
       zs in
   List.iter
     (fun (z, fr) ->
-      Printf.fprintf oc "\tfaddi\t%s, %s, 0\n" fr z)
+      Printf.fprintf oc "\tfmv\t%s, %s\n" fr z)
     (shuffle reg_fsw zfrs)
 
 let h oc { name = Id.L(x); args = _; fargs = _; body = e; ret = _ } =
@@ -277,7 +277,7 @@ let f oc (Prog(data, fundefs, e)) =
   (* Printf.fprintf oc ".section\t\".rodata\"\n"; *)
   List.iter
     (fun (Id.L(x), d) ->
-      Printf.fprintf oc "%s:\t! %f\n" x d;
+      Printf.fprintf oc "%s:\t%f\n" x d;
       Printf.fprintf oc "\t.long\t0x%lx\n" (gethi d);
       Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d))
     data;
