@@ -163,9 +163,7 @@ pub Main:Insts={
     "flw" <r:Reg>","<i:Imm>"("<r1:Reg>")" => Insts::FLW(r,i,r1),
     "fsw" <r:Reg>","<i:Imm>"("<r1:Reg>")" => Insts::FSW(r,i,r1),
 
-    "fmv"<rd:Reg>","<r1:Reg>=> Insts::FSGNJS(rd,r1,r1),
     "fabs"<rd:Reg>","<r1:Reg>=> Insts::FSGNJXS(rd,r1,r1),
-    "fneg"<rd:Reg>","<r1:Reg>=> Insts::FSGNJNS(rd,r1,r1),
 
     "mul"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::MUL(rd,r1,r2),
     "mulh"<rd:Reg>","<r1:Reg>","<r2:Reg>=>Insts::MULH(rd,r1,r2),
