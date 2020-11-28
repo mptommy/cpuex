@@ -15,8 +15,9 @@ pub type InstType = u32;
 pub type RegAddrType = u8;
 
 pub const DRAM_BASE:AddrType = 0;
-pub const STACK_BASE:i32 = 0x0010000;
-pub const DRAM_SIZE:usize = 0x0100000;
+pub const STACK_BASE:i32 = 0x0300000;
+pub const HEAP_BASE:i32 = 0x0100000;
+pub const DRAM_SIZE:usize = 0x0300000;
 union FloatInt {
     i: u32,
     f: f32,
@@ -2684,12 +2685,23 @@ impl Riscv64Core for EnvBase{
     }
     fn output_outs(&mut self){
         println!("OUTS");
+        let mut floatbufs=[0;4];
+        let mut count = 0;
+        let mut buf:u32 = 0;
         while !self.outqueue.is_empty(){
             let ans = self.outqueue.pop_front();
             if let Some(i) = ans {
+                floatbufs[count] = i as u8;
+                buf |= ((i as u8)as u32) << 8*count;
+                count += 1;
+                count %= 4;
                 println!("{:0>8b}",i);
+                if count == 0{
+                    println!("i:{}",buf);
+                    println!("f:{}",f32::from_le_bytes(floatbufs));
+                }
             }
-            
+           
         }
     }
 
