@@ -68,7 +68,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   (* 末尾でなかったら計算結果をdestにセット (caml2html: emit_nontail) *)
   | NonTail(_), Nop -> ()
   | NonTail(x), Set(i) -> Printf.fprintf oc "\taddi\t%s, zero, %d\n" x i (* ワードの即値をレジスタに代入 *)
-  | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tadddddddi\t%s, zero, %s\n" x y (* まだ *)
+  | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tlw\t%s, %s\n" x y (* まだ *)
   | NonTail(x), Mov(y) when x = y -> ()
   | NonTail(x), Mov(y) -> Printf.fprintf oc "\tadd\t%s, zero, %s\n" x y
   | NonTail(x), Neg(y) -> Printf.fprintf oc "\tsub\t%s, zero, %s\n" x y
