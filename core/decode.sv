@@ -40,7 +40,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign u_type = (opcode == 7'b0110111 || opcode == 7'b0010111);
     assign out_type = (opcode == 7'b0000001);
     assign in_type = (opcode == 7'b0000000);
-    assign flw = (funct3 == 3'b010) && (opcode == 7'b0001111);
+    assign flw = (funct3 == 3'b010) && (opcode == 7'b0000111);
     assign fsw = (funct3 == 3'b010) && (opcode == 7'b0100111);
 
     always @ (posedge clk) begin
