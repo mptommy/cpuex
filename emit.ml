@@ -68,7 +68,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   (* 末尾でなかったら計算結果をdestにセット (caml2html: emit_nontail) *)
   | NonTail(_), Nop -> ()
   | NonTail(x), Set(i) -> Printf.fprintf oc "\taddi\t%s, zero, %d\n" x i (* ワードの即値をレジスタに代入 *)
-  | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tlw\t%s, %s\n" x y (* まだ *)
+  | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tadddddddi\t%s, zero, %s\n" x y (* まだ *)
   | NonTail(x), Mov(y) when x = y -> ()
   | NonTail(x), Mov(y) -> Printf.fprintf oc "\tadd\t%s, zero, %s\n" x y
   | NonTail(x), Neg(y) -> Printf.fprintf oc "\tsub\t%s, zero, %s\n" x y
@@ -136,9 +136,9 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
   | Tail, IfEq(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_tail_if oc e1 e2 "be" "bne" reg_sw reg_zero 
+      g'_tail_if oc e1 e2 "beq" "bne" reg_sw reg_zero 
   | Tail, IfEq(x, V(y), e1, e2) ->
-      g'_tail_if oc e1 e2 "be" "bne"x y
+      g'_tail_if oc e1 e2 "beq" "bne"x y
   | Tail, IfLE(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
       g'_tail_if oc e1 e2 "ble" "bgt" reg_sw reg_zero
@@ -151,15 +151,15 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       g'_tail_if oc e1 e2 "bge" "blt"x y
   | Tail, IfFEq(x, y, e1, e2) ->
       Printf.fprintf oc "\tfeq\t%s, %s, %s\n" reg_sw x y;
-      g'_tail_if oc e1 e2 "bne" "be" reg_sw reg_zero
+      g'_tail_if oc e1 e2 "bne" "beq" reg_sw reg_zero
   | Tail, IfFLE(x, y, e1, e2) ->
       Printf.fprintf oc "\tfle\t%s, %s, %s\n" reg_sw x y; (* equalはないらしい *)
-      g'_tail_if oc e1 e2 "bne" "be" reg_sw reg_zero
+      g'_tail_if oc e1 e2 "bne" "beq" reg_sw reg_zero
   | NonTail(z), IfEq(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "be" "bne" reg_sw reg_zero 
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "beq" "bne" reg_sw reg_zero 
   | NonTail(z), IfEq(x, V(y), e1, e2) ->
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "be" "bne" x y
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "beq" "bne" x y
   | NonTail(z), IfLE(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
       g'_non_tail_if oc (NonTail(z)) e1 e2 "ble" "bgt" reg_sw reg_zero 
@@ -172,10 +172,10 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       g'_non_tail_if oc (NonTail(z)) e1 e2 "bge" "blt" x y
   | NonTail(z), IfFEq(x, y, e1, e2) ->
       Printf.fprintf oc "\tfeq\t%s, %s, %s\n" reg_sw x y;
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "be" reg_sw reg_zero
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "beq" reg_sw reg_zero
   | NonTail(z), IfFLE(x, y, e1, e2) ->
       Printf.fprintf oc "\tfle\t%s, %s, %s\n" reg_sw x y; (* equalはないらしい *)
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "be" reg_sw reg_zero
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "beq" reg_sw reg_zero
   (* 関数呼び出しの仮想命令の実装 (caml2html: emit_call) *)
   | Tail, CallCls(x, ys, zs) -> (* 末尾呼び出し (caml2html: emit_tailcall) *)
       g'_args oc [(x, reg_cl)] ys zs;
