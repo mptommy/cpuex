@@ -11,9 +11,10 @@ module core (clk, rst, test, uart_output, uart_input);
     reg [2:0] state;
 
     wire [31:0] instr_raw;
-    wire rstn;
+    wire rstn, mem_en;
     assign rstn = ~rst;
-    fetch fetch_instance(clk, rst, state, pc, instr_raw);
+    assign mem_en = (state == 0);
+    instr_mem instr_mem_instance(clk, mem_en, rst, pc, instr_raw);
 
     wire [31:0] imm;
     wire [3:0] alu_ctl;
