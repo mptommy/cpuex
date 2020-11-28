@@ -45,6 +45,27 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
         meireis = mac.gijimeirei(inst,meireis);
     }
 
+    while true{
+        println!("any library(.s)?");
+        println!("[hoge.s/n]");
+        let mut read = String::new();
+        std::io::stdin().read_line(&mut read).ok();
+        let mut reads = read.split_whitespace();
+        let next = reads.next().unwrap();
+        match next{
+            "n"=>{break;}
+            _ =>{
+                let lib = File::open(next).unwrap();
+                let libbuf = BufReader::new (lib);
+                for result in libbuf.lines(){
+                    let l = result?;
+                    println!("{}",l);
+                    let inst = asm::MainParser::new().parse(&l).unwrap();
+                    meireis = mac.gijimeirei(inst,meireis);
+                }
+            }
+        }
+    }
     let file = File::create(moto.to_string()+".out").unwrap();
     let mut filebuf = BufWriter::new (file);
     for inst in meireis{
