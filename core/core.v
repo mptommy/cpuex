@@ -63,7 +63,13 @@ module core (clk, rst, test, uart_output, uart_input);
     wire [31:0] reg_write_data_selected;
     assign reg_write_data_selected = use_in_data ? in_data_write : reg_write_data;
 
-    mem mem_instance(clk, rst, state, mem_read_, mem_write_, mem_write_data, mem_addr,
+    wire block_ram_en;
+    assign block_ram_en = (state == 3);
+    wire [31:0]mem_data_read;
+    block_ram block_ram_instance(clk, block_ram_en, mem_write_, rst, mem_addr, mem_write_data, mem_data_read);
+
+
+    mem_pipe mem_instance(clk, rst, state, mem_read_, mem_data_read,
         branch, reg_write_selected, write_reg_, branch_addr, reg_write_data_selected,
         branch_, reg_write__, write_reg__, branch_addr_, reg_write_data_, writef_, writef__);
 

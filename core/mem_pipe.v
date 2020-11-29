@@ -1,11 +1,12 @@
-module mem(clk, rst, state, mem_read, mem_write, mem_write_data, mem_addr,
+module mem_pipe(clk, rst, state, mem_read, mem_data_read,
     branch_in, reg_write_in, write_reg_in, branch_addr_in, reg_write_data_in,
     branch_out, reg_write_out, write_reg_out, branch_addr_out, reg_write_data_out,
     writef_in, writef_out);
     input clk, rst;
     input [2:0] state;
-    input mem_read, mem_write, branch_in, reg_write_in;
-    input [31:0] mem_write_data, mem_addr, branch_addr_in, reg_write_data_in;
+    input [31:0] mem_data_read;
+    input mem_read, branch_in, reg_write_in;
+    input [31:0] branch_addr_in, reg_write_data_in;
     input [4:0] write_reg_in;
     input writef_in;
     output reg branch_out, reg_write_out;
@@ -17,10 +18,8 @@ module mem(clk, rst, state, mem_read, mem_write, mem_write_data, mem_addr,
     wire mem_en;
     assign mem_en = (state == 3);
 
-    wire [31:0] mem_data_read;
     assign reg_write_data_out = mem_read ? mem_data_read : reg_write_data_in;
 
-    block_ram block_ram_instance(clk, mem_en, mem_write, rst, mem_addr, mem_write_data, mem_data_read);
     always @ (posedge clk) begin
         if (rst) begin
             branch_out <= 0;
