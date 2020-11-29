@@ -24,6 +24,8 @@ module exec(clk, rst, pc, state, imm, ctl, branch_uc, branch_c, branch_relative,
     output reg [31:0] reg_write_data;
     output reg writef_out, data_ready;
 
+    reg waiting;
+
     wire [31:0] alu_src1;
     assign alu_src1 = alu_pc ? pc : reg1_data;
 
@@ -38,7 +40,9 @@ module exec(clk, rst, pc, state, imm, ctl, branch_uc, branch_c, branch_relative,
     assign rstn = ~rst;
     wire [31:0] fpu_out;
     wire fdata_ready;
-    FPU FPU_instance(clk, rstn, ctl, reg1_data, reg2_data, fpu_out, fdata_ready);
+    wire en;
+    assign en = (~waiting) && (state == 2);
+    FPU FPU_instance(clk, rstn, ctl, reg1_data, reg2_data, fpu_out, fdata_ready, en);
 
     always @(posedge clk) begin
         if (rst) begin
@@ -51,6 +55,7 @@ module exec(clk, rst, pc, state, imm, ctl, branch_uc, branch_c, branch_relative,
             mem_addr <= 0;
             mem_write_data <= 0;
             reg_write_data <= 0;
+            waiting <= 0;
         end else begin
             if (state == 2) begin
                 mem_read_out <= mem_read_in;
@@ -62,9 +67,14 @@ module exec(clk, rst, pc, state, imm, ctl, branch_uc, branch_c, branch_relative,
                 branch <= branch_uc || (branch_c & !alu_zero);
                 mem_addr <= alu_out;
                 mem_write_data <= reg2_data;
-                reg_write_data <= branch_uc ? (pc + 4) : alu_out;
+                reg_write_data <= branch_uc ? (pc + 4) :
+                                  use_fpu ? fpu_out : alu_out;
                 writef_out <= writef_in;
                 data_ready <= use_fpu ? fdata_ready : 1;
+                if (~waiting)
+                    waiting <= 1;
+            end else begin
+                waiting <= 0;
             end
         end
     end
