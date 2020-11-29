@@ -1,21 +1,21 @@
 main:
-	addi	%t0, zero, 100
-	add	%t1, zero, %gp
+	addi	%t0, %zero, 100
+	add	%t1, %zero, %gp
 	addi	%gp, %gp, 8
-	adddddddi	%t2, zero, m.52
+	la	%t2, m.52
 	sw	%t2, 0(%t1)
 	sw	%t0, 4(%t1)
-	adddddddi	%t0, zero, l.126
+	la	%t0, l.126
 	flw	%ft0, 0(%t0)
-	add	%t6, zero, %gp
+	add	%t6, %zero, %gp
 	addi	%gp, %gp, 16
-	adddddddi	%t0, zero, plot.56
+	la	%t0, plot.56
 	sw	%t0, 0(%t6)
 	sw	%t1, 8(%t6)
 	fsw	%ft0, 4(%t6)
-	adddddddi	%t0, zero, l.109
+	la	%t0, l.109
 	flw	%ft0, 0(%t0)
-	adddddddi	%t0, zero, l.109
+	la	%t0, l.109
 	flw	%ft1, 0(%t0)
 	sw	%ra, -4(%sp)
 	lw	%t5, 0(%t6)
@@ -24,51 +24,51 @@ main:
 	addi	%sp, %sp, 8
 	lw	%ra, -4(%sp)
 	addi	%t5, %t0, 0
-	bne	%t5, %zero, be_else.151
-	addi	%t0, zero, -1
+	bne	%t5, %zero, beq_else.151
+	addi	%t0, %zero, -1
 	sw	%ra, -4(%sp)
 	addi	%sp, %sp, -8
 	jal	min_caml_print_int
 	addi	%sp, %sp, 8
 	lw	%ra, -4(%sp)
-	j	be_cont.152
-be_else.151:
-	addi	%t0, zero, 0
+	j	beq_cont.152
+beq_else.151:
+	addi	%t0, %zero, 0
 	sw	%ra, -4(%sp)
 	addi	%sp, %sp, -8
 	jal	min_caml_print_int
 	addi	%sp, %sp, 8
 	lw	%ra, -4(%sp)
-be_cont.152:
+beq_cont.152:
 	ret
 halt:
 	jal	halt
 andb.43:
 	addi	%t5, %t0, 0
-	bne	%t5, %zero, be_else.153
-	addi	%t0, zero, 0
+	bne	%t5, %zero, beq_else.153
+	addi	%t0, %zero, 0
 	jr	%ra
-be_else.153:
+beq_else.153:
 	addi	%t5, %t1, 0
-	bne	%t5, %zero, be_else.154
-	addi	%t0, zero, 0
+	bne	%t5, %zero, beq_else.154
+	addi	%t0, %zero, 0
 	jr	%ra
-be_else.154:
-	addi	%t0, zero, 1
+beq_else.154:
+	addi	%t0, %zero, 1
 	jr	%ra
 abs.46:
-	adddddddi	%t0, zero, l.107
+	la	%t0, l.107
 	flw	%ft1, 0(%t0)
 	fle	%t5, %ft0, %ft1
-	be	%t5, %zero, bne_else.155
-	adddddddi	%t0, zero, l.109
+	beq	%t5, %zero, bne_else.155
+	la	%t0, l.109
 	flw	%ft1, 0(%t0)
 	fmul	%ft0, %ft1, %ft0
 	jr	%ra
 bne_else.155:
 	jr	%ra
 isConv.48:
-	adddddddi	%t0, zero, l.111
+	la	%t0, l.111
 	flw	%ft2, 0(%t0)
 	fsw	%ft1, 0(%sp)
 	fsw	%ft2, -8(%sp)
@@ -79,13 +79,13 @@ isConv.48:
 	lw	%ra, -20(%sp)
 	flw	%ft1, -8(%sp)
 	fle	%t5, %ft1, %ft0
-	be	%t5, %zero, bne_else.156
-	addi	%t0, zero, 0
+	beq	%t5, %zero, bne_else.156
+	addi	%t0, %zero, 0
 	j	bne_cont.157
 bne_else.156:
-	addi	%t0, zero, 1
+	addi	%t0, %zero, 1
 bne_cont.157:
-	adddddddi	%t1, zero, l.111
+	la	%t1, l.111
 	flw	%ft0, 0(%t1)
 	flw	%ft1, 0(%sp)
 	sw	%t0, -20(%sp)
@@ -98,11 +98,11 @@ bne_cont.157:
 	lw	%ra, -36(%sp)
 	flw	%ft1, -24(%sp)
 	fle	%t5, %ft1, %ft0
-	be	%t5, %zero, bne_else.158
-	addi	%t1, zero, 0
+	beq	%t5, %zero, bne_else.158
+	addi	%t1, %zero, 0
 	j	bne_cont.159
 bne_else.158:
-	addi	%t1, zero, 1
+	addi	%t1, %zero, 1
 bne_cont.159:
 	lw	%t0, -20(%sp)
 	sw	%ra, -36(%sp)
@@ -111,11 +111,11 @@ bne_cont.159:
 	addi	%sp, %sp, 40
 	lw	%ra, -36(%sp)
 	addi	%t5, %t0, 0
-	bne	%t5, %zero, be_else.160
-	addi	%t0, zero, 0
+	bne	%t5, %zero, beq_else.160
+	addi	%t0, %zero, 0
 	jr	%ra
-be_else.160:
-	addi	%t0, zero, 1
+beq_else.160:
+	addi	%t0, %zero, 1
 	jr	%ra
 f.80:
 	lw	%t1, 12(%t6)
@@ -126,7 +126,7 @@ f.80:
 	fmul	%ft5, %ft1, %ft1
 	fsub	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft4, %ft3
-	adddddddi	%t1, zero, l.114
+	la	%t1, l.114
 	flw	%ft4, 0(%t1)
 	fmul	%ft0, %ft4, %ft0
 	fmul	%ft0, %ft0, %ft1
@@ -139,36 +139,36 @@ ble_else.161:
 	j	isConv.48
 m.52:
 	lw	%t0, 4(%t6)
-	add	%t6, zero, %gp
+	add	%t6, %zero, %gp
 	addi	%gp, %gp, 16
-	adddddddi	%t1, zero, f.80
+	la	%t1, f.80
 	sw	%t1, 0(%t6)
 	sw	%t0, 12(%t6)
 	fsw	%ft1, 8(%t6)
 	fsw	%ft0, 4(%t6)
-	addi	%t0, zero, 0
+	addi	%t0, %zero, 0
 	lw	%t5, 0(%t6)
 	jr	%t5
 plot.56:
 	lw	%t0, 8(%t6)
 	flw	%ft2, 4(%t6)
-	adddddddi	%t1, zero, l.111
+	la	%t1, l.111
 	flw	%ft3, 0(%t1)
 	fle	%t5, %ft0, %ft3
-	be	%t5, %zero, bne_else.162
-	addi	%t1, zero, 0
+	beq	%t5, %zero, bne_else.162
+	addi	%t1, %zero, 0
 	j	bne_cont.163
 bne_else.162:
-	addi	%t1, zero, 1
+	addi	%t1, %zero, 1
 bne_cont.163:
-	adddddddi	%t2, zero, l.111
+	la	%t2, l.111
 	flw	%ft3, 0(%t2)
 	fle	%t5, %ft1, %ft3
-	be	%t5, %zero, bne_else.164
-	addi	%t2, zero, 0
+	beq	%t5, %zero, bne_else.164
+	addi	%t2, %zero, 0
 	j	bne_cont.165
 bne_else.164:
-	addi	%t2, zero, 1
+	addi	%t2, %zero, 1
 bne_cont.165:
 	sw	%t6, 0(%sp)
 	sw	%t0, -4(%sp)
@@ -183,23 +183,23 @@ bne_cont.165:
 	addi	%sp, %sp, 40
 	lw	%ra, -36(%sp)
 	addi	%t5, %t0, 0
-	bne	%t5, %zero, be_else.166
-	adddddddi	%t0, zero, l.111
+	bne	%t5, %zero, beq_else.166
+	la	%t0, l.111
 	flw	%ft0, 0(%t0)
 	flw	%ft1, -24(%sp)
 	fle	%t5, %ft1, %ft0
-	be	%t5, %zero, bne_else.167
+	beq	%t5, %zero, bne_else.167
 	flw	%ft0, -16(%sp)
 	fadd	%ft0, %ft1, %ft0
 	j	bne_cont.168
 bne_else.167:
-	adddddddi	%t0, zero, l.109
+	la	%t0, l.109
 	flw	%ft0, 0(%t0)
 bne_cont.168:
-	adddddddi	%t0, zero, l.111
+	la	%t0, l.111
 	flw	%ft2, 0(%t0)
 	fle	%t5, %ft1, %ft2
-	be	%t5, %zero, bne_else.169
+	beq	%t5, %zero, bne_else.169
 	flw	%ft2, -8(%sp)
 	j	bne_cont.170
 bne_else.169:
@@ -220,13 +220,13 @@ bne_cont.170:
 	addi	%sp, %sp, 64
 	lw	%ra, -60(%sp)
 	addi	%t5, %t0, 0
-	bne	%t5, %zero, be_else.172
+	bne	%t5, %zero, beq_else.172
 	flw	%ft0, -48(%sp)
 	flw	%ft1, -40(%sp)
 	lw	%t6, 0(%sp)
 	lw	%t5, 0(%t6)
 	jr	%t5
-be_else.172:
+beq_else.172:
 	flw	%ft0, -24(%sp)
 	sw	%ra, -60(%sp)
 	addi	%sp, %sp, -64
@@ -244,8 +244,8 @@ be_else.172:
 	lw	%t6, 0(%sp)
 	lw	%t5, 0(%t6)
 	jr	%t5
-be_else.166:
-	addi	%t0, zero, 1
+beq_else.166:
+	addi	%t0, %zero, 1
 	jr	%ra
 l.126:	0.040000
 	.long	0x47ae147b
