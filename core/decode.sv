@@ -1,6 +1,6 @@
 module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, branch_relative,
     mem_read, mem_write, alu_pc, alu_src, reg_write,
-    read_reg1, read_reg2, write_reg, data_out, data_in, readf1, readf2, writef);
+    read_reg1, read_reg2, write_reg, data_out, data_in, readf1, readf2, writef, use_fpu);
     input clk, rst;
 
     // FETCH = 0
@@ -15,7 +15,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     output reg [31:0] imm;
     output reg [3:0] alu_ctl;
     output reg branch_c, branch_uc, branch_relative, mem_read, mem_write,
-        alu_pc, alu_src, reg_write, data_out, data_in, readf1, readf2, writef;
+        alu_pc, alu_src, reg_write, data_out, data_in, readf1, readf2, writef, use_fpu;
 
     output reg [4:0] read_reg1, read_reg2;
     output reg [4:0] write_reg;
@@ -30,7 +30,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     wire [5:0] funct6;
     assign funct6 = funct7[6:1];
 
-    wire r_type, i_type, s_type, sb_type, uj_type;
+    wire r_type, i_type, s_type, sb_type, uj_type, flw, fsw, fadd;
 
     assign r_type = (opcode == 7'b0110011);
     assign i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
@@ -42,6 +42,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign in_type = (opcode == 7'b0000000);
     assign flw = (funct3 == 3'b010) && (opcode == 7'b0000111);
     assign fsw = (funct3 == 3'b010) && (opcode == 7'b0100111);
+    assign fadd = (funct7 == 7'b0000000) && (opcode == 7'b1010011);
 
     always @ (posedge clk) begin
         //DECODE
@@ -159,6 +160,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                             fsw ? 2 :
                 // flw: add(2)
                             flw ? 2 :
+                // fadd: add(2)
+                            fadd ? 2 :
                 // default => zero (31)
                             31;
                 // in jalr, use the absolute address
@@ -166,9 +169,10 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 write_reg <= instr_raw[11:7];
                 data_out <= out_type;
                 data_in <= in_type;
-                readf1 <= 0;
-                readf2 <= fsw ? 1 : 0;
-                writef <= flw ? 1 : 0;
+                readf1 <= fadd ? 1 : 0;
+                readf2 <= (fadd || fsw) ? 1 : 0;
+                writef <= (fadd || flw) ? 1 : 0;
+                use_fpu <= fadd ? 1 : 0;
             end else begin
                 data_out <= 0;
                 data_in <= 0;

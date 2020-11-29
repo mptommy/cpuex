@@ -17,13 +17,13 @@ module core (clk, rst, test, uart_output, uart_input);
     wire [31:0] imm;
     wire [3:0] alu_ctl;
     wire branch_relative, branch_uc, branch_c, mem_read, mem_write,
-        alu_pc, alu_src, reg_write, data_out, data_in, readf1, readf2, writef;
+        alu_pc, alu_src, reg_write, data_out, data_in, readf1, readf2, writef, use_fpu;
     wire [4:0] read_reg1, read_reg2, write_reg;
 
     decode decode_instance(clk, rst, state, mem_data_read,
         imm, alu_ctl, branch_uc, branch_c, branch_relative,
         mem_read, mem_write, alu_pc, alu_src, reg_write,
-        read_reg1, read_reg2, write_reg, data_out, data_in, readf1, readf2, writef);
+        read_reg1, read_reg2, write_reg, data_out, data_in, readf1, readf2, writef, use_fpu);
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
     wire mem_read_, mem_write_, reg_write_;
@@ -33,12 +33,13 @@ module core (clk, rst, test, uart_output, uart_input);
     wire branch;
     wire [31:0] mem_addr, mem_write_data, reg_write_data;
     wire writef_;
+    wire data_ready;
 
     exec exec_instance(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relative,
         mem_read, mem_write, alu_pc, alu_src, reg_write, reg1_data_wire, reg2_data_wire,
         write_reg,
         mem_read_, mem_write_, reg_write_, write_reg_,
-        branch_addr, branch, mem_addr, mem_write_data, reg_write_data, writef, writef_);
+        branch_addr, branch, mem_addr, mem_write_data, reg_write_data, writef, writef_, use_fpu, data_ready);
 
     wire [7:0] out_data_wire;
     assign out_data_wire = reg1_data_wire[7:0];
@@ -97,7 +98,7 @@ module core (clk, rst, test, uart_output, uart_input);
                     state <= state_out;
                 else if (data_in)
                     state <= state_in;
-                else
+                else if (data_ready)
                     state <= 3;
             end else if (state == 3) begin
                 state <= 4;
