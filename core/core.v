@@ -10,11 +10,9 @@ module core (clk, rst, test, uart_output, uart_input);
     reg [31:0] pc;
     reg [2:0] state;
 
-    wire [31:0] instr_raw;
-    wire rstn, mem_en;
+    wire [31:0] mem_data_read;
+    wire rstn;
     assign rstn = ~rst;
-    assign mem_en = (state == 0);
-    instr_mem instr_mem_instance(clk, mem_en, rst, pc, instr_raw);
 
     wire [31:0] imm;
     wire [3:0] alu_ctl;
@@ -22,7 +20,7 @@ module core (clk, rst, test, uart_output, uart_input);
         alu_pc, alu_src, reg_write, data_out, data_in, readf1, readf2, writef;
     wire [4:0] read_reg1, read_reg2, write_reg;
 
-    decode decode_instance(clk, rst, state, instr_raw,
+    decode decode_instance(clk, rst, state, mem_data_read,
         imm, alu_ctl, branch_uc, branch_c, branch_relative,
         mem_read, mem_write, alu_pc, alu_src, reg_write,
         read_reg1, read_reg2, write_reg, data_out, data_in, readf1, readf2, writef);
@@ -63,10 +61,12 @@ module core (clk, rst, test, uart_output, uart_input);
     wire [31:0] reg_write_data_selected;
     assign reg_write_data_selected = use_in_data ? in_data_write : reg_write_data;
 
-    wire block_ram_en;
-    assign block_ram_en = (state == 3);
-    wire [31:0]mem_data_read;
-    block_ram block_ram_instance(clk, block_ram_en, mem_write_, rst, mem_addr, mem_write_data, mem_data_read);
+    wire mem_en, mem_write_en;
+    wire [31:0] mem_addr_selected;
+    assign mem_en = (state == 0) || (state == 3);
+    assign mem_write_en = (state == 3) && mem_write_;
+    assign mem_addr_selected = (state == 3) ? mem_addr : pc;
+    block_ram block_ram_instance(clk, mem_en, mem_write_en, rst, mem_addr_selected, mem_write_data, mem_data_read);
 
 
     mem_pipe mem_instance(clk, rst, state, mem_read_, mem_data_read,

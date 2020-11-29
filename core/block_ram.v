@@ -9,6 +9,11 @@ module block_ram(clk, en, we, rst, addr, di, dout);
 
     (* ram_style = "BLOCK" *) reg [31:0] ram [131071:0];
 
+    initial begin
+        $readmemb("./core/tests/fib_from_compiler_in_out_b.mem", ram);
+    end
+
+
     always @ (posedge clk)
     begin
         if(en) begin
