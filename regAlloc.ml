@@ -119,7 +119,7 @@ and g'_and_restore dest cont regenv exp = (* 使用される変数をスタッ�
     ((* Format.eprintf "restoring %s@." x; *)
      g dest cont regenv (Let((x, t), Restore(x), Ans(exp))))
 and g' dest cont regenv = function (* 各命令のレジスタ割り当て (caml2html: regalloc_gprime) *)
-  | Nop | Set _ | SetL _ | Comment _ | Restore _ | In as exp -> (Ans(exp), regenv) (* 割り当てに変更なし *)
+  | Nop | Set _ |SetF _ | SetL _ | Comment _ | Restore _ | In as exp -> (Ans(exp), regenv) (* 割り当てに変更なし *)
   | Mov(x) -> (Ans(Mov(find x Type.Int regenv)), regenv) (* xがレジスタならMov(x)、そうでなければ変数からレジスタへの写像regenvを適用させる *)
   | Neg(x) -> (Ans(Neg(find x Type.Int regenv)), regenv)
   | Add(x, y') -> (Ans(Add(find x Type.Int regenv, find' y' regenv)), regenv)
