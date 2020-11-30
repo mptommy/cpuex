@@ -278,7 +278,7 @@ let f oc (Prog(data, fundefs, e)) =
   List.iter
     (fun (Id.L(x), d) ->
       Printf.fprintf oc "%s:\t%f\n" x d;
-      Printf.fprintf oc "\t.long\t0x%lx\n" (gethi d);
-      Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d))
+      (* Printf.fprintf oc "\t.long\t0x%lx\n" (gethi d); *)
+      (* Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d) *) )
     data;
   (* Printf.fprintf oc "\trestore\n" *)
