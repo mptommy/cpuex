@@ -277,7 +277,7 @@ let f oc (Prog(data, fundefs, e)) =
   (* Printf.fprintf oc ".section\t\".rodata\"\n"; *)
   List.iter
     (fun (Id.L(x), d) ->
-      Printf.fprintf oc "%s:\t%f\n" x d;
+      Printf.fprintf oc "%s:\n\t%f\n" x d;
       (* Printf.fprintf oc "\t.long\t0x%lx\n" (gethi d); *)
       (* Printf.fprintf oc "\t.long\t0x%lx\n" (getlo d) *) )
     data;
