@@ -161,6 +161,6 @@ let f e =
 *)
     let t = g M.empty e in (* eの型をtとして *)
   (try unify Type.Unit t
-  with Unify _ -> (try unify Type.Int t with Unify _ -> failwith "top level does not have type unit"));
+  with Unify _ -> (try unify Type.Int t with Unify _ -> (try unify Type.Float t with Unify _ -> failwith "top level does not have type unit")));
   extenv := M.map deref_typ !extenv;
   deref_term e
