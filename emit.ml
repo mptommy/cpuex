@@ -270,7 +270,7 @@ let f oc (Prog(data, fundefs, e)) =
   stackset := S.empty;
   stackmap := [];
   g oc (NonTail("%g0"), e);
-  Printf.fprintf oc "\tret\n";
+  (* Printf.fprintf oc "\tret\n"; *)
   Printf.fprintf oc "halt:\n";
   Printf.fprintf oc "\tjal\thalt\n";
   List.iter (fun fundef -> h oc fundef) fundefs;
