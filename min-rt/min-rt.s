@@ -1,8600 +1,6277 @@
-.data
-.balign	8
-l.10943:	# 128.000000
+main:
+	addi	%t0, %zero, 91
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 0(%t0)
+	la	%t1, l.5459
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 8(%t0)
+	la	%t1, l.5462
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 16(%t0)
+	la	%t1, l.5465
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 24(%t0)
+	la	%t1, l.5468
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 32(%t0)
+	la	%t1, l.5471
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 40(%t0)
+	la	%t1, l.5474
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 48(%t0)
+	la	%t1, l.5477
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 56(%t0)
+	la	%t1, l.5480
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 64(%t0)
+	la	%t1, l.5483
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 72(%t0)
+	la	%t1, l.5486
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 80(%t0)
+	la	%t1, l.5489
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 88(%t0)
+	la	%t1, l.5492
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 96(%t0)
+	la	%t1, l.5495
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 104(%t0)
+	la	%t1, l.5498
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 112(%t0)
+	la	%t1, l.5501
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 120(%t0)
+	la	%t1, l.5504
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 128(%t0)
+	la	%t1, l.5507
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 136(%t0)
+	la	%t1, l.5510
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 144(%t0)
+	la	%t1, l.5513
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 152(%t0)
+	la	%t1, l.5516
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 160(%t0)
+	la	%t1, l.5519
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 168(%t0)
+	la	%t1, l.5522
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 176(%t0)
+	la	%t1, l.5525
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 184(%t0)
+	la	%t1, l.5528
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 192(%t0)
+	la	%t1, l.5531
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 200(%t0)
+	la	%t1, l.5534
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 208(%t0)
+	la	%t1, l.5537
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 216(%t0)
+	la	%t1, l.5540
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 224(%t0)
+	la	%t1, l.5543
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 232(%t0)
+	la	%t1, l.5300
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 240(%t0)
+	la	%t1, l.5548
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 248(%t0)
+	la	%t1, l.5551
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 256(%t0)
+	la	%t1, l.5554
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 264(%t0)
+	la	%t1, l.5557
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 272(%t0)
+	la	%t1, l.5560
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 280(%t0)
+	la	%t1, l.5563
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 288(%t0)
+	la	%t1, l.5566
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 296(%t0)
+	la	%t1, l.5569
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 304(%t0)
+	la	%t1, l.5572
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 312(%t0)
+	la	%t1, l.5575
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 320(%t0)
+	la	%t1, l.5578
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 328(%t0)
+	la	%t1, l.5581
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 336(%t0)
+	la	%t1, l.5584
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 344(%t0)
+	la	%t1, l.5587
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 352(%t0)
+	la	%t1, l.5590
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 360(%t0)
+	la	%t1, l.5593
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 368(%t0)
+	la	%t1, l.5596
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 376(%t0)
+	la	%t1, l.5599
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 384(%t0)
+	la	%t1, l.5602
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 392(%t0)
+	la	%t1, l.5605
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 400(%t0)
+	la	%t1, l.5608
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 408(%t0)
+	la	%t1, l.5611
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 416(%t0)
+	la	%t1, l.5614
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 424(%t0)
+	la	%t1, l.5617
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 432(%t0)
+	la	%t1, l.5620
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 440(%t0)
+	la	%t1, l.5623
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 448(%t0)
+	la	%t1, l.5626
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 456(%t0)
+	la	%t1, l.5629
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 464(%t0)
+	la	%t1, l.5632
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 472(%t0)
+	la	%t1, l.5635
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 480(%t0)
+	la	%t1, l.5638
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 488(%t0)
+	la	%t1, l.5641
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 496(%t0)
+	la	%t1, l.5644
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 504(%t0)
+	la	%t1, l.5647
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 512(%t0)
+	la	%t1, l.5650
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 520(%t0)
+	la	%t1, l.5653
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 528(%t0)
+	la	%t1, l.5656
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 536(%t0)
+	la	%t1, l.5659
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 544(%t0)
+	la	%t1, l.5662
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 552(%t0)
+	la	%t1, l.5665
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 560(%t0)
+	la	%t1, l.5668
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 568(%t0)
+	la	%t1, l.5671
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 576(%t0)
+	la	%t1, l.5674
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 584(%t0)
+	la	%t1, l.5677
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 592(%t0)
+	la	%t1, l.5680
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 600(%t0)
+	la	%t1, l.5683
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 608(%t0)
+	la	%t1, l.5686
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 616(%t0)
+	la	%t1, l.5689
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 624(%t0)
+	la	%t1, l.5692
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 632(%t0)
+	la	%t1, l.5695
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 640(%t0)
+	la	%t1, l.5698
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 648(%t0)
+	la	%t1, l.5701
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 656(%t0)
+	la	%t1, l.5704
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 664(%t0)
+	la	%t1, l.5707
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 672(%t0)
+	la	%t1, l.5710
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 680(%t0)
+	la	%t1, l.5713
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 688(%t0)
+	la	%t1, l.5716
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 696(%t0)
+	la	%t1, l.5719
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 704(%t0)
+	la	%t1, l.5722
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 712(%t0)
+	la	%t1, l.4813
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 720(%t0)
+	la	%t1, l.5727
+	flw	%ft0, 0(%t1)
+	la	%t1, l.5729
+	flw	%ft1, 0(%t1)
+	add	%t1, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%t2, normal_0_pi.2207
+	sw	%t2, 0(%t1)
+	fsw	%ft0, 4(%t1)
+	add	%t2, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s0, n_dir.2209
+	sw	%s0, 0(%t2)
+	fsw	%ft0, 4(%t2)
+	add	%s0, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%s1, normal_0_90.2212
+	sw	%s1, 0(%s0)
+	fsw	%ft0, 8(%s0)
+	sw	%t1, 4(%s0)
+	add	%t1, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%s1, sin.2214
+	sw	%s1, 0(%t1)
+	sw	%t0, 20(%t1)
+	fsw	%ft0, 16(%t1)
+	sw	%s0, 12(%t1)
+	sw	%t2, 8(%t1)
+	fsw	%ft1, 4(%t1)
+	add	%t0, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%t2, cos.2216
+	sw	%t2, 0(%t0)
+	sw	%t1, 4(%t0)
+	addi	%t2, %zero, 0
+	la	%s0, l.4803
+	flw	%ft0, 0(%s0)
+	sw	%t0, -4(%sp)
+	sw	%t1, -8(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t1, %zero, 60
+	addi	%t2, %zero, 0
+	addi	%s0, %zero, 0
+	addi	%s1, %zero, 0
+	addi	%a0, %zero, 0
+	addi	%a1, %zero, 0
+	add	%a2, %zero, %gp
+	addi	%gp, %gp, 40
+	sw	%t0, 36(%a2)
+	sw	%t0, 32(%a2)
+	sw	%t0, 28(%a2)
+	sw	%a1, 24(%a2)
+	sw	%t0, 20(%a2)
+	sw	%t0, 16(%a2)
+	sw	%a0, 12(%a2)
+	sw	%s1, 8(%a2)
+	sw	%s0, 4(%a2)
+	sw	%t2, 0(%a2)
+	add	%t0, %zero, %a2
+	addi	%t4, %t1, 0
+	addi	%t1, %t0, 0
+	addi	%t0, %t4, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_create_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t1, %zero, 2
+	addi	%t2, %zero, 128
+	sw	%t0, -12(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	min_caml_create_array
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t1, %zero, 1
+	addi	%t2, %zero, 1
+	sw	%t0, -16(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	min_caml_create_array
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -20(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -28(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -32(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t1, %zero, 2
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -36(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t1, %zero, 2
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -40(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t1, %zero, 1
+	la	%t2, l.5314
+	flw	%ft0, 0(%t2)
+	sw	%t0, -44(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t1, %zero, 50
+	addi	%t2, %zero, 1
+	addi	%s0, %zero, -1
+	sw	%t0, -48(%sp)
+	sw	%t1, -52(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	min_caml_create_array
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -52(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	min_caml_create_array
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t1, %zero, 1
+	addi	%t2, %zero, 1
+	lw	%s0, 0(%t0)
+	sw	%t0, -56(%sp)
+	sw	%t1, -60(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	min_caml_create_array
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -60(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	min_caml_create_array
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t1, %zero, 14
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -64(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t0, %zero, 16
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t1, %zero, 1
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -68(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -72(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t1, %zero, 1
+	addi	%t2, %zero, 0
+	sw	%t0, -76(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	min_caml_create_array
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t1, %zero, 1
+	la	%t2, l.5229
+	flw	%ft0, 0(%t2)
+	sw	%t0, -80(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -84(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	addi	%t1, %zero, 1
+	addi	%t2, %zero, 0
+	sw	%t0, -88(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	min_caml_create_array
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	addi	%t1, %zero, 1
+	addi	%t2, %zero, 0
+	sw	%t0, -92(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	min_caml_create_array
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -96(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -100(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -104(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -108(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -112(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -116(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -120(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -124(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	addi	%t1, %zero, 1
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -128(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	addi	%t1, %zero, 1
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -132(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	addi	%t1, %zero, 1
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -136(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	addi	%t1, %zero, 1
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -140(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -144(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	add	%t1, %zero, %gp
+	addi	%gp, %gp, 40
+	la	%t2, read_environ.2310
+	sw	%t2, 0(%t1)
+	lw	%t2, -28(%sp)
+	sw	%t2, 36(%t1)
+	lw	%s0, -32(%sp)
+	sw	%s0, 32(%t1)
+	lw	%s1, -44(%sp)
+	sw	%s1, 28(%t1)
+	lw	%a0, -8(%sp)
+	sw	%a0, 24(%t1)
+	lw	%a1, -24(%sp)
+	sw	%a1, 20(%t1)
+	lw	%a1, -36(%sp)
+	sw	%a1, 16(%t1)
+	lw	%a2, -40(%sp)
+	sw	%a2, 12(%t1)
+	lw	%a3, -4(%sp)
+	sw	%a3, 8(%t1)
+	lw	%a4, -48(%sp)
+	sw	%a4, 4(%t1)
+	add	%a5, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%a6, read_nth_object.2312
+	sw	%a6, 0(%a5)
+	sw	%a0, 16(%a5)
+	lw	%a6, -12(%sp)
+	sw	%a6, 12(%a5)
+	lw	%a7, -68(%sp)
+	sw	%a7, 8(%a5)
+	sw	%a3, 4(%a5)
+	add	%a7, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s2, read_object.2314
+	sw	%s2, 0(%a7)
+	sw	%a5, 4(%a7)
+	add	%a5, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s2, read_all_object.2316
+	sw	%s2, 0(%a5)
+	sw	%a7, 4(%a5)
+	add	%a7, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s2, read_and_network.2322
+	sw	%s2, 0(%a7)
+	lw	%s2, -56(%sp)
+	sw	%s2, 4(%a7)
+	add	%s3, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%s4, read_parameter.2324
+	sw	%s4, 0(%s3)
+	sw	%t1, 16(%s3)
+	sw	%a7, 12(%s3)
+	sw	%a5, 8(%s3)
+	lw	%t1, -64(%sp)
+	sw	%t1, 4(%s3)
+	add	%a5, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%a7, solver_rect.2326
+	sw	%a7, 0(%a5)
+	lw	%a7, -116(%sp)
+	sw	%a7, 8(%a5)
+	lw	%s4, -72(%sp)
+	sw	%s4, 4(%a5)
+	add	%s5, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%s6, solver_surface.2329
+	sw	%s6, 0(%s5)
+	sw	%a7, 8(%s5)
+	sw	%s4, 4(%s5)
+	add	%s6, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s7, solver2nd_mul_b.2338
+	sw	%s7, 0(%s6)
+	sw	%a7, 4(%s6)
+	add	%s7, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s8, solver2nd_rot_b.2341
+	sw	%s8, 0(%s7)
+	sw	%a7, 4(%s7)
+	add	%s8, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%s9, solver_second.2344
+	sw	%s9, 0(%s8)
+	sw	%a7, 16(%s8)
+	sw	%s4, 12(%s8)
+	sw	%s7, 8(%s8)
+	sw	%s6, 4(%s8)
+	add	%s6, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%s7, solver.2347
+	sw	%s7, 0(%s6)
+	sw	%a7, 20(%s6)
+	sw	%s5, 16(%s6)
+	sw	%s8, 12(%s6)
+	sw	%a5, 8(%s6)
+	sw	%a6, 4(%s6)
+	add	%a5, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%a7, is_rect_outside.2351
+	sw	%a7, 0(%a5)
+	lw	%a7, -124(%sp)
+	sw	%a7, 4(%a5)
+	add	%s5, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s7, is_plane_outside.2353
+	sw	%s7, 0(%s5)
+	sw	%a7, 4(%s5)
+	add	%s7, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s8, is_second_outside.2355
+	sw	%s8, 0(%s7)
+	sw	%a7, 4(%s7)
+	add	%s8, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%s9, is_outside.2357
+	sw	%s9, 0(%s8)
+	sw	%a7, 20(%s8)
+	sw	%s7, 16(%s8)
+	sw	%a5, 12(%s8)
+	sw	%s5, 8(%s8)
+	lw	%a5, -120(%sp)
+	sw	%a5, 4(%s8)
+	add	%a7, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%s5, check_all_inside.2359
+	sw	%s5, 0(%a7)
+	sw	%a6, 8(%a7)
+	sw	%s8, 4(%a7)
+	add	%s5, %zero, %gp
+	addi	%gp, %gp, 32
+	la	%s7, shadow_check_and_group.2362
+	sw	%s7, 0(%s5)
+	sw	%s4, 24(%s5)
+	sw	%s6, 20(%s5)
+	sw	%a6, 16(%s5)
+	sw	%a1, 12(%s5)
+	sw	%a5, 8(%s5)
+	sw	%a7, 4(%s5)
+	add	%s7, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%s8, shadow_check_one_or_group.2366
+	sw	%s8, 0(%s7)
+	sw	%s5, 8(%s7)
+	sw	%s2, 4(%s7)
+	add	%s5, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%s8, shadow_check_one_or_matrix.2370
+	sw	%s8, 0(%s5)
+	sw	%s4, 16(%s5)
+	sw	%s6, 12(%s5)
+	sw	%s7, 8(%s5)
+	sw	%a1, 4(%s5)
+	add	%s7, %zero, %gp
+	addi	%gp, %gp, 56
+	la	%s8, solve_each_element.2374
+	sw	%s8, 0(%s7)
+	lw	%s8, -76(%sp)
+	sw	%s8, 48(%s7)
+	lw	%s9, -100(%sp)
+	sw	%s9, 44(%s7)
+	lw	%s10, -84(%sp)
+	sw	%s10, 40(%s7)
+	sw	%s4, 36(%s7)
+	sw	%s6, 32(%s7)
+	sw	%a6, 28(%s7)
+	lw	%s11, -80(%sp)
+	sw	%s11, 24(%s7)
+	lw	%t3, -96(%sp)
+	sw	%t3, 20(%s7)
+	lw	%t4, -88(%sp)
+	sw	%t4, 16(%s7)
+	lw	%t5, -92(%sp)
+	sw	%t5, 12(%s7)
+	sw	%a5, 8(%s7)
+	sw	%a7, 4(%s7)
+	add	%a5, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%a7, solve_one_or_network.2377
+	sw	%a7, 0(%a5)
+	sw	%s7, 12(%a5)
+	sw	%t3, 8(%a5)
+	sw	%s2, 4(%a5)
+	add	%a7, %zero, %gp
+	addi	%gp, %gp, 32
+	la	%s2, trace_or_matrix.2380
+	sw	%s2, 0(%a7)
+	sw	%s8, 24(%a7)
+	sw	%s9, 20(%a7)
+	sw	%s10, 16(%a7)
+	sw	%s4, 12(%a7)
+	sw	%s6, 8(%a7)
+	sw	%a5, 4(%a7)
+	add	%a5, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%s2, tracer.2383
+	sw	%s2, 0(%a5)
+	sw	%a7, 12(%a5)
+	sw	%s10, 8(%a5)
+	sw	%t1, 4(%a5)
+	add	%a7, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%s2, get_nvector_rect.2386
+	sw	%s2, 0(%a7)
+	sw	%s8, 12(%a7)
+	lw	%s2, -104(%sp)
+	sw	%s2, 8(%a7)
+	sw	%s11, 4(%a7)
+	add	%s4, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s6, get_nvector_plane.2388
+	sw	%s6, 0(%s4)
+	sw	%s2, 4(%s4)
+	add	%s6, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%s7, get_nvector_second_norot.2390
+	sw	%s7, 0(%s6)
+	sw	%s2, 4(%s6)
+	add	%s7, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%s10, get_nvector_second_rot.2393
+	sw	%s10, 0(%s7)
+	lw	%s10, -128(%sp)
+	sw	%s10, 8(%s7)
+	sw	%s2, 4(%s7)
+	add	%s10, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%s11, get_nvector.2396
+	sw	%s11, 0(%s10)
+	sw	%s7, 16(%s10)
+	sw	%s6, 12(%s10)
+	sw	%a7, 8(%s10)
+	sw	%s4, 4(%s10)
+	add	%a7, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%s4, utexture.2399
+	sw	%s4, 0(%a7)
+	lw	%s4, -112(%sp)
+	sw	%s4, 12(%a7)
+	sw	%a0, 8(%a7)
+	sw	%a3, 4(%a7)
+	add	%a0, %zero, %gp
+	addi	%gp, %gp, 64
+	la	%a3, raytracing.2409
+	sw	%a3, 0(%a0)
+	sw	%s8, 60(%a0)
+	sw	%s9, 56(%a0)
+	sw	%a7, 52(%a0)
+	sw	%a5, 48(%a0)
+	sw	%s4, 44(%a0)
+	sw	%s5, 40(%a0)
+	lw	%a3, -108(%sp)
+	sw	%a3, 36(%a0)
+	sw	%t1, 32(%a0)
+	sw	%a6, 28(%a0)
+	sw	%s2, 24(%a0)
+	sw	%a1, 20(%a0)
+	sw	%s10, 16(%a0)
+	sw	%t4, 12(%a0)
+	sw	%t5, 8(%a0)
+	sw	%a4, 4(%a0)
+	add	%t1, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%a1, write_rgb.2412
+	sw	%a1, 0(%t1)
+	sw	%a3, 4(%t1)
+	add	%a1, %zero, %gp
+	addi	%gp, %gp, 8
+	la	%a4, write_ppm_header.2414
+	sw	%a4, 0(%a1)
+	lw	%a4, -16(%sp)
+	sw	%a4, 4(%a1)
+	add	%a5, %zero, %gp
+	addi	%gp, %gp, 64
+	la	%a6, scan_point.2416
+	sw	%a6, 0(%a5)
+	sw	%t0, 60(%a5)
+	sw	%t1, 56(%a5)
+	sw	%s8, 52(%a5)
+	sw	%t2, 48(%a5)
+	sw	%s9, 44(%a5)
+	sw	%s0, 40(%a5)
+	sw	%a4, 36(%a5)
+	sw	%s1, 32(%a5)
+	lw	%t1, -140(%sp)
+	sw	%t1, 28(%a5)
+	lw	%s0, -136(%sp)
+	sw	%s0, 24(%a5)
+	lw	%a6, -144(%sp)
+	sw	%a6, 20(%a5)
+	lw	%a7, -132(%sp)
+	sw	%a7, 16(%a5)
+	sw	%a3, 12(%a5)
+	sw	%a0, 8(%a5)
+	sw	%a2, 4(%a5)
+	add	%a0, %zero, %gp
+	addi	%gp, %gp, 48
+	la	%a3, scan_line.2418
+	sw	%a3, 0(%a0)
+	sw	%t0, 40(%a0)
+	sw	%t2, 36(%a0)
+	sw	%a4, 32(%a0)
+	sw	%s1, 28(%a0)
+	sw	%t1, 24(%a0)
+	sw	%a5, 20(%a0)
+	sw	%s0, 16(%a0)
+	sw	%a6, 12(%a0)
+	sw	%a7, 8(%a0)
+	sw	%a2, 4(%a0)
+	add	%t0, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%t1, scan_start.2420
+	sw	%t1, 0(%t0)
+	sw	%a1, 20(%t0)
+	sw	%a4, 16(%t0)
+	sw	%s0, 12(%t0)
+	sw	%a0, 8(%t0)
+	sw	%a7, 4(%t0)
+	add	%t5, %zero, %gp
+	addi	%gp, %gp, 24
+	la	%t1, rt.2422
+	sw	%t1, 0(%t5)
+	sw	%a4, 16(%t5)
+	sw	%t0, 12(%t5)
+	sw	%s3, 8(%t5)
+	lw	%t0, -20(%sp)
+	sw	%t0, 4(%t5)
+	addi	%t0, %zero, 768
+	addi	%t1, %zero, 768
+	addi	%t2, %zero, 0
+	sw	%ra, -148(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -152
+	jalr	%t4
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+halt:
+	jal	halt
+normal_0_2pi.2205:
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7018
+	la	%t0, l.4805
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7019
+	jr	%ra
+bne_else.7019:
+	la	%t0, l.4805
+	flw	%ft1, 0(%t0)
+	fsub	%ft0, %ft0, %ft1
+	j	normal_0_2pi.2205
+bne_else.7018:
+	la	%t0, l.4805
+	flw	%ft1, 0(%t0)
+	fadd	%ft0, %ft0, %ft1
+	j	normal_0_2pi.2205
+normal_0_pi.2207:
+	flw	%ft1, 4(%t5)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7020
+	jr	%ra
+bne_else.7020:
+	fsub	%ft0, %ft0, %ft1
+	jr	%ra
+n_dir.2209:
+	flw	%ft2, 4(%t5)
+	fle	%t4, %ft0, %ft2
+	beq	%t4, %zero, bne_else.7021
+	fmv	%ft0, %ft1
+	jr	%ra
+bne_else.7021:
+	fneg	%ft0, %ft1
+	jr	%ra
+normal_0_90.2212:
+	flw	%ft1, 8(%t5)
+	lw	%t0, 4(%t5)
+	fsw	%ft1, 0(%sp)
+	sw	%t0, -8(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	normal_0_2pi.2205
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t5, -8(%sp)
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	la	%t0, l.4809
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7022
+	jr	%ra
+bne_else.7022:
+	flw	%ft1, 0(%sp)
+	fsub	%ft0, %ft1, %ft0
+	jr	%ra
+sin_iter_sin.4521:
+	flw	%ft5, 8(%t5)
+	flw	%ft6, 4(%t5)
+	feq	%t4, %ft4, %ft5
+	beq	%t4, %zero, bne_else.7023
+	jr	%ra
+bne_else.7023:
+	fmul	%ft5, %ft6, %ft6
+	fneg	%ft5, %ft5
+	la	%t0, l.4811
+	flw	%ft7, 0(%t0)
+	fmul	%ft7, %ft7, %ft4
+	la	%t0, l.4813
+	flw	%fs0, 0(%t0)
+	fsub	%ft7, %ft7, %fs0
+	la	%t0, l.4811
+	flw	%fs0, 0(%t0)
+	fmul	%fs0, %fs0, %ft4
+	fmul	%ft7, %ft7, %fs0
+	fdiv	%ft5, %ft5, %ft7
+	fmul	%ft2, %ft2, %ft5
+	fmul	%ft5, %ft6, %ft6
+	fneg	%ft5, %ft5
+	la	%t0, l.4811
+	flw	%ft6, 0(%t0)
+	fmul	%ft6, %ft6, %ft4
+	la	%t0, l.4813
+	flw	%ft7, 0(%t0)
+	fadd	%ft6, %ft6, %ft7
+	la	%t0, l.4811
+	flw	%ft7, 0(%t0)
+	fmul	%ft7, %ft7, %ft4
+	fmul	%ft6, %ft6, %ft7
+	fdiv	%ft5, %ft5, %ft6
+	fmul	%ft3, %ft3, %ft5
+	fadd	%ft0, %ft0, %ft2
+	fadd	%ft1, %ft1, %ft3
+	la	%t0, l.4813
+	flw	%ft5, 0(%t0)
+	fadd	%ft4, %ft4, %ft5
+	lw	%t4, 0(%t5)
+	jr	%t4
+sin_iter_cos.4527:
+	flw	%ft5, 8(%t5)
+	flw	%ft6, 4(%t5)
+	feq	%t4, %ft4, %ft5
+	beq	%t4, %zero, bne_else.7024
+	fmv	%ft0, %ft1
+	jr	%ra
+bne_else.7024:
+	fmul	%ft5, %ft6, %ft6
+	fneg	%ft5, %ft5
+	la	%t0, l.4811
+	flw	%ft7, 0(%t0)
+	fmul	%ft7, %ft7, %ft4
+	la	%t0, l.4813
+	flw	%fs0, 0(%t0)
+	fsub	%ft7, %ft7, %fs0
+	la	%t0, l.4811
+	flw	%fs0, 0(%t0)
+	fmul	%fs0, %fs0, %ft4
+	fmul	%ft7, %ft7, %fs0
+	fdiv	%ft5, %ft5, %ft7
+	fmul	%ft2, %ft2, %ft5
+	fmul	%ft5, %ft6, %ft6
+	fneg	%ft5, %ft5
+	la	%t0, l.4811
+	flw	%ft6, 0(%t0)
+	fmul	%ft6, %ft6, %ft4
+	la	%t0, l.4813
+	flw	%ft7, 0(%t0)
+	fadd	%ft6, %ft6, %ft7
+	la	%t0, l.4811
+	flw	%ft7, 0(%t0)
+	fmul	%ft7, %ft7, %ft4
+	fmul	%ft6, %ft6, %ft7
+	fdiv	%ft5, %ft5, %ft6
+	fmul	%ft3, %ft3, %ft5
+	fadd	%ft0, %ft0, %ft2
+	fadd	%ft1, %ft1, %ft3
+	la	%t0, l.4813
+	flw	%ft5, 0(%t0)
+	fadd	%ft4, %ft4, %ft5
+	lw	%t4, 0(%t5)
+	jr	%t4
+sin.2214:
+	lw	%t0, 20(%t5)
+	flw	%ft1, 16(%t5)
+	lw	%t1, 12(%t5)
+	lw	%t2, 8(%t5)
+	flw	%ft2, 4(%t5)
+	fsw	%ft2, 0(%sp)
+	sw	%t0, -8(%sp)
+	fsw	%ft1, -16(%sp)
+	fsw	%ft0, -24(%sp)
+	sw	%t2, -32(%sp)
+	addi	%t5, %t1, 0
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	la	%t0, l.4813
+	flw	%ft1, 0(%t0)
+	flw	%ft2, -24(%sp)
+	lw	%t5, -32(%sp)
+	fsw	%ft0, -40(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	la	%t0, l.4828
+	flw	%ft1, 0(%t0)
+	flw	%ft2, -40(%sp)
+	fmul	%ft1, %ft2, %ft1
+	flw	%ft2, -16(%sp)
+	fdiv	%ft1, %ft1, %ft2
+	floor	%ft3, %ft1
+	ftoi	%t0, %ft3
+	sll	%t1, %t0, 3
+	lw	%t2, -8(%sp)
+	flw	%ft3, %t1(%t2)
+	addi	%t1, %zero, 90
+	sub	%t0, %t1, %t0
+	sll	%t0, %t0, 3
+	flw	%ft4, %t0(%t2)
+	floor	%ft5, %ft1
+	fsub	%ft1, %ft1, %ft5
+	fmul	%ft1, %ft1, %ft2
+	la	%t0, l.4828
+	flw	%ft2, 0(%t0)
+	fdiv	%ft1, %ft1, %ft2
+	add	%t5, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%t0, sin_iter_sin.4521
+	sw	%t0, 0(%t5)
+	flw	%ft2, 0(%sp)
+	fsw	%ft2, 8(%t5)
+	fsw	%ft1, 4(%t5)
+	add	%t0, %zero, %gp
+	addi	%gp, %gp, 16
+	la	%t1, sin_iter_cos.4527
+	sw	%t1, 0(%t0)
+	fsw	%ft2, 8(%t0)
+	fsw	%ft1, 4(%t0)
+	la	%t1, l.4813
+	flw	%ft2, 0(%t1)
+	la	%t1, l.4813
+	flw	%ft5, 0(%t1)
+	la	%t1, l.4813
+	flw	%ft6, 0(%t1)
+	fsw	%ft0, -48(%sp)
+	fsw	%ft4, -56(%sp)
+	fsw	%ft3, -64(%sp)
+	fsw	%ft1, -72(%sp)
+	sw	%t0, -80(%sp)
+	fmv	%ft4, %ft6
+	fmv	%ft3, %ft1
+	fmv	%ft0, %ft2
+	fmv	%ft2, %ft5
+	sw	%ra, -84(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -88
+	jalr	%t4
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	la	%t0, l.4813
+	flw	%ft1, 0(%t0)
+	la	%t0, l.4813
+	flw	%ft2, 0(%t0)
+	la	%t0, l.4813
+	flw	%ft4, 0(%t0)
+	flw	%ft3, -72(%sp)
+	lw	%t5, -80(%sp)
+	fsw	%ft0, -88(%sp)
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft3
+	sw	%ra, -100(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -104
+	jalr	%t4
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	flw	%ft2, -64(%sp)
+	fmul	%ft1, %ft2, %ft1
+	flw	%ft2, -56(%sp)
+	fmul	%ft0, %ft2, %ft0
+	fadd	%ft0, %ft1, %ft0
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	jr	%ra
+cos.2216:
+	lw	%t5, 4(%t5)
+	la	%t0, l.4809
+	flw	%ft1, 0(%t0)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t4, 0(%t5)
+	jr	%t4
+kernel_atan.2218:
+	fmul	%ft1, %ft0, %ft0
+	fmul	%ft2, %ft0, %ft1
+	fmul	%ft3, %ft2, %ft1
+	fmul	%ft4, %ft3, %ft1
+	fmul	%ft5, %ft4, %ft1
+	fmul	%ft6, %ft5, %ft1
+	fmul	%ft1, %ft6, %ft1
+	la	%t0, l.4848
+	flw	%ft7, 0(%t0)
+	fmul	%ft2, %ft7, %ft2
+	fsub	%ft0, %ft0, %ft2
+	la	%t0, l.4850
+	flw	%ft2, 0(%t0)
+	fmul	%ft2, %ft2, %ft3
+	fadd	%ft0, %ft0, %ft2
+	la	%t0, l.4852
+	flw	%ft2, 0(%t0)
+	fmul	%ft2, %ft2, %ft4
+	fsub	%ft0, %ft0, %ft2
+	la	%t0, l.4854
+	flw	%ft2, 0(%t0)
+	fmul	%ft2, %ft2, %ft5
+	fadd	%ft0, %ft0, %ft2
+	la	%t0, l.4856
+	flw	%ft2, 0(%t0)
+	fmul	%ft2, %ft2, %ft6
+	fsub	%ft0, %ft0, %ft2
+	la	%t0, l.4858
+	flw	%ft2, 0(%t0)
+	fmul	%ft1, %ft2, %ft1
+	fadd	%ft0, %ft0, %ft1
+	jr	%ra
+abs.2220:
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7027
+	jr	%ra
+bne_else.7027:
+	fneg	%ft0, %ft0
+	jr	%ra
+atan.2222:
+	fsw	%ft0, 0(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	abs.2220
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	la	%t0, l.4861
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7028
+	la	%t0, l.4863
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7029
+	la	%t0, l.4809
+	flw	%ft1, 0(%t0)
+	la	%t0, l.4813
+	flw	%ft2, 0(%t0)
+	fdiv	%ft0, %ft2, %ft0
+	fsw	%ft1, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	kernel_atan.2218
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fsub	%ft0, %ft1, %ft0
+	jr	%ra
+bne_else.7029:
+	la	%t0, l.4865
+	flw	%ft1, 0(%t0)
+	la	%t0, l.4813
+	flw	%ft2, 0(%t0)
+	fsub	%ft2, %ft0, %ft2
+	la	%t0, l.4813
+	flw	%ft3, 0(%t0)
+	fadd	%ft0, %ft0, %ft3
+	fdiv	%ft0, %ft2, %ft0
+	fsw	%ft1, -24(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	kernel_atan.2218
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fadd	%ft0, %ft1, %ft0
+	jr	%ra
+bne_else.7028:
+	flw	%ft0, 0(%sp)
+	j	kernel_atan.2218
+xor.2258:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7031
+	add	%t0, %zero, %t1
+	jr	%ra
+beq_else.7031:
+	addi	%t4, %t1, 0
+	bne	%t4, %zero, beq_else.7032
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.7032:
+	addi	%t0, %zero, 0
+	jr	%ra
+fsqr.2261:
+	fmul	%ft0, %ft0, %ft0
+	jr	%ra
+fhalf.2263:
+	la	%t0, l.4811
+	flw	%ft1, 0(%t0)
+	fdiv	%ft0, %ft0, %ft1
+	jr	%ra
+o_texturetype.2265:
+	lw	%t0, 0(%t0)
+	jr	%ra
+o_form.2267:
+	lw	%t0, 4(%t0)
+	jr	%ra
+o_reflectiontype.2269:
+	lw	%t0, 8(%t0)
+	jr	%ra
+o_isinvert.2271:
+	lw	%t0, 24(%t0)
+	jr	%ra
+o_isrot.2273:
+	lw	%t0, 12(%t0)
+	jr	%ra
+o_param_a.2275:
+	lw	%t0, 16(%t0)
+	flw	%ft0, 0(%t0)
+	jr	%ra
+o_param_b.2277:
+	lw	%t0, 16(%t0)
+	flw	%ft0, 8(%t0)
+	jr	%ra
+o_param_c.2279:
+	lw	%t0, 16(%t0)
+	flw	%ft0, 16(%t0)
+	jr	%ra
+o_param_x.2281:
+	lw	%t0, 20(%t0)
+	flw	%ft0, 0(%t0)
+	jr	%ra
+o_param_y.2283:
+	lw	%t0, 20(%t0)
+	flw	%ft0, 8(%t0)
+	jr	%ra
+o_param_z.2285:
+	lw	%t0, 20(%t0)
+	flw	%ft0, 16(%t0)
+	jr	%ra
+o_diffuse.2287:
+	lw	%t0, 28(%t0)
+	flw	%ft0, 0(%t0)
+	jr	%ra
+o_hilight.2289:
+	lw	%t0, 28(%t0)
+	flw	%ft0, 8(%t0)
+	jr	%ra
+o_color_red.2291:
+	lw	%t0, 32(%t0)
+	flw	%ft0, 0(%t0)
+	jr	%ra
+o_color_green.2293:
+	lw	%t0, 32(%t0)
+	flw	%ft0, 8(%t0)
+	jr	%ra
+o_color_blue.2295:
+	lw	%t0, 32(%t0)
+	flw	%ft0, 16(%t0)
+	jr	%ra
+o_param_r1.2297:
+	lw	%t0, 36(%t0)
+	flw	%ft0, 0(%t0)
+	jr	%ra
+o_param_r2.2299:
+	lw	%t0, 36(%t0)
+	flw	%ft0, 8(%t0)
+	jr	%ra
+o_param_r3.2301:
+	lw	%t0, 36(%t0)
+	flw	%ft0, 16(%t0)
+	jr	%ra
+normalize_vector.2303:
+	flw	%ft0, 0(%t0)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	fsqr.2261
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 8(%t0)
+	fsw	%ft0, -16(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	fsqr.2261
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 16(%t0)
+	fsw	%ft0, -24(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	fsqr.2261
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fsqrt	%ft0, %ft0
+	lw	%t0, 0(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7034
+	j	beq_cont.7035
+beq_else.7034:
+	fneg	%ft0, %ft0
+beq_cont.7035:
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	fdiv	%ft1, %ft1, %ft0
+	fsw	%ft1, 0(%t0)
+	flw	%ft1, 8(%t0)
+	fdiv	%ft1, %ft1, %ft0
+	fsw	%ft1, 8(%t0)
+	flw	%ft1, 16(%t0)
+	fdiv	%ft0, %ft1, %ft0
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+sgn.2306:
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7037
+	la	%t0, l.4897
+	flw	%ft0, 0(%t0)
+	jr	%ra
+bne_else.7037:
+	la	%t0, l.4813
+	flw	%ft0, 0(%t0)
+	jr	%ra
+rad.2308:
+	la	%t0, l.4899
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	jr	%ra
+read_environ.2310:
+	lw	%t0, 36(%t5)
+	lw	%t1, 32(%t5)
+	lw	%t2, 28(%t5)
+	lw	%s0, 24(%t5)
+	lw	%s1, 20(%t5)
+	lw	%a0, 16(%t5)
+	lw	%a1, 12(%t5)
+	lw	%a2, 8(%t5)
+	lw	%a3, 4(%t5)
+	in	%ft0
+	fsw	%ft0, 0(%s1)
+	in	%ft0
+	fsw	%ft0, 8(%s1)
+	in	%ft0
+	fsw	%ft0, 16(%s1)
+	in	%ft0
+	sw	%t1, 0(%sp)
+	sw	%s1, -4(%sp)
+	sw	%t0, -8(%sp)
+	sw	%a3, -12(%sp)
+	sw	%a0, -16(%sp)
+	sw	%t2, -20(%sp)
+	sw	%s0, -24(%sp)
+	sw	%a1, -28(%sp)
+	sw	%a2, -32(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	rad.2308
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t5, -32(%sp)
+	fsw	%ft0, -40(%sp)
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -28(%sp)
+	fsw	%ft0, 0(%t0)
+	flw	%ft0, -40(%sp)
+	lw	%t5, -24(%sp)
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 0(%t0)
+	in	%ft0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	rad.2308
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t5, -32(%sp)
+	fsw	%ft0, -48(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -28(%sp)
+	fsw	%ft0, 8(%t0)
+	flw	%ft0, -48(%sp)
+	lw	%t5, -24(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 8(%t0)
+	in	%ft0
+	in	%ft0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	rad.2308
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t5, -24(%sp)
+	fsw	%ft0, -56(%sp)
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	fneg	%ft0, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, 8(%t0)
+	in	%ft0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	rad.2308
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	lw	%t5, -32(%sp)
+	fsw	%ft0, -64(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -76(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -80
+	jalr	%t4
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	flw	%ft1, -64(%sp)
+	lw	%t5, -24(%sp)
+	fsw	%ft0, -72(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -84(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -88
+	jalr	%t4
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, 0(%t0)
+	flw	%ft0, -64(%sp)
+	lw	%t5, -32(%sp)
+	sw	%ra, -84(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -88
+	jalr	%t4
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, 16(%t0)
+	in	%ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t0, -28(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t1, -20(%sp)
+	flw	%ft1, 8(%t1)
+	fmul	%ft0, %ft0, %ft1
+	la	%t2, l.4914
+	flw	%ft1, 0(%t2)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t2, -8(%sp)
+	fsw	%ft0, 0(%t2)
+	flw	%ft0, 0(%t1)
+	fneg	%ft0, %ft0
+	la	%t1, l.4914
+	flw	%ft1, 0(%t1)
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 8(%t2)
+	flw	%ft0, 0(%t0)
+	flw	%ft1, 8(%t0)
+	fmul	%ft0, %ft0, %ft1
+	la	%t0, l.4914
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 16(%t2)
+	flw	%ft0, 0(%t2)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	fadd	%ft0, %ft0, %ft1
+	lw	%t1, 0(%sp)
+	fsw	%ft0, 0(%t1)
+	flw	%ft0, 8(%t2)
+	flw	%ft1, 8(%t0)
+	fadd	%ft0, %ft0, %ft1
+	fsw	%ft0, 8(%t1)
+	flw	%ft0, 16(%t2)
+	flw	%ft1, 16(%t0)
+	fadd	%ft0, %ft0, %ft1
+	fsw	%ft0, 16(%t1)
+	jr	%ra
+read_nth_object.2312:
+	lw	%t1, 16(%t5)
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	in	%a0
+	addi	%t4, %a0, 1
+	bne	%t4, %zero, beq_else.7039
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.7039:
+	in	%a1
+	in	%a2
+	in	%a3
+	addi	%a4, %zero, 3
+	la	%a5, l.4803
+	flw	%ft0, 0(%a5)
+	sw	%t1, 0(%sp)
+	sw	%s0, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%t2, -12(%sp)
+	sw	%t0, -16(%sp)
+	sw	%a0, -20(%sp)
+	sw	%a2, -24(%sp)
+	sw	%a1, -28(%sp)
+	sw	%a3, -32(%sp)
+	addi	%t0, %a4, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	in	%ft0
+	fsw	%ft0, 0(%t0)
+	in	%ft0
+	fsw	%ft0, 8(%t0)
+	in	%ft0
+	fsw	%ft0, 16(%t0)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -40(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	in	%ft0
+	fsw	%ft0, 0(%t0)
+	in	%ft0
+	fsw	%ft0, 8(%t0)
+	in	%ft0
+	fsw	%ft0, 16(%t0)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	in	%ft1
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7040
+	addi	%t1, %zero, 0
+	j	bne_cont.7041
+bne_else.7040:
+	addi	%t1, %zero, 1
+bne_cont.7041:
+	addi	%t2, %zero, 2
+	la	%s0, l.4803
+	flw	%ft0, 0(%s0)
+	sw	%t0, -44(%sp)
+	sw	%t1, -48(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	in	%ft0
+	fsw	%ft0, 0(%t0)
+	in	%ft0
+	fsw	%ft0, 8(%t0)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -52(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	in	%ft0
+	fsw	%ft0, 0(%t0)
+	in	%ft0
+	fsw	%ft0, 8(%t0)
+	in	%ft0
+	fsw	%ft0, 16(%t0)
+	addi	%t1, %zero, 3
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	sw	%t0, -56(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	min_caml_create_float_array
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t1, -32(%sp)
+	addi	%t4, %t1, 0
+	bne	%t4, %zero, beq_else.7042
+	j	beq_cont.7043
+beq_else.7042:
+	in	%ft0
+	sw	%t0, -60(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	rad.2308
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -60(%sp)
+	fsw	%ft0, 0(%t0)
+	in	%ft0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	rad.2308
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -60(%sp)
+	fsw	%ft0, 8(%t0)
+	in	%ft0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	rad.2308
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -60(%sp)
+	fsw	%ft0, 16(%t0)
+beq_cont.7043:
+	lw	%t1, -28(%sp)
+	addi	%t4, %t1, -2
+	bne	%t4, %zero, beq_else.7044
+	addi	%t2, %zero, 1
+	j	beq_cont.7045
+beq_else.7044:
+	lw	%t2, -48(%sp)
+beq_cont.7045:
+	add	%s0, %zero, %gp
+	addi	%gp, %gp, 40
+	sw	%t0, 36(%s0)
+	lw	%s1, -56(%sp)
+	sw	%s1, 32(%s0)
+	lw	%s1, -52(%sp)
+	sw	%s1, 28(%s0)
+	sw	%t2, 24(%s0)
+	lw	%t2, -44(%sp)
+	sw	%t2, 20(%s0)
+	lw	%t2, -40(%sp)
+	sw	%t2, 16(%s0)
+	lw	%s1, -32(%sp)
+	sw	%s1, 12(%s0)
+	lw	%a0, -24(%sp)
+	sw	%a0, 8(%s0)
+	sw	%t1, 4(%s0)
+	lw	%a0, -20(%sp)
+	sw	%a0, 0(%s0)
+	lw	%a0, -16(%sp)
+	sll	%a0, %a0, 2
+	lw	%a1, -12(%sp)
+	sw	%s0, %a0(%a1)
+	sw	%t0, -60(%sp)
+	addi	%t4, %t1, -3
+	bne	%t4, %zero, beq_else.7046
+	flw	%ft0, 0(%t2)
+	la	%t1, l.4803
+	flw	%ft1, 0(%t1)
+	feq	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7048
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	j	bne_cont.7049
+bne_else.7048:
+	fsw	%ft0, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	sgn.2306
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	flw	%ft1, -64(%sp)
+	fsw	%ft0, -72(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	fsqr.2261
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fdiv	%ft0, %ft1, %ft0
+bne_cont.7049:
+	lw	%t0, -40(%sp)
+	fsw	%ft0, 0(%t0)
+	flw	%ft0, 8(%t0)
+	la	%t1, l.4803
+	flw	%ft1, 0(%t1)
+	feq	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7050
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	j	bne_cont.7051
+bne_else.7050:
+	fsw	%ft0, -80(%sp)
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	sgn.2306
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	flw	%ft1, -80(%sp)
+	fsw	%ft0, -88(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	fsqr.2261
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fdiv	%ft0, %ft1, %ft0
+bne_cont.7051:
+	lw	%t0, -40(%sp)
+	fsw	%ft0, 8(%t0)
+	flw	%ft0, 16(%t0)
+	la	%t1, l.4803
+	flw	%ft1, 0(%t1)
+	feq	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7052
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	j	bne_cont.7053
+bne_else.7052:
+	fsw	%ft0, -96(%sp)
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	jal	sgn.2306
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	flw	%ft1, -96(%sp)
+	fsw	%ft0, -104(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	jal	fsqr.2261
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	flw	%ft1, -104(%sp)
+	fdiv	%ft0, %ft1, %ft0
+bne_cont.7053:
+	lw	%t0, -40(%sp)
+	fsw	%ft0, 16(%t0)
+	j	beq_cont.7047
+beq_else.7046:
+	addi	%t4, %t1, -2
+	bne	%t4, %zero, beq_else.7054
+	lw	%t1, -48(%sp)
+	addi	%t4, %t1, 0
+	bne	%t4, %zero, beq_else.7056
+	addi	%t1, %zero, 1
+	j	beq_cont.7057
+beq_else.7056:
+	addi	%t1, %zero, 0
+beq_cont.7057:
+	addi	%t0, %t2, 0
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	jal	normalize_vector.2303
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	j	beq_cont.7055
+beq_else.7054:
+beq_cont.7055:
+beq_cont.7047:
+	lw	%t0, -32(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7058
+	j	beq_cont.7059
+beq_else.7058:
+	lw	%t0, -60(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t5, -8(%sp)
+	sw	%ra, -116(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -120
+	jalr	%t4
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 80(%t0)
+	lw	%t1, -60(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t5, 0(%sp)
+	sw	%ra, -116(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -120
+	jalr	%t4
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 88(%t0)
+	lw	%t1, -60(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t5, -8(%sp)
+	sw	%ra, -116(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -120
+	jalr	%t4
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 96(%t0)
+	lw	%t1, -60(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t5, 0(%sp)
+	sw	%ra, -116(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -120
+	jalr	%t4
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 104(%t0)
+	lw	%t1, -60(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t5, -8(%sp)
+	sw	%ra, -116(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -120
+	jalr	%t4
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 112(%t0)
+	lw	%t1, -60(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t5, 0(%sp)
+	sw	%ra, -116(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -120
+	jalr	%t4
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 120(%t0)
+	flw	%ft0, 96(%t0)
+	flw	%ft1, 112(%t0)
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 0(%t0)
+	flw	%ft0, 88(%t0)
+	flw	%ft1, 104(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 112(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 80(%t0)
+	flw	%ft2, 120(%t0)
+	fmul	%ft1, %ft1, %ft2
+	fsub	%ft0, %ft0, %ft1
+	fsw	%ft0, 8(%t0)
+	flw	%ft0, 80(%t0)
+	flw	%ft1, 104(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 112(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 88(%t0)
+	flw	%ft2, 120(%t0)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	fsw	%ft0, 16(%t0)
+	flw	%ft0, 96(%t0)
+	flw	%ft1, 120(%t0)
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 24(%t0)
+	flw	%ft0, 88(%t0)
+	flw	%ft1, 104(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 120(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 80(%t0)
+	flw	%ft2, 112(%t0)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	fsw	%ft0, 32(%t0)
+	flw	%ft0, 80(%t0)
+	flw	%ft1, 104(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 120(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 88(%t0)
+	flw	%ft2, 112(%t0)
+	fmul	%ft1, %ft1, %ft2
+	fsub	%ft0, %ft0, %ft1
+	fsw	%ft0, 40(%t0)
+	flw	%ft0, 104(%t0)
+	fneg	%ft0, %ft0
+	fsw	%ft0, 48(%t0)
+	flw	%ft0, 88(%t0)
+	flw	%ft1, 96(%t0)
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 56(%t0)
+	flw	%ft0, 80(%t0)
+	flw	%ft1, 96(%t0)
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 64(%t0)
+	lw	%t1, -40(%sp)
+	flw	%ft0, 0(%t1)
+	flw	%ft1, 8(%t1)
+	flw	%ft2, 16(%t1)
+	flw	%ft3, 0(%t0)
+	fsw	%ft2, -112(%sp)
+	fsw	%ft1, -120(%sp)
+	fsw	%ft0, -128(%sp)
+	fmv	%ft0, %ft3
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	fsqr.2261
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	flw	%ft1, -128(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft2, 24(%t0)
+	fsw	%ft0, -136(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	jal	fsqr.2261
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	flw	%ft1, -120(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -136(%sp)
+	fadd	%ft0, %ft2, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft2, 48(%t0)
+	fsw	%ft0, -144(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -156(%sp)
+	addi	%sp, %sp, -160
+	jal	fsqr.2261
+	addi	%sp, %sp, 160
+	lw	%ra, -156(%sp)
+	flw	%ft1, -112(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -144(%sp)
+	fadd	%ft0, %ft2, %ft0
+	lw	%t0, -40(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 8(%t1)
+	sw	%ra, -156(%sp)
+	addi	%sp, %sp, -160
+	jal	fsqr.2261
+	addi	%sp, %sp, 160
+	lw	%ra, -156(%sp)
+	flw	%ft1, -128(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft2, 32(%t0)
+	fsw	%ft0, -152(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	jal	fsqr.2261
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	flw	%ft1, -120(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -152(%sp)
+	fadd	%ft0, %ft2, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft2, 56(%t0)
+	fsw	%ft0, -160(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	jal	fsqr.2261
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	flw	%ft1, -112(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -160(%sp)
+	fadd	%ft0, %ft2, %ft0
+	lw	%t0, -40(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 16(%t1)
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	jal	fsqr.2261
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	flw	%ft1, -128(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft2, 40(%t0)
+	fsw	%ft0, -168(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -180(%sp)
+	addi	%sp, %sp, -184
+	jal	fsqr.2261
+	addi	%sp, %sp, 184
+	lw	%ra, -180(%sp)
+	flw	%ft1, -120(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -168(%sp)
+	fadd	%ft0, %ft2, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft2, 64(%t0)
+	fsw	%ft0, -176(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -188(%sp)
+	addi	%sp, %sp, -192
+	jal	fsqr.2261
+	addi	%sp, %sp, 192
+	lw	%ra, -188(%sp)
+	flw	%ft1, -112(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -176(%sp)
+	fadd	%ft0, %ft2, %ft0
+	lw	%t0, -40(%sp)
+	fsw	%ft0, 16(%t0)
+	la	%t0, l.4811
+	flw	%ft0, 0(%t0)
+	lw	%t0, -4(%sp)
+	flw	%ft2, 8(%t0)
+	flw	%ft3, -128(%sp)
+	fmul	%ft2, %ft3, %ft2
+	flw	%ft4, 16(%t0)
+	fmul	%ft2, %ft2, %ft4
+	flw	%ft4, 32(%t0)
+	flw	%ft5, -120(%sp)
+	fmul	%ft4, %ft5, %ft4
+	flw	%ft6, 40(%t0)
+	fmul	%ft4, %ft4, %ft6
+	fadd	%ft2, %ft2, %ft4
+	flw	%ft4, 56(%t0)
+	fmul	%ft4, %ft1, %ft4
+	flw	%ft6, 64(%t0)
+	fmul	%ft4, %ft4, %ft6
+	fadd	%ft2, %ft2, %ft4
+	fmul	%ft0, %ft0, %ft2
+	lw	%t1, -60(%sp)
+	fsw	%ft0, 0(%t1)
+	la	%t2, l.4811
+	flw	%ft0, 0(%t2)
+	flw	%ft2, 0(%t0)
+	fmul	%ft2, %ft3, %ft2
+	flw	%ft4, 16(%t0)
+	fmul	%ft2, %ft2, %ft4
+	flw	%ft4, 24(%t0)
+	fmul	%ft4, %ft5, %ft4
+	flw	%ft6, 40(%t0)
+	fmul	%ft4, %ft4, %ft6
+	fadd	%ft2, %ft2, %ft4
+	flw	%ft4, 48(%t0)
+	fmul	%ft4, %ft1, %ft4
+	flw	%ft6, 64(%t0)
+	fmul	%ft4, %ft4, %ft6
+	fadd	%ft2, %ft2, %ft4
+	fmul	%ft0, %ft0, %ft2
+	fsw	%ft0, 8(%t1)
+	la	%t2, l.4811
+	flw	%ft0, 0(%t2)
+	flw	%ft2, 0(%t0)
+	fmul	%ft2, %ft3, %ft2
+	flw	%ft3, 8(%t0)
+	fmul	%ft2, %ft2, %ft3
+	flw	%ft3, 24(%t0)
+	fmul	%ft3, %ft5, %ft3
+	flw	%ft4, 32(%t0)
+	fmul	%ft3, %ft3, %ft4
+	fadd	%ft2, %ft2, %ft3
+	flw	%ft3, 48(%t0)
+	fmul	%ft1, %ft1, %ft3
+	flw	%ft3, 56(%t0)
+	fmul	%ft1, %ft1, %ft3
+	fadd	%ft1, %ft2, %ft1
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 16(%t1)
+beq_cont.7059:
+	addi	%t0, %zero, 1
+	jr	%ra
+read_object.2314:
+	lw	%t1, 4(%t5)
+	addi	%t4, %t0, -61
+	blt	%t4, %zero, bge_else.7060
+	jr	%ra
+bge_else.7060:
+	sw	%t5, 0(%sp)
+	sw	%t0, -4(%sp)
+	addi	%t5, %t1, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7062
+	jr	%ra
+beq_else.7062:
+	lw	%t0, -4(%sp)
+	addi	%t0, %t0, 1
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+read_all_object.2316:
+	lw	%t5, 4(%t5)
+	addi	%t0, %zero, 0
+	lw	%t4, 0(%t5)
+	jr	%t4
+read_net_item.2318:
+	in	%t1
+	addi	%t4, %t1, 1
+	bne	%t4, %zero, beq_else.7064
+	addi	%t0, %t0, 1
+	addi	%t1, %zero, -1
+	j	min_caml_create_array
+beq_else.7064:
+	addi	%t2, %t0, 1
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	read_net_item.2318
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	sll	%t1, %t1, 2
+	lw	%t2, 0(%sp)
+	sw	%t2, %t1(%t0)
+	jr	%ra
+read_or_network.2320:
+	addi	%t1, %zero, 0
+	sw	%t0, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	read_net_item.2318
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, 0(%t1)
+	addi	%t4, %t0, 1
+	bne	%t4, %zero, beq_else.7065
+	lw	%t0, 0(%sp)
+	addi	%t0, %t0, 1
+	j	min_caml_create_array
+beq_else.7065:
+	lw	%t0, 0(%sp)
+	addi	%t2, %t0, 1
+	sw	%t1, -8(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	read_or_network.2320
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, 0(%sp)
+	sll	%t1, %t1, 2
+	lw	%t2, -8(%sp)
+	sw	%t2, %t1(%t0)
+	jr	%ra
+read_and_network.2322:
+	lw	%t1, 4(%t5)
+	addi	%t2, %zero, 0
+	sw	%t5, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t0, -8(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	read_net_item.2318
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, 0(%t0)
+	addi	%t4, %t1, 1
+	bne	%t4, %zero, beq_else.7066
+	jr	%ra
+beq_else.7066:
+	lw	%t1, -8(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -4(%sp)
+	sw	%t0, %t2(%s0)
+	addi	%t0, %t1, 1
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+read_parameter.2324:
+	lw	%t0, 16(%t5)
+	lw	%t1, 12(%t5)
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	sw	%s0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t2, -8(%sp)
+	addi	%t5, %t0, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t5, -8(%sp)
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t0, %zero, 0
+	lw	%t5, -4(%sp)
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t0, %zero, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	read_or_network.2320
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, 0(%sp)
+	sw	%t0, 0(%t1)
+	jr	%ra
+solver_rect.2326:
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	la	%s1, l.4803
+	flw	%ft0, 0(%s1)
+	flw	%ft1, 0(%t1)
+	sw	%s0, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%t0, -8(%sp)
+	sw	%t1, -12(%sp)
+	feq	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7069
+	addi	%t0, %zero, 0
+	j	bne_cont.7070
+bne_else.7069:
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	lw	%t1, -12(%sp)
+	flw	%ft1, 0(%t1)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7071
+	addi	%t2, %zero, 0
+	j	bne_cont.7072
+bne_else.7071:
+	addi	%t2, %zero, 1
+bne_cont.7072:
+	addi	%t1, %t2, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	xor.2258
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7073
+	lw	%t0, -8(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	o_param_a.2275
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	fneg	%ft0, %ft0
+	j	beq_cont.7074
+beq_else.7073:
+	lw	%t0, -8(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	o_param_a.2275
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+beq_cont.7074:
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	fsub	%ft0, %ft0, %ft1
+	lw	%t1, -12(%sp)
+	flw	%ft1, 0(%t1)
+	fdiv	%ft0, %ft0, %ft1
+	lw	%t2, -8(%sp)
+	fsw	%ft0, -24(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	o_param_b.2277
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -12(%sp)
+	flw	%ft1, 8(%t0)
+	flw	%ft2, -24(%sp)
+	fmul	%ft1, %ft2, %ft1
+	lw	%t1, -4(%sp)
+	flw	%ft3, 8(%t1)
+	fadd	%ft1, %ft1, %ft3
+	fsw	%ft0, -32(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7076
+	addi	%t0, %zero, 0
+	j	bne_cont.7077
+bne_else.7076:
+	lw	%t0, -8(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_param_c.2279
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t0, -12(%sp)
+	flw	%ft1, 16(%t0)
+	flw	%ft2, -24(%sp)
+	fmul	%ft1, %ft2, %ft1
+	lw	%t1, -4(%sp)
+	flw	%ft3, 16(%t1)
+	fadd	%ft1, %ft1, %ft3
+	fsw	%ft0, -40(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7078
+	addi	%t0, %zero, 0
+	j	bne_cont.7079
+bne_else.7078:
+	lw	%t0, 0(%sp)
+	flw	%ft0, -24(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 1
+bne_cont.7079:
+bne_cont.7077:
+bne_cont.7070:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7080
+	la	%t0, l.4803
+	flw	%ft0, 0(%t0)
+	lw	%t0, -12(%sp)
+	flw	%ft1, 8(%t0)
+	feq	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7081
+	addi	%t0, %zero, 0
+	j	bne_cont.7082
+bne_else.7081:
+	lw	%t1, -8(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	lw	%t1, -12(%sp)
+	flw	%ft1, 8(%t1)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7083
+	addi	%t2, %zero, 0
+	j	bne_cont.7084
+bne_else.7083:
+	addi	%t2, %zero, 1
+bne_cont.7084:
+	addi	%t1, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	xor.2258
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7085
+	lw	%t0, -8(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_param_b.2277
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	fneg	%ft0, %ft0
+	j	beq_cont.7086
+beq_else.7085:
+	lw	%t0, -8(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_param_b.2277
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+beq_cont.7086:
+	lw	%t0, -4(%sp)
+	flw	%ft1, 8(%t0)
+	fsub	%ft0, %ft0, %ft1
+	lw	%t1, -12(%sp)
+	flw	%ft1, 8(%t1)
+	fdiv	%ft0, %ft0, %ft1
+	lw	%t2, -8(%sp)
+	fsw	%ft0, -48(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_param_c.2279
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -12(%sp)
+	flw	%ft1, 16(%t0)
+	flw	%ft2, -48(%sp)
+	fmul	%ft1, %ft2, %ft1
+	lw	%t1, -4(%sp)
+	flw	%ft3, 16(%t1)
+	fadd	%ft1, %ft1, %ft3
+	fsw	%ft0, -56(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7087
+	addi	%t0, %zero, 0
+	j	bne_cont.7088
+bne_else.7087:
+	lw	%t0, -8(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_param_a.2275
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -12(%sp)
+	flw	%ft1, 0(%t0)
+	flw	%ft2, -48(%sp)
+	fmul	%ft1, %ft2, %ft1
+	lw	%t1, -4(%sp)
+	flw	%ft3, 0(%t1)
+	fadd	%ft1, %ft1, %ft3
+	fsw	%ft0, -64(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	flw	%ft1, -64(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7089
+	addi	%t0, %zero, 0
+	j	bne_cont.7090
+bne_else.7089:
+	lw	%t0, 0(%sp)
+	flw	%ft0, -48(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 1
+bne_cont.7090:
+bne_cont.7088:
+bne_cont.7082:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7091
+	la	%t0, l.4803
+	flw	%ft0, 0(%t0)
+	lw	%t0, -12(%sp)
+	flw	%ft1, 16(%t0)
+	feq	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7092
+	addi	%t0, %zero, 0
+	j	bne_cont.7093
+bne_else.7092:
+	lw	%t1, -8(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	lw	%t1, -12(%sp)
+	flw	%ft1, 16(%t1)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7094
+	addi	%t2, %zero, 0
+	j	bne_cont.7095
+bne_else.7094:
+	addi	%t2, %zero, 1
+bne_cont.7095:
+	addi	%t1, %t2, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	xor.2258
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7096
+	lw	%t0, -8(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	o_param_c.2279
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	fneg	%ft0, %ft0
+	j	beq_cont.7097
+beq_else.7096:
+	lw	%t0, -8(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	o_param_c.2279
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+beq_cont.7097:
+	lw	%t0, -4(%sp)
+	flw	%ft1, 16(%t0)
+	fsub	%ft0, %ft0, %ft1
+	lw	%t1, -12(%sp)
+	flw	%ft1, 16(%t1)
+	fdiv	%ft0, %ft0, %ft1
+	lw	%t2, -8(%sp)
+	fsw	%ft0, -72(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	o_param_a.2275
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	lw	%t0, -12(%sp)
+	flw	%ft1, 0(%t0)
+	flw	%ft2, -72(%sp)
+	fmul	%ft1, %ft2, %ft1
+	lw	%t1, -4(%sp)
+	flw	%ft3, 0(%t1)
+	fadd	%ft1, %ft1, %ft3
+	fsw	%ft0, -80(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	flw	%ft1, -80(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7098
+	addi	%t0, %zero, 0
+	j	bne_cont.7099
+bne_else.7098:
+	lw	%t0, -8(%sp)
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	o_param_b.2277
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	lw	%t0, -12(%sp)
+	flw	%ft1, 8(%t0)
+	flw	%ft2, -72(%sp)
+	fmul	%ft1, %ft2, %ft1
+	lw	%t0, -4(%sp)
+	flw	%ft3, 8(%t0)
+	fadd	%ft1, %ft1, %ft3
+	fsw	%ft0, -88(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7100
+	addi	%t0, %zero, 0
+	j	bne_cont.7101
+bne_else.7100:
+	lw	%t0, 0(%sp)
+	flw	%ft0, -72(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 1
+bne_cont.7101:
+bne_cont.7099:
+bne_cont.7093:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7102
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.7102:
+	addi	%t0, %zero, 3
+	jr	%ra
+beq_else.7091:
+	addi	%t0, %zero, 2
+	jr	%ra
+beq_else.7080:
+	addi	%t0, %zero, 1
+	jr	%ra
+solver_surface.2329:
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	flw	%ft0, 0(%t1)
+	sw	%s0, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%t0, -8(%sp)
+	sw	%t1, -12(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_param_a.2275
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, -8(%sp)
+	fsw	%ft0, -32(%sp)
+	fsw	%ft1, -40(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_param_b.2277
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -32(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t0, -8(%sp)
+	fsw	%ft0, -48(%sp)
+	fsw	%ft1, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_param_c.2279
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -48(%sp)
+	fadd	%ft0, %ft1, %ft0
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7104
+	addi	%t0, %zero, 0
+	jr	%ra
+bne_else.7104:
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	lw	%t1, -8(%sp)
+	fsw	%ft0, -64(%sp)
+	fsw	%ft1, -72(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	o_param_a.2275
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, -8(%sp)
+	fsw	%ft0, -80(%sp)
+	fsw	%ft1, -88(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	o_param_b.2277
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -80(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t0, -8(%sp)
+	fsw	%ft0, -96(%sp)
+	fsw	%ft1, -104(%sp)
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	jal	o_param_c.2279
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	flw	%ft1, -104(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -96(%sp)
+	fadd	%ft0, %ft1, %ft0
+	flw	%ft1, -64(%sp)
+	fdiv	%ft0, %ft0, %ft1
+	fneg	%ft0, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 1
+	jr	%ra
+in_prod_sqr_obj.2332:
+	flw	%ft0, 0(%t1)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	fsqr.2261
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_param_a.2275
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, 0(%sp)
+	flw	%ft1, 8(%t0)
+	fsw	%ft0, -24(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	fsqr.2261
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -32(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_param_b.2277
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -24(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, 0(%sp)
+	flw	%ft1, 16(%t0)
+	fsw	%ft0, -40(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	fsqr.2261
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -48(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_param_c.2279
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -40(%sp)
+	fadd	%ft0, %ft1, %ft0
+	jr	%ra
+in_prod_co_objrot.2335:
+	flw	%ft0, 8(%t1)
+	flw	%ft1, 16(%t1)
+	fmul	%ft0, %ft0, %ft1
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	fsw	%ft0, -8(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	o_param_r1.2297
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	flw	%ft1, -8(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	flw	%ft2, 16(%t0)
+	fmul	%ft1, %ft1, %ft2
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -24(%sp)
+	fsw	%ft1, -32(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_param_r2.2299
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -24(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	flw	%ft2, 8(%t0)
+	fmul	%ft1, %ft1, %ft2
+	lw	%t0, 0(%sp)
+	fsw	%ft0, -40(%sp)
+	fsw	%ft1, -48(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_param_r3.2301
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -40(%sp)
+	fadd	%ft0, %ft1, %ft0
+	jr	%ra
+solver2nd_mul_b.2338:
+	lw	%t2, 4(%t5)
+	flw	%ft0, 0(%t2)
+	flw	%ft1, 0(%t1)
+	fmul	%ft0, %ft0, %ft1
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t2, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_param_a.2275
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, -4(%sp)
+	flw	%ft2, 8(%t1)
+	fmul	%ft1, %ft1, %ft2
+	lw	%t2, 0(%sp)
+	fsw	%ft0, -32(%sp)
+	fsw	%ft1, -40(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_param_b.2277
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -32(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t0, -4(%sp)
+	flw	%ft2, 16(%t0)
+	fmul	%ft1, %ft1, %ft2
+	lw	%t0, 0(%sp)
+	fsw	%ft0, -48(%sp)
+	fsw	%ft1, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_param_c.2279
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -48(%sp)
+	fadd	%ft0, %ft1, %ft0
+	jr	%ra
+solver2nd_rot_b.2341:
+	lw	%t2, 4(%t5)
+	flw	%ft0, 16(%t2)
+	flw	%ft1, 8(%t1)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 8(%t2)
+	flw	%ft2, 16(%t1)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t2, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_param_r1.2297
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 0(%t0)
+	lw	%t1, -4(%sp)
+	flw	%ft2, 16(%t1)
+	fmul	%ft1, %ft1, %ft2
+	flw	%ft2, 16(%t0)
+	flw	%ft3, 0(%t1)
+	fmul	%ft2, %ft2, %ft3
+	fadd	%ft1, %ft1, %ft2
+	lw	%t2, 0(%sp)
+	fsw	%ft0, -32(%sp)
+	fsw	%ft1, -40(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_param_r2.2299
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -32(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 0(%t0)
+	lw	%t1, -4(%sp)
+	flw	%ft2, 8(%t1)
+	fmul	%ft1, %ft1, %ft2
+	flw	%ft2, 8(%t0)
+	flw	%ft3, 0(%t1)
+	fmul	%ft2, %ft2, %ft3
+	fadd	%ft1, %ft1, %ft2
+	lw	%t0, 0(%sp)
+	fsw	%ft0, -48(%sp)
+	fsw	%ft1, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_param_r3.2301
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -48(%sp)
+	fadd	%ft0, %ft1, %ft0
+	jr	%ra
+solver_second.2344:
+	lw	%t2, 16(%t5)
+	lw	%s0, 12(%t5)
+	lw	%s1, 8(%t5)
+	lw	%a0, 4(%t5)
+	sw	%s0, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%a0, -12(%sp)
+	sw	%t1, -16(%sp)
+	sw	%t0, -20(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	in_prod_sqr_obj.2332
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -20(%sp)
+	fsw	%ft0, -32(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_isrot.2273
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7112
+	flw	%ft0, -32(%sp)
+	j	beq_cont.7113
+beq_else.7112:
+	lw	%t0, -20(%sp)
+	lw	%t1, -16(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	in_prod_co_objrot.2335
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fadd	%ft0, %ft1, %ft0
+beq_cont.7113:
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	feq	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7114
+	addi	%t0, %zero, 0
+	jr	%ra
+bne_else.7114:
+	la	%t0, l.4811
+	flw	%ft1, 0(%t0)
+	lw	%t0, -20(%sp)
+	lw	%t1, -16(%sp)
+	lw	%t5, -12(%sp)
+	fsw	%ft0, -40(%sp)
+	fsw	%ft1, -48(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_isrot.2273
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7115
+	flw	%ft0, -56(%sp)
+	j	beq_cont.7116
+beq_else.7115:
+	lw	%t0, -20(%sp)
+	lw	%t1, -16(%sp)
+	lw	%t5, -8(%sp)
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fadd	%ft0, %ft1, %ft0
+beq_cont.7116:
+	lw	%t0, -20(%sp)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	in_prod_sqr_obj.2332
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	lw	%t0, -20(%sp)
+	fsw	%ft0, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	o_isrot.2273
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7117
+	flw	%ft0, -72(%sp)
+	j	beq_cont.7118
+beq_else.7117:
+	lw	%t0, -20(%sp)
+	lw	%t1, -4(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	in_prod_co_objrot.2335
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fadd	%ft0, %ft1, %ft0
+beq_cont.7118:
+	lw	%t0, -20(%sp)
+	fsw	%ft0, -80(%sp)
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	o_form.2267
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	addi	%t4, %t0, -3
+	bne	%t4, %zero, beq_else.7119
+	la	%t0, l.4813
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -80(%sp)
+	fsub	%ft0, %ft1, %ft0
+	j	beq_cont.7120
+beq_else.7119:
+	flw	%ft0, -80(%sp)
+beq_cont.7120:
+	la	%t0, l.5143
+	flw	%ft1, 0(%t0)
+	flw	%ft2, -40(%sp)
+	fmul	%ft1, %ft1, %ft2
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -64(%sp)
+	fsw	%ft0, -88(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	fsqr.2261
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fsub	%ft0, %ft0, %ft1
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7121
+	addi	%t0, %zero, 0
+	jr	%ra
+bne_else.7121:
+	fsqrt	%ft0, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, -96(%sp)
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7122
+	flw	%ft0, -96(%sp)
+	fneg	%ft0, %ft0
+	j	beq_cont.7123
+beq_else.7122:
+	flw	%ft0, -96(%sp)
+beq_cont.7123:
+	flw	%ft1, -64(%sp)
+	fsub	%ft0, %ft0, %ft1
+	la	%t0, l.4811
+	flw	%ft1, 0(%t0)
+	fdiv	%ft0, %ft0, %ft1
+	flw	%ft1, -40(%sp)
+	fdiv	%ft0, %ft0, %ft1
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 1
+	jr	%ra
+solver.2347:
+	lw	%s0, 20(%t5)
+	lw	%s1, 16(%t5)
+	lw	%a0, 12(%t5)
+	lw	%a1, 8(%t5)
+	lw	%a2, 4(%t5)
+	sll	%t0, %t0, 2
+	lw	%t0, %t0(%a2)
+	flw	%ft0, 0(%t2)
+	sw	%a0, 0(%sp)
+	sw	%s1, -4(%sp)
+	sw	%t1, -8(%sp)
+	sw	%a1, -12(%sp)
+	sw	%t0, -16(%sp)
+	sw	%t2, -20(%sp)
+	sw	%s0, -24(%sp)
+	fsw	%ft0, -32(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_param_x.2281
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -24(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -20(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t2, -16(%sp)
+	fsw	%ft0, -48(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_param_y.2283
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -24(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -20(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t1, -16(%sp)
+	fsw	%ft0, -56(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_param_z.2285
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -24(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t0, -16(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_form.2267
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.7126
+	lw	%t0, -16(%sp)
+	lw	%t1, -8(%sp)
+	lw	%t5, -12(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7126:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.7127
+	lw	%t0, -16(%sp)
+	lw	%t1, -8(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7127:
+	lw	%t0, -16(%sp)
+	lw	%t1, -8(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+is_rect_outside.2351:
+	lw	%t1, 4(%t5)
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	o_param_a.2275
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	fsw	%ft0, -16(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7129
+	addi	%t0, %zero, 0
+	j	bne_cont.7130
+bne_else.7129:
+	lw	%t0, 0(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_param_b.2277
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 8(%t0)
+	fsw	%ft0, -24(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7131
+	addi	%t0, %zero, 0
+	j	bne_cont.7132
+bne_else.7131:
+	lw	%t0, 0(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	o_param_c.2279
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 16(%t0)
+	fsw	%ft0, -32(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7133
+	addi	%t0, %zero, 0
+	j	bne_cont.7134
+bne_else.7133:
+	addi	%t0, %zero, 1
+bne_cont.7134:
+bne_cont.7132:
+bne_cont.7130:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7135
+	lw	%t0, 0(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7136
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.7136:
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.7135:
+	lw	%t0, 0(%sp)
+	j	o_isinvert.2271
+is_plane_outside.2353:
+	lw	%t1, 4(%t5)
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	o_param_a.2275
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -16(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_param_b.2277
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 8(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, -16(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	o_param_c.2279
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 16(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, -24(%sp)
+	fadd	%ft0, %ft1, %ft0
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7138
+	addi	%t0, %zero, 0
+	j	bne_cont.7139
+bne_else.7138:
+	addi	%t0, %zero, 1
+bne_cont.7139:
+	lw	%t1, 0(%sp)
+	sw	%t0, -32(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -32(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	xor.2258
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7140
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.7140:
+	addi	%t0, %zero, 0
+	jr	%ra
+is_second_outside.2355:
+	lw	%t1, 4(%t5)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	in_prod_sqr_obj.2332
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_form.2267
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, -3
+	bne	%t4, %zero, beq_else.7142
+	la	%t0, l.4813
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -16(%sp)
+	fsub	%ft0, %ft1, %ft0
+	j	beq_cont.7143
+beq_else.7142:
+	flw	%ft0, -16(%sp)
+beq_cont.7143:
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -24(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	o_isrot.2273
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7144
+	flw	%ft0, -24(%sp)
+	j	beq_cont.7145
+beq_else.7144:
+	lw	%t0, -4(%sp)
+	lw	%t1, 0(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	in_prod_co_objrot.2335
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fadd	%ft0, %ft1, %ft0
+beq_cont.7145:
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7146
+	addi	%t0, %zero, 0
+	j	bne_cont.7147
+bne_else.7146:
+	addi	%t0, %zero, 1
+bne_cont.7147:
+	lw	%t1, -4(%sp)
+	sw	%t0, -32(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -32(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	xor.2258
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7148
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.7148:
+	addi	%t0, %zero, 0
+	jr	%ra
+is_outside.2357:
+	lw	%t1, 20(%t5)
+	lw	%t2, 16(%t5)
+	lw	%s0, 12(%t5)
+	lw	%s1, 8(%t5)
+	lw	%a0, 4(%t5)
+	flw	%ft0, 0(%a0)
+	sw	%t2, 0(%sp)
+	sw	%s1, -4(%sp)
+	sw	%s0, -8(%sp)
+	sw	%t0, -12(%sp)
+	sw	%a0, -16(%sp)
+	sw	%t1, -20(%sp)
+	fsw	%ft0, -24(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	o_param_x.2281
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -16(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t2, -12(%sp)
+	fsw	%ft0, -40(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_param_y.2283
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -16(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t1, -12(%sp)
+	fsw	%ft0, -48(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_param_z.2285
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t0, -12(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_form.2267
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.7150
+	lw	%t0, -12(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7150:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.7151
+	lw	%t0, -12(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7151:
+	lw	%t0, -12(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+check_all_inside.2359:
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	sll	%s1, %t0, 2
+	lw	%s1, %s1(%t1)
+	addi	%t4, %s1, 1
+	bne	%t4, %zero, beq_else.7152
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.7152:
+	sll	%s1, %s1, 2
+	lw	%t2, %s1(%t2)
+	sw	%t1, 0(%sp)
+	sw	%t5, -4(%sp)
+	sw	%t0, -8(%sp)
+	addi	%t0, %t2, 0
+	addi	%t5, %s0, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7153
+	lw	%t0, -8(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, 0(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7153:
+	addi	%t0, %zero, 0
+	jr	%ra
+shadow_check_and_group.2362:
+	lw	%s0, 24(%t5)
+	lw	%s1, 20(%t5)
+	lw	%a0, 16(%t5)
+	lw	%a1, 12(%t5)
+	lw	%a2, 8(%t5)
+	lw	%a3, 4(%t5)
+	sll	%a4, %t0, 2
+	lw	%a4, %a4(%t1)
+	addi	%t4, %a4, 1
+	bne	%t4, %zero, beq_else.7154
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.7154:
+	sll	%a4, %t0, 2
+	lw	%a4, %a4(%t1)
+	sw	%a3, 0(%sp)
+	sw	%a2, -4(%sp)
+	sw	%a1, -8(%sp)
+	sw	%t2, -12(%sp)
+	sw	%t1, -16(%sp)
+	sw	%t5, -20(%sp)
+	sw	%t0, -24(%sp)
+	sw	%a0, -28(%sp)
+	sw	%a4, -32(%sp)
+	sw	%s0, -36(%sp)
+	addi	%t1, %a1, 0
+	addi	%t0, %a4, 0
+	addi	%t5, %s1, 0
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t1, -36(%sp)
+	flw	%ft0, 0(%t1)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7155
+	addi	%t0, %zero, 0
+	j	beq_cont.7156
+beq_else.7155:
+	la	%t0, l.5175
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7157
+	addi	%t0, %zero, 0
+	j	bne_cont.7158
+bne_else.7157:
+	addi	%t0, %zero, 1
+bne_cont.7158:
+beq_cont.7156:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7159
+	lw	%t0, -32(%sp)
+	sll	%t0, %t0, 2
+	lw	%t1, -28(%sp)
+	lw	%t0, %t0(%t1)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7160
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.7160:
+	lw	%t0, -24(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -16(%sp)
+	lw	%t2, -12(%sp)
+	lw	%t5, -20(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7159:
+	la	%t0, l.5177
+	flw	%ft1, 0(%t0)
+	fadd	%ft0, %ft0, %ft1
+	lw	%t0, -8(%sp)
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft1, %ft0
+	lw	%t1, -12(%sp)
+	flw	%ft2, 0(%t1)
+	fadd	%ft1, %ft1, %ft2
+	lw	%t2, -4(%sp)
+	fsw	%ft1, 0(%t2)
+	flw	%ft1, 8(%t0)
+	fmul	%ft1, %ft1, %ft0
+	flw	%ft2, 8(%t1)
+	fadd	%ft1, %ft1, %ft2
+	fsw	%ft1, 8(%t2)
+	flw	%ft1, 16(%t0)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, 16(%t1)
+	fadd	%ft0, %ft0, %ft1
+	fsw	%ft0, 16(%t2)
+	addi	%t0, %zero, 0
+	lw	%t2, -16(%sp)
+	lw	%t5, 0(%sp)
+	addi	%t1, %t2, 0
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7161
+	lw	%t0, -24(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -16(%sp)
+	lw	%t2, -12(%sp)
+	lw	%t5, -20(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7161:
+	addi	%t0, %zero, 1
+	jr	%ra
+shadow_check_one_or_group.2366:
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sll	%a0, %t0, 2
+	lw	%a0, %a0(%t1)
+	addi	%t4, %a0, 1
+	bne	%t4, %zero, beq_else.7162
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.7162:
+	sll	%a0, %a0, 2
+	lw	%s1, %a0(%s1)
+	addi	%a0, %zero, 0
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t5, -8(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t1, %s1, 0
+	addi	%t0, %a0, 0
+	addi	%t5, %s0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7163
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7163:
+	addi	%t0, %zero, 1
+	jr	%ra
+shadow_check_one_or_matrix.2370:
+	lw	%s0, 16(%t5)
+	lw	%s1, 12(%t5)
+	lw	%a0, 8(%t5)
+	lw	%a1, 4(%t5)
+	sll	%a2, %t0, 2
+	lw	%a2, %a2(%t1)
+	lw	%a3, 0(%a2)
+	addi	%t4, %a3, 1
+	bne	%t4, %zero, beq_else.7164
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.7164:
+	addi	%t4, %a3, -99
+	bne	%t4, %zero, beq_else.7165
+	addi	%s0, %zero, 1
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t5, -8(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t1, %a2, 0
+	addi	%t0, %s0, 0
+	addi	%t5, %a0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7166
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7166:
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.7165:
+	sw	%a2, -20(%sp)
+	sw	%a0, -24(%sp)
+	sw	%s0, -28(%sp)
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t5, -8(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t1, %a1, 0
+	addi	%t0, %a3, 0
+	addi	%t5, %s1, 0
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7167
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7167:
+	la	%t0, l.5193
+	flw	%ft0, 0(%t0)
+	lw	%t0, -28(%sp)
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7168
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bne_else.7168:
+	addi	%t0, %zero, 1
+	lw	%t1, -20(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -24(%sp)
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7169
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7169:
+	addi	%t0, %zero, 1
+	jr	%ra
+solve_each_element.2374:
+	lw	%t2, 48(%t5)
+	lw	%s0, 44(%t5)
+	lw	%s1, 40(%t5)
+	lw	%a0, 36(%t5)
+	lw	%a1, 32(%t5)
+	lw	%a2, 28(%t5)
+	lw	%a3, 24(%t5)
+	lw	%a4, 20(%t5)
+	lw	%a5, 16(%t5)
+	lw	%a6, 12(%t5)
+	lw	%a7, 8(%t5)
+	lw	%s2, 4(%t5)
+	sll	%s3, %t0, 2
+	lw	%s3, %s3(%t1)
+	addi	%t4, %s3, 1
+	bne	%t4, %zero, beq_else.7170
+	jr	%ra
+beq_else.7170:
+	sw	%t5, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%a6, -8(%sp)
+	sw	%a3, -12(%sp)
+	sw	%a5, -16(%sp)
+	sw	%t1, -20(%sp)
+	sw	%s2, -24(%sp)
+	sw	%a7, -28(%sp)
+	sw	%s0, -32(%sp)
+	sw	%t2, -36(%sp)
+	sw	%s1, -40(%sp)
+	sw	%a0, -44(%sp)
+	sw	%a4, -48(%sp)
+	sw	%a2, -52(%sp)
+	sw	%s3, -56(%sp)
+	addi	%t1, %t2, 0
+	addi	%t0, %s3, 0
+	addi	%t5, %a1, 0
+	addi	%t2, %s0, 0
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7172
+	lw	%t0, -56(%sp)
+	sll	%t0, %t0, 2
+	lw	%t1, -52(%sp)
+	lw	%t0, %t0(%t1)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7174
+	addi	%t0, %zero, 1
+	lw	%t1, -48(%sp)
+	sw	%t0, 0(%t1)
+	j	beq_cont.7175
+beq_else.7174:
+beq_cont.7175:
+	j	beq_cont.7173
+beq_else.7172:
+	lw	%t1, -44(%sp)
+	flw	%ft0, 0(%t1)
+	la	%t1, l.5193
+	flw	%ft1, 0(%t1)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7176
+	j	bne_cont.7177
+bne_else.7176:
+	lw	%t1, -40(%sp)
+	flw	%ft1, 0(%t1)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7178
+	j	bne_cont.7179
+bne_else.7178:
+	la	%t2, l.5177
+	flw	%ft1, 0(%t2)
+	fadd	%ft0, %ft0, %ft1
+	lw	%t2, -36(%sp)
+	flw	%ft1, 0(%t2)
+	fmul	%ft1, %ft1, %ft0
+	lw	%s0, -32(%sp)
+	flw	%ft2, 0(%s0)
+	fadd	%ft1, %ft1, %ft2
+	lw	%s1, -28(%sp)
+	fsw	%ft1, 0(%s1)
+	flw	%ft1, 8(%t2)
+	fmul	%ft1, %ft1, %ft0
+	flw	%ft2, 8(%s0)
+	fadd	%ft1, %ft1, %ft2
+	fsw	%ft1, 8(%s1)
+	flw	%ft1, 16(%t2)
+	fmul	%ft1, %ft1, %ft0
+	flw	%ft2, 16(%s0)
+	fadd	%ft1, %ft1, %ft2
+	fsw	%ft1, 16(%s1)
+	addi	%t2, %zero, 0
+	lw	%s0, -20(%sp)
+	lw	%t5, -24(%sp)
+	sw	%t0, -64(%sp)
+	fsw	%ft0, -72(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -84(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -88
+	jalr	%t4
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7181
+	j	beq_cont.7182
+beq_else.7181:
+	lw	%t0, -40(%sp)
+	flw	%ft0, -72(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t0, -28(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t1, -16(%sp)
+	fsw	%ft0, 0(%t1)
+	flw	%ft0, 8(%t0)
+	fsw	%ft0, 8(%t1)
+	flw	%ft0, 16(%t0)
+	fsw	%ft0, 16(%t1)
+	lw	%t0, -12(%sp)
+	lw	%t1, -64(%sp)
+	sw	%t1, 0(%t0)
+	lw	%t0, -8(%sp)
+	lw	%t1, -56(%sp)
+	sw	%t1, 0(%t0)
+beq_cont.7182:
+bne_cont.7179:
+bne_cont.7177:
+beq_cont.7173:
+	lw	%t0, -48(%sp)
+	lw	%t0, 0(%t0)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7183
+	lw	%t0, -4(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -20(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7183:
+	jr	%ra
+solve_one_or_network.2377:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sll	%a0, %t0, 2
+	lw	%a0, %a0(%t1)
+	addi	%t4, %a0, 1
+	bne	%t4, %zero, beq_else.7185
+	jr	%ra
+beq_else.7185:
+	sll	%a0, %a0, 2
+	lw	%s1, %a0(%s1)
+	addi	%a0, %zero, 0
+	sw	%a0, 0(%s0)
+	addi	%s0, %zero, 0
+	sw	%t1, 0(%sp)
+	sw	%t5, -4(%sp)
+	sw	%t0, -8(%sp)
+	addi	%t1, %s1, 0
+	addi	%t0, %s0, 0
+	addi	%t5, %t2, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -8(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, 0(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+trace_or_matrix.2380:
+	lw	%t2, 24(%t5)
+	lw	%s0, 20(%t5)
+	lw	%s1, 16(%t5)
+	lw	%a0, 12(%t5)
+	lw	%a1, 8(%t5)
+	lw	%a2, 4(%t5)
+	sll	%a3, %t0, 2
+	lw	%a3, %a3(%t1)
+	lw	%a4, 0(%a3)
+	addi	%t4, %a4, 1
+	bne	%t4, %zero, beq_else.7187
+	jr	%ra
+beq_else.7187:
+	sw	%t1, 0(%sp)
+	sw	%t5, -4(%sp)
+	sw	%t0, -8(%sp)
+	addi	%t4, %a4, -99
+	bne	%t4, %zero, beq_else.7189
+	addi	%t2, %zero, 1
+	addi	%t1, %a3, 0
+	addi	%t0, %t2, 0
+	addi	%t5, %a2, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	j	beq_cont.7190
+beq_else.7189:
+	sw	%a3, -16(%sp)
+	sw	%a2, -20(%sp)
+	sw	%s1, -24(%sp)
+	sw	%a0, -28(%sp)
+	addi	%t1, %t2, 0
+	addi	%t0, %a4, 0
+	addi	%t5, %a1, 0
+	addi	%t2, %s0, 0
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7191
+	j	beq_cont.7192
+beq_else.7191:
+	lw	%t0, -28(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t0, -24(%sp)
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7193
+	j	bne_cont.7194
+bne_else.7193:
+	addi	%t0, %zero, 1
+	lw	%t1, -16(%sp)
+	lw	%t5, -20(%sp)
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+bne_cont.7194:
+beq_cont.7192:
+beq_cont.7190:
+	lw	%t0, -8(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, 0(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+tracer.2383:
+	lw	%t0, 12(%t5)
+	lw	%t1, 8(%t5)
+	lw	%t2, 4(%t5)
+	la	%s0, l.5229
+	flw	%ft0, 0(%s0)
+	fsw	%ft0, 0(%t1)
+	addi	%s0, %zero, 0
+	lw	%t2, 0(%t2)
+	sw	%t1, 0(%sp)
+	addi	%t1, %t2, 0
+	addi	%t5, %t0, 0
+	addi	%t0, %s0, 0
+	sw	%ra, -4(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -8
+	jalr	%t4
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	lw	%t0, 0(%sp)
+	flw	%ft0, 0(%t0)
+	la	%t0, l.5193
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7195
+	addi	%t0, %zero, 0
+	jr	%ra
+bne_else.7195:
+	la	%t0, l.5235
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7196
+	addi	%t0, %zero, 0
+	jr	%ra
+bne_else.7196:
+	addi	%t0, %zero, 1
+	jr	%ra
+get_nvector_rect.2386:
+	lw	%t0, 12(%t5)
+	lw	%t1, 8(%t5)
+	lw	%t2, 4(%t5)
+	lw	%t2, 0(%t2)
+	addi	%t4, %t2, -1
+	bne	%t4, %zero, beq_else.7197
+	flw	%ft0, 0(%t0)
+	sw	%t1, 0(%sp)
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	sgn.2306
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	fneg	%ft0, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 8(%t0)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.7197:
+	addi	%t4, %t2, -2
+	bne	%t4, %zero, beq_else.7199
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	fsw	%ft0, 0(%t1)
+	flw	%ft0, 8(%t0)
+	sw	%t1, 0(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	sgn.2306
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	fneg	%ft0, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 8(%t0)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.7199:
+	addi	%t4, %t2, -3
+	bne	%t4, %zero, beq_else.7201
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	fsw	%ft0, 0(%t1)
+	la	%t2, l.4803
+	flw	%ft0, 0(%t2)
+	fsw	%ft0, 8(%t1)
+	flw	%ft0, 16(%t0)
+	sw	%t1, 0(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	sgn.2306
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	fneg	%ft0, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.7201:
+	jr	%ra
+get_nvector_plane.2388:
+	lw	%t1, 4(%t5)
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	o_param_a.2275
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	fneg	%ft0, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	o_param_b.2277
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	fneg	%ft0, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	o_param_c.2279
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	fneg	%ft0, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+get_nvector_second_norot.2390:
+	lw	%t2, 4(%t5)
+	flw	%ft0, 0(%t1)
+	sw	%t1, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%t0, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_param_x.2281
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	fsw	%ft0, -32(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_param_a.2275
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, 0(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t2, -8(%sp)
+	fsw	%ft0, -40(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_param_y.2283
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	fsw	%ft0, -48(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_param_b.2277
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, 0(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t1, -8(%sp)
+	fsw	%ft0, -56(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_param_z.2285
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	fsw	%ft0, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	o_param_c.2279
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	flw	%ft1, -64(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t1, -8(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -4(%sp)
+	j	normalize_vector.2303
+get_nvector_second_rot.2393:
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	flw	%ft0, 0(%t1)
+	sw	%s0, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%t1, -8(%sp)
+	sw	%t2, -12(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_param_x.2281
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -8(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t2, -4(%sp)
+	fsw	%ft0, -32(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_param_y.2283
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -8(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -40(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	jal	o_param_z.2285
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 16(%t0)
+	flw	%ft0, 0(%t0)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -48(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_param_a.2275
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -56(%sp)
+	fsw	%ft1, -64(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	jal	o_param_r3.2301
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	flw	%ft1, -64(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -72(%sp)
+	fsw	%ft1, -80(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	o_param_r2.2299
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	flw	%ft1, -80(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -72(%sp)
+	fadd	%ft0, %ft1, %ft0
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	fhalf.2263
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	flw	%ft1, -56(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -12(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t2, -4(%sp)
+	fsw	%ft0, -88(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	o_param_b.2277
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	flw	%ft1, 0(%t0)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -96(%sp)
+	fsw	%ft1, -104(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	jal	o_param_r3.2301
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	flw	%ft1, -104(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -112(%sp)
+	fsw	%ft1, -120(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	jal	o_param_r1.2297
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	flw	%ft1, -120(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -112(%sp)
+	fadd	%ft0, %ft1, %ft0
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	jal	fhalf.2263
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	flw	%ft1, -96(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -12(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t2, -4(%sp)
+	fsw	%ft0, -128(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	o_param_c.2279
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	flw	%ft1, -128(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	flw	%ft1, 0(%t0)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -136(%sp)
+	fsw	%ft1, -144(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -156(%sp)
+	addi	%sp, %sp, -160
+	jal	o_param_r2.2299
+	addi	%sp, %sp, 160
+	lw	%ra, -156(%sp)
+	flw	%ft1, -144(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -152(%sp)
+	fsw	%ft1, -160(%sp)
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	jal	o_param_r1.2297
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	flw	%ft1, -160(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -152(%sp)
+	fadd	%ft0, %ft1, %ft0
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	jal	fhalf.2263
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	flw	%ft1, -136(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t1, -4(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	jal	o_isinvert.2271
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, 0(%sp)
+	j	normalize_vector.2303
+get_nvector.2396:
+	lw	%t2, 16(%t5)
+	lw	%s0, 12(%t5)
+	lw	%s1, 8(%t5)
+	lw	%a0, 4(%t5)
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%s0, -8(%sp)
+	sw	%t0, -12(%sp)
+	sw	%a0, -16(%sp)
+	sw	%s1, -20(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_form.2267
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.7208
+	lw	%t5, -20(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7208:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.7209
+	lw	%t0, -12(%sp)
+	lw	%t5, -16(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7209:
+	lw	%t0, -12(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_isrot.2273
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7210
+	lw	%t0, -12(%sp)
+	lw	%t1, -4(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7210:
+	lw	%t0, -12(%sp)
+	lw	%t1, -4(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+utexture.2399:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sw	%s1, 0(%sp)
+	sw	%s0, -4(%sp)
+	sw	%t1, -8(%sp)
+	sw	%t2, -12(%sp)
+	sw	%t0, -16(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	jal	o_texturetype.2265
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -16(%sp)
+	sw	%t0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_color_red.2291
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -16(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_color_green.2293
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -16(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	jal	o_color_blue.2295
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t1, -24(%sp)
+	addi	%t4, %t1, -1
+	bne	%t4, %zero, beq_else.7211
+	lw	%t1, -8(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t2, -16(%sp)
+	fsw	%ft0, -32(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	jal	o_param_x.2281
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fsub	%ft0, %ft1, %ft0
+	la	%t0, l.5329
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft0, %ft1
+	floor	%ft1, %ft1
+	la	%t0, l.5331
+	flw	%ft2, 0(%t0)
+	fmul	%ft1, %ft1, %ft2
+	la	%t0, l.5310
+	flw	%ft2, 0(%t0)
+	fsub	%ft0, %ft0, %ft1
+	fle	%t4, %ft2, %ft0
+	beq	%t4, %zero, bne_else.7213
+	addi	%t0, %zero, 0
+	j	bne_cont.7214
+bne_else.7213:
+	addi	%t0, %zero, 1
+bne_cont.7214:
+	lw	%t1, -8(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t1, -16(%sp)
+	sw	%t0, -40(%sp)
+	fsw	%ft0, -48(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	o_param_z.2285
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fsub	%ft0, %ft1, %ft0
+	la	%t0, l.5329
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft0, %ft1
+	floor	%ft1, %ft1
+	la	%t0, l.5331
+	flw	%ft2, 0(%t0)
+	fmul	%ft1, %ft1, %ft2
+	la	%t0, l.5310
+	flw	%ft2, 0(%t0)
+	fsub	%ft0, %ft0, %ft1
+	fle	%t4, %ft2, %ft0
+	beq	%t4, %zero, bne_else.7216
+	addi	%t0, %zero, 0
+	j	bne_cont.7217
+bne_else.7216:
+	addi	%t0, %zero, 1
+bne_cont.7217:
+	lw	%t1, -40(%sp)
+	addi	%t4, %t1, 0
+	bne	%t4, %zero, beq_else.7218
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7220
+	la	%t0, l.5314
+	flw	%ft0, 0(%t0)
+	j	beq_cont.7221
+beq_else.7220:
+	la	%t0, l.4803
+	flw	%ft0, 0(%t0)
+beq_cont.7221:
+	j	beq_cont.7219
+beq_else.7218:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7222
+	la	%t0, l.4803
+	flw	%ft0, 0(%t0)
+	j	beq_cont.7223
+beq_else.7222:
+	la	%t0, l.5314
+	flw	%ft0, 0(%t0)
+beq_cont.7223:
+beq_cont.7219:
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 8(%t0)
+	jr	%ra
+beq_else.7211:
+	addi	%t4, %t1, -2
+	bne	%t4, %zero, beq_else.7225
+	lw	%t1, -8(%sp)
+	flw	%ft0, 8(%t1)
+	la	%t1, l.5321
+	flw	%ft1, 0(%t1)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t5, -4(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	jal	fsqr.2261
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	la	%t0, l.5314
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft1, 0(%t0)
+	la	%t1, l.5314
+	flw	%ft1, 0(%t1)
+	la	%t1, l.4813
+	flw	%ft2, 0(%t1)
+	fsub	%ft0, %ft2, %ft0
+	fmul	%ft0, %ft1, %ft0
+	fsw	%ft0, 8(%t0)
+	jr	%ra
+beq_else.7225:
+	addi	%t4, %t1, -3
+	bne	%t4, %zero, beq_else.7227
+	lw	%t1, -8(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t2, -16(%sp)
+	fsw	%ft0, -56(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	jal	o_param_x.2281
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -64(%sp)
+	fsw	%ft1, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	o_param_z.2285
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fsub	%ft0, %ft1, %ft0
+	flw	%ft1, -64(%sp)
+	fsw	%ft0, -80(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	jal	fsqr.2261
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	flw	%ft1, -80(%sp)
+	fsw	%ft0, -88(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	fsqr.2261
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fsqrt	%ft0, %ft0
+	la	%t0, l.5310
+	flw	%ft1, 0(%t0)
+	fdiv	%ft0, %ft0, %ft1
+	floor	%ft1, %ft0
+	fsub	%ft0, %ft0, %ft1
+	la	%t0, l.5312
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t5, 0(%sp)
+	sw	%ra, -100(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -104
+	jalr	%t4
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	fsqr.2261
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	la	%t0, l.5314
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft0, %ft1
+	lw	%t0, -12(%sp)
+	fsw	%ft1, 8(%t0)
+	la	%t1, l.4813
+	flw	%ft1, 0(%t1)
+	fsub	%ft0, %ft1, %ft0
+	la	%t1, l.5314
+	flw	%ft1, 0(%t1)
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.7227:
+	addi	%t4, %t1, -4
+	bne	%t4, %zero, beq_else.7229
+	lw	%t1, -8(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t2, -16(%sp)
+	fsw	%ft0, -96(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	jal	o_param_x.2281
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	flw	%ft1, -96(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -104(%sp)
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	jal	o_param_a.2275
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -104(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t1, -16(%sp)
+	fsw	%ft0, -112(%sp)
+	fsw	%ft1, -120(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	jal	o_param_z.2285
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	flw	%ft1, -120(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -128(%sp)
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	o_param_c.2279
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -128(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -112(%sp)
+	fsw	%ft0, -136(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	jal	fsqr.2261
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	flw	%ft1, -136(%sp)
+	fsw	%ft0, -144(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -156(%sp)
+	addi	%sp, %sp, -160
+	jal	fsqr.2261
+	addi	%sp, %sp, 160
+	lw	%ra, -156(%sp)
+	flw	%ft1, -144(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fsqrt	%ft0, %ft0
+	la	%t0, l.5288
+	flw	%ft1, 0(%t0)
+	flw	%ft2, -112(%sp)
+	fsw	%ft0, -152(%sp)
+	fsw	%ft1, -160(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	flw	%ft1, -160(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7230
+	flw	%ft0, -112(%sp)
+	flw	%ft1, -136(%sp)
+	fdiv	%ft0, %ft1, %ft0
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	jal	atan.2222
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	la	%t0, l.5292
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	j	bne_cont.7231
+bne_else.7230:
+	la	%t0, l.5290
+	flw	%ft0, 0(%t0)
+bne_cont.7231:
+	floor	%ft1, %ft0
+	fsub	%ft1, %ft0, %ft1
+	lw	%t0, -8(%sp)
+	flw	%ft2, 8(%t0)
+	lw	%t0, -16(%sp)
+	fsw	%ft1, -168(%sp)
+	fsw	%ft0, -176(%sp)
+	fsw	%ft2, -184(%sp)
+	sw	%ra, -196(%sp)
+	addi	%sp, %sp, -200
+	jal	o_param_y.2283
+	addi	%sp, %sp, 200
+	lw	%ra, -196(%sp)
+	flw	%ft1, -184(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -192(%sp)
+	sw	%ra, -204(%sp)
+	addi	%sp, %sp, -208
+	jal	o_param_b.2277
+	addi	%sp, %sp, 208
+	lw	%ra, -204(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -192(%sp)
+	fmul	%ft0, %ft1, %ft0
+	la	%t0, l.5288
+	flw	%ft1, 0(%t0)
+	flw	%ft2, -176(%sp)
+	fsw	%ft0, -200(%sp)
+	fsw	%ft1, -208(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -220(%sp)
+	addi	%sp, %sp, -224
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 224
+	lw	%ra, -220(%sp)
+	flw	%ft1, -208(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7232
+	flw	%ft0, -152(%sp)
+	flw	%ft1, -200(%sp)
+	fdiv	%ft0, %ft1, %ft0
+	sw	%ra, -220(%sp)
+	addi	%sp, %sp, -224
+	jal	min_caml_abs_float
+	addi	%sp, %sp, 224
+	lw	%ra, -220(%sp)
+	sw	%ra, -220(%sp)
+	addi	%sp, %sp, -224
+	jal	atan.2222
+	addi	%sp, %sp, 224
+	lw	%ra, -220(%sp)
+	la	%t0, l.5292
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	j	bne_cont.7233
+bne_else.7232:
+	la	%t0, l.5290
+	flw	%ft0, 0(%t0)
+bne_cont.7233:
+	floor	%ft1, %ft0
+	fsub	%ft0, %ft0, %ft1
+	la	%t0, l.5298
+	flw	%ft1, 0(%t0)
+	la	%t0, l.5300
+	flw	%ft2, 0(%t0)
+	flw	%ft3, -168(%sp)
+	fsub	%ft2, %ft2, %ft3
+	fsw	%ft0, -216(%sp)
+	fsw	%ft1, -224(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -236(%sp)
+	addi	%sp, %sp, -240
+	jal	fsqr.2261
+	addi	%sp, %sp, 240
+	lw	%ra, -236(%sp)
+	flw	%ft1, -224(%sp)
+	fsub	%ft0, %ft1, %ft0
+	la	%t0, l.5300
+	flw	%ft1, 0(%t0)
+	flw	%ft2, -216(%sp)
+	fsub	%ft1, %ft1, %ft2
+	fsw	%ft0, -232(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -244(%sp)
+	addi	%sp, %sp, -248
+	jal	fsqr.2261
+	addi	%sp, %sp, 248
+	lw	%ra, -244(%sp)
+	flw	%ft1, -232(%sp)
+	fsub	%ft0, %ft1, %ft0
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7234
+	la	%t0, l.4803
+	flw	%ft0, 0(%t0)
+	j	bne_cont.7235
+bne_else.7234:
+	la	%t0, l.5304
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+bne_cont.7235:
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.7229:
+	jr	%ra
+in_prod.2402:
+	flw	%ft0, 0(%t0)
+	flw	%ft1, 0(%t1)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 8(%t0)
+	flw	%ft2, 8(%t1)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	flw	%ft1, 16(%t0)
+	flw	%ft2, 16(%t1)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	jr	%ra
+accumulate_vec_mul.2405:
+	flw	%ft1, 0(%t0)
+	flw	%ft2, 0(%t1)
+	fmul	%ft2, %ft0, %ft2
+	fadd	%ft1, %ft1, %ft2
+	fsw	%ft1, 0(%t0)
+	flw	%ft1, 8(%t0)
+	flw	%ft2, 8(%t1)
+	fmul	%ft2, %ft0, %ft2
+	fadd	%ft1, %ft1, %ft2
+	fsw	%ft1, 8(%t0)
+	flw	%ft1, 16(%t0)
+	flw	%ft2, 16(%t1)
+	fmul	%ft0, %ft0, %ft2
+	fadd	%ft0, %ft1, %ft0
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+raytracing.2409:
+	lw	%t1, 60(%t5)
+	lw	%t2, 56(%t5)
+	lw	%s0, 52(%t5)
+	lw	%s1, 48(%t5)
+	lw	%a0, 44(%t5)
+	lw	%a1, 40(%t5)
+	lw	%a2, 36(%t5)
+	lw	%a3, 32(%t5)
+	lw	%a4, 28(%t5)
+	lw	%a5, 24(%t5)
+	lw	%a6, 20(%t5)
+	lw	%a7, 16(%t5)
+	lw	%s2, 12(%t5)
+	lw	%s3, 8(%t5)
+	lw	%s4, 4(%t5)
+	sw	%t5, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%a0, -8(%sp)
+	sw	%s0, -12(%sp)
+	sw	%a5, -16(%sp)
+	sw	%a1, -20(%sp)
+	sw	%a3, -24(%sp)
+	sw	%s2, -28(%sp)
+	sw	%a7, -32(%sp)
+	sw	%a4, -36(%sp)
+	sw	%s3, -40(%sp)
+	sw	%a2, -44(%sp)
+	sw	%s4, -48(%sp)
+	fsw	%ft0, -56(%sp)
+	sw	%a6, -64(%sp)
+	sw	%t1, -68(%sp)
+	sw	%t0, -72(%sp)
+	addi	%t0, %t2, 0
+	addi	%t5, %s1, 0
+	sw	%ra, -76(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -80
+	jalr	%t4
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	sw	%t0, -80(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7240
+	lw	%t1, -72(%sp)
+	addi	%t4, %t1, 0
+	bne	%t4, %zero, beq_else.7242
+	j	beq_cont.7243
+beq_else.7242:
+	lw	%t2, -68(%sp)
+	lw	%s0, -64(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	jal	in_prod.2402
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	fneg	%ft0, %ft0
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7244
+	j	bne_cont.7245
+bne_else.7244:
+	fsw	%ft0, -88(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	fsqr.2261
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -48(%sp)
+	flw	%ft2, 0(%t0)
+	fmul	%ft0, %ft0, %ft2
+	lw	%t0, -44(%sp)
+	flw	%ft2, 0(%t0)
+	fadd	%ft2, %ft2, %ft0
+	fsw	%ft2, 0(%t0)
+	flw	%ft2, 8(%t0)
+	fadd	%ft2, %ft2, %ft0
+	fsw	%ft2, 8(%t0)
+	flw	%ft2, 16(%t0)
+	fadd	%ft0, %ft2, %ft0
+	fsw	%ft0, 16(%t0)
+bne_cont.7245:
+beq_cont.7243:
+	j	beq_cont.7241
+beq_else.7240:
+beq_cont.7241:
+	lw	%t0, -80(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7247
+	jr	%ra
+beq_else.7247:
+	lw	%t0, -40(%sp)
+	lw	%t0, 0(%t0)
+	sll	%t0, %t0, 2
+	lw	%t1, -36(%sp)
+	lw	%t0, %t0(%t1)
+	lw	%t1, -28(%sp)
+	lw	%t5, -32(%sp)
+	sw	%t0, -96(%sp)
+	sw	%ra, -100(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -104
+	jalr	%t4
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	addi	%t0, %zero, 0
+	lw	%t1, -24(%sp)
+	lw	%t1, 0(%t1)
+	lw	%t2, -28(%sp)
+	lw	%t5, -20(%sp)
+	sw	%ra, -100(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -104
+	jalr	%t4
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.7249
+	lw	%t0, -16(%sp)
+	lw	%t1, -64(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	jal	in_prod.2402
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	fneg	%ft0, %ft0
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7251
+	la	%t0, l.4850
+	flw	%ft1, 0(%t0)
+	fadd	%ft0, %ft0, %ft1
+	j	bne_cont.7252
+bne_else.7251:
+	la	%t0, l.4850
+	flw	%ft0, 0(%t0)
+bne_cont.7252:
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -96(%sp)
+	fsw	%ft0, -104(%sp)
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	jal	o_diffuse.2287
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	flw	%ft1, -104(%sp)
+	fmul	%ft0, %ft1, %ft0
+	j	beq_cont.7250
+beq_else.7249:
+	la	%t0, l.4803
+	flw	%ft0, 0(%t0)
+beq_cont.7250:
+	lw	%t0, -96(%sp)
+	lw	%t1, -28(%sp)
+	lw	%t5, -12(%sp)
+	fsw	%ft0, -112(%sp)
+	sw	%ra, -124(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -128
+	jalr	%t4
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	flw	%ft0, -112(%sp)
+	lw	%t0, -44(%sp)
+	lw	%t1, -8(%sp)
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	jal	accumulate_vec_mul.2405
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	lw	%t0, -72(%sp)
+	addi	%t4, %t0, -4
+	bgt	%t4, %zero, ble_else.7254
+	la	%t1, l.5373
+	flw	%ft0, 0(%t1)
+	flw	%ft1, -56(%sp)
+	fle	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7255
+	jr	%ra
+bne_else.7255:
+	la	%t1, l.5375
+	flw	%ft0, 0(%t1)
+	lw	%t1, -68(%sp)
+	lw	%t2, -16(%sp)
+	fsw	%ft0, -120(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	jal	in_prod.2402
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	flw	%ft1, -120(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -68(%sp)
+	lw	%t1, -16(%sp)
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	jal	accumulate_vec_mul.2405
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	lw	%t0, -96(%sp)
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	jal	o_reflectiontype.2269
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.7257
+	la	%t0, l.4803
+	flw	%ft0, 0(%t0)
+	lw	%t0, -96(%sp)
+	fsw	%ft0, -128(%sp)
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	o_hilight.2289
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	flw	%ft1, -128(%sp)
+	feq	%t4, %ft1, %ft0
+	beq	%t4, %zero, bne_else.7258
+	jr	%ra
+bne_else.7258:
+	lw	%t0, -68(%sp)
+	lw	%t1, -64(%sp)
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	in_prod.2402
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	fneg	%ft0, %ft0
+	la	%t0, l.4803
+	flw	%ft1, 0(%t0)
+	fle	%t4, %ft0, %ft1
+	beq	%t4, %zero, bne_else.7260
+	jr	%ra
+bne_else.7260:
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	fsqr.2261
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	jal	fsqr.2261
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, -112(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -96(%sp)
+	fsw	%ft0, -136(%sp)
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	jal	o_hilight.2289
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	flw	%ft1, -136(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -44(%sp)
+	flw	%ft1, 0(%t0)
+	fadd	%ft1, %ft1, %ft0
+	fsw	%ft1, 0(%t0)
+	flw	%ft1, 8(%t0)
+	fadd	%ft1, %ft1, %ft0
+	fsw	%ft1, 8(%t0)
+	flw	%ft1, 16(%t0)
+	fadd	%ft0, %ft1, %ft0
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.7257:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.7263
+	lw	%t0, -28(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, 0(%t1)
+	flw	%ft0, 8(%t0)
+	fsw	%ft0, 8(%t1)
+	flw	%ft0, 16(%t0)
+	fsw	%ft0, 16(%t1)
+	la	%t0, l.4813
+	flw	%ft0, 0(%t0)
+	lw	%t0, -96(%sp)
+	fsw	%ft0, -144(%sp)
+	sw	%ra, -156(%sp)
+	addi	%sp, %sp, -160
+	jal	o_diffuse.2287
+	addi	%sp, %sp, 160
+	lw	%ra, -156(%sp)
+	flw	%ft1, -144(%sp)
+	fsub	%ft0, %ft1, %ft0
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -72(%sp)
+	addi	%t0, %t0, 1
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.7263:
+	jr	%ra
+ble_else.7254:
+	jr	%ra
+write_rgb.2412:
+	lw	%t0, 4(%t5)
+	flw	%ft0, 0(%t0)
+	ftoi	%t1, %ft0
+	addi	%t4, %t1, -255
+	bgt	%t4, %zero, ble_else.7266
+	j	ble_cont.7267
+ble_else.7266:
+	addi	%t1, %zero, 255
+ble_cont.7267:
+	sw	%t0, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	min_caml_print_byte
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	lw	%t0, 0(%sp)
+	flw	%ft0, 8(%t0)
+	ftoi	%t1, %ft0
+	addi	%t4, %t1, -255
+	bgt	%t4, %zero, ble_else.7268
+	j	ble_cont.7269
+ble_else.7268:
+	addi	%t1, %zero, 255
+ble_cont.7269:
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_print_byte
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, 0(%sp)
+	flw	%ft0, 16(%t0)
+	ftoi	%t0, %ft0
+	addi	%t4, %t0, -255
+	bgt	%t4, %zero, ble_else.7270
+	j	ble_cont.7271
+ble_else.7270:
+	addi	%t0, %zero, 255
+ble_cont.7271:
+	j	min_caml_print_byte
+write_ppm_header.2414:
+	lw	%t0, 4(%t5)
+	addi	%t1, %zero, 80
+	sw	%t0, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	min_caml_print_byte
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%t0, %zero, 54
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_print_byte
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 10
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_print_byte
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, 0(%sp)
+	lw	%t1, 0(%t0)
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_print_int
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 32
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_print_byte
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, 0(%sp)
+	lw	%t0, 4(%t0)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_print_int
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 10
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_print_byte
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 255
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	min_caml_print_int
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 10
+	j	min_caml_print_byte
+scan_point.2416:
+	lw	%t1, 60(%t5)
+	lw	%t2, 56(%t5)
+	lw	%s0, 52(%t5)
+	lw	%s1, 48(%t5)
+	lw	%a0, 44(%t5)
+	lw	%a1, 40(%t5)
+	lw	%a2, 36(%t5)
+	lw	%a3, 32(%t5)
+	lw	%a4, 28(%t5)
+	lw	%a5, 24(%t5)
+	lw	%a6, 20(%t5)
+	lw	%a7, 16(%t5)
+	lw	%s2, 12(%t5)
+	lw	%s3, 8(%t5)
+	lw	%s4, 4(%t5)
+	lw	%a2, 0(%a2)
+	bgt	%a2, %t0, ble_else.7272
+	jr	%ra
+ble_else.7272:
+	itof	%ft0, %t0
+	flw	%ft1, 0(%a5)
+	fsub	%ft0, %ft0, %ft1
+	flw	%ft1, 0(%a7)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 8(%s4)
+	fmul	%ft1, %ft0, %ft1
+	flw	%ft2, 0(%t1)
+	fadd	%ft1, %ft1, %ft2
+	fsw	%ft1, 0(%s0)
+	flw	%ft1, 0(%a4)
+	flw	%ft2, 0(%s4)
+	fmul	%ft1, %ft1, %ft2
+	flw	%ft2, 8(%s1)
+	fsub	%ft1, %ft1, %ft2
+	fsw	%ft1, 8(%s0)
+	fneg	%ft1, %ft0
+	flw	%ft2, 8(%a3)
+	fmul	%ft1, %ft1, %ft2
+	flw	%ft2, 16(%t1)
+	fadd	%ft1, %ft1, %ft2
+	fsw	%ft1, 16(%s0)
+	sw	%t5, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%t2, -8(%sp)
+	sw	%s3, -12(%sp)
+	sw	%s2, -16(%sp)
+	sw	%a0, -20(%sp)
+	sw	%a1, -24(%sp)
+	sw	%s0, -28(%sp)
+	sw	%a6, -32(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	fsqr.2261
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -32(%sp)
+	flw	%ft1, 0(%t0)
+	fadd	%ft0, %ft0, %ft1
+	fsqrt	%ft0, %ft0
+	lw	%t0, -28(%sp)
+	flw	%ft1, 0(%t0)
+	fdiv	%ft1, %ft1, %ft0
+	fsw	%ft1, 0(%t0)
+	flw	%ft1, 8(%t0)
+	fdiv	%ft1, %ft1, %ft0
+	fsw	%ft1, 8(%t0)
+	flw	%ft1, 16(%t0)
+	fdiv	%ft0, %ft1, %ft0
+	fsw	%ft0, 16(%t0)
+	lw	%t0, -24(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t1, -20(%sp)
+	fsw	%ft0, 0(%t1)
+	flw	%ft0, 8(%t0)
+	fsw	%ft0, 8(%t1)
+	flw	%ft0, 16(%t0)
+	fsw	%ft0, 16(%t1)
+	la	%t0, l.4803
+	flw	%ft0, 0(%t0)
+	lw	%t0, -16(%sp)
+	fsw	%ft0, 0(%t0)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 8(%t0)
+	la	%t1, l.4803
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, 16(%t0)
+	addi	%t0, %zero, 0
+	la	%t1, l.4813
+	flw	%ft0, 0(%t1)
+	lw	%t5, -12(%sp)
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t5, -8(%sp)
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t0, %t0, 1
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+scan_line.2418:
+	lw	%t1, 40(%t5)
+	lw	%t2, 36(%t5)
+	lw	%s0, 32(%t5)
+	lw	%s1, 28(%t5)
+	lw	%a0, 24(%t5)
+	lw	%a1, 20(%t5)
+	lw	%a2, 16(%t5)
+	lw	%a3, 12(%t5)
+	lw	%a4, 8(%t5)
+	lw	%a5, 4(%t5)
+	lw	%s0, 0(%s0)
+	bgt	%s0, %t0, ble_else.7274
+	jr	%ra
+ble_else.7274:
+	flw	%ft0, 0(%a2)
+	la	%s0, l.4813
+	flw	%ft1, 0(%s0)
+	fsub	%ft0, %ft0, %ft1
+	itof	%ft1, %t0
+	fsub	%ft0, %ft0, %ft1
+	flw	%ft1, 0(%a4)
+	fmul	%ft0, %ft1, %ft0
+	fsw	%ft0, 0(%a0)
+	flw	%ft0, 0(%a0)
+	sw	%t5, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%a1, -8(%sp)
+	sw	%a5, -12(%sp)
+	sw	%t1, -16(%sp)
+	sw	%t2, -20(%sp)
+	sw	%s1, -24(%sp)
+	sw	%a0, -28(%sp)
+	sw	%a3, -32(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	jal	fsqr.2261
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	la	%t0, l.5436
+	flw	%ft1, 0(%t0)
+	fadd	%ft0, %ft0, %ft1
+	lw	%t0, -32(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t0, -28(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t0, -24(%sp)
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 8(%t0)
+	fmul	%ft1, %ft0, %ft1
+	lw	%t0, -20(%sp)
+	flw	%ft2, 0(%t0)
+	fsub	%ft1, %ft1, %ft2
+	lw	%t1, -16(%sp)
+	fsw	%ft1, 0(%t1)
+	lw	%t2, -12(%sp)
+	flw	%ft1, 8(%t2)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 16(%t0)
+	fsub	%ft0, %ft0, %ft1
+	fsw	%ft0, 16(%t1)
+	addi	%t0, %zero, 0
+	lw	%t5, -8(%sp)
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t0, %t0, 1
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+scan_start.2420:
+	lw	%t0, 20(%t5)
+	lw	%t1, 16(%t5)
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sw	%s0, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%t1, -12(%sp)
+	addi	%t5, %t0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t0, -12(%sp)
+	lw	%t0, 0(%t0)
+	itof	%ft0, %t0
+	la	%t0, l.5448
+	flw	%ft1, 0(%t0)
+	fdiv	%ft1, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	fsw	%ft1, 0(%t0)
+	la	%t0, l.4811
+	flw	%ft1, 0(%t0)
+	fdiv	%ft0, %ft0, %ft1
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 0
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+rt.2422:
+	lw	%s0, 16(%t5)
+	lw	%s1, 12(%t5)
+	lw	%a0, 8(%t5)
+	lw	%a1, 4(%t5)
+	sw	%t0, 0(%s0)
+	sw	%t1, 4(%s0)
+	sw	%t2, 0(%a1)
+	sw	%s1, 0(%sp)
+	addi	%t5, %a0, 0
+	sw	%ra, -4(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -8
+	jalr	%t4
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+l.5729:	40.000000
+	.long	0x0
+	.long	0x40440000
+l.5727:	3.141593
+	.long	0x54442d18
+	.long	0x400921fb
+l.5722:	0.999848
+	.long	0x97f5af88
+	.long	0x3feffec0
+l.5719:	0.999391
+	.long	0x78bf0569
+	.long	0x3feffb02
+l.5716:	0.998630
+	.long	0xed12e61f
+	.long	0x3feff4c5
+l.5713:	0.997564
+	.long	0x7170fff4
+	.long	0x3fefec0b
+l.5710:	0.996195
+	.long	0xb41815a6
+	.long	0x3fefe0d3
+l.5707:	0.994522
+	.long	0x94f867c3
+	.long	0x3fefd31f
+l.5704:	0.992546
+	.long	0x25a23e8b
+	.long	0x3fefc2f0
+l.5701:	0.990268
+	.long	0xa9309477
+	.long	0x3fefb046
+l.5698:	0.987688
+	.long	0x942fe45e
+	.long	0x3fef9b24
+l.5695:	0.984808
+	.long	0x8c811c17
+	.long	0x3fef838b
+l.5692:	0.981627
+	.long	0x6938b6c2
+	.long	0x3fef697d
+l.5689:	0.978148
+	.long	0x327a0083
+	.long	0x3fef4cfc
+l.5686:	0.974370
+	.long	0x214e870d
+	.long	0x3fef2e0a
+l.5683:	0.970296
+	.long	0x9f79ba21
+	.long	0x3fef0ca9
+l.5680:	0.965926
+	.long	0x4748bf12
+	.long	0x3feee8dd
+l.5677:	0.961262
+	.long	0xe35e7b81
+	.long	0x3feec2a7
+l.5674:	0.956305
+	.long	0x6e7bdb1b
+	.long	0x3fee9a0c
+l.5671:	0.951057
+	.long	0x13445503
+	.long	0x3fee6f0e
+l.5668:	0.945519
+	.long	0x2bfeb4cc
+	.long	0x3fee41b0
+l.5665:	0.939693
+	.long	0x42522d18
+	.long	0x3fee11f6
+l.5662:	0.933580
+	.long	0xeffb807
+	.long	0x3feddfe4
+l.5659:	0.927184
+	.long	0x7997cb54
+	.long	0x3fedab7d
+l.5656:	0.920505
+	.long	0x982c666c
+	.long	0x3fed74c6
+l.5653:	0.913545
+	.long	0xaeff7f96
+	.long	0x3fed3bc3
+l.5650:	0.906308
+	.long	0x302dd768
+	.long	0x3fed0079
+l.5647:	0.898794
+	.long	0xbb5638ca
+	.long	0x3fecc2eb
+l.5644:	0.891007
+	.long	0x1d3d2c6e
+	.long	0x3fec8320
+l.5641:	0.882948
+	.long	0x4f6d2708
+	.long	0x3fec411b
+l.5638:	0.874620
+	.long	0x77d339c8
+	.long	0x3febfce2
+l.5635:	0.866025
+	.long	0xe8584cae
+	.long	0x3febb67a
+l.5632:	0.857167
+	.long	0x1e76eadb
+	.long	0x3feb6dea
+l.5629:	0.848048
+	.long	0xc2cda945
+	.long	0x3feb2335
+l.5626:	0.838671
+	.long	0xa8ae2fdc
+	.long	0x3fead663
+l.5623:	0.829038
+	.long	0xcda8eea7
+	.long	0x3fea8779
+l.5620:	0.819152
+	.long	0x59158749
+	.long	0x3fea367e
+l.5617:	0.809017
+	.long	0x9b97f4a4
+	.long	0x3fe9e377
+l.5614:	0.798636
+	.long	0xea27a16
+	.long	0x3fe98e6c
+l.5611:	0.788011
+	.long	0x53f463d2
+	.long	0x3fe93762
+l.5608:	0.777146
+	.long	0x3515a329
+	.long	0x3fe8de61
+l.5605:	0.766044
+	.long	0xa2cf5039
+	.long	0x3fe8836f
+l.5602:	0.754710
+	.long	0xb4a11c37
+	.long	0x3fe82694
+l.5599:	0.743145
+	.long	0xa833bec0
+	.long	0x3fe7c7d7
+l.5596:	0.731354
+	.long	0xe0c8697e
+	.long	0x3fe7673f
+l.5593:	0.719340
+	.long	0xe6a54d37
+	.long	0x3fe704d4
+l.5590:	0.707107
+	.long	0x667f3bc8
+	.long	0x3fe6a09e
+l.5587:	0.694658
+	.long	0x30e0730e
+	.long	0x3fe63aa4
+l.5584:	0.681998
+	.long	0x398c9c27
+	.long	0x3fe5d2ee
+l.5581:	0.669131
+	.long	0x96e20bd6
+	.long	0x3fe56984
+l.5578:	0.656059
+	.long	0x81384fd2
+	.long	0x3fe4fe6f
+l.5575:	0.642788
+	.long	0x523c161a
+	.long	0x3fe491b7
+l.5572:	0.629320
+	.long	0x84487ab9
+	.long	0x3fe42364
+l.5569:	0.615661
+	.long	0xb1bdc936
+	.long	0x3fe3b37f
+l.5566:	0.601815
+	.long	0x9455beb4
+	.long	0x3fe34211
+l.5563:	0.587785
+	.long	0x4755a5d
+	.long	0x3fe2cf23
+l.5560:	0.573576
+	.long	0xf87c4978
+	.long	0x3fe25abc
+l.5557:	0.559193
+	.long	0x8411fd14
+	.long	0x3fe1e4e8
+l.5554:	0.544639
+	.long	0xd770771c
+	.long	0x3fe16dae
+l.5551:	0.529919
+	.long	0x3eacdd2b
+	.long	0x3fe0f519
+l.5548:	0.515038
+	.long	0x20fddf12
+	.long	0x3fe07b31
+l.5543:	0.484810
+	.long	0xedefa0ec
+	.long	0x3fdf071e
+l.5540:	0.469472
+	.long	0x7424507c
+	.long	0x3fde0bd2
+l.5537:	0.453990
+	.long	0x2b44de05
+	.long	0x3fdd0e2e
+l.5534:	0.438371
+	.long	0xdabe05c1
+	.long	0x3fdc0e45
+l.5531:	0.422618
+	.long	0x7737984b
+	.long	0x3fdb0c2d
+l.5528:	0.406737
+	.long	0x21061acd
+	.long	0x3fda07f9
+l.5525:	0.390731
+	.long	0x2298ffaf
+	.long	0x3fd901bd
+l.5522:	0.374607
+	.long	0xeee59681
+	.long	0x3fd7f98d
+l.5519:	0.358368
+	.long	0x1fced337
+	.long	0x3fd6ef80
+l.5516:	0.342020
+	.long	0x748a0bfa
+	.long	0x3fd5e3a8
+l.5513:	0.325568
+	.long	0xd000cde1
+	.long	0x3fd4d61b
+l.5510:	0.309017
+	.long	0x372fe948
+	.long	0x3fd3c6ef
+l.5507:	0.292372
+	.long	0xcf83d5cc
+	.long	0x3fd2b637
+l.5504:	0.275637
+	.long	0xdd328e26
+	.long	0x3fd1a40a
+l.5501:	0.258819
+	.long	0xc1930695
+	.long	0x3fd0907d
+l.5498:	0.241922
+	.long	0xf2e4b927
+	.long	0x3fcef74b
+l.5495:	0.224951
+	.long	0x36cdc675
+	.long	0x3fcccb32
+l.5492:	0.207912
+	.long	0xac4258ea
+	.long	0x3fca9cd9
+l.5489:	0.190809
+	.long	0xdd766256
+	.long	0x3fc86c6d
+l.5486:	0.173648
+	.long	0x7e0b737d
+	.long	0x3fc63a1a
+l.5483:	0.156434
+	.long	0x67a8537a
+	.long	0x3fc4060b
+l.5480:	0.139173
+	.long	0x968d9e09
+	.long	0x3fc1d06c
+l.5477:	0.121869
+	.long	0x4c4f62b1
+	.long	0x3fbf32d4
+l.5474:	0.104528
+	.long	0x9b3c574a
+	.long	0x3fbac260
+l.5471:	0.087156
+	.long	0xb8c28104
+	.long	0x3fb64fd6
+l.5468:	0.069756
+	.long	0x6d6a5128
+	.long	0x3fb1db8f
+l.5465:	0.052336
+	.long	0x48efc909
+	.long	0x3faacbc7
+l.5462:	0.034899
+	.long	0xc9f7dc2b
+	.long	0x3fa1de58
+l.5459:	0.017452
+	.long	0x2b89dd1b
+	.long	0x3f91df0b
+l.5448:	128.000000
 	.long	0x0
 	.long	0x40600000
-l.10941:	# 40000.000000
+l.5436:	40000.000000
 	.long	0x0
 	.long	0x40e38800
-l.10931:	# -2.000000
+l.5375:	-2.000000
 	.long	0x0
 	.long	0xc0000000
-l.10929:	# 0.100000
+l.5373:	0.100000
 	.long	0x9999999a
 	.long	0x3fb99999
-l.10926:	# 0.200000
-	.long	0x9999999a
-	.long	0x3fc99999
-l.10920:	# 100000000.000000
-	.long	0x0
-	.long	0x4197d784
-l.10917:	# 1000000000.000000
-	.long	0x0
-	.long	0x41cdcd65
-l.10907:	# 20.000000
+l.5331:	20.000000
 	.long	0x0
 	.long	0x40340000
-l.10905:	# 0.050000
+l.5329:	0.050000
 	.long	0x9999999a
 	.long	0x3fa99999
-l.10900:	# 0.250000
+l.5321:	0.250000
 	.long	0x0
 	.long	0x3fd00000
-l.10896:	# 255.000000
+l.5314:	255.000000
 	.long	0x0
 	.long	0x406fe000
-l.10894:	# 3.141593
+l.5312:	3.141593
 	.long	0x5a7ed197
 	.long	0x400921fb
-l.10892:	# 10.000000
+l.5310:	10.000000
 	.long	0x0
 	.long	0x40240000
-l.10889:	# 850.000000
+l.5304:	850.000000
 	.long	0x0
 	.long	0x408a9000
-l.10885:	# 0.500000
+l.5300:	0.500000
 	.long	0x0
 	.long	0x3fe00000
-l.10883:	# 0.150000
+l.5298:	0.150000
 	.long	0x33333333
 	.long	0x3fc33333
-l.10878:	# 9.549296
+l.5292:	9.549296
 	.long	0x62316387
 	.long	0x4023193d
-l.10876:	# 15.000000
+l.5290:	15.000000
 	.long	0x0
 	.long	0x402e0000
-l.10874:	# 0.000100
+l.5288:	0.000100
 	.long	0xeb1c432d
 	.long	0x3f1a36e2
-l.10845:	# -0.100000
+l.5235:	100000000.000000
+	.long	0x0
+	.long	0x4197d784
+l.5229:	1000000000.000000
+	.long	0x0
+	.long	0x41cdcd65
+l.5193:	-0.100000
 	.long	0x9999999a
 	.long	0xbfb99999
-l.10841:	# 0.010000
+l.5177:	0.010000
 	.long	0x47ae147b
 	.long	0x3f847ae1
-l.10839:	# -0.200000
+l.5175:	-0.200000
 	.long	0x9999999a
 	.long	0xbfc99999
-l.10820:	# 4.000000
+l.5143:	4.000000
 	.long	0x0
 	.long	0x40100000
-l.10807:	# 2.000000
-	.long	0x0
-	.long	0x40000000
-l.10794:	# -1.000000
-	.long	0x0
-	.long	0xbff00000
-l.10792:	# 1.000000
-	.long	0x0
-	.long	0x3ff00000
-l.10769:	# 0.000000
-	.long	0x0
-	.long	0x0
-l.10765:	# -200.000000
+l.4914:	-200.000000
 	.long	0x0
 	.long	0xc0690000
-l.10760:	# 0.017453
+l.4899:	0.017453
 	.long	0xaa91ed06
 	.long	0x3f91df46
-.text
-read_environ.2029:
-	movl	$min_caml_screen, %eax
-	movl	%eax, 0(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_float
-	subl	$8, %ebp
-	movl	0(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_screen, %eax
-	movl	%eax, 4(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_float
-	subl	$8, %ebp
-	movl	4(%ebp), %eax
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_screen, %eax
-	movl	%eax, 8(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_float
-	subl	$16, %ebp
-	movl	8(%ebp), %eax
-	movsd	%xmm0, 16(%eax)
-	addl	$16, %ebp
-	call	min_caml_read_float
-	subl	$16, %ebp
-	movl	$l.10760, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cos_v, %eax
-	movsd	%xmm0, 16(%ebp)
-	movl	%eax, 24(%ebp)
-	addl	$32, %ebp
-	call	min_caml_cos
-	subl	$32, %ebp
-	movl	24(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_sin_v, %eax
-	movsd	16(%ebp), %xmm0
-	movl	%eax, 28(%ebp)
-	addl	$32, %ebp
-	call	min_caml_sin
-	subl	$32, %ebp
-	movl	28(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	addl	$32, %ebp
-	call	min_caml_read_float
-	subl	$32, %ebp
-	movl	$l.10760, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cos_v, %eax
-	movsd	%xmm0, 32(%ebp)
-	movl	%eax, 40(%ebp)
-	addl	$48, %ebp
-	call	min_caml_cos
-	subl	$48, %ebp
-	movl	40(%ebp), %eax
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_sin_v, %eax
-	movsd	32(%ebp), %xmm0
-	movl	%eax, 44(%ebp)
-	addl	$48, %ebp
-	call	min_caml_sin
-	subl	$48, %ebp
-	movl	44(%ebp), %eax
-	movsd	%xmm0, 8(%eax)
-	addl	$48, %ebp
-	call	min_caml_read_float
-	subl	$48, %ebp
-	addl	$48, %ebp
-	call	min_caml_read_float
-	subl	$48, %ebp
-	movl	$l.10760, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 48(%ebp)
-	addl	$56, %ebp
-	call	min_caml_sin
-	subl	$56, %ebp
-	movl	$min_caml_light, %eax
-	xorpd	min_caml_fnegd, %xmm0
-	movsd	%xmm0, 8(%eax)
-	addl	$56, %ebp
-	call	min_caml_read_float
-	subl	$56, %ebp
-	movl	$l.10760, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	48(%ebp), %xmm1
-	movsd	%xmm0, 56(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$64, %ebp
-	call	min_caml_cos
-	subl	$64, %ebp
-	movsd	56(%ebp), %xmm1
-	movsd	%xmm0, 64(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$72, %ebp
-	call	min_caml_sin
-	subl	$72, %ebp
-	movl	$min_caml_light, %eax
-	movsd	64(%ebp), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movsd	56(%ebp), %xmm0
-	addl	$72, %ebp
-	call	min_caml_cos
-	subl	$72, %ebp
-	movl	$min_caml_light, %eax
-	movsd	64(%ebp), %xmm1
-	mulsd	%xmm0, %xmm1
-	movsd	%xmm1, 16(%eax)
-	movl	$min_caml_beam, %eax
-	movl	%eax, 72(%ebp)
-	addl	$80, %ebp
-	call	min_caml_read_float
-	subl	$80, %ebp
-	movl	72(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_vp, %eax
-	movl	$min_caml_cos_v, %ebx
-	movsd	0(%ebx), %xmm0
-	movl	$min_caml_sin_v, %ebx
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$l.10765, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_vp, %eax
-	movl	$min_caml_sin_v, %ebx
-	movsd	0(%ebx), %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	movl	$l.10765, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_vp, %eax
-	movl	$min_caml_cos_v, %ebx
-	movsd	0(%ebx), %xmm0
-	movl	$min_caml_cos_v, %ebx
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$l.10765, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	$min_caml_view, %eax
-	movl	$min_caml_vp, %ebx
-	movsd	0(%ebx), %xmm0
-	movl	$min_caml_screen, %ebx
-	movsd	0(%ebx), %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_view, %eax
-	movl	$min_caml_vp, %ebx
-	movsd	8(%ebx), %xmm0
-	movl	$min_caml_screen, %ebx
-	movsd	8(%ebx), %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_view, %eax
-	movl	$min_caml_vp, %ebx
-	movsd	16(%ebx), %xmm0
-	movl	$min_caml_screen, %ebx
-	movsd	16(%ebx), %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%eax)
-	ret
-read_nth_object.2031:
-	movl	%eax, 0(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11638
-	movl	$0, %eax
-	ret
-je_else.11638:
-	movl	%eax, 4(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	movl	%eax, 8(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_int
-	subl	$16, %ebp
-	movl	%eax, 12(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_int
-	subl	$16, %ebp
-	movl	$3, %ebx
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	%eax, 16(%ebp)
-	movl	%ebx, %eax
-	addl	$24, %ebp
-	call	min_caml_create_float_array
-	subl	$24, %ebp
-	movl	%eax, 20(%ebp)
-	addl	$24, %ebp
-	call	min_caml_read_float
-	subl	$24, %ebp
-	movl	20(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	addl	$24, %ebp
-	call	min_caml_read_float
-	subl	$24, %ebp
-	movl	20(%ebp), %eax
-	movsd	%xmm0, 8(%eax)
-	addl	$24, %ebp
-	call	min_caml_read_float
-	subl	$24, %ebp
-	movl	20(%ebp), %eax
-	movsd	%xmm0, 16(%eax)
-	movl	$3, %ebx
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	%ebx, %eax
-	addl	$24, %ebp
-	call	min_caml_create_float_array
-	subl	$24, %ebp
-	movl	%eax, 24(%ebp)
-	addl	$32, %ebp
-	call	min_caml_read_float
-	subl	$32, %ebp
-	movl	24(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	addl	$32, %ebp
-	call	min_caml_read_float
-	subl	$32, %ebp
-	movl	24(%ebp), %eax
-	movsd	%xmm0, 8(%eax)
-	addl	$32, %ebp
-	call	min_caml_read_float
-	subl	$32, %ebp
-	movl	24(%ebp), %eax
-	movsd	%xmm0, 16(%eax)
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 32(%ebp)
-	addl	$40, %ebp
-	call	min_caml_read_float
-	subl	$40, %ebp
-	movsd	32(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11640
-	movl	$0, %eax
-	jmp	jbe_cont.11641
-jbe_else.11640:
-	movl	$1, %eax
-jbe_cont.11641:
-	movl	$2, %ebx
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	%eax, 40(%ebp)
-	movl	%ebx, %eax
-	addl	$48, %ebp
-	call	min_caml_create_float_array
-	subl	$48, %ebp
-	movl	%eax, 44(%ebp)
-	addl	$48, %ebp
-	call	min_caml_read_float
-	subl	$48, %ebp
-	movl	44(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	addl	$48, %ebp
-	call	min_caml_read_float
-	subl	$48, %ebp
-	movl	44(%ebp), %eax
-	movsd	%xmm0, 8(%eax)
-	movl	$3, %ebx
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	%ebx, %eax
-	addl	$48, %ebp
-	call	min_caml_create_float_array
-	subl	$48, %ebp
-	movl	%eax, 48(%ebp)
-	addl	$56, %ebp
-	call	min_caml_read_float
-	subl	$56, %ebp
-	movl	48(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	addl	$56, %ebp
-	call	min_caml_read_float
-	subl	$56, %ebp
-	movl	48(%ebp), %eax
-	movsd	%xmm0, 8(%eax)
-	addl	$56, %ebp
-	call	min_caml_read_float
-	subl	$56, %ebp
-	movl	48(%ebp), %eax
-	movsd	%xmm0, 16(%eax)
-	movl	$3, %ebx
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	%ebx, %eax
-	addl	$56, %ebp
-	call	min_caml_create_float_array
-	subl	$56, %ebp
-	movl	16(%ebp), %ebx
-	cmpl	$0, %ebx
-	jne	je_else.11642
-	jmp	je_cont.11643
-je_else.11642:
-	movl	%eax, 52(%ebp)
-	addl	$56, %ebp
-	call	min_caml_read_float
-	subl	$56, %ebp
-	movl	$l.10760, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	52(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	addl	$56, %ebp
-	call	min_caml_read_float
-	subl	$56, %ebp
-	movl	$l.10760, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	52(%ebp), %eax
-	movsd	%xmm0, 8(%eax)
-	addl	$56, %ebp
-	call	min_caml_read_float
-	subl	$56, %ebp
-	movl	$l.10760, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	52(%ebp), %eax
-	movsd	%xmm0, 16(%eax)
-je_cont.11643:
-	movl	8(%ebp), %ebx
-	cmpl	$2, %ebx
-	jne	je_else.11644
-	movl	$1, %ecx
-	jmp	je_cont.11645
-je_else.11644:
-	movl	40(%ebp), %ecx
-je_cont.11645:
-	movl	min_caml_hp, %edx
-	addl	$40, min_caml_hp
-	movl	%eax, 36(%edx)
-	movl	48(%ebp), %esi
-	movl	%esi, 32(%edx)
-	movl	44(%ebp), %esi
-	movl	%esi, 28(%edx)
-	movl	%ecx, 24(%edx)
-	movl	24(%ebp), %ecx
-	movl	%ecx, 20(%edx)
-	movl	20(%ebp), %ecx
-	movl	%ecx, 16(%edx)
-	movl	16(%ebp), %esi
-	movl	%esi, 12(%edx)
-	movl	12(%ebp), %edi
-	movl	%edi, 8(%edx)
-	movl	%ebx, 4(%edx)
-	movl	4(%ebp), %edi
-	movl	%edi, 0(%edx)
-	movl	$min_caml_objects, %edi
-	movl	%eax, 52(%ebp)
-	movl	0(%ebp), %eax
-	movl	%edx, (%edi,%eax,4)
-	cmpl	$3, %ebx
-	jne	je_else.11646
-	movsd	0(%ecx), %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm0, %xmm1
-	jne	je_else.11648
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	jmp	je_cont.11649
-je_else.11648:
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.11650
-	movl	$l.10794, %eax
-	movsd	0(%eax), %xmm1
-	jmp	jbe_cont.11651
-jbe_else.11650:
-	movl	$l.10792, %eax
-	movsd	0(%eax), %xmm1
-jbe_cont.11651:
-	mulsd	%xmm0, %xmm0
-	divsd	%xmm0, %xmm1
-je_cont.11649:
-	movsd	%xmm1, 0(%ecx)
-	movsd	8(%ecx), %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm0, %xmm1
-	jne	je_else.11652
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	jmp	je_cont.11653
-je_else.11652:
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.11654
-	movl	$l.10794, %eax
-	movsd	0(%eax), %xmm1
-	jmp	jbe_cont.11655
-jbe_else.11654:
-	movl	$l.10792, %eax
-	movsd	0(%eax), %xmm1
-jbe_cont.11655:
-	mulsd	%xmm0, %xmm0
-	divsd	%xmm0, %xmm1
-je_cont.11653:
-	movsd	%xmm1, 8(%ecx)
-	movsd	16(%ecx), %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm0, %xmm1
-	jne	je_else.11656
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	jmp	je_cont.11657
-je_else.11656:
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.11658
-	movl	$l.10794, %eax
-	movsd	0(%eax), %xmm1
-	jmp	jbe_cont.11659
-jbe_else.11658:
-	movl	$l.10792, %eax
-	movsd	0(%eax), %xmm1
-jbe_cont.11659:
-	mulsd	%xmm0, %xmm0
-	divsd	%xmm0, %xmm1
-je_cont.11657:
-	movsd	%xmm1, 16(%ecx)
-	jmp	je_cont.11647
-je_else.11646:
-	cmpl	$2, %ebx
-	jne	je_else.11660
-	movl	40(%ebp), %eax
-	cmpl	$0, %eax
-	jne	je_else.11662
-	movl	$1, %eax
-	jmp	je_cont.11663
-je_else.11662:
-	movl	$0, %eax
-je_cont.11663:
-	movsd	0(%ecx), %xmm0
-	mulsd	%xmm0, %xmm0
-	movsd	8(%ecx), %xmm1
-	mulsd	%xmm1, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ecx), %xmm1
-	mulsd	%xmm1, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	%eax, 56(%ebp)
-	addl	$64, %ebp
-	call	min_caml_sqrt
-	subl	$64, %ebp
-	movl	56(%ebp), %eax
-	cmpl	$0, %eax
-	jne	je_else.11664
-	jmp	je_cont.11665
-je_else.11664:
-	xorpd	min_caml_fnegd, %xmm0
-je_cont.11665:
-	movl	20(%ebp), %eax
-	movsd	0(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movsd	8(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 8(%eax)
-	movsd	16(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 16(%eax)
-	jmp	je_cont.11661
-je_else.11660:
-je_cont.11661:
-je_cont.11647:
-	movl	16(%ebp), %eax
-	cmpl	$0, %eax
-	jne	je_else.11666
-	jmp	je_cont.11667
-je_else.11666:
-	movl	$min_caml_cs_temp, %eax
-	movl	52(%ebp), %ebx
-	movsd	0(%ebx), %xmm0
-	movl	%eax, 60(%ebp)
-	addl	$64, %ebp
-	call	min_caml_cos
-	subl	$64, %ebp
-	movl	60(%ebp), %eax
-	movsd	%xmm0, 80(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	52(%ebp), %ebx
-	movsd	0(%ebx), %xmm0
-	movl	%eax, 64(%ebp)
-	addl	$72, %ebp
-	call	min_caml_sin
-	subl	$72, %ebp
-	movl	64(%ebp), %eax
-	movsd	%xmm0, 88(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	52(%ebp), %ebx
-	movsd	8(%ebx), %xmm0
-	movl	%eax, 68(%ebp)
-	addl	$72, %ebp
-	call	min_caml_cos
-	subl	$72, %ebp
-	movl	68(%ebp), %eax
-	movsd	%xmm0, 96(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	52(%ebp), %ebx
-	movsd	8(%ebx), %xmm0
-	movl	%eax, 72(%ebp)
-	addl	$80, %ebp
-	call	min_caml_sin
-	subl	$80, %ebp
-	movl	72(%ebp), %eax
-	movsd	%xmm0, 104(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	52(%ebp), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	%eax, 76(%ebp)
-	addl	$80, %ebp
-	call	min_caml_cos
-	subl	$80, %ebp
-	movl	76(%ebp), %eax
-	movsd	%xmm0, 112(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	52(%ebp), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	%eax, 80(%ebp)
-	addl	$88, %ebp
-	call	min_caml_sin
-	subl	$88, %ebp
-	movl	80(%ebp), %eax
-	movsd	%xmm0, 120(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	96(%ebx), %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	112(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	88(%ebx), %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	104(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	112(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	80(%ebx), %xmm1
-	movl	$min_caml_cs_temp, %ebx
-	movsd	120(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	80(%ebx), %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	104(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	112(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	88(%ebx), %xmm1
-	movl	$min_caml_cs_temp, %ebx
-	movsd	120(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	96(%ebx), %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	120(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 24(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	88(%ebx), %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	104(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	120(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	80(%ebx), %xmm1
-	movl	$min_caml_cs_temp, %ebx
-	movsd	112(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 32(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	80(%ebx), %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	104(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	120(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	88(%ebx), %xmm1
-	movl	$min_caml_cs_temp, %ebx
-	movsd	112(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 40(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	104(%ebx), %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	movsd	%xmm0, 48(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	88(%ebx), %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	96(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 56(%eax)
-	movl	$min_caml_cs_temp, %eax
-	movl	$min_caml_cs_temp, %ebx
-	movsd	80(%ebx), %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	96(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 64(%eax)
-	movl	20(%ebp), %eax
-	movsd	0(%eax), %xmm0
-	movsd	8(%eax), %xmm1
-	movsd	16(%eax), %xmm2
-	movl	$min_caml_cs_temp, %ebx
-	movsd	0(%ebx), %xmm3
-	mulsd	%xmm3, %xmm3
-	mulsd	%xmm0, %xmm3
-	movl	$min_caml_cs_temp, %ebx
-	movsd	24(%ebx), %xmm4
-	mulsd	%xmm4, %xmm4
-	mulsd	%xmm1, %xmm4
-	addsd	%xmm4, %xmm3
-	movl	$min_caml_cs_temp, %ebx
-	movsd	48(%ebx), %xmm4
-	mulsd	%xmm4, %xmm4
-	mulsd	%xmm2, %xmm4
-	addsd	%xmm4, %xmm3
-	movsd	%xmm3, 0(%eax)
-	movl	$min_caml_cs_temp, %ebx
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm3
-	mulsd	%xmm0, %xmm3
-	movl	$min_caml_cs_temp, %ebx
-	movsd	32(%ebx), %xmm4
-	mulsd	%xmm4, %xmm4
-	mulsd	%xmm1, %xmm4
-	addsd	%xmm4, %xmm3
-	movl	$min_caml_cs_temp, %ebx
-	movsd	56(%ebx), %xmm4
-	mulsd	%xmm4, %xmm4
-	mulsd	%xmm2, %xmm4
-	addsd	%xmm4, %xmm3
-	movsd	%xmm3, 8(%eax)
-	movl	$min_caml_cs_temp, %ebx
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm3
-	mulsd	%xmm0, %xmm3
-	movl	$min_caml_cs_temp, %ebx
-	movsd	40(%ebx), %xmm4
-	mulsd	%xmm4, %xmm4
-	mulsd	%xmm1, %xmm4
-	addsd	%xmm4, %xmm3
-	movl	$min_caml_cs_temp, %ebx
-	movsd	64(%ebx), %xmm4
-	mulsd	%xmm4, %xmm4
-	mulsd	%xmm2, %xmm4
-	addsd	%xmm4, %xmm3
-	movsd	%xmm3, 16(%eax)
-	movl	$l.10807, %eax
-	movsd	0(%eax), %xmm3
-	movl	$min_caml_cs_temp, %eax
-	movsd	8(%eax), %xmm4
-	mulsd	%xmm0, %xmm4
-	movl	$min_caml_cs_temp, %eax
-	movsd	16(%eax), %xmm5
-	mulsd	%xmm5, %xmm4
-	movl	$min_caml_cs_temp, %eax
-	movsd	32(%eax), %xmm5
-	mulsd	%xmm1, %xmm5
-	movl	$min_caml_cs_temp, %eax
-	movsd	40(%eax), %xmm6
-	mulsd	%xmm6, %xmm5
-	addsd	%xmm5, %xmm4
-	movl	$min_caml_cs_temp, %eax
-	movsd	56(%eax), %xmm5
-	mulsd	%xmm2, %xmm5
-	movl	$min_caml_cs_temp, %eax
-	movsd	64(%eax), %xmm6
-	mulsd	%xmm6, %xmm5
-	addsd	%xmm5, %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	52(%ebp), %eax
-	movsd	%xmm3, 0(%eax)
-	movl	$l.10807, %ebx
-	movsd	0(%ebx), %xmm3
-	movl	$min_caml_cs_temp, %ebx
-	movsd	0(%ebx), %xmm4
-	mulsd	%xmm0, %xmm4
-	movl	$min_caml_cs_temp, %ebx
-	movsd	16(%ebx), %xmm5
-	mulsd	%xmm5, %xmm4
-	movl	$min_caml_cs_temp, %ebx
-	movsd	24(%ebx), %xmm5
-	mulsd	%xmm1, %xmm5
-	movl	$min_caml_cs_temp, %ebx
-	movsd	40(%ebx), %xmm6
-	mulsd	%xmm6, %xmm5
-	addsd	%xmm5, %xmm4
-	movl	$min_caml_cs_temp, %ebx
-	movsd	48(%ebx), %xmm5
-	mulsd	%xmm2, %xmm5
-	movl	$min_caml_cs_temp, %ebx
-	movsd	64(%ebx), %xmm6
-	mulsd	%xmm6, %xmm5
-	addsd	%xmm5, %xmm4
-	mulsd	%xmm4, %xmm3
-	movsd	%xmm3, 8(%eax)
-	movl	$l.10807, %ebx
-	movsd	0(%ebx), %xmm3
-	movl	$min_caml_cs_temp, %ebx
-	movsd	0(%ebx), %xmm4
-	mulsd	%xmm4, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	8(%ebx), %xmm4
-	mulsd	%xmm4, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	24(%ebx), %xmm4
-	mulsd	%xmm4, %xmm1
-	movl	$min_caml_cs_temp, %ebx
-	movsd	32(%ebx), %xmm4
-	mulsd	%xmm4, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$min_caml_cs_temp, %ebx
-	movsd	48(%ebx), %xmm1
-	mulsd	%xmm1, %xmm2
-	movl	$min_caml_cs_temp, %ebx
-	movsd	56(%ebx), %xmm1
-	mulsd	%xmm1, %xmm2
-	addsd	%xmm2, %xmm0
-	mulsd	%xmm0, %xmm3
-	movsd	%xmm3, 16(%eax)
-je_cont.11667:
-	movl	$1, %eax
-	ret
-read_object.2033:
-	cmpl	$61, %eax
-	jl	jge_else.11668
-	ret
-jge_else.11668:
-	movl	%eax, 0(%ebp)
-	addl	$8, %ebp
-	call	read_nth_object.2031
-	subl	$8, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11670
-	ret
-je_else.11670:
-	movl	0(%ebp), %eax
-	addl	$1, %eax
-	cmpl	$61, %eax
-	jl	jge_else.11672
-	ret
-jge_else.11672:
-	movl	%eax, 4(%ebp)
-	addl	$8, %ebp
-	call	read_nth_object.2031
-	subl	$8, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11674
-	ret
-je_else.11674:
-	movl	4(%ebp), %eax
-	addl	$1, %eax
-	cmpl	$61, %eax
-	jl	jge_else.11676
-	ret
-jge_else.11676:
-	movl	%eax, 8(%ebp)
-	addl	$16, %ebp
-	call	read_nth_object.2031
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11678
-	ret
-je_else.11678:
-	movl	8(%ebp), %eax
-	addl	$1, %eax
-	cmpl	$61, %eax
-	jl	jge_else.11680
-	ret
-jge_else.11680:
-	movl	%eax, 12(%ebp)
-	addl	$16, %ebp
-	call	read_nth_object.2031
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11682
-	ret
-je_else.11682:
-	movl	12(%ebp), %eax
-	addl	$1, %eax
-	cmpl	$61, %eax
-	jl	jge_else.11684
-	ret
-jge_else.11684:
-	movl	%eax, 16(%ebp)
-	addl	$24, %ebp
-	call	read_nth_object.2031
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11686
-	ret
-je_else.11686:
-	movl	16(%ebp), %eax
-	addl	$1, %eax
-	cmpl	$61, %eax
-	jl	jge_else.11688
-	ret
-jge_else.11688:
-	movl	%eax, 20(%ebp)
-	addl	$24, %ebp
-	call	read_nth_object.2031
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11690
-	ret
-je_else.11690:
-	movl	20(%ebp), %eax
-	addl	$1, %eax
-	cmpl	$61, %eax
-	jl	jge_else.11692
-	ret
-jge_else.11692:
-	movl	%eax, 24(%ebp)
-	addl	$32, %ebp
-	call	read_nth_object.2031
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11694
-	ret
-je_else.11694:
-	movl	24(%ebp), %eax
-	addl	$1, %eax
-	cmpl	$61, %eax
-	jl	jge_else.11696
-	ret
-jge_else.11696:
-	movl	%eax, 28(%ebp)
-	addl	$32, %ebp
-	call	read_nth_object.2031
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11698
-	ret
-je_else.11698:
-	movl	28(%ebp), %eax
-	addl	$1, %eax
-	jmp	read_object.2033
-read_net_item.2037:
-	movl	%eax, 0(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11700
-	movl	0(%ebp), %eax
-	addl	$1, %eax
-	movl	$-1, %ebx
-	jmp	min_caml_create_array
-je_else.11700:
-	movl	0(%ebp), %ebx
-	movl	%ebx, %ecx
-	addl	$1, %ecx
-	movl	%eax, 4(%ebp)
-	movl	%ecx, 8(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_int
-	subl	$16, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11701
-	movl	8(%ebp), %eax
-	addl	$1, %eax
-	movl	$-1, %ebx
-	addl	$16, %ebp
-	call	min_caml_create_array
-	subl	$16, %ebp
-	jmp	je_cont.11702
-je_else.11701:
-	movl	8(%ebp), %ebx
-	movl	%ebx, %ecx
-	addl	$1, %ecx
-	movl	%eax, 12(%ebp)
-	movl	%ecx, 16(%ebp)
-	addl	$24, %ebp
-	call	min_caml_read_int
-	subl	$24, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11703
-	movl	16(%ebp), %eax
-	addl	$1, %eax
-	movl	$-1, %ebx
-	addl	$24, %ebp
-	call	min_caml_create_array
-	subl	$24, %ebp
-	jmp	je_cont.11704
-je_else.11703:
-	movl	16(%ebp), %ebx
-	movl	%ebx, %ecx
-	addl	$1, %ecx
-	movl	%eax, 20(%ebp)
-	movl	%ecx, 24(%ebp)
-	addl	$32, %ebp
-	call	min_caml_read_int
-	subl	$32, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11705
-	movl	24(%ebp), %eax
-	addl	$1, %eax
-	movl	$-1, %ebx
-	addl	$32, %ebp
-	call	min_caml_create_array
-	subl	$32, %ebp
-	jmp	je_cont.11706
-je_else.11705:
-	movl	24(%ebp), %ebx
-	movl	%ebx, %ecx
-	addl	$1, %ecx
-	movl	%eax, 28(%ebp)
-	movl	%ecx, 32(%ebp)
-	addl	$40, %ebp
-	call	min_caml_read_int
-	subl	$40, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11707
-	movl	32(%ebp), %eax
-	addl	$1, %eax
-	movl	$-1, %ebx
-	addl	$40, %ebp
-	call	min_caml_create_array
-	subl	$40, %ebp
-	jmp	je_cont.11708
-je_else.11707:
-	movl	32(%ebp), %ebx
-	movl	%ebx, %ecx
-	addl	$1, %ecx
-	movl	%eax, 36(%ebp)
-	movl	%ecx, 40(%ebp)
-	addl	$48, %ebp
-	call	min_caml_read_int
-	subl	$48, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11709
-	movl	40(%ebp), %eax
-	addl	$1, %eax
-	movl	$-1, %ebx
-	addl	$48, %ebp
-	call	min_caml_create_array
-	subl	$48, %ebp
-	jmp	je_cont.11710
-je_else.11709:
-	movl	40(%ebp), %ebx
-	movl	%ebx, %ecx
-	addl	$1, %ecx
-	movl	%eax, 44(%ebp)
-	movl	%ecx, 48(%ebp)
-	addl	$56, %ebp
-	call	min_caml_read_int
-	subl	$56, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11711
-	movl	48(%ebp), %eax
-	addl	$1, %eax
-	movl	$-1, %ebx
-	addl	$56, %ebp
-	call	min_caml_create_array
-	subl	$56, %ebp
-	jmp	je_cont.11712
-je_else.11711:
-	movl	48(%ebp), %ebx
-	movl	%ebx, %ecx
-	addl	$1, %ecx
-	movl	%eax, 52(%ebp)
-	movl	%ecx, 56(%ebp)
-	addl	$64, %ebp
-	call	min_caml_read_int
-	subl	$64, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11713
-	movl	56(%ebp), %eax
-	addl	$1, %eax
-	movl	$-1, %ebx
-	addl	$64, %ebp
-	call	min_caml_create_array
-	subl	$64, %ebp
-	jmp	je_cont.11714
-je_else.11713:
-	movl	56(%ebp), %ebx
-	movl	%ebx, %ecx
-	addl	$1, %ecx
-	movl	%eax, 60(%ebp)
-	movl	%ecx, %eax
-	addl	$64, %ebp
-	call	read_net_item.2037
-	subl	$64, %ebp
-	movl	56(%ebp), %ebx
-	movl	60(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11714:
-	movl	48(%ebp), %ebx
-	movl	52(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11712:
-	movl	40(%ebp), %ebx
-	movl	44(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11710:
-	movl	32(%ebp), %ebx
-	movl	36(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11708:
-	movl	24(%ebp), %ebx
-	movl	28(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11706:
-	movl	16(%ebp), %ebx
-	movl	20(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11704:
-	movl	8(%ebp), %ebx
-	movl	12(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11702:
-	movl	0(%ebp), %ebx
-	movl	4(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-	ret
-read_or_network.2039:
-	movl	%eax, 0(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11715
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$8, %ebp
-	call	min_caml_create_array
-	subl	$8, %ebp
-	movl	%eax, %ebx
-	jmp	je_cont.11716
-je_else.11715:
-	movl	%eax, 4(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11717
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$8, %ebp
-	call	min_caml_create_array
-	subl	$8, %ebp
-	jmp	je_cont.11718
-je_else.11717:
-	movl	%eax, 8(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_int
-	subl	$16, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11719
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$16, %ebp
-	call	min_caml_create_array
-	subl	$16, %ebp
-	jmp	je_cont.11720
-je_else.11719:
-	movl	%eax, 12(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_int
-	subl	$16, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11721
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$16, %ebp
-	call	min_caml_create_array
-	subl	$16, %ebp
-	jmp	je_cont.11722
-je_else.11721:
-	movl	%eax, 16(%ebp)
-	addl	$24, %ebp
-	call	min_caml_read_int
-	subl	$24, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11723
-	movl	$5, %eax
-	movl	$-1, %ebx
-	addl	$24, %ebp
-	call	min_caml_create_array
-	subl	$24, %ebp
-	jmp	je_cont.11724
-je_else.11723:
-	movl	%eax, 20(%ebp)
-	addl	$24, %ebp
-	call	min_caml_read_int
-	subl	$24, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11725
-	movl	$6, %eax
-	movl	$-1, %ebx
-	addl	$24, %ebp
-	call	min_caml_create_array
-	subl	$24, %ebp
-	jmp	je_cont.11726
-je_else.11725:
-	movl	%eax, 24(%ebp)
-	addl	$32, %ebp
-	call	min_caml_read_int
-	subl	$32, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11727
-	movl	$7, %eax
-	movl	$-1, %ebx
-	addl	$32, %ebp
-	call	min_caml_create_array
-	subl	$32, %ebp
-	jmp	je_cont.11728
-je_else.11727:
-	movl	$7, %ebx
-	movl	%eax, 28(%ebp)
-	movl	%ebx, %eax
-	addl	$32, %ebp
-	call	read_net_item.2037
-	subl	$32, %ebp
-	movl	28(%ebp), %ebx
-	movl	%ebx, 24(%eax)
-je_cont.11728:
-	movl	24(%ebp), %ebx
-	movl	%ebx, 20(%eax)
-je_cont.11726:
-	movl	20(%ebp), %ebx
-	movl	%ebx, 16(%eax)
-je_cont.11724:
-	movl	16(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.11722:
-	movl	12(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.11720:
-	movl	8(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.11718:
-	movl	4(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-	movl	%eax, %ebx
-je_cont.11716:
-	movl	0(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.11729
-	movl	0(%ebp), %eax
-	addl	$1, %eax
-	jmp	min_caml_create_array
-je_else.11729:
-	movl	0(%ebp), %eax
-	movl	%eax, %ecx
-	addl	$1, %ecx
-	movl	%ebx, 32(%ebp)
-	movl	%ecx, 36(%ebp)
-	addl	$40, %ebp
-	call	min_caml_read_int
-	subl	$40, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11730
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$40, %ebp
-	call	min_caml_create_array
-	subl	$40, %ebp
-	movl	%eax, %ebx
-	jmp	je_cont.11731
-je_else.11730:
-	movl	%eax, 40(%ebp)
-	addl	$48, %ebp
-	call	min_caml_read_int
-	subl	$48, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11732
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$48, %ebp
-	call	min_caml_create_array
-	subl	$48, %ebp
-	jmp	je_cont.11733
-je_else.11732:
-	movl	%eax, 44(%ebp)
-	addl	$48, %ebp
-	call	min_caml_read_int
-	subl	$48, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11734
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$48, %ebp
-	call	min_caml_create_array
-	subl	$48, %ebp
-	jmp	je_cont.11735
-je_else.11734:
-	movl	%eax, 48(%ebp)
-	addl	$56, %ebp
-	call	min_caml_read_int
-	subl	$56, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11736
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$56, %ebp
-	call	min_caml_create_array
-	subl	$56, %ebp
-	jmp	je_cont.11737
-je_else.11736:
-	movl	%eax, 52(%ebp)
-	addl	$56, %ebp
-	call	min_caml_read_int
-	subl	$56, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11738
-	movl	$5, %eax
-	movl	$-1, %ebx
-	addl	$56, %ebp
-	call	min_caml_create_array
-	subl	$56, %ebp
-	jmp	je_cont.11739
-je_else.11738:
-	movl	%eax, 56(%ebp)
-	addl	$64, %ebp
-	call	min_caml_read_int
-	subl	$64, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11740
-	movl	$6, %eax
-	movl	$-1, %ebx
-	addl	$64, %ebp
-	call	min_caml_create_array
-	subl	$64, %ebp
-	jmp	je_cont.11741
-je_else.11740:
-	movl	$6, %ebx
-	movl	%eax, 60(%ebp)
-	movl	%ebx, %eax
-	addl	$64, %ebp
-	call	read_net_item.2037
-	subl	$64, %ebp
-	movl	60(%ebp), %ebx
-	movl	%ebx, 20(%eax)
-je_cont.11741:
-	movl	56(%ebp), %ebx
-	movl	%ebx, 16(%eax)
-je_cont.11739:
-	movl	52(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.11737:
-	movl	48(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.11735:
-	movl	44(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.11733:
-	movl	40(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-	movl	%eax, %ebx
-je_cont.11731:
-	movl	0(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.11742
-	movl	36(%ebp), %eax
-	addl	$1, %eax
-	addl	$64, %ebp
-	call	min_caml_create_array
-	subl	$64, %ebp
-	jmp	je_cont.11743
-je_else.11742:
-	movl	36(%ebp), %eax
-	movl	%eax, %ecx
-	addl	$1, %ecx
-	movl	%ebx, 64(%ebp)
-	movl	%ecx, 68(%ebp)
-	addl	$72, %ebp
-	call	min_caml_read_int
-	subl	$72, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11744
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$72, %ebp
-	call	min_caml_create_array
-	subl	$72, %ebp
-	movl	%eax, %ebx
-	jmp	je_cont.11745
-je_else.11744:
-	movl	%eax, 72(%ebp)
-	addl	$80, %ebp
-	call	min_caml_read_int
-	subl	$80, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11746
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$80, %ebp
-	call	min_caml_create_array
-	subl	$80, %ebp
-	jmp	je_cont.11747
-je_else.11746:
-	movl	%eax, 76(%ebp)
-	addl	$80, %ebp
-	call	min_caml_read_int
-	subl	$80, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11748
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$80, %ebp
-	call	min_caml_create_array
-	subl	$80, %ebp
-	jmp	je_cont.11749
-je_else.11748:
-	movl	%eax, 80(%ebp)
-	addl	$88, %ebp
-	call	min_caml_read_int
-	subl	$88, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11750
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$88, %ebp
-	call	min_caml_create_array
-	subl	$88, %ebp
-	jmp	je_cont.11751
-je_else.11750:
-	movl	%eax, 84(%ebp)
-	addl	$88, %ebp
-	call	min_caml_read_int
-	subl	$88, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11752
-	movl	$5, %eax
-	movl	$-1, %ebx
-	addl	$88, %ebp
-	call	min_caml_create_array
-	subl	$88, %ebp
-	jmp	je_cont.11753
-je_else.11752:
-	movl	$5, %ebx
-	movl	%eax, 88(%ebp)
-	movl	%ebx, %eax
-	addl	$96, %ebp
-	call	read_net_item.2037
-	subl	$96, %ebp
-	movl	88(%ebp), %ebx
-	movl	%ebx, 16(%eax)
-je_cont.11753:
-	movl	84(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.11751:
-	movl	80(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.11749:
-	movl	76(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.11747:
-	movl	72(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-	movl	%eax, %ebx
-je_cont.11745:
-	movl	0(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.11754
-	movl	68(%ebp), %eax
-	addl	$1, %eax
-	addl	$96, %ebp
-	call	min_caml_create_array
-	subl	$96, %ebp
-	jmp	je_cont.11755
-je_else.11754:
-	movl	68(%ebp), %eax
-	movl	%eax, %ecx
-	addl	$1, %ecx
-	movl	%ebx, 92(%ebp)
-	movl	%ecx, 96(%ebp)
-	addl	$104, %ebp
-	call	min_caml_read_int
-	subl	$104, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11756
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$104, %ebp
-	call	min_caml_create_array
-	subl	$104, %ebp
-	movl	%eax, %ebx
-	jmp	je_cont.11757
-je_else.11756:
-	movl	%eax, 100(%ebp)
-	addl	$104, %ebp
-	call	min_caml_read_int
-	subl	$104, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11758
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$104, %ebp
-	call	min_caml_create_array
-	subl	$104, %ebp
-	jmp	je_cont.11759
-je_else.11758:
-	movl	%eax, 104(%ebp)
-	addl	$112, %ebp
-	call	min_caml_read_int
-	subl	$112, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11760
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$112, %ebp
-	call	min_caml_create_array
-	subl	$112, %ebp
-	jmp	je_cont.11761
-je_else.11760:
-	movl	%eax, 108(%ebp)
-	addl	$112, %ebp
-	call	min_caml_read_int
-	subl	$112, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11762
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$112, %ebp
-	call	min_caml_create_array
-	subl	$112, %ebp
-	jmp	je_cont.11763
-je_else.11762:
-	movl	$4, %ebx
-	movl	%eax, 112(%ebp)
-	movl	%ebx, %eax
-	addl	$120, %ebp
-	call	read_net_item.2037
-	subl	$120, %ebp
-	movl	112(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.11763:
-	movl	108(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.11761:
-	movl	104(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.11759:
-	movl	100(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-	movl	%eax, %ebx
-je_cont.11757:
-	movl	0(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.11764
-	movl	96(%ebp), %eax
-	addl	$1, %eax
-	addl	$120, %ebp
-	call	min_caml_create_array
-	subl	$120, %ebp
-	jmp	je_cont.11765
-je_else.11764:
-	movl	96(%ebp), %eax
-	movl	%eax, %ecx
-	addl	$1, %ecx
-	movl	%ebx, 116(%ebp)
-	movl	%ecx, %eax
-	addl	$120, %ebp
-	call	read_or_network.2039
-	subl	$120, %ebp
-	movl	96(%ebp), %ebx
-	movl	116(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11765:
-	movl	68(%ebp), %ebx
-	movl	92(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11755:
-	movl	36(%ebp), %ebx
-	movl	64(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-je_cont.11743:
-	movl	0(%ebp), %ebx
-	movl	32(%ebp), %ecx
-	movl	%ecx, (%eax,%ebx,4)
-	ret
-read_and_network.2041:
-	movl	%eax, 0(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11766
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$8, %ebp
-	call	min_caml_create_array
-	subl	$8, %ebp
-	jmp	je_cont.11767
-je_else.11766:
-	movl	%eax, 4(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11768
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$8, %ebp
-	call	min_caml_create_array
-	subl	$8, %ebp
-	jmp	je_cont.11769
-je_else.11768:
-	movl	%eax, 8(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_int
-	subl	$16, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11770
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$16, %ebp
-	call	min_caml_create_array
-	subl	$16, %ebp
-	jmp	je_cont.11771
-je_else.11770:
-	movl	%eax, 12(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_int
-	subl	$16, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11772
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$16, %ebp
-	call	min_caml_create_array
-	subl	$16, %ebp
-	jmp	je_cont.11773
-je_else.11772:
-	movl	%eax, 16(%ebp)
-	addl	$24, %ebp
-	call	min_caml_read_int
-	subl	$24, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11774
-	movl	$5, %eax
-	movl	$-1, %ebx
-	addl	$24, %ebp
-	call	min_caml_create_array
-	subl	$24, %ebp
-	jmp	je_cont.11775
-je_else.11774:
-	movl	%eax, 20(%ebp)
-	addl	$24, %ebp
-	call	min_caml_read_int
-	subl	$24, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11776
-	movl	$6, %eax
-	movl	$-1, %ebx
-	addl	$24, %ebp
-	call	min_caml_create_array
-	subl	$24, %ebp
-	jmp	je_cont.11777
-je_else.11776:
-	movl	%eax, 24(%ebp)
-	addl	$32, %ebp
-	call	min_caml_read_int
-	subl	$32, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11778
-	movl	$7, %eax
-	movl	$-1, %ebx
-	addl	$32, %ebp
-	call	min_caml_create_array
-	subl	$32, %ebp
-	jmp	je_cont.11779
-je_else.11778:
-	movl	$7, %ebx
-	movl	%eax, 28(%ebp)
-	movl	%ebx, %eax
-	addl	$32, %ebp
-	call	read_net_item.2037
-	subl	$32, %ebp
-	movl	28(%ebp), %ebx
-	movl	%ebx, 24(%eax)
-je_cont.11779:
-	movl	24(%ebp), %ebx
-	movl	%ebx, 20(%eax)
-je_cont.11777:
-	movl	20(%ebp), %ebx
-	movl	%ebx, 16(%eax)
-je_cont.11775:
-	movl	16(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.11773:
-	movl	12(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.11771:
-	movl	8(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.11769:
-	movl	4(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-je_cont.11767:
-	movl	0(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.11780
-	ret
-je_else.11780:
-	movl	$min_caml_and_net, %ebx
-	movl	0(%ebp), %ecx
-	movl	%eax, (%ebx,%ecx,4)
-	addl	$1, %ecx
-	movl	%ecx, 32(%ebp)
-	addl	$40, %ebp
-	call	min_caml_read_int
-	subl	$40, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11782
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$40, %ebp
-	call	min_caml_create_array
-	subl	$40, %ebp
-	jmp	je_cont.11783
-je_else.11782:
-	movl	%eax, 36(%ebp)
-	addl	$40, %ebp
-	call	min_caml_read_int
-	subl	$40, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11784
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$40, %ebp
-	call	min_caml_create_array
-	subl	$40, %ebp
-	jmp	je_cont.11785
-je_else.11784:
-	movl	%eax, 40(%ebp)
-	addl	$48, %ebp
-	call	min_caml_read_int
-	subl	$48, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11786
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$48, %ebp
-	call	min_caml_create_array
-	subl	$48, %ebp
-	jmp	je_cont.11787
-je_else.11786:
-	movl	%eax, 44(%ebp)
-	addl	$48, %ebp
-	call	min_caml_read_int
-	subl	$48, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11788
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$48, %ebp
-	call	min_caml_create_array
-	subl	$48, %ebp
-	jmp	je_cont.11789
-je_else.11788:
-	movl	%eax, 48(%ebp)
-	addl	$56, %ebp
-	call	min_caml_read_int
-	subl	$56, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11790
-	movl	$5, %eax
-	movl	$-1, %ebx
-	addl	$56, %ebp
-	call	min_caml_create_array
-	subl	$56, %ebp
-	jmp	je_cont.11791
-je_else.11790:
-	movl	%eax, 52(%ebp)
-	addl	$56, %ebp
-	call	min_caml_read_int
-	subl	$56, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11792
-	movl	$6, %eax
-	movl	$-1, %ebx
-	addl	$56, %ebp
-	call	min_caml_create_array
-	subl	$56, %ebp
-	jmp	je_cont.11793
-je_else.11792:
-	movl	$6, %ebx
-	movl	%eax, 56(%ebp)
-	movl	%ebx, %eax
-	addl	$64, %ebp
-	call	read_net_item.2037
-	subl	$64, %ebp
-	movl	56(%ebp), %ebx
-	movl	%ebx, 20(%eax)
-je_cont.11793:
-	movl	52(%ebp), %ebx
-	movl	%ebx, 16(%eax)
-je_cont.11791:
-	movl	48(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.11789:
-	movl	44(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.11787:
-	movl	40(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.11785:
-	movl	36(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-je_cont.11783:
-	movl	0(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.11794
-	ret
-je_else.11794:
-	movl	$min_caml_and_net, %ebx
-	movl	32(%ebp), %ecx
-	movl	%eax, (%ebx,%ecx,4)
-	addl	$1, %ecx
-	movl	%ecx, 60(%ebp)
-	addl	$64, %ebp
-	call	min_caml_read_int
-	subl	$64, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11796
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$64, %ebp
-	call	min_caml_create_array
-	subl	$64, %ebp
-	jmp	je_cont.11797
-je_else.11796:
-	movl	%eax, 64(%ebp)
-	addl	$72, %ebp
-	call	min_caml_read_int
-	subl	$72, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11798
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$72, %ebp
-	call	min_caml_create_array
-	subl	$72, %ebp
-	jmp	je_cont.11799
-je_else.11798:
-	movl	%eax, 68(%ebp)
-	addl	$72, %ebp
-	call	min_caml_read_int
-	subl	$72, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11800
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$72, %ebp
-	call	min_caml_create_array
-	subl	$72, %ebp
-	jmp	je_cont.11801
-je_else.11800:
-	movl	%eax, 72(%ebp)
-	addl	$80, %ebp
-	call	min_caml_read_int
-	subl	$80, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11802
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$80, %ebp
-	call	min_caml_create_array
-	subl	$80, %ebp
-	jmp	je_cont.11803
-je_else.11802:
-	movl	%eax, 76(%ebp)
-	addl	$80, %ebp
-	call	min_caml_read_int
-	subl	$80, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11804
-	movl	$5, %eax
-	movl	$-1, %ebx
-	addl	$80, %ebp
-	call	min_caml_create_array
-	subl	$80, %ebp
-	jmp	je_cont.11805
-je_else.11804:
-	movl	$5, %ebx
-	movl	%eax, 80(%ebp)
-	movl	%ebx, %eax
-	addl	$88, %ebp
-	call	read_net_item.2037
-	subl	$88, %ebp
-	movl	80(%ebp), %ebx
-	movl	%ebx, 16(%eax)
-je_cont.11805:
-	movl	76(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.11803:
-	movl	72(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.11801:
-	movl	68(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.11799:
-	movl	64(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-je_cont.11797:
-	movl	0(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.11806
-	ret
-je_else.11806:
-	movl	$min_caml_and_net, %ebx
-	movl	60(%ebp), %ecx
-	movl	%eax, (%ebx,%ecx,4)
-	addl	$1, %ecx
-	movl	%ecx, 84(%ebp)
-	addl	$88, %ebp
-	call	min_caml_read_int
-	subl	$88, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11808
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$88, %ebp
-	call	min_caml_create_array
-	subl	$88, %ebp
-	jmp	je_cont.11809
-je_else.11808:
-	movl	%eax, 88(%ebp)
-	addl	$96, %ebp
-	call	min_caml_read_int
-	subl	$96, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11810
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$96, %ebp
-	call	min_caml_create_array
-	subl	$96, %ebp
-	jmp	je_cont.11811
-je_else.11810:
-	movl	%eax, 92(%ebp)
-	addl	$96, %ebp
-	call	min_caml_read_int
-	subl	$96, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11812
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$96, %ebp
-	call	min_caml_create_array
-	subl	$96, %ebp
-	jmp	je_cont.11813
-je_else.11812:
-	movl	%eax, 96(%ebp)
-	addl	$104, %ebp
-	call	min_caml_read_int
-	subl	$104, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.11814
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$104, %ebp
-	call	min_caml_create_array
-	subl	$104, %ebp
-	jmp	je_cont.11815
-je_else.11814:
-	movl	$4, %ebx
-	movl	%eax, 100(%ebp)
-	movl	%ebx, %eax
-	addl	$104, %ebp
-	call	read_net_item.2037
-	subl	$104, %ebp
-	movl	100(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.11815:
-	movl	96(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.11813:
-	movl	92(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.11811:
-	movl	88(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-je_cont.11809:
-	movl	0(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.11816
-	ret
-je_else.11816:
-	movl	$min_caml_and_net, %ebx
-	movl	84(%ebp), %ecx
-	movl	%eax, (%ebx,%ecx,4)
-	movl	%ecx, %eax
-	addl	$1, %eax
-	jmp	read_and_network.2041
-solver_rect.2045:
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm0
-	movsd	0(%ebx), %xmm1
-	movl	%eax, 0(%ebp)
-	movl	%ebx, 4(%ebp)
-	comisd	%xmm1, %xmm0
-	jne	je_else.11818
-	movl	$0, %eax
-	jmp	je_cont.11819
-je_else.11818:
-	movl	24(%eax), %ecx
-	movl	$l.10769, %edx
-	movsd	0(%edx), %xmm0
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.11820
-	movl	$0, %edx
-	jmp	jbe_cont.11821
-jbe_else.11820:
-	movl	$1, %edx
-jbe_cont.11821:
-	cmpl	$0, %ecx
-	jne	je_else.11822
-	jmp	je_cont.11823
-je_else.11822:
-	cmpl	$0, %edx
-	jne	je_else.11824
-	movl	$1, %edx
-	jmp	je_cont.11825
-je_else.11824:
-	movl	$0, %edx
-je_cont.11825:
-je_cont.11823:
-	cmpl	$0, %edx
-	jne	je_else.11826
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	jmp	je_cont.11827
-je_else.11826:
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm0
-je_cont.11827:
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	0(%ebx), %xmm1
-	divsd	%xmm1, %xmm0
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm1
-	movsd	8(%ebx), %xmm2
-	mulsd	%xmm0, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	8(%ecx), %xmm3
-	addsd	%xmm3, %xmm2
-	movsd	%xmm0, 8(%ebp)
-	movsd	%xmm1, 16(%ebp)
-	movsd	%xmm2, %xmm0
-	addl	$24, %ebp
-	call	min_caml_abs_float
-	subl	$24, %ebp
-	movsd	16(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11828
-	movl	$0, %eax
-	jmp	jbe_cont.11829
-jbe_else.11828:
-	movl	0(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	4(%ebp), %ebx
-	movsd	16(%ebx), %xmm1
-	movsd	8(%ebp), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm3
-	addsd	%xmm3, %xmm1
-	movsd	%xmm0, 24(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$32, %ebp
-	call	min_caml_abs_float
-	subl	$32, %ebp
-	movsd	24(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11830
-	movl	$0, %eax
-	jmp	jbe_cont.11831
-jbe_else.11830:
-	movl	$min_caml_solver_dist, %eax
-	movsd	8(%ebp), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$1, %eax
-jbe_cont.11831:
-jbe_cont.11829:
-je_cont.11819:
-	cmpl	$0, %eax
-	jne	je_else.11832
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm0
-	movl	4(%ebp), %eax
-	movsd	8(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	jne	je_else.11833
-	movl	$0, %eax
-	jmp	je_cont.11834
-je_else.11833:
-	movl	0(%ebp), %ebx
-	movl	24(%ebx), %ecx
-	movl	$l.10769, %edx
-	movsd	0(%edx), %xmm0
-	movsd	8(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.11835
-	movl	$0, %edx
-	jmp	jbe_cont.11836
-jbe_else.11835:
-	movl	$1, %edx
-jbe_cont.11836:
-	cmpl	$0, %ecx
-	jne	je_else.11837
-	jmp	je_cont.11838
-je_else.11837:
-	cmpl	$0, %edx
-	jne	je_else.11839
-	movl	$1, %edx
-	jmp	je_cont.11840
-je_else.11839:
-	movl	$0, %edx
-je_cont.11840:
-je_cont.11838:
-	cmpl	$0, %edx
-	jne	je_else.11841
-	movl	16(%ebx), %ecx
-	movsd	8(%ecx), %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	jmp	je_cont.11842
-je_else.11841:
-	movl	16(%ebx), %ecx
-	movsd	8(%ecx), %xmm0
-je_cont.11842:
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	8(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	8(%eax), %xmm1
-	divsd	%xmm1, %xmm0
-	movl	16(%ebx), %ecx
-	movsd	16(%ecx), %xmm1
-	movsd	16(%eax), %xmm2
-	mulsd	%xmm0, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm3
-	addsd	%xmm3, %xmm2
-	movsd	%xmm0, 32(%ebp)
-	movsd	%xmm1, 40(%ebp)
-	movsd	%xmm2, %xmm0
-	addl	$48, %ebp
-	call	min_caml_abs_float
-	subl	$48, %ebp
-	movsd	40(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11843
-	movl	$0, %eax
-	jmp	jbe_cont.11844
-jbe_else.11843:
-	movl	0(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	0(%ebx), %xmm0
-	movl	4(%ebp), %ebx
-	movsd	0(%ebx), %xmm1
-	movsd	32(%ebp), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm3
-	addsd	%xmm3, %xmm1
-	movsd	%xmm0, 48(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$56, %ebp
-	call	min_caml_abs_float
-	subl	$56, %ebp
-	movsd	48(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11845
-	movl	$0, %eax
-	jmp	jbe_cont.11846
-jbe_else.11845:
-	movl	$min_caml_solver_dist, %eax
-	movsd	32(%ebp), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$1, %eax
-jbe_cont.11846:
-jbe_cont.11844:
-je_cont.11834:
-	cmpl	$0, %eax
-	jne	je_else.11847
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm0
-	movl	4(%ebp), %eax
-	movsd	16(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	jne	je_else.11848
-	movl	$0, %eax
-	jmp	je_cont.11849
-je_else.11848:
-	movl	0(%ebp), %ebx
-	movl	24(%ebx), %ecx
-	movl	$l.10769, %edx
-	movsd	0(%edx), %xmm0
-	movsd	16(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.11850
-	movl	$0, %edx
-	jmp	jbe_cont.11851
-jbe_else.11850:
-	movl	$1, %edx
-jbe_cont.11851:
-	cmpl	$0, %ecx
-	jne	je_else.11852
-	jmp	je_cont.11853
-je_else.11852:
-	cmpl	$0, %edx
-	jne	je_else.11854
-	movl	$1, %edx
-	jmp	je_cont.11855
-je_else.11854:
-	movl	$0, %edx
-je_cont.11855:
-je_cont.11853:
-	cmpl	$0, %edx
-	jne	je_else.11856
-	movl	16(%ebx), %ecx
-	movsd	16(%ecx), %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	jmp	je_cont.11857
-je_else.11856:
-	movl	16(%ebx), %ecx
-	movsd	16(%ecx), %xmm0
-je_cont.11857:
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	16(%eax), %xmm1
-	divsd	%xmm1, %xmm0
-	movl	16(%ebx), %ecx
-	movsd	0(%ecx), %xmm1
-	movsd	0(%eax), %xmm2
-	mulsd	%xmm0, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm3
-	addsd	%xmm3, %xmm2
-	movsd	%xmm0, 56(%ebp)
-	movsd	%xmm1, 64(%ebp)
-	movsd	%xmm2, %xmm0
-	addl	$72, %ebp
-	call	min_caml_abs_float
-	subl	$72, %ebp
-	movsd	64(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11858
-	movl	$0, %eax
-	jmp	jbe_cont.11859
-jbe_else.11858:
-	movl	0(%ebp), %eax
-	movl	16(%eax), %eax
-	movsd	8(%eax), %xmm0
-	movl	4(%ebp), %eax
-	movsd	8(%eax), %xmm1
-	movsd	56(%ebp), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	8(%eax), %xmm3
-	addsd	%xmm3, %xmm1
-	movsd	%xmm0, 72(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$80, %ebp
-	call	min_caml_abs_float
-	subl	$80, %ebp
-	movsd	72(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11860
-	movl	$0, %eax
-	jmp	jbe_cont.11861
-jbe_else.11860:
-	movl	$min_caml_solver_dist, %eax
-	movsd	56(%ebp), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$1, %eax
-jbe_cont.11861:
-jbe_cont.11859:
-je_cont.11849:
-	cmpl	$0, %eax
-	jne	je_else.11862
-	movl	$0, %eax
-	ret
-je_else.11862:
-	movl	$3, %eax
-	ret
-je_else.11847:
-	movl	$2, %eax
-	ret
-je_else.11832:
-	movl	$1, %eax
-	ret
-solver2nd_rot_b.2060:
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm0
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	8(%ecx), %xmm1
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm1
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm2
-	movsd	0(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm1
-	movsd	8(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	8(%ecx), %xmm2
-	movsd	0(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	36(%eax), %eax
-	movsd	16(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	ret
-solver_second.2063:
-	movsd	0(%ebx), %xmm0
-	mulsd	%xmm0, %xmm0
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	movl	16(%eax), %ecx
-	movsd	16(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	12(%eax), %ecx
-	cmpl	$0, %ecx
-	jne	je_else.11863
-	jmp	je_cont.11864
-je_else.11863:
-	movsd	8(%ebx), %xmm1
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movsd	0(%ebx), %xmm2
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	0(%ebx), %xmm2
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%eax), %ecx
-	movsd	16(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-je_cont.11864:
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm1
-	comisd	%xmm0, %xmm1
-	jne	je_else.11865
-	movl	$0, %eax
-	ret
-je_else.11865:
-	movl	$l.10807, %ecx
-	movsd	0(%ecx), %xmm1
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm2
-	movsd	0(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	8(%ecx), %xmm3
-	movsd	8(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm3
-	movsd	16(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	16(%eax), %ecx
-	movsd	16(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	12(%eax), %ecx
-	cmpl	$0, %ecx
-	jne	je_else.11866
-	jmp	je_cont.11867
-je_else.11866:
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm2
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	8(%ecx), %xmm3
-	movsd	16(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm3
-	movsd	16(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm4
-	movsd	0(%ebx), %xmm5
-	mulsd	%xmm5, %xmm4
-	addsd	%xmm4, %xmm3
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm3
-	movsd	8(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	8(%ecx), %xmm4
-	movsd	0(%ebx), %xmm5
-	mulsd	%xmm5, %xmm4
-	addsd	%xmm4, %xmm3
-	movl	36(%eax), %ebx
-	movsd	16(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-je_cont.11867:
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	0(%ebx), %xmm2
-	mulsd	%xmm2, %xmm2
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm3
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm3
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	movl	12(%eax), %ebx
-	cmpl	$0, %ebx
-	jne	je_else.11868
-	jmp	je_cont.11869
-je_else.11868:
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	8(%ebx), %xmm3
-	movsd	16(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movsd	0(%ebx), %xmm4
-	movsd	16(%ebx), %xmm5
-	mulsd	%xmm5, %xmm4
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm5
-	mulsd	%xmm5, %xmm4
-	addsd	%xmm4, %xmm3
-	movsd	0(%ebx), %xmm4
-	movsd	8(%ebx), %xmm5
-	mulsd	%xmm5, %xmm4
-	movl	36(%eax), %ebx
-	movsd	16(%ebx), %xmm5
-	mulsd	%xmm5, %xmm4
-	addsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-je_cont.11869:
-	movl	4(%eax), %ebx
-	cmpl	$3, %ebx
-	jne	je_else.11870
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm3
-	subsd	%xmm3, %xmm2
-	jmp	je_cont.11871
-je_else.11870:
-je_cont.11871:
-	movl	$l.10820, %ebx
-	movsd	0(%ebx), %xmm3
-	mulsd	%xmm0, %xmm3
-	mulsd	%xmm2, %xmm3
-	movsd	%xmm1, %xmm2
-	mulsd	%xmm1, %xmm2
-	subsd	%xmm3, %xmm2
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm3
-	comisd	%xmm3, %xmm2
-	ja	jbe_else.11872
-	movl	$0, %eax
-	ret
-jbe_else.11872:
-	movsd	%xmm0, 0(%ebp)
-	movsd	%xmm1, 8(%ebp)
-	movl	%eax, 16(%ebp)
-	movsd	%xmm2, %xmm0
-	addl	$24, %ebp
-	call	min_caml_sqrt
-	subl	$24, %ebp
-	movl	16(%ebp), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11873
-	xorpd	min_caml_fnegd, %xmm0
-	jmp	je_cont.11874
-je_else.11873:
-je_cont.11874:
-	movl	$min_caml_solver_dist, %eax
-	movsd	8(%ebp), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	$l.10807, %ebx
-	movsd	0(%ebx), %xmm1
-	divsd	%xmm1, %xmm0
-	movsd	0(%ebp), %xmm1
-	divsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$1, %eax
-	ret
-solver.2066:
-	movl	$min_caml_objects, %edx
-	movl	(%edx,%eax,4), %eax
-	movl	$min_caml_solver_w_vec, %edx
-	movsd	0(%ecx), %xmm0
-	movl	20(%eax), %esi
-	movsd	0(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%edx)
-	movl	$min_caml_solver_w_vec, %edx
-	movsd	8(%ecx), %xmm0
-	movl	20(%eax), %esi
-	movsd	8(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%edx)
-	movl	$min_caml_solver_w_vec, %edx
-	movsd	16(%ecx), %xmm0
-	movl	20(%eax), %ecx
-	movsd	16(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%edx)
-	movl	4(%eax), %ecx
-	cmpl	$1, %ecx
-	jne	je_else.11875
-	jmp	solver_rect.2045
-je_else.11875:
-	cmpl	$2, %ecx
-	jne	je_else.11876
-	movsd	0(%ebx), %xmm0
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%ebx), %xmm1
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ebx), %xmm1
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.11877
-	movl	$0, %eax
-	ret
-jbe_else.11877:
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	0(%ebx), %xmm1
-	movl	16(%eax), %ebx
-	movsd	0(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	8(%ebx), %xmm2
-	movl	16(%eax), %ebx
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	16(%ebx), %xmm2
-	movl	16(%eax), %eax
-	movsd	16(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	divsd	%xmm0, %xmm1
-	movl	$min_caml_solver_dist, %eax
-	xorpd	min_caml_fnegd, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$1, %eax
-	ret
-je_else.11876:
-	movsd	0(%ebx), %xmm0
-	mulsd	%xmm0, %xmm0
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	movl	16(%eax), %ecx
-	movsd	16(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	12(%eax), %ecx
-	cmpl	$0, %ecx
-	jne	je_else.11878
-	jmp	je_cont.11879
-je_else.11878:
-	movsd	8(%ebx), %xmm1
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movsd	0(%ebx), %xmm2
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	0(%ebx), %xmm2
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%eax), %ecx
-	movsd	16(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-je_cont.11879:
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm1
-	comisd	%xmm0, %xmm1
-	jne	je_else.11880
-	movl	$0, %eax
-	ret
-je_else.11880:
-	movl	$l.10807, %ecx
-	movsd	0(%ecx), %xmm1
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	0(%ecx), %xmm2
-	movsd	0(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	8(%ecx), %xmm3
-	movsd	8(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	movl	$min_caml_solver_w_vec, %ecx
-	movsd	16(%ecx), %xmm3
-	movsd	16(%ebx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	16(%eax), %ecx
-	movsd	16(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	12(%eax), %ecx
-	movsd	%xmm0, 0(%ebp)
-	movl	%eax, 8(%ebp)
-	cmpl	$0, %ecx
-	jne	je_else.11881
-	jmp	je_cont.11882
-je_else.11881:
-	movsd	%xmm1, 16(%ebp)
-	addl	$24, %ebp
-	call	solver2nd_rot_b.2060
-	subl	$24, %ebp
-	movsd	16(%ebp), %xmm1
-	addsd	%xmm0, %xmm1
-je_cont.11882:
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	0(%eax), %xmm0
-	mulsd	%xmm0, %xmm0
-	movl	8(%ebp), %ebx
-	movl	16(%ebx), %ecx
-	movsd	0(%ecx), %xmm2
-	mulsd	%xmm2, %xmm0
-	movsd	8(%eax), %xmm2
-	mulsd	%xmm2, %xmm2
-	movl	16(%ebx), %ecx
-	movsd	8(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm0
-	movsd	16(%eax), %xmm2
-	mulsd	%xmm2, %xmm2
-	movl	16(%ebx), %eax
-	movsd	16(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm0
-	movl	12(%ebx), %eax
-	cmpl	$0, %eax
-	jne	je_else.11884
-	jmp	je_cont.11885
-je_else.11884:
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	8(%eax), %xmm2
-	movsd	16(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%ebx), %ecx
-	movsd	0(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movsd	0(%eax), %xmm3
-	movsd	16(%eax), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	36(%ebx), %ecx
-	movsd	8(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	movsd	0(%eax), %xmm3
-	movsd	8(%eax), %xmm4
-	mulsd	%xmm4, %xmm3
-	movl	36(%ebx), %eax
-	movsd	16(%eax), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm0
-je_cont.11885:
-	movl	4(%ebx), %eax
-	cmpl	$3, %eax
-	jne	je_else.11886
-	movl	$l.10792, %eax
-	movsd	0(%eax), %xmm2
-	subsd	%xmm2, %xmm0
-	jmp	je_cont.11887
-je_else.11886:
-je_cont.11887:
-	movl	$l.10820, %eax
-	movsd	0(%eax), %xmm2
-	movsd	0(%ebp), %xmm3
-	mulsd	%xmm3, %xmm2
-	mulsd	%xmm0, %xmm2
-	movsd	%xmm1, %xmm0
-	mulsd	%xmm1, %xmm0
-	subsd	%xmm2, %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm2
-	comisd	%xmm2, %xmm0
-	ja	jbe_else.11888
-	movl	$0, %eax
-	ret
-jbe_else.11888:
-	movsd	%xmm1, 24(%ebp)
-	addl	$32, %ebp
-	call	min_caml_sqrt
-	subl	$32, %ebp
-	movl	8(%ebp), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11889
-	xorpd	min_caml_fnegd, %xmm0
-	jmp	je_cont.11890
-je_else.11889:
-je_cont.11890:
-	movl	$min_caml_solver_dist, %eax
-	movsd	24(%ebp), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	$l.10807, %ebx
-	movsd	0(%ebx), %xmm1
-	divsd	%xmm1, %xmm0
-	movsd	0(%ebp), %xmm1
-	divsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$1, %eax
-	ret
-is_second_outside.2074:
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	0(%ebx), %xmm0
-	mulsd	%xmm0, %xmm0
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	4(%eax), %ebx
-	cmpl	$3, %ebx
-	jne	je_else.11891
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	jmp	je_cont.11892
-je_else.11891:
-je_cont.11892:
-	movl	12(%eax), %ebx
-	cmpl	$0, %ebx
-	jne	je_else.11893
-	jmp	je_cont.11894
-je_else.11893:
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	8(%ebx), %xmm1
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movsd	0(%ebx), %xmm2
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	0(%ebx), %xmm2
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%eax), %ebx
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-je_cont.11894:
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11895
-	movl	$0, %ebx
-	jmp	jbe_cont.11896
-jbe_else.11895:
-	movl	$1, %ebx
-jbe_cont.11896:
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11897
-	jmp	je_cont.11898
-je_else.11897:
-	cmpl	$0, %ebx
-	jne	je_else.11899
-	movl	$1, %ebx
-	jmp	je_cont.11900
-je_else.11899:
-	movl	$0, %ebx
-je_cont.11900:
-je_cont.11898:
-	cmpl	$0, %ebx
-	jne	je_else.11901
-	movl	$1, %eax
-	ret
-je_else.11901:
-	movl	$0, %eax
-	ret
-is_outside.2076:
-	movl	$min_caml_isoutside_q, %ebx
-	movl	$min_caml_chkinside_p, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	20(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%ebx)
-	movl	$min_caml_isoutside_q, %ebx
-	movl	$min_caml_chkinside_p, %ecx
-	movsd	8(%ecx), %xmm0
-	movl	20(%eax), %ecx
-	movsd	8(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%ebx)
-	movl	$min_caml_isoutside_q, %ebx
-	movl	$min_caml_chkinside_p, %ecx
-	movsd	16(%ecx), %xmm0
-	movl	20(%eax), %ecx
-	movsd	16(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%ebx)
-	movl	4(%eax), %ebx
-	cmpl	$1, %ebx
-	jne	je_else.11902
-	movl	16(%eax), %ebx
-	movsd	0(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	0(%ebx), %xmm1
-	movl	%eax, 0(%ebp)
-	movsd	%xmm0, 8(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$16, %ebp
-	call	min_caml_abs_float
-	subl	$16, %ebp
-	movsd	8(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11904
-	movl	$0, %eax
-	jmp	jbe_cont.11905
-jbe_else.11904:
-	movl	0(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	8(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	8(%ebx), %xmm1
-	movsd	%xmm0, 16(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$24, %ebp
-	call	min_caml_abs_float
-	subl	$24, %ebp
-	movsd	16(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11906
-	movl	$0, %eax
-	jmp	jbe_cont.11907
-jbe_else.11906:
-	movl	0(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	16(%ebx), %xmm1
-	movsd	%xmm0, 24(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$32, %ebp
-	call	min_caml_abs_float
-	subl	$32, %ebp
-	movsd	24(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11908
-	movl	$0, %eax
-	jmp	jbe_cont.11909
-jbe_else.11908:
-	movl	$1, %eax
-jbe_cont.11909:
-jbe_cont.11907:
-jbe_cont.11905:
-	cmpl	$0, %eax
-	jne	je_else.11910
-	movl	0(%ebp), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11911
-	movl	$1, %eax
-	ret
-je_else.11911:
-	movl	$0, %eax
-	ret
-je_else.11910:
-	movl	0(%ebp), %eax
-	movl	24(%eax), %eax
-	ret
-je_else.11902:
-	cmpl	$2, %ebx
-	jne	je_else.11912
-	movl	16(%eax), %ebx
-	movsd	0(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	16(%eax), %ebx
-	movsd	8(%ebx), %xmm1
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	8(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm1
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11913
-	movl	$0, %ebx
-	jmp	jbe_cont.11914
-jbe_else.11913:
-	movl	$1, %ebx
-jbe_cont.11914:
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11915
-	jmp	je_cont.11916
-je_else.11915:
-	cmpl	$0, %ebx
-	jne	je_else.11917
-	movl	$1, %ebx
-	jmp	je_cont.11918
-je_else.11917:
-	movl	$0, %ebx
-je_cont.11918:
-je_cont.11916:
-	cmpl	$0, %ebx
-	jne	je_else.11919
-	movl	$1, %eax
-	ret
-je_else.11919:
-	movl	$0, %eax
-	ret
-je_else.11912:
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	0(%ebx), %xmm0
-	mulsd	%xmm0, %xmm0
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	4(%eax), %ebx
-	cmpl	$3, %ebx
-	jne	je_else.11920
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	jmp	je_cont.11921
-je_else.11920:
-je_cont.11921:
-	movl	12(%eax), %ebx
-	cmpl	$0, %ebx
-	jne	je_else.11922
-	jmp	je_cont.11923
-je_else.11922:
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	8(%ebx), %xmm1
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movsd	0(%ebx), %xmm2
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	0(%ebx), %xmm2
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	movl	36(%eax), %ebx
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-je_cont.11923:
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11924
-	movl	$0, %ebx
-	jmp	jbe_cont.11925
-jbe_else.11924:
-	movl	$1, %ebx
-jbe_cont.11925:
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11926
-	jmp	je_cont.11927
-je_else.11926:
-	cmpl	$0, %ebx
-	jne	je_else.11928
-	movl	$1, %ebx
-	jmp	je_cont.11929
-je_else.11928:
-	movl	$0, %ebx
-je_cont.11929:
-je_cont.11927:
-	cmpl	$0, %ebx
-	jne	je_else.11930
-	movl	$1, %eax
-	ret
-je_else.11930:
-	movl	$0, %eax
-	ret
-check_all_inside.2078:
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.11931
-	movl	$1, %eax
-	ret
-je_else.11931:
-	movl	$min_caml_objects, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$min_caml_isoutside_q, %edx
-	movl	$min_caml_chkinside_p, %esi
-	movsd	0(%esi), %xmm0
-	movl	20(%ecx), %esi
-	movsd	0(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%edx)
-	movl	$min_caml_isoutside_q, %edx
-	movl	$min_caml_chkinside_p, %esi
-	movsd	8(%esi), %xmm0
-	movl	20(%ecx), %esi
-	movsd	8(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%edx)
-	movl	$min_caml_isoutside_q, %edx
-	movl	$min_caml_chkinside_p, %esi
-	movsd	16(%esi), %xmm0
-	movl	20(%ecx), %esi
-	movsd	16(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%edx)
-	movl	4(%ecx), %edx
-	movl	%ebx, 0(%ebp)
-	movl	%eax, 4(%ebp)
-	cmpl	$1, %edx
-	jne	je_else.11932
-	movl	16(%ecx), %edx
-	movsd	0(%edx), %xmm0
-	movl	$min_caml_isoutside_q, %edx
-	movsd	0(%edx), %xmm1
-	movl	%ecx, 8(%ebp)
-	movsd	%xmm0, 16(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$24, %ebp
-	call	min_caml_abs_float
-	subl	$24, %ebp
-	movsd	16(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11935
-	movl	$0, %eax
-	jmp	jbe_cont.11936
-jbe_else.11935:
-	movl	8(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	8(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	8(%ebx), %xmm1
-	movsd	%xmm0, 24(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$32, %ebp
-	call	min_caml_abs_float
-	subl	$32, %ebp
-	movsd	24(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11937
-	movl	$0, %eax
-	jmp	jbe_cont.11938
-jbe_else.11937:
-	movl	8(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	16(%ebx), %xmm1
-	movsd	%xmm0, 32(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$40, %ebp
-	call	min_caml_abs_float
-	subl	$40, %ebp
-	movsd	32(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11939
-	movl	$0, %eax
-	jmp	jbe_cont.11940
-jbe_else.11939:
-	movl	$1, %eax
-jbe_cont.11940:
-jbe_cont.11938:
-jbe_cont.11936:
-	cmpl	$0, %eax
-	jne	je_else.11941
-	movl	8(%ebp), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11943
-	movl	$1, %eax
-	jmp	je_cont.11944
-je_else.11943:
-	movl	$0, %eax
-je_cont.11944:
-	jmp	je_cont.11942
-je_else.11941:
-	movl	8(%ebp), %eax
-	movl	24(%eax), %eax
-je_cont.11942:
-	jmp	je_cont.11933
-je_else.11932:
-	cmpl	$2, %edx
-	jne	je_else.11945
-	movl	16(%ecx), %edx
-	movsd	0(%edx), %xmm0
-	movl	$min_caml_isoutside_q, %edx
-	movsd	0(%edx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	16(%ecx), %edx
-	movsd	8(%edx), %xmm1
-	movl	$min_caml_isoutside_q, %edx
-	movsd	8(%edx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	16(%ecx), %edx
-	movsd	16(%edx), %xmm1
-	movl	$min_caml_isoutside_q, %edx
-	movsd	16(%edx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %edx
-	movsd	0(%edx), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11947
-	movl	$0, %edx
-	jmp	jbe_cont.11948
-jbe_else.11947:
-	movl	$1, %edx
-jbe_cont.11948:
-	movl	24(%ecx), %ecx
-	cmpl	$0, %ecx
-	jne	je_else.11949
-	jmp	je_cont.11950
-je_else.11949:
-	cmpl	$0, %edx
-	jne	je_else.11951
-	movl	$1, %edx
-	jmp	je_cont.11952
-je_else.11951:
-	movl	$0, %edx
-je_cont.11952:
-je_cont.11950:
-	cmpl	$0, %edx
-	jne	je_else.11953
-	movl	$1, %eax
-	jmp	je_cont.11954
-je_else.11953:
-	movl	$0, %eax
-je_cont.11954:
-	jmp	je_cont.11946
-je_else.11945:
-	movl	%ecx, %eax
-	addl	$40, %ebp
-	call	is_second_outside.2074
-	subl	$40, %ebp
-je_cont.11946:
-je_cont.11933:
-	cmpl	$0, %eax
-	jne	je_else.11955
-	movl	4(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.11956
-	movl	$1, %eax
-	ret
-je_else.11956:
-	movl	$min_caml_objects, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	%eax, 40(%ebp)
-	movl	%ecx, %eax
-	addl	$48, %ebp
-	call	is_outside.2076
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11957
-	movl	40(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.11958
-	movl	$1, %eax
-	ret
-je_else.11958:
-	movl	$min_caml_objects, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$min_caml_isoutside_q, %edx
-	movl	$min_caml_chkinside_p, %esi
-	movsd	0(%esi), %xmm0
-	movl	20(%ecx), %esi
-	movsd	0(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%edx)
-	movl	$min_caml_isoutside_q, %edx
-	movl	$min_caml_chkinside_p, %esi
-	movsd	8(%esi), %xmm0
-	movl	20(%ecx), %esi
-	movsd	8(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%edx)
-	movl	$min_caml_isoutside_q, %edx
-	movl	$min_caml_chkinside_p, %esi
-	movsd	16(%esi), %xmm0
-	movl	20(%ecx), %esi
-	movsd	16(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%edx)
-	movl	4(%ecx), %edx
-	movl	%eax, 44(%ebp)
-	cmpl	$1, %edx
-	jne	je_else.11959
-	movl	16(%ecx), %edx
-	movsd	0(%edx), %xmm0
-	movl	$min_caml_isoutside_q, %edx
-	movsd	0(%edx), %xmm1
-	movl	%ecx, 48(%ebp)
-	movsd	%xmm0, 56(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$64, %ebp
-	call	min_caml_abs_float
-	subl	$64, %ebp
-	movsd	56(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11962
-	movl	$0, %eax
-	jmp	jbe_cont.11963
-jbe_else.11962:
-	movl	48(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	8(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	8(%ebx), %xmm1
-	movsd	%xmm0, 64(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$72, %ebp
-	call	min_caml_abs_float
-	subl	$72, %ebp
-	movsd	64(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11964
-	movl	$0, %eax
-	jmp	jbe_cont.11965
-jbe_else.11964:
-	movl	48(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	16(%ebx), %xmm1
-	movsd	%xmm0, 72(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$80, %ebp
-	call	min_caml_abs_float
-	subl	$80, %ebp
-	movsd	72(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11966
-	movl	$0, %eax
-	jmp	jbe_cont.11967
-jbe_else.11966:
-	movl	$1, %eax
-jbe_cont.11967:
-jbe_cont.11965:
-jbe_cont.11963:
-	cmpl	$0, %eax
-	jne	je_else.11968
-	movl	48(%ebp), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11970
-	movl	$1, %eax
-	jmp	je_cont.11971
-je_else.11970:
-	movl	$0, %eax
-je_cont.11971:
-	jmp	je_cont.11969
-je_else.11968:
-	movl	48(%ebp), %eax
-	movl	24(%eax), %eax
-je_cont.11969:
-	jmp	je_cont.11960
-je_else.11959:
-	cmpl	$2, %edx
-	jne	je_else.11972
-	movl	16(%ecx), %edx
-	movsd	0(%edx), %xmm0
-	movl	$min_caml_isoutside_q, %edx
-	movsd	0(%edx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	16(%ecx), %edx
-	movsd	8(%edx), %xmm1
-	movl	$min_caml_isoutside_q, %edx
-	movsd	8(%edx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	16(%ecx), %edx
-	movsd	16(%edx), %xmm1
-	movl	$min_caml_isoutside_q, %edx
-	movsd	16(%edx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %edx
-	movsd	0(%edx), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11974
-	movl	$0, %edx
-	jmp	jbe_cont.11975
-jbe_else.11974:
-	movl	$1, %edx
-jbe_cont.11975:
-	movl	24(%ecx), %ecx
-	cmpl	$0, %ecx
-	jne	je_else.11976
-	jmp	je_cont.11977
-je_else.11976:
-	cmpl	$0, %edx
-	jne	je_else.11978
-	movl	$1, %edx
-	jmp	je_cont.11979
-je_else.11978:
-	movl	$0, %edx
-je_cont.11979:
-je_cont.11977:
-	cmpl	$0, %edx
-	jne	je_else.11980
-	movl	$1, %eax
-	jmp	je_cont.11981
-je_else.11980:
-	movl	$0, %eax
-je_cont.11981:
-	jmp	je_cont.11973
-je_else.11972:
-	movl	%ecx, %eax
-	addl	$80, %ebp
-	call	is_second_outside.2074
-	subl	$80, %ebp
-je_cont.11973:
-je_cont.11960:
-	cmpl	$0, %eax
-	jne	je_else.11982
-	movl	44(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.11983
-	movl	$1, %eax
-	ret
-je_else.11983:
-	movl	$min_caml_objects, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	%eax, 80(%ebp)
-	movl	%ecx, %eax
-	addl	$88, %ebp
-	call	is_outside.2076
-	subl	$88, %ebp
-	cmpl	$0, %eax
-	jne	je_else.11984
-	movl	80(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	jmp	check_all_inside.2078
-je_else.11984:
-	movl	$0, %eax
-	ret
-je_else.11982:
-	movl	$0, %eax
-	ret
-je_else.11957:
-	movl	$0, %eax
-	ret
-je_else.11955:
-	movl	$0, %eax
-	ret
-shadow_check_and_group.2081:
-	movl	(%ebx,%eax,4), %edx
-	cmpl	$-1, %edx
-	jne	je_else.11985
-	movl	$0, %eax
-	ret
-je_else.11985:
-	movl	(%ebx,%eax,4), %edx
-	movl	$min_caml_light, %esi
-	movl	$min_caml_objects, %edi
-	movl	(%edi,%edx,4), %edi
-	movl	%ebx, 0(%ebp)
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	0(%ecx), %xmm0
-	movl	%eax, 4(%ebp)
-	movl	20(%edi), %eax
-	movsd	0(%eax), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%ebx)
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	8(%ecx), %xmm0
-	movl	20(%edi), %ebx
-	movsd	8(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	16(%ecx), %xmm0
-	movl	20(%edi), %ebx
-	movsd	16(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	4(%edi), %eax
-	movl	%ecx, 8(%ebp)
-	movl	%edx, 12(%ebp)
-	cmpl	$1, %eax
-	jne	je_else.11986
-	movl	%esi, %ebx
-	movl	%edi, %eax
-	addl	$16, %ebp
-	call	solver_rect.2045
-	subl	$16, %ebp
-	jmp	je_cont.11987
-je_else.11986:
-	cmpl	$2, %eax
-	jne	je_else.11988
-	movsd	0(%esi), %xmm0
-	movl	16(%edi), %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%esi), %xmm1
-	movl	16(%edi), %eax
-	movsd	8(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%esi), %xmm1
-	movl	16(%edi), %eax
-	movsd	16(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.11990
-	movl	$0, %eax
-	jmp	jbe_cont.11991
-jbe_else.11990:
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	0(%eax), %xmm1
-	movl	16(%edi), %eax
-	movsd	0(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	8(%eax), %xmm2
-	movl	16(%edi), %eax
-	movsd	8(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	16(%eax), %xmm2
-	movl	16(%edi), %eax
-	movsd	16(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	divsd	%xmm0, %xmm1
-	movl	$min_caml_solver_dist, %eax
-	xorpd	min_caml_fnegd, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$1, %eax
-jbe_cont.11991:
-	jmp	je_cont.11989
-je_else.11988:
-	movl	%esi, %ebx
-	movl	%edi, %eax
-	addl	$16, %ebp
-	call	solver_second.2063
-	subl	$16, %ebp
-je_cont.11989:
-je_cont.11987:
-	movl	$min_caml_solver_dist, %ebx
-	movsd	0(%ebx), %xmm0
-	cmpl	$0, %eax
-	jne	je_else.11992
-	movl	$0, %eax
-	jmp	je_cont.11993
-je_else.11992:
-	movl	$l.10839, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.11994
-	movl	$0, %eax
-	jmp	jbe_cont.11995
-jbe_else.11994:
-	movl	$1, %eax
-jbe_cont.11995:
-je_cont.11993:
-	cmpl	$0, %eax
-	jne	je_else.11996
-	movl	$min_caml_objects, %eax
-	movl	12(%ebp), %ebx
-	movl	(%eax,%ebx,4), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.11997
-	movl	$0, %eax
-	ret
-je_else.11997:
-	movl	4(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	8(%ebp), %ecx
-	jmp	shadow_check_and_group.2081
-je_else.11996:
-	movl	$l.10841, %eax
-	movsd	0(%eax), %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$min_caml_chkinside_p, %eax
-	movl	$min_caml_light, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	8(%ebp), %ecx
-	movsd	0(%ecx), %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$min_caml_chkinside_p, %eax
-	movl	$min_caml_light, %ebx
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movsd	8(%ecx), %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	%xmm1, 8(%eax)
-	movl	$min_caml_chkinside_p, %eax
-	movl	$min_caml_light, %ebx
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movsd	16(%ecx), %xmm0
-	addsd	%xmm0, %xmm1
-	movsd	%xmm1, 16(%eax)
-	movl	0(%ebp), %ebx
-	movl	0(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.11998
-	movl	$1, %eax
-	jmp	je_cont.11999
-je_else.11998:
-	movl	$min_caml_objects, %edx
-	movl	(%edx,%eax,4), %eax
-	addl	$16, %ebp
-	call	is_outside.2076
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12000
-	movl	0(%ebp), %ebx
-	movl	4(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.12002
-	movl	$1, %eax
-	jmp	je_cont.12003
-je_else.12002:
-	movl	$min_caml_objects, %ecx
-	movl	(%ecx,%eax,4), %eax
-	movl	$min_caml_isoutside_q, %ecx
-	movl	$min_caml_chkinside_p, %edx
-	movsd	0(%edx), %xmm0
-	movl	20(%eax), %edx
-	movsd	0(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%ecx)
-	movl	$min_caml_isoutside_q, %ecx
-	movl	$min_caml_chkinside_p, %edx
-	movsd	8(%edx), %xmm0
-	movl	20(%eax), %edx
-	movsd	8(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%ecx)
-	movl	$min_caml_isoutside_q, %ecx
-	movl	$min_caml_chkinside_p, %edx
-	movsd	16(%edx), %xmm0
-	movl	20(%eax), %edx
-	movsd	16(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%ecx)
-	movl	4(%eax), %ecx
-	cmpl	$1, %ecx
-	jne	je_else.12004
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm0
-	movl	$min_caml_isoutside_q, %ecx
-	movsd	0(%ecx), %xmm1
-	movl	%eax, 16(%ebp)
-	movsd	%xmm0, 24(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$32, %ebp
-	call	min_caml_abs_float
-	subl	$32, %ebp
-	movsd	24(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12007
-	movl	$0, %eax
-	jmp	jbe_cont.12008
-jbe_else.12007:
-	movl	16(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	8(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	8(%ebx), %xmm1
-	movsd	%xmm0, 32(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$40, %ebp
-	call	min_caml_abs_float
-	subl	$40, %ebp
-	movsd	32(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12009
-	movl	$0, %eax
-	jmp	jbe_cont.12010
-jbe_else.12009:
-	movl	16(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	16(%ebx), %xmm1
-	movsd	%xmm0, 40(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$48, %ebp
-	call	min_caml_abs_float
-	subl	$48, %ebp
-	movsd	40(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12011
-	movl	$0, %eax
-	jmp	jbe_cont.12012
-jbe_else.12011:
-	movl	$1, %eax
-jbe_cont.12012:
-jbe_cont.12010:
-jbe_cont.12008:
-	cmpl	$0, %eax
-	jne	je_else.12013
-	movl	16(%ebp), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.12015
-	movl	$1, %eax
-	jmp	je_cont.12016
-je_else.12015:
-	movl	$0, %eax
-je_cont.12016:
-	jmp	je_cont.12014
-je_else.12013:
-	movl	16(%ebp), %eax
-	movl	24(%eax), %eax
-je_cont.12014:
-	jmp	je_cont.12005
-je_else.12004:
-	cmpl	$2, %ecx
-	jne	je_else.12017
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm0
-	movl	$min_caml_isoutside_q, %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm1
-	movl	$min_caml_isoutside_q, %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	16(%eax), %ecx
-	movsd	16(%ecx), %xmm1
-	movl	$min_caml_isoutside_q, %ecx
-	movsd	16(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12019
-	movl	$0, %ecx
-	jmp	jbe_cont.12020
-jbe_else.12019:
-	movl	$1, %ecx
-jbe_cont.12020:
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.12021
-	jmp	je_cont.12022
-je_else.12021:
-	cmpl	$0, %ecx
-	jne	je_else.12023
-	movl	$1, %ecx
-	jmp	je_cont.12024
-je_else.12023:
-	movl	$0, %ecx
-je_cont.12024:
-je_cont.12022:
-	cmpl	$0, %ecx
-	jne	je_else.12025
-	movl	$1, %eax
-	jmp	je_cont.12026
-je_else.12025:
-	movl	$0, %eax
-je_cont.12026:
-	jmp	je_cont.12018
-je_else.12017:
-	addl	$48, %ebp
-	call	is_second_outside.2074
-	subl	$48, %ebp
-je_cont.12018:
-je_cont.12005:
-	cmpl	$0, %eax
-	jne	je_else.12027
-	movl	0(%ebp), %ebx
-	movl	8(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.12029
-	movl	$1, %eax
-	jmp	je_cont.12030
-je_else.12029:
-	movl	$min_caml_objects, %ecx
-	movl	(%ecx,%eax,4), %eax
-	addl	$48, %ebp
-	call	is_outside.2076
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12031
-	movl	$3, %eax
-	movl	0(%ebp), %ebx
-	addl	$48, %ebp
-	call	check_all_inside.2078
-	subl	$48, %ebp
-	jmp	je_cont.12032
-je_else.12031:
-	movl	$0, %eax
-je_cont.12032:
-je_cont.12030:
-	jmp	je_cont.12028
-je_else.12027:
-	movl	$0, %eax
-je_cont.12028:
-je_cont.12003:
-	jmp	je_cont.12001
-je_else.12000:
-	movl	$0, %eax
-je_cont.12001:
-je_cont.11999:
-	cmpl	$0, %eax
-	jne	je_else.12033
-	movl	4(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	8(%ebp), %ecx
-	jmp	shadow_check_and_group.2081
-je_else.12033:
-	movl	$1, %eax
-	ret
-shadow_check_one_or_group.2085:
-	movl	(%ebx,%eax,4), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12034
-	movl	$0, %eax
-	ret
-je_else.12034:
-	movl	$min_caml_and_net, %esi
-	movl	(%esi,%edx,4), %edx
-	movl	$0, %esi
-	movl	%ecx, 0(%ebp)
-	movl	%ebx, 4(%ebp)
-	movl	%eax, 8(%ebp)
-	movl	%edx, %ebx
-	movl	%esi, %eax
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12035
-	movl	8(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12036
-	movl	$0, %eax
-	ret
-je_else.12036:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$0, %edx
-	movl	0(%ebp), %esi
-	movl	%eax, 12(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	movl	%esi, %ecx
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12037
-	movl	12(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12038
-	movl	$0, %eax
-	ret
-je_else.12038:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$0, %edx
-	movl	0(%ebp), %esi
-	movl	%eax, 16(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	movl	%esi, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12039
-	movl	16(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12040
-	movl	$0, %eax
-	ret
-je_else.12040:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$0, %edx
-	movl	0(%ebp), %esi
-	movl	%eax, 20(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	movl	%esi, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12041
-	movl	20(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12042
-	movl	$0, %eax
-	ret
-je_else.12042:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$0, %edx
-	movl	0(%ebp), %esi
-	movl	%eax, 24(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	movl	%esi, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12043
-	movl	24(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12044
-	movl	$0, %eax
-	ret
-je_else.12044:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$0, %edx
-	movl	0(%ebp), %esi
-	movl	%eax, 28(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	movl	%esi, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12045
-	movl	28(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12046
-	movl	$0, %eax
-	ret
-je_else.12046:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$0, %edx
-	movl	0(%ebp), %esi
-	movl	%eax, 32(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	movl	%esi, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12047
-	movl	32(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12048
-	movl	$0, %eax
-	ret
-je_else.12048:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$0, %edx
-	movl	0(%ebp), %esi
-	movl	%eax, 36(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	movl	%esi, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12049
-	movl	36(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_group.2085
-je_else.12049:
-	movl	$1, %eax
-	ret
-je_else.12047:
-	movl	$1, %eax
-	ret
-je_else.12045:
-	movl	$1, %eax
-	ret
-je_else.12043:
-	movl	$1, %eax
-	ret
-je_else.12041:
-	movl	$1, %eax
-	ret
-je_else.12039:
-	movl	$1, %eax
-	ret
-je_else.12037:
-	movl	$1, %eax
-	ret
-je_else.12035:
-	movl	$1, %eax
-	ret
-shadow_check_one_or_matrix.2089:
-	movl	(%ebx,%eax,4), %edx
-	movl	0(%edx), %esi
-	cmpl	$-1, %esi
-	jne	je_else.12050
-	movl	$0, %eax
-	ret
-je_else.12050:
-	cmpl	$99, %esi
-	jne	je_else.12051
-	movl	4(%edx), %esi
-	movl	%ecx, 0(%ebp)
-	movl	%ebx, 4(%ebp)
-	movl	%eax, 8(%ebp)
-	cmpl	$-1, %esi
-	jne	je_else.12052
-	movl	$0, %eax
-	jmp	je_cont.12053
-je_else.12052:
-	movl	$min_caml_and_net, %edi
-	movl	(%edi,%esi,4), %esi
-	movl	$0, %edi
-	movl	%edx, 12(%ebp)
-	movl	%esi, %ebx
-	movl	%edi, %eax
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12054
-	movl	12(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12056
-	movl	$0, %eax
-	jmp	je_cont.12057
-je_else.12056:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12058
-	movl	12(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12060
-	movl	$0, %eax
-	jmp	je_cont.12061
-je_else.12060:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12062
-	movl	12(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12064
-	movl	$0, %eax
-	jmp	je_cont.12065
-je_else.12064:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12066
-	movl	12(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12068
-	movl	$0, %eax
-	jmp	je_cont.12069
-je_else.12068:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12070
-	movl	12(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12072
-	movl	$0, %eax
-	jmp	je_cont.12073
-je_else.12072:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12074
-	movl	12(%ebp), %eax
-	movl	28(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12076
-	movl	$0, %eax
-	jmp	je_cont.12077
-je_else.12076:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$16, %ebp
-	call	shadow_check_and_group.2081
-	subl	$16, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12078
-	movl	$8, %eax
-	movl	12(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$16, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$16, %ebp
-	jmp	je_cont.12079
-je_else.12078:
-	movl	$1, %eax
-je_cont.12079:
-je_cont.12077:
-	jmp	je_cont.12075
-je_else.12074:
-	movl	$1, %eax
-je_cont.12075:
-je_cont.12073:
-	jmp	je_cont.12071
-je_else.12070:
-	movl	$1, %eax
-je_cont.12071:
-je_cont.12069:
-	jmp	je_cont.12067
-je_else.12066:
-	movl	$1, %eax
-je_cont.12067:
-je_cont.12065:
-	jmp	je_cont.12063
-je_else.12062:
-	movl	$1, %eax
-je_cont.12063:
-je_cont.12061:
-	jmp	je_cont.12059
-je_else.12058:
-	movl	$1, %eax
-je_cont.12059:
-je_cont.12057:
-	jmp	je_cont.12055
-je_else.12054:
-	movl	$1, %eax
-je_cont.12055:
-je_cont.12053:
-	cmpl	$0, %eax
-	jne	je_else.12080
-	movl	8(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	movl	0(%ecx), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12081
-	movl	$0, %eax
-	ret
-je_else.12081:
-	cmpl	$99, %edx
-	jne	je_else.12082
-	movl	4(%ecx), %edx
-	movl	%eax, 16(%ebp)
-	cmpl	$-1, %edx
-	jne	je_else.12083
-	movl	$0, %eax
-	jmp	je_cont.12084
-je_else.12083:
-	movl	$min_caml_and_net, %esi
-	movl	(%esi,%edx,4), %edx
-	movl	$0, %esi
-	movl	0(%ebp), %edi
-	movl	%ecx, 20(%ebp)
-	movl	%edi, %ecx
-	movl	%edx, %ebx
-	movl	%esi, %eax
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12085
-	movl	20(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12087
-	movl	$0, %eax
-	jmp	je_cont.12088
-je_else.12087:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12089
-	movl	20(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12091
-	movl	$0, %eax
-	jmp	je_cont.12092
-je_else.12091:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12093
-	movl	20(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12095
-	movl	$0, %eax
-	jmp	je_cont.12096
-je_else.12095:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12097
-	movl	20(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12099
-	movl	$0, %eax
-	jmp	je_cont.12100
-je_else.12099:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12101
-	movl	20(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12103
-	movl	$0, %eax
-	jmp	je_cont.12104
-je_else.12103:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12105
-	movl	$7, %eax
-	movl	20(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$24, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$24, %ebp
-	jmp	je_cont.12106
-je_else.12105:
-	movl	$1, %eax
-je_cont.12106:
-je_cont.12104:
-	jmp	je_cont.12102
-je_else.12101:
-	movl	$1, %eax
-je_cont.12102:
-je_cont.12100:
-	jmp	je_cont.12098
-je_else.12097:
-	movl	$1, %eax
-je_cont.12098:
-je_cont.12096:
-	jmp	je_cont.12094
-je_else.12093:
-	movl	$1, %eax
-je_cont.12094:
-je_cont.12092:
-	jmp	je_cont.12090
-je_else.12089:
-	movl	$1, %eax
-je_cont.12090:
-je_cont.12088:
-	jmp	je_cont.12086
-je_else.12085:
-	movl	$1, %eax
-je_cont.12086:
-je_cont.12084:
-	cmpl	$0, %eax
-	jne	je_else.12107
-	movl	16(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12107:
-	movl	$1, %eax
-	ret
-je_else.12082:
-	movl	$min_caml_light, %esi
-	movl	0(%ebp), %edi
-	movl	%ecx, 20(%ebp)
-	movl	%eax, 16(%ebp)
-	movl	%edi, %ecx
-	movl	%esi, %ebx
-	movl	%edx, %eax
-	addl	$24, %ebp
-	call	solver.2066
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12108
-	movl	16(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12108:
-	movl	$l.10845, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_solver_dist, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12109
-	movl	16(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-jbe_else.12109:
-	movl	20(%ebp), %eax
-	movl	4(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12110
-	movl	$0, %eax
-	jmp	je_cont.12111
-je_else.12110:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12112
-	movl	20(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12114
-	movl	$0, %eax
-	jmp	je_cont.12115
-je_else.12114:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12116
-	movl	20(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12118
-	movl	$0, %eax
-	jmp	je_cont.12119
-je_else.12118:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12120
-	movl	20(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12122
-	movl	$0, %eax
-	jmp	je_cont.12123
-je_else.12122:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12124
-	movl	20(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12126
-	movl	$0, %eax
-	jmp	je_cont.12127
-je_else.12126:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12128
-	movl	20(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12130
-	movl	$0, %eax
-	jmp	je_cont.12131
-je_else.12130:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$24, %ebp
-	call	shadow_check_and_group.2081
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12132
-	movl	$7, %eax
-	movl	20(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$24, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$24, %ebp
-	jmp	je_cont.12133
-je_else.12132:
-	movl	$1, %eax
-je_cont.12133:
-je_cont.12131:
-	jmp	je_cont.12129
-je_else.12128:
-	movl	$1, %eax
-je_cont.12129:
-je_cont.12127:
-	jmp	je_cont.12125
-je_else.12124:
-	movl	$1, %eax
-je_cont.12125:
-je_cont.12123:
-	jmp	je_cont.12121
-je_else.12120:
-	movl	$1, %eax
-je_cont.12121:
-je_cont.12119:
-	jmp	je_cont.12117
-je_else.12116:
-	movl	$1, %eax
-je_cont.12117:
-je_cont.12115:
-	jmp	je_cont.12113
-je_else.12112:
-	movl	$1, %eax
-je_cont.12113:
-je_cont.12111:
-	cmpl	$0, %eax
-	jne	je_else.12134
-	movl	16(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12134:
-	movl	$1, %eax
-	ret
-je_else.12080:
-	movl	$1, %eax
-	ret
-je_else.12051:
-	movl	$min_caml_light, %edi
-	movl	%edx, 12(%ebp)
-	movl	$min_caml_objects, %edx
-	movl	(%edx,%esi,4), %edx
-	movl	$min_caml_solver_w_vec, %esi
-	movsd	0(%ecx), %xmm0
-	movl	%ebx, 4(%ebp)
-	movl	20(%edx), %ebx
-	movsd	0(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%esi)
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	8(%ecx), %xmm0
-	movl	20(%edx), %esi
-	movsd	8(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%ebx)
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	16(%ecx), %xmm0
-	movl	20(%edx), %esi
-	movsd	16(%esi), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%ebx)
-	movl	4(%edx), %ebx
-	movl	%ecx, 0(%ebp)
-	movl	%eax, 8(%ebp)
-	cmpl	$1, %ebx
-	jne	je_else.12135
-	movl	%edi, %ebx
-	movl	%edx, %eax
-	addl	$24, %ebp
-	call	solver_rect.2045
-	subl	$24, %ebp
-	jmp	je_cont.12136
-je_else.12135:
-	cmpl	$2, %ebx
-	jne	je_else.12137
-	movsd	0(%edi), %xmm0
-	movl	16(%edx), %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%edi), %xmm1
-	movl	16(%edx), %ebx
-	movsd	8(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%edi), %xmm1
-	movl	16(%edx), %ebx
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12139
-	movl	$0, %eax
-	jmp	jbe_cont.12140
-jbe_else.12139:
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	0(%ebx), %xmm1
-	movl	16(%edx), %ebx
-	movsd	0(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	8(%ebx), %xmm2
-	movl	16(%edx), %ebx
-	movsd	8(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %ebx
-	movsd	16(%ebx), %xmm2
-	movl	16(%edx), %ebx
-	movsd	16(%ebx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	divsd	%xmm0, %xmm1
-	movl	$min_caml_solver_dist, %ebx
-	xorpd	min_caml_fnegd, %xmm1
-	movsd	%xmm1, 0(%ebx)
-	movl	$1, %eax
-jbe_cont.12140:
-	jmp	je_cont.12138
-je_else.12137:
-	movl	%edi, %ebx
-	movl	%edx, %eax
-	addl	$24, %ebp
-	call	solver_second.2063
-	subl	$24, %ebp
-je_cont.12138:
-je_cont.12136:
-	cmpl	$0, %eax
-	jne	je_else.12141
-	movl	8(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	movl	0(%ecx), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12142
-	movl	$0, %eax
-	ret
-je_else.12142:
-	cmpl	$99, %edx
-	jne	je_else.12143
-	movl	4(%ecx), %edx
-	movl	%eax, 24(%ebp)
-	cmpl	$-1, %edx
-	jne	je_else.12144
-	movl	$0, %eax
-	jmp	je_cont.12145
-je_else.12144:
-	movl	$min_caml_and_net, %esi
-	movl	(%esi,%edx,4), %edx
-	movl	$0, %esi
-	movl	0(%ebp), %edi
-	movl	%ecx, 28(%ebp)
-	movl	%edi, %ecx
-	movl	%edx, %ebx
-	movl	%esi, %eax
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12146
-	movl	28(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12148
-	movl	$0, %eax
-	jmp	je_cont.12149
-je_else.12148:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12150
-	movl	28(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12152
-	movl	$0, %eax
-	jmp	je_cont.12153
-je_else.12152:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12154
-	movl	28(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12156
-	movl	$0, %eax
-	jmp	je_cont.12157
-je_else.12156:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12158
-	movl	28(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12160
-	movl	$0, %eax
-	jmp	je_cont.12161
-je_else.12160:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12162
-	movl	28(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12164
-	movl	$0, %eax
-	jmp	je_cont.12165
-je_else.12164:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12166
-	movl	$7, %eax
-	movl	28(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$32, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$32, %ebp
-	jmp	je_cont.12167
-je_else.12166:
-	movl	$1, %eax
-je_cont.12167:
-je_cont.12165:
-	jmp	je_cont.12163
-je_else.12162:
-	movl	$1, %eax
-je_cont.12163:
-je_cont.12161:
-	jmp	je_cont.12159
-je_else.12158:
-	movl	$1, %eax
-je_cont.12159:
-je_cont.12157:
-	jmp	je_cont.12155
-je_else.12154:
-	movl	$1, %eax
-je_cont.12155:
-je_cont.12153:
-	jmp	je_cont.12151
-je_else.12150:
-	movl	$1, %eax
-je_cont.12151:
-je_cont.12149:
-	jmp	je_cont.12147
-je_else.12146:
-	movl	$1, %eax
-je_cont.12147:
-je_cont.12145:
-	cmpl	$0, %eax
-	jne	je_else.12168
-	movl	24(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12168:
-	movl	$1, %eax
-	ret
-je_else.12143:
-	movl	$min_caml_light, %esi
-	movl	0(%ebp), %edi
-	movl	%ecx, 28(%ebp)
-	movl	%eax, 24(%ebp)
-	movl	%edi, %ecx
-	movl	%esi, %ebx
-	movl	%edx, %eax
-	addl	$32, %ebp
-	call	solver.2066
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12169
-	movl	24(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12169:
-	movl	$l.10845, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_solver_dist, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12170
-	movl	24(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-jbe_else.12170:
-	movl	28(%ebp), %eax
-	movl	4(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12171
-	movl	$0, %eax
-	jmp	je_cont.12172
-je_else.12171:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12173
-	movl	28(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12175
-	movl	$0, %eax
-	jmp	je_cont.12176
-je_else.12175:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12177
-	movl	28(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12179
-	movl	$0, %eax
-	jmp	je_cont.12180
-je_else.12179:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12181
-	movl	28(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12183
-	movl	$0, %eax
-	jmp	je_cont.12184
-je_else.12183:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12185
-	movl	28(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12187
-	movl	$0, %eax
-	jmp	je_cont.12188
-je_else.12187:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12189
-	movl	28(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12191
-	movl	$0, %eax
-	jmp	je_cont.12192
-je_else.12191:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12193
-	movl	$7, %eax
-	movl	28(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$32, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$32, %ebp
-	jmp	je_cont.12194
-je_else.12193:
-	movl	$1, %eax
-je_cont.12194:
-je_cont.12192:
-	jmp	je_cont.12190
-je_else.12189:
-	movl	$1, %eax
-je_cont.12190:
-je_cont.12188:
-	jmp	je_cont.12186
-je_else.12185:
-	movl	$1, %eax
-je_cont.12186:
-je_cont.12184:
-	jmp	je_cont.12182
-je_else.12181:
-	movl	$1, %eax
-je_cont.12182:
-je_cont.12180:
-	jmp	je_cont.12178
-je_else.12177:
-	movl	$1, %eax
-je_cont.12178:
-je_cont.12176:
-	jmp	je_cont.12174
-je_else.12173:
-	movl	$1, %eax
-je_cont.12174:
-je_cont.12172:
-	cmpl	$0, %eax
-	jne	je_else.12195
-	movl	24(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12195:
-	movl	$1, %eax
-	ret
-je_else.12141:
-	movl	$l.10845, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_solver_dist, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12196
-	movl	8(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	movl	0(%ecx), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12197
-	movl	$0, %eax
-	ret
-je_else.12197:
-	cmpl	$99, %edx
-	jne	je_else.12198
-	movl	4(%ecx), %edx
-	movl	%eax, 32(%ebp)
-	cmpl	$-1, %edx
-	jne	je_else.12199
-	movl	$0, %eax
-	jmp	je_cont.12200
-je_else.12199:
-	movl	$min_caml_and_net, %esi
-	movl	(%esi,%edx,4), %edx
-	movl	$0, %esi
-	movl	0(%ebp), %edi
-	movl	%ecx, 36(%ebp)
-	movl	%edi, %ecx
-	movl	%edx, %ebx
-	movl	%esi, %eax
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12201
-	movl	36(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12203
-	movl	$0, %eax
-	jmp	je_cont.12204
-je_else.12203:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12205
-	movl	36(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12207
-	movl	$0, %eax
-	jmp	je_cont.12208
-je_else.12207:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12209
-	movl	36(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12211
-	movl	$0, %eax
-	jmp	je_cont.12212
-je_else.12211:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12213
-	movl	36(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12215
-	movl	$0, %eax
-	jmp	je_cont.12216
-je_else.12215:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12217
-	movl	36(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12219
-	movl	$0, %eax
-	jmp	je_cont.12220
-je_else.12219:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12221
-	movl	$7, %eax
-	movl	36(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$40, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$40, %ebp
-	jmp	je_cont.12222
-je_else.12221:
-	movl	$1, %eax
-je_cont.12222:
-je_cont.12220:
-	jmp	je_cont.12218
-je_else.12217:
-	movl	$1, %eax
-je_cont.12218:
-je_cont.12216:
-	jmp	je_cont.12214
-je_else.12213:
-	movl	$1, %eax
-je_cont.12214:
-je_cont.12212:
-	jmp	je_cont.12210
-je_else.12209:
-	movl	$1, %eax
-je_cont.12210:
-je_cont.12208:
-	jmp	je_cont.12206
-je_else.12205:
-	movl	$1, %eax
-je_cont.12206:
-je_cont.12204:
-	jmp	je_cont.12202
-je_else.12201:
-	movl	$1, %eax
-je_cont.12202:
-je_cont.12200:
-	cmpl	$0, %eax
-	jne	je_else.12223
-	movl	32(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12223:
-	movl	$1, %eax
-	ret
-je_else.12198:
-	movl	$min_caml_light, %esi
-	movl	0(%ebp), %edi
-	movl	%ecx, 36(%ebp)
-	movl	%eax, 32(%ebp)
-	movl	%edi, %ecx
-	movl	%esi, %ebx
-	movl	%edx, %eax
-	addl	$40, %ebp
-	call	solver.2066
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12224
-	movl	32(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12224:
-	movl	$l.10845, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_solver_dist, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12225
-	movl	32(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-jbe_else.12225:
-	movl	36(%ebp), %eax
-	movl	4(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12226
-	movl	$0, %eax
-	jmp	je_cont.12227
-je_else.12226:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12228
-	movl	36(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12230
-	movl	$0, %eax
-	jmp	je_cont.12231
-je_else.12230:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12232
-	movl	36(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12234
-	movl	$0, %eax
-	jmp	je_cont.12235
-je_else.12234:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12236
-	movl	36(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12238
-	movl	$0, %eax
-	jmp	je_cont.12239
-je_else.12238:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12240
-	movl	36(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12242
-	movl	$0, %eax
-	jmp	je_cont.12243
-je_else.12242:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12244
-	movl	36(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12246
-	movl	$0, %eax
-	jmp	je_cont.12247
-je_else.12246:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12248
-	movl	$7, %eax
-	movl	36(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$40, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$40, %ebp
-	jmp	je_cont.12249
-je_else.12248:
-	movl	$1, %eax
-je_cont.12249:
-je_cont.12247:
-	jmp	je_cont.12245
-je_else.12244:
-	movl	$1, %eax
-je_cont.12245:
-je_cont.12243:
-	jmp	je_cont.12241
-je_else.12240:
-	movl	$1, %eax
-je_cont.12241:
-je_cont.12239:
-	jmp	je_cont.12237
-je_else.12236:
-	movl	$1, %eax
-je_cont.12237:
-je_cont.12235:
-	jmp	je_cont.12233
-je_else.12232:
-	movl	$1, %eax
-je_cont.12233:
-je_cont.12231:
-	jmp	je_cont.12229
-je_else.12228:
-	movl	$1, %eax
-je_cont.12229:
-je_cont.12227:
-	cmpl	$0, %eax
-	jne	je_else.12250
-	movl	32(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12250:
-	movl	$1, %eax
-	ret
-jbe_else.12196:
-	movl	12(%ebp), %eax
-	movl	4(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12251
-	movl	$0, %eax
-	jmp	je_cont.12252
-je_else.12251:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12253
-	movl	12(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12255
-	movl	$0, %eax
-	jmp	je_cont.12256
-je_else.12255:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12257
-	movl	12(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12259
-	movl	$0, %eax
-	jmp	je_cont.12260
-je_else.12259:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12261
-	movl	12(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12263
-	movl	$0, %eax
-	jmp	je_cont.12264
-je_else.12263:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12265
-	movl	12(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12267
-	movl	$0, %eax
-	jmp	je_cont.12268
-je_else.12267:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12269
-	movl	12(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12271
-	movl	$0, %eax
-	jmp	je_cont.12272
-je_else.12271:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12273
-	movl	12(%ebp), %eax
-	movl	28(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12275
-	movl	$0, %eax
-	jmp	je_cont.12276
-je_else.12275:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$40, %ebp
-	call	shadow_check_and_group.2081
-	subl	$40, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12277
-	movl	$8, %eax
-	movl	12(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$40, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$40, %ebp
-	jmp	je_cont.12278
-je_else.12277:
-	movl	$1, %eax
-je_cont.12278:
-je_cont.12276:
-	jmp	je_cont.12274
-je_else.12273:
-	movl	$1, %eax
-je_cont.12274:
-je_cont.12272:
-	jmp	je_cont.12270
-je_else.12269:
-	movl	$1, %eax
-je_cont.12270:
-je_cont.12268:
-	jmp	je_cont.12266
-je_else.12265:
-	movl	$1, %eax
-je_cont.12266:
-je_cont.12264:
-	jmp	je_cont.12262
-je_else.12261:
-	movl	$1, %eax
-je_cont.12262:
-je_cont.12260:
-	jmp	je_cont.12258
-je_else.12257:
-	movl	$1, %eax
-je_cont.12258:
-je_cont.12256:
-	jmp	je_cont.12254
-je_else.12253:
-	movl	$1, %eax
-je_cont.12254:
-je_cont.12252:
-	cmpl	$0, %eax
-	jne	je_else.12279
-	movl	8(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	movl	0(%ecx), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12280
-	movl	$0, %eax
-	ret
-je_else.12280:
-	cmpl	$99, %edx
-	jne	je_else.12281
-	movl	4(%ecx), %edx
-	movl	%eax, 40(%ebp)
-	cmpl	$-1, %edx
-	jne	je_else.12282
-	movl	$0, %eax
-	jmp	je_cont.12283
-je_else.12282:
-	movl	$min_caml_and_net, %esi
-	movl	(%esi,%edx,4), %edx
-	movl	$0, %esi
-	movl	0(%ebp), %edi
-	movl	%ecx, 44(%ebp)
-	movl	%edi, %ecx
-	movl	%edx, %ebx
-	movl	%esi, %eax
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12284
-	movl	44(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12286
-	movl	$0, %eax
-	jmp	je_cont.12287
-je_else.12286:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12288
-	movl	44(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12290
-	movl	$0, %eax
-	jmp	je_cont.12291
-je_else.12290:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12292
-	movl	44(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12294
-	movl	$0, %eax
-	jmp	je_cont.12295
-je_else.12294:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12296
-	movl	44(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12298
-	movl	$0, %eax
-	jmp	je_cont.12299
-je_else.12298:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12300
-	movl	44(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12302
-	movl	$0, %eax
-	jmp	je_cont.12303
-je_else.12302:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12304
-	movl	$7, %eax
-	movl	44(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$48, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$48, %ebp
-	jmp	je_cont.12305
-je_else.12304:
-	movl	$1, %eax
-je_cont.12305:
-je_cont.12303:
-	jmp	je_cont.12301
-je_else.12300:
-	movl	$1, %eax
-je_cont.12301:
-je_cont.12299:
-	jmp	je_cont.12297
-je_else.12296:
-	movl	$1, %eax
-je_cont.12297:
-je_cont.12295:
-	jmp	je_cont.12293
-je_else.12292:
-	movl	$1, %eax
-je_cont.12293:
-je_cont.12291:
-	jmp	je_cont.12289
-je_else.12288:
-	movl	$1, %eax
-je_cont.12289:
-je_cont.12287:
-	jmp	je_cont.12285
-je_else.12284:
-	movl	$1, %eax
-je_cont.12285:
-je_cont.12283:
-	cmpl	$0, %eax
-	jne	je_else.12306
-	movl	40(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12306:
-	movl	$1, %eax
-	ret
-je_else.12281:
-	movl	$min_caml_light, %esi
-	movl	0(%ebp), %edi
-	movl	%ecx, 44(%ebp)
-	movl	%eax, 40(%ebp)
-	movl	%edi, %ecx
-	movl	%esi, %ebx
-	movl	%edx, %eax
-	addl	$48, %ebp
-	call	solver.2066
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12307
-	movl	40(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12307:
-	movl	$l.10845, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_solver_dist, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12308
-	movl	40(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-jbe_else.12308:
-	movl	44(%ebp), %eax
-	movl	4(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12309
-	movl	$0, %eax
-	jmp	je_cont.12310
-je_else.12309:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12311
-	movl	44(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12313
-	movl	$0, %eax
-	jmp	je_cont.12314
-je_else.12313:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12315
-	movl	44(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12317
-	movl	$0, %eax
-	jmp	je_cont.12318
-je_else.12317:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12319
-	movl	44(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12321
-	movl	$0, %eax
-	jmp	je_cont.12322
-je_else.12321:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12323
-	movl	44(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12325
-	movl	$0, %eax
-	jmp	je_cont.12326
-je_else.12325:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12327
-	movl	44(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12329
-	movl	$0, %eax
-	jmp	je_cont.12330
-je_else.12329:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	0(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$48, %ebp
-	call	shadow_check_and_group.2081
-	subl	$48, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12331
-	movl	$7, %eax
-	movl	44(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	addl	$48, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$48, %ebp
-	jmp	je_cont.12332
-je_else.12331:
-	movl	$1, %eax
-je_cont.12332:
-je_cont.12330:
-	jmp	je_cont.12328
-je_else.12327:
-	movl	$1, %eax
-je_cont.12328:
-je_cont.12326:
-	jmp	je_cont.12324
-je_else.12323:
-	movl	$1, %eax
-je_cont.12324:
-je_cont.12322:
-	jmp	je_cont.12320
-je_else.12319:
-	movl	$1, %eax
-je_cont.12320:
-je_cont.12318:
-	jmp	je_cont.12316
-je_else.12315:
-	movl	$1, %eax
-je_cont.12316:
-je_cont.12314:
-	jmp	je_cont.12312
-je_else.12311:
-	movl	$1, %eax
-je_cont.12312:
-je_cont.12310:
-	cmpl	$0, %eax
-	jne	je_else.12333
-	movl	40(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	movl	0(%ebp), %ecx
-	jmp	shadow_check_one_or_matrix.2089
-je_else.12333:
-	movl	$1, %eax
-	ret
-je_else.12279:
-	movl	$1, %eax
-	ret
-solve_each_element.2093:
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12334
-	ret
-je_else.12334:
-	movl	$min_caml_vscan, %edx
-	movl	$min_caml_viewpoint, %esi
-	movl	$min_caml_objects, %edi
-	movl	(%edi,%ecx,4), %edi
-	movl	%eax, 0(%ebp)
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	0(%esi), %xmm0
-	movl	%ebx, 4(%ebp)
-	movl	20(%edi), %ebx
-	movsd	0(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	8(%esi), %xmm0
-	movl	20(%edi), %ebx
-	movsd	8(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	16(%esi), %xmm0
-	movl	20(%edi), %ebx
-	movsd	16(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	4(%edi), %eax
-	movl	%ecx, 8(%ebp)
-	cmpl	$1, %eax
-	jne	je_else.12336
-	movl	%edx, %ebx
-	movl	%edi, %eax
-	addl	$16, %ebp
-	call	solver_rect.2045
-	subl	$16, %ebp
-	jmp	je_cont.12337
-je_else.12336:
-	cmpl	$2, %eax
-	jne	je_else.12338
-	movsd	0(%edx), %xmm0
-	movl	16(%edi), %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%edx), %xmm1
-	movl	16(%edi), %eax
-	movsd	8(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%edx), %xmm1
-	movl	16(%edi), %eax
-	movsd	16(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12340
-	movl	$0, %eax
-	jmp	jbe_cont.12341
-jbe_else.12340:
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	0(%eax), %xmm1
-	movl	16(%edi), %eax
-	movsd	0(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	8(%eax), %xmm2
-	movl	16(%edi), %eax
-	movsd	8(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	16(%eax), %xmm2
-	movl	16(%edi), %eax
-	movsd	16(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	divsd	%xmm0, %xmm1
-	movl	$min_caml_solver_dist, %eax
-	xorpd	min_caml_fnegd, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$1, %eax
-jbe_cont.12341:
-	jmp	je_cont.12339
-je_else.12338:
-	movl	%edx, %ebx
-	movl	%edi, %eax
-	addl	$16, %ebp
-	call	solver_second.2063
-	subl	$16, %ebp
-je_cont.12339:
-je_cont.12337:
-	cmpl	$0, %eax
-	jne	je_else.12342
-	movl	$min_caml_objects, %eax
-	movl	8(%ebp), %ebx
-	movl	(%eax,%ebx,4), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.12344
-	movl	$min_caml_end_flag, %eax
-	movl	$1, %ebx
-	movl	%ebx, 0(%eax)
-	jmp	je_cont.12345
-je_else.12344:
-je_cont.12345:
-	jmp	je_cont.12343
-je_else.12342:
-	movl	$min_caml_solver_dist, %ebx
-	movsd	0(%ebx), %xmm0
-	movl	$l.10845, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12346
-	jmp	jbe_cont.12347
-jbe_else.12346:
-	movl	$min_caml_tmin, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12348
-	jmp	jbe_cont.12349
-jbe_else.12348:
-	movl	$l.10841, %ebx
-	movsd	0(%ebx), %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$min_caml_chkinside_p, %ebx
-	movl	$min_caml_vscan, %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	$min_caml_viewpoint, %ecx
-	movsd	0(%ecx), %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	%xmm1, 0(%ebx)
-	movl	$min_caml_chkinside_p, %ebx
-	movl	$min_caml_vscan, %ecx
-	movsd	8(%ecx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	$min_caml_viewpoint, %ecx
-	movsd	8(%ecx), %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	%xmm1, 8(%ebx)
-	movl	$min_caml_chkinside_p, %ebx
-	movl	$min_caml_vscan, %ecx
-	movsd	16(%ecx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	$min_caml_viewpoint, %ecx
-	movsd	16(%ecx), %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	%xmm1, 16(%ebx)
-	movl	4(%ebp), %ebx
-	movl	0(%ebx), %ecx
-	movl	%eax, 12(%ebp)
-	movsd	%xmm0, 16(%ebp)
-	cmpl	$-1, %ecx
-	jne	je_else.12350
-	movl	$1, %eax
-	jmp	je_cont.12351
-je_else.12350:
-	movl	$min_caml_objects, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	%ecx, %eax
-	addl	$24, %ebp
-	call	is_outside.2076
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12352
-	movl	4(%ebp), %ebx
-	movl	4(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.12354
-	movl	$1, %eax
-	jmp	je_cont.12355
-je_else.12354:
-	movl	$min_caml_objects, %ecx
-	movl	(%ecx,%eax,4), %eax
-	movl	$min_caml_isoutside_q, %ecx
-	movl	$min_caml_chkinside_p, %edx
-	movsd	0(%edx), %xmm0
-	movl	20(%eax), %edx
-	movsd	0(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%ecx)
-	movl	$min_caml_isoutside_q, %ecx
-	movl	$min_caml_chkinside_p, %edx
-	movsd	8(%edx), %xmm0
-	movl	20(%eax), %edx
-	movsd	8(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%ecx)
-	movl	$min_caml_isoutside_q, %ecx
-	movl	$min_caml_chkinside_p, %edx
-	movsd	16(%edx), %xmm0
-	movl	20(%eax), %edx
-	movsd	16(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%ecx)
-	movl	4(%eax), %ecx
-	cmpl	$1, %ecx
-	jne	je_else.12356
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm0
-	movl	$min_caml_isoutside_q, %ecx
-	movsd	0(%ecx), %xmm1
-	movl	%eax, 24(%ebp)
-	movsd	%xmm0, 32(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$40, %ebp
-	call	min_caml_abs_float
-	subl	$40, %ebp
-	movsd	32(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12359
-	movl	$0, %eax
-	jmp	jbe_cont.12360
-jbe_else.12359:
-	movl	24(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	8(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	8(%ebx), %xmm1
-	movsd	%xmm0, 40(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$48, %ebp
-	call	min_caml_abs_float
-	subl	$48, %ebp
-	movsd	40(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12361
-	movl	$0, %eax
-	jmp	jbe_cont.12362
-jbe_else.12361:
-	movl	24(%ebp), %eax
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	$min_caml_isoutside_q, %ebx
-	movsd	16(%ebx), %xmm1
-	movsd	%xmm0, 48(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$56, %ebp
-	call	min_caml_abs_float
-	subl	$56, %ebp
-	movsd	48(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12363
-	movl	$0, %eax
-	jmp	jbe_cont.12364
-jbe_else.12363:
-	movl	$1, %eax
-jbe_cont.12364:
-jbe_cont.12362:
-jbe_cont.12360:
-	cmpl	$0, %eax
-	jne	je_else.12365
-	movl	24(%ebp), %eax
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.12367
-	movl	$1, %eax
-	jmp	je_cont.12368
-je_else.12367:
-	movl	$0, %eax
-je_cont.12368:
-	jmp	je_cont.12366
-je_else.12365:
-	movl	24(%ebp), %eax
-	movl	24(%eax), %eax
-je_cont.12366:
-	jmp	je_cont.12357
-je_else.12356:
-	cmpl	$2, %ecx
-	jne	je_else.12369
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm0
-	movl	$min_caml_isoutside_q, %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm1
-	movl	$min_caml_isoutside_q, %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	16(%eax), %ecx
-	movsd	16(%ecx), %xmm1
-	movl	$min_caml_isoutside_q, %ecx
-	movsd	16(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12371
-	movl	$0, %ecx
-	jmp	jbe_cont.12372
-jbe_else.12371:
-	movl	$1, %ecx
-jbe_cont.12372:
-	movl	24(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.12373
-	jmp	je_cont.12374
-je_else.12373:
-	cmpl	$0, %ecx
-	jne	je_else.12375
-	movl	$1, %ecx
-	jmp	je_cont.12376
-je_else.12375:
-	movl	$0, %ecx
-je_cont.12376:
-je_cont.12374:
-	cmpl	$0, %ecx
-	jne	je_else.12377
-	movl	$1, %eax
-	jmp	je_cont.12378
-je_else.12377:
-	movl	$0, %eax
-je_cont.12378:
-	jmp	je_cont.12370
-je_else.12369:
-	addl	$56, %ebp
-	call	is_second_outside.2074
-	subl	$56, %ebp
-je_cont.12370:
-je_cont.12357:
-	cmpl	$0, %eax
-	jne	je_else.12379
-	movl	4(%ebp), %ebx
-	movl	8(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.12381
-	movl	$1, %eax
-	jmp	je_cont.12382
-je_else.12381:
-	movl	$min_caml_objects, %ecx
-	movl	(%ecx,%eax,4), %eax
-	addl	$56, %ebp
-	call	is_outside.2076
-	subl	$56, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12383
-	movl	$3, %eax
-	movl	4(%ebp), %ebx
-	addl	$56, %ebp
-	call	check_all_inside.2078
-	subl	$56, %ebp
-	jmp	je_cont.12384
-je_else.12383:
-	movl	$0, %eax
-je_cont.12384:
-je_cont.12382:
-	jmp	je_cont.12380
-je_else.12379:
-	movl	$0, %eax
-je_cont.12380:
-je_cont.12355:
-	jmp	je_cont.12353
-je_else.12352:
-	movl	$0, %eax
-je_cont.12353:
-je_cont.12351:
-	cmpl	$0, %eax
-	jne	je_else.12385
-	jmp	je_cont.12386
-je_else.12385:
-	movl	$min_caml_tmin, %eax
-	movsd	16(%ebp), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_crashed_point, %eax
-	movl	$min_caml_chkinside_p, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_crashed_point, %eax
-	movl	$min_caml_chkinside_p, %ebx
-	movsd	8(%ebx), %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_crashed_point, %eax
-	movl	$min_caml_chkinside_p, %ebx
-	movsd	16(%ebx), %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	$min_caml_intsec_rectside, %eax
-	movl	12(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-	movl	$min_caml_crashed_object, %eax
-	movl	8(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-je_cont.12386:
-jbe_cont.12349:
-jbe_cont.12347:
-je_cont.12343:
-	movl	$min_caml_end_flag, %eax
-	movl	0(%eax), %eax
-	cmpl	$0, %eax
-	jne	je_else.12387
-	movl	0(%ebp), %eax
-	addl	$1, %eax
-	movl	4(%ebp), %ebx
-	jmp	solve_each_element.2093
-je_else.12387:
-	ret
-solve_one_or_network.2096:
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12389
-	ret
-je_else.12389:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$min_caml_end_flag, %edx
-	movl	$0, %esi
-	movl	%esi, 0(%edx)
-	movl	$0, %edx
-	movl	%ebx, 0(%ebp)
-	movl	%eax, 4(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	addl	$8, %ebp
-	call	solve_each_element.2093
-	subl	$8, %ebp
-	movl	4(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12391
-	ret
-je_else.12391:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$min_caml_end_flag, %edx
-	movl	$0, %esi
-	movl	%esi, 0(%edx)
-	movl	$0, %edx
-	movl	%eax, 8(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	addl	$16, %ebp
-	call	solve_each_element.2093
-	subl	$16, %ebp
-	movl	8(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12393
-	ret
-je_else.12393:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$min_caml_end_flag, %edx
-	movl	$0, %esi
-	movl	%esi, 0(%edx)
-	movl	$0, %edx
-	movl	%eax, 12(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	addl	$16, %ebp
-	call	solve_each_element.2093
-	subl	$16, %ebp
-	movl	12(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	cmpl	$-1, %ecx
-	jne	je_else.12395
-	ret
-je_else.12395:
-	movl	$min_caml_and_net, %edx
-	movl	(%edx,%ecx,4), %ecx
-	movl	$min_caml_end_flag, %edx
-	movl	$0, %esi
-	movl	%esi, 0(%edx)
-	movl	$0, %edx
-	movl	%eax, 16(%ebp)
-	movl	%ecx, %ebx
-	movl	%edx, %eax
-	addl	$24, %ebp
-	call	solve_each_element.2093
-	subl	$24, %ebp
-	movl	16(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	jmp	solve_one_or_network.2096
-trace_or_matrix.2099:
-	movl	(%ebx,%eax,4), %ecx
-	movl	0(%ecx), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12397
-	ret
-je_else.12397:
-	movl	%ebx, 0(%ebp)
-	movl	%eax, 4(%ebp)
-	cmpl	$99, %edx
-	jne	je_else.12399
-	movl	4(%ecx), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12401
-	jmp	je_cont.12402
-je_else.12401:
-	movl	$min_caml_and_net, %esi
-	movl	(%esi,%edx,4), %edx
-	movl	$min_caml_end_flag, %esi
-	movl	$0, %edi
-	movl	%edi, 0(%esi)
-	movl	$0, %esi
-	movl	%ecx, 8(%ebp)
-	movl	%edx, %ebx
-	movl	%esi, %eax
-	addl	$16, %ebp
-	call	solve_each_element.2093
-	subl	$16, %ebp
-	movl	8(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12403
-	jmp	je_cont.12404
-je_else.12403:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$min_caml_end_flag, %ecx
-	movl	$0, %edx
-	movl	%edx, 0(%ecx)
-	movl	$0, %ecx
-	movl	%ecx, %eax
-	addl	$16, %ebp
-	call	solve_each_element.2093
-	subl	$16, %ebp
-	movl	8(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12405
-	jmp	je_cont.12406
-je_else.12405:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$min_caml_end_flag, %ecx
-	movl	$0, %edx
-	movl	%edx, 0(%ecx)
-	movl	$0, %ecx
-	movl	%ecx, %eax
-	addl	$16, %ebp
-	call	solve_each_element.2093
-	subl	$16, %ebp
-	movl	$4, %eax
-	movl	8(%ebp), %ebx
-	addl	$16, %ebp
-	call	solve_one_or_network.2096
-	subl	$16, %ebp
-je_cont.12406:
-je_cont.12404:
-je_cont.12402:
-	jmp	je_cont.12400
-je_else.12399:
-	movl	$min_caml_vscan, %esi
-	movl	$min_caml_viewpoint, %edi
-	movl	$min_caml_objects, %ebx
-	movl	(%ebx,%edx,4), %ebx
-	movl	$min_caml_solver_w_vec, %edx
-	movsd	0(%edi), %xmm0
-	movl	20(%ebx), %eax
-	movsd	0(%eax), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%edx)
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	8(%edi), %xmm0
-	movl	20(%ebx), %edx
-	movsd	8(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	16(%edi), %xmm0
-	movl	20(%ebx), %edx
-	movsd	16(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	4(%ebx), %eax
-	movl	%ecx, 8(%ebp)
-	cmpl	$1, %eax
-	jne	je_else.12407
-	movl	%ebx, %eax
-	movl	%esi, %ebx
-	addl	$16, %ebp
-	call	solver_rect.2045
-	subl	$16, %ebp
-	jmp	je_cont.12408
-je_else.12407:
-	cmpl	$2, %eax
-	jne	je_else.12409
-	movsd	0(%esi), %xmm0
-	movl	16(%ebx), %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%esi), %xmm1
-	movl	16(%ebx), %eax
-	movsd	8(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%esi), %xmm1
-	movl	16(%ebx), %eax
-	movsd	16(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12411
-	movl	$0, %eax
-	jmp	jbe_cont.12412
-jbe_else.12411:
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	0(%eax), %xmm1
-	movl	16(%ebx), %eax
-	movsd	0(%eax), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	8(%eax), %xmm2
-	movl	16(%ebx), %eax
-	movsd	8(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	$min_caml_solver_w_vec, %eax
-	movsd	16(%eax), %xmm2
-	movl	16(%ebx), %eax
-	movsd	16(%eax), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	divsd	%xmm0, %xmm1
-	movl	$min_caml_solver_dist, %eax
-	xorpd	min_caml_fnegd, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$1, %eax
-jbe_cont.12412:
-	jmp	je_cont.12410
-je_else.12409:
-	movl	%ebx, %eax
-	movl	%esi, %ebx
-	addl	$16, %ebp
-	call	solver_second.2063
-	subl	$16, %ebp
-je_cont.12410:
-je_cont.12408:
-	cmpl	$0, %eax
-	jne	je_else.12413
-	jmp	je_cont.12414
-je_else.12413:
-	movl	$min_caml_solver_dist, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_tmin, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12415
-	jmp	jbe_cont.12416
-jbe_else.12415:
-	movl	8(%ebp), %eax
-	movl	4(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12417
-	jmp	je_cont.12418
-je_else.12417:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$min_caml_end_flag, %ecx
-	movl	$0, %edx
-	movl	%edx, 0(%ecx)
-	movl	$0, %ecx
-	movl	%ecx, %eax
-	addl	$16, %ebp
-	call	solve_each_element.2093
-	subl	$16, %ebp
-	movl	8(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12419
-	jmp	je_cont.12420
-je_else.12419:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$min_caml_end_flag, %ecx
-	movl	$0, %edx
-	movl	%edx, 0(%ecx)
-	movl	$0, %ecx
-	movl	%ecx, %eax
-	addl	$16, %ebp
-	call	solve_each_element.2093
-	subl	$16, %ebp
-	movl	8(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12421
-	jmp	je_cont.12422
-je_else.12421:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$min_caml_end_flag, %ecx
-	movl	$0, %edx
-	movl	%edx, 0(%ecx)
-	movl	$0, %ecx
-	movl	%ecx, %eax
-	addl	$16, %ebp
-	call	solve_each_element.2093
-	subl	$16, %ebp
-	movl	$4, %eax
-	movl	8(%ebp), %ebx
-	addl	$16, %ebp
-	call	solve_one_or_network.2096
-	subl	$16, %ebp
-je_cont.12422:
-je_cont.12420:
-je_cont.12418:
-jbe_cont.12416:
-je_cont.12414:
-je_cont.12400:
-	movl	4(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	movl	(%ebx,%eax,4), %ecx
-	movl	0(%ecx), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12423
-	ret
-je_else.12423:
-	movl	%eax, 12(%ebp)
-	cmpl	$99, %edx
-	jne	je_else.12425
-	movl	4(%ecx), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12427
-	jmp	je_cont.12428
-je_else.12427:
-	movl	$min_caml_and_net, %esi
-	movl	(%esi,%edx,4), %edx
-	movl	$min_caml_end_flag, %esi
-	movl	$0, %edi
-	movl	%edi, 0(%esi)
-	movl	$0, %esi
-	movl	%ecx, 16(%ebp)
-	movl	%edx, %ebx
-	movl	%esi, %eax
-	addl	$24, %ebp
-	call	solve_each_element.2093
-	subl	$24, %ebp
-	movl	16(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12429
-	jmp	je_cont.12430
-je_else.12429:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$min_caml_end_flag, %ecx
-	movl	$0, %edx
-	movl	%edx, 0(%ecx)
-	movl	$0, %ecx
-	movl	%ecx, %eax
-	addl	$24, %ebp
-	call	solve_each_element.2093
-	subl	$24, %ebp
-	movl	$3, %eax
-	movl	16(%ebp), %ebx
-	addl	$24, %ebp
-	call	solve_one_or_network.2096
-	subl	$24, %ebp
-je_cont.12430:
-je_cont.12428:
-	jmp	je_cont.12426
-je_else.12425:
-	movl	$min_caml_vscan, %esi
-	movl	$min_caml_viewpoint, %edi
-	movl	%ecx, 16(%ebp)
-	movl	%edi, %ecx
-	movl	%esi, %ebx
-	movl	%edx, %eax
-	addl	$24, %ebp
-	call	solver.2066
-	subl	$24, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12431
-	jmp	je_cont.12432
-je_else.12431:
-	movl	$min_caml_solver_dist, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_tmin, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12433
-	jmp	jbe_cont.12434
-jbe_else.12433:
-	movl	16(%ebp), %eax
-	movl	4(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12435
-	jmp	je_cont.12436
-je_else.12435:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$min_caml_end_flag, %ecx
-	movl	$0, %edx
-	movl	%edx, 0(%ecx)
-	movl	$0, %ecx
-	movl	%ecx, %eax
-	addl	$24, %ebp
-	call	solve_each_element.2093
-	subl	$24, %ebp
-	movl	16(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12437
-	jmp	je_cont.12438
-je_else.12437:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$min_caml_end_flag, %ecx
-	movl	$0, %edx
-	movl	%edx, 0(%ecx)
-	movl	$0, %ecx
-	movl	%ecx, %eax
-	addl	$24, %ebp
-	call	solve_each_element.2093
-	subl	$24, %ebp
-	movl	$3, %eax
-	movl	16(%ebp), %ebx
-	addl	$24, %ebp
-	call	solve_one_or_network.2096
-	subl	$24, %ebp
-je_cont.12438:
-je_cont.12436:
-jbe_cont.12434:
-je_cont.12432:
-je_cont.12426:
-	movl	12(%ebp), %eax
-	addl	$1, %eax
-	movl	0(%ebp), %ebx
-	jmp	trace_or_matrix.2099
-get_nvector_rect.2105:
-	movl	$min_caml_intsec_rectside, %eax
-	movl	0(%eax), %eax
-	cmpl	$1, %eax
-	jne	je_else.12439
-	movl	$min_caml_nvector, %eax
-	movl	$min_caml_vscan, %ebx
-	movsd	0(%ebx), %xmm0
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12440
-	movl	$l.10794, %ebx
-	movsd	0(%ebx), %xmm0
-	jmp	jbe_cont.12441
-jbe_else.12440:
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm0
-jbe_cont.12441:
-	xorpd	min_caml_fnegd, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_nvector, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_nvector, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 16(%eax)
-	ret
-je_else.12439:
-	cmpl	$2, %eax
-	jne	je_else.12443
-	movl	$min_caml_nvector, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_nvector, %eax
-	movl	$min_caml_vscan, %ebx
-	movsd	8(%ebx), %xmm0
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12444
-	movl	$l.10794, %ebx
-	movsd	0(%ebx), %xmm0
-	jmp	jbe_cont.12445
-jbe_else.12444:
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm0
-jbe_cont.12445:
-	xorpd	min_caml_fnegd, %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_nvector, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 16(%eax)
-	ret
-je_else.12443:
-	cmpl	$3, %eax
-	jne	je_else.12447
-	movl	$min_caml_nvector, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_nvector, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_nvector, %eax
-	movl	$min_caml_vscan, %ebx
-	movsd	16(%ebx), %xmm0
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12448
-	movl	$l.10794, %ebx
-	movsd	0(%ebx), %xmm0
-	jmp	jbe_cont.12449
-jbe_else.12448:
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm0
-jbe_cont.12449:
-	xorpd	min_caml_fnegd, %xmm0
-	movsd	%xmm0, 16(%eax)
-	ret
-je_else.12447:
-	ret
-get_nvector_second_norot.2109:
-	movl	$min_caml_nvector, %ecx
-	movsd	0(%ebx), %xmm0
-	movl	20(%eax), %edx
-	movsd	0(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	16(%eax), %edx
-	movsd	0(%edx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%ecx)
-	movl	$min_caml_nvector, %ecx
-	movsd	8(%ebx), %xmm0
-	movl	20(%eax), %edx
-	movsd	8(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	16(%eax), %edx
-	movsd	8(%edx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%ecx)
-	movl	$min_caml_nvector, %ecx
-	movsd	16(%ebx), %xmm0
-	movl	20(%eax), %ebx
-	movsd	16(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	16(%eax), %ebx
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%ecx)
-	movl	$min_caml_nvector, %ebx
-	movl	24(%eax), %eax
-	movsd	0(%ebx), %xmm0
-	mulsd	%xmm0, %xmm0
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	%ebx, 0(%ebp)
-	movl	%eax, 4(%ebp)
-	addl	$8, %ebp
-	call	min_caml_sqrt
-	subl	$8, %ebp
-	movl	4(%ebp), %eax
-	cmpl	$0, %eax
-	jne	je_else.12452
-	jmp	je_cont.12453
-je_else.12452:
-	xorpd	min_caml_fnegd, %xmm0
-je_cont.12453:
-	movl	0(%ebp), %eax
-	movsd	0(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movsd	8(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 8(%eax)
-	movsd	16(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 16(%eax)
-	ret
-get_nvector_second_rot.2112:
-	movl	$min_caml_nvector_w, %ecx
-	movsd	0(%ebx), %xmm0
-	movl	20(%eax), %edx
-	movsd	0(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%ecx)
-	movl	$min_caml_nvector_w, %ecx
-	movsd	8(%ebx), %xmm0
-	movl	20(%eax), %edx
-	movsd	8(%edx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%ecx)
-	movl	$min_caml_nvector_w, %ecx
-	movsd	16(%ebx), %xmm0
-	movl	20(%eax), %ebx
-	movsd	16(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%ecx)
-	movl	$min_caml_nvector, %ebx
-	movl	$min_caml_nvector_w, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_nvector_w, %ecx
-	movsd	8(%ecx), %xmm1
-	movl	36(%eax), %ecx
-	movsd	16(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_nvector_w, %ecx
-	movsd	16(%ecx), %xmm2
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	$l.10807, %ecx
-	movsd	0(%ecx), %xmm2
-	divsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%ebx)
-	movl	$min_caml_nvector, %ebx
-	movl	$min_caml_nvector_w, %ecx
-	movsd	8(%ecx), %xmm0
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_nvector_w, %ecx
-	movsd	0(%ecx), %xmm1
-	movl	36(%eax), %ecx
-	movsd	16(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_nvector_w, %ecx
-	movsd	16(%ecx), %xmm2
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	$l.10807, %ecx
-	movsd	0(%ecx), %xmm2
-	divsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%ebx)
-	movl	$min_caml_nvector, %ebx
-	movl	$min_caml_nvector_w, %ecx
-	movsd	16(%ecx), %xmm0
-	movl	16(%eax), %ecx
-	movsd	16(%ecx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_nvector_w, %ecx
-	movsd	0(%ecx), %xmm1
-	movl	36(%eax), %ecx
-	movsd	8(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_nvector_w, %ecx
-	movsd	8(%ecx), %xmm2
-	movl	36(%eax), %ecx
-	movsd	0(%ecx), %xmm3
-	mulsd	%xmm3, %xmm2
-	addsd	%xmm2, %xmm1
-	movl	$l.10807, %ecx
-	movsd	0(%ecx), %xmm2
-	divsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%ebx)
-	movl	$min_caml_nvector, %ebx
-	movl	24(%eax), %eax
-	movsd	0(%ebx), %xmm0
-	mulsd	%xmm0, %xmm0
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm1, %xmm1
-	addsd	%xmm1, %xmm0
-	movl	%ebx, 0(%ebp)
-	movl	%eax, 4(%ebp)
-	addl	$8, %ebp
-	call	min_caml_sqrt
-	subl	$8, %ebp
-	movl	4(%ebp), %eax
-	cmpl	$0, %eax
-	jne	je_else.12455
-	jmp	je_cont.12456
-je_else.12455:
-	xorpd	min_caml_fnegd, %xmm0
-je_cont.12456:
-	movl	0(%ebp), %eax
-	movsd	0(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movsd	8(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 8(%eax)
-	movsd	16(%eax), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 16(%eax)
-	ret
-utexture.2118:
-	movl	0(%eax), %ecx
-	movl	$min_caml_texture_color, %edx
-	movl	32(%eax), %esi
-	movsd	0(%esi), %xmm0
-	movsd	%xmm0, 0(%edx)
-	movl	$min_caml_texture_color, %edx
-	movl	32(%eax), %esi
-	movsd	8(%esi), %xmm0
-	movsd	%xmm0, 8(%edx)
-	movl	$min_caml_texture_color, %edx
-	movl	32(%eax), %esi
-	movsd	16(%esi), %xmm0
-	movsd	%xmm0, 16(%edx)
-	cmpl	$1, %ecx
-	jne	je_else.12458
-	movsd	0(%ebx), %xmm0
-	movl	20(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	$l.10905, %ecx
-	movsd	0(%ecx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	%eax, 0(%ebp)
-	movl	%ebx, 4(%ebp)
-	movsd	%xmm0, 8(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$16, %ebp
-	call	min_caml_floor
-	subl	$16, %ebp
-	movl	$l.10907, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$l.10892, %eax
-	movsd	0(%eax), %xmm1
-	movsd	8(%ebp), %xmm2
-	subsd	%xmm0, %xmm2
-	comisd	%xmm2, %xmm1
-	ja	jbe_else.12459
-	movl	$0, %eax
-	jmp	jbe_cont.12460
-jbe_else.12459:
-	movl	$1, %eax
-jbe_cont.12460:
-	movl	4(%ebp), %ebx
-	movsd	16(%ebx), %xmm0
-	movl	0(%ebp), %ebx
-	movl	20(%ebx), %ebx
-	movsd	16(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	$l.10905, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	%eax, 16(%ebp)
-	movsd	%xmm0, 24(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$32, %ebp
-	call	min_caml_floor
-	subl	$32, %ebp
-	movl	$l.10907, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$l.10892, %eax
-	movsd	0(%eax), %xmm1
-	movsd	24(%ebp), %xmm2
-	subsd	%xmm0, %xmm2
-	comisd	%xmm2, %xmm1
-	ja	jbe_else.12462
-	movl	$0, %eax
-	jmp	jbe_cont.12463
-jbe_else.12462:
-	movl	$1, %eax
-jbe_cont.12463:
-	movl	$min_caml_texture_color, %ebx
-	movl	16(%ebp), %ecx
-	cmpl	$0, %ecx
-	jne	je_else.12464
-	cmpl	$0, %eax
-	jne	je_else.12466
-	movl	$l.10896, %eax
-	movsd	0(%eax), %xmm0
-	jmp	je_cont.12467
-je_else.12466:
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm0
-je_cont.12467:
-	jmp	je_cont.12465
-je_else.12464:
-	cmpl	$0, %eax
-	jne	je_else.12468
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm0
-	jmp	je_cont.12469
-je_else.12468:
-	movl	$l.10896, %eax
-	movsd	0(%eax), %xmm0
-je_cont.12469:
-je_cont.12465:
-	movsd	%xmm0, 8(%ebx)
-	ret
-je_else.12458:
-	cmpl	$2, %ecx
-	jne	je_else.12471
-	movsd	8(%ebx), %xmm0
-	movl	$l.10900, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	addl	$32, %ebp
-	call	min_caml_sin
-	subl	$32, %ebp
-	mulsd	%xmm0, %xmm0
-	movl	$min_caml_texture_color, %eax
-	movl	$l.10896, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$min_caml_texture_color, %eax
-	movl	$l.10896, %ebx
-	movsd	0(%ebx), %xmm1
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm2
-	subsd	%xmm0, %xmm2
-	mulsd	%xmm2, %xmm1
-	movsd	%xmm1, 8(%eax)
-	ret
-je_else.12471:
-	cmpl	$3, %ecx
-	jne	je_else.12473
-	movsd	0(%ebx), %xmm0
-	movl	20(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	16(%ebx), %xmm1
-	movl	20(%eax), %eax
-	movsd	16(%eax), %xmm2
-	subsd	%xmm2, %xmm1
-	mulsd	%xmm0, %xmm0
-	mulsd	%xmm1, %xmm1
-	addsd	%xmm1, %xmm0
-	addl	$32, %ebp
-	call	min_caml_sqrt
-	subl	$32, %ebp
-	movl	$l.10892, %eax
-	movsd	0(%eax), %xmm1
-	divsd	%xmm1, %xmm0
-	movsd	%xmm0, 32(%ebp)
-	addl	$40, %ebp
-	call	min_caml_floor
-	subl	$40, %ebp
-	movsd	32(%ebp), %xmm1
-	subsd	%xmm0, %xmm1
-	movl	$l.10894, %eax
-	movsd	0(%eax), %xmm0
-	mulsd	%xmm1, %xmm0
-	addl	$40, %ebp
-	call	min_caml_cos
-	subl	$40, %ebp
-	mulsd	%xmm0, %xmm0
-	movl	$min_caml_texture_color, %eax
-	movl	$l.10896, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movsd	%xmm1, 8(%eax)
-	movl	$min_caml_texture_color, %eax
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm1
-	subsd	%xmm0, %xmm1
-	movl	$l.10896, %ebx
-	movsd	0(%ebx), %xmm0
-	mulsd	%xmm0, %xmm1
-	movsd	%xmm1, 16(%eax)
-	ret
-je_else.12473:
-	cmpl	$4, %ecx
-	jne	je_else.12475
-	movsd	0(%ebx), %xmm0
-	movl	20(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm1
-	movl	%eax, 0(%ebp)
-	movl	%ebx, 4(%ebp)
-	movsd	%xmm0, 40(%ebp)
-	movsd	%xmm1, %xmm0
-	addl	$48, %ebp
-	call	min_caml_sqrt
-	subl	$48, %ebp
-	movsd	40(%ebp), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	4(%ebp), %eax
-	movsd	16(%eax), %xmm0
-	movl	0(%ebp), %ebx
-	movl	20(%ebx), %ecx
-	movsd	16(%ecx), %xmm2
-	subsd	%xmm2, %xmm0
-	movl	16(%ebx), %ecx
-	movsd	16(%ecx), %xmm2
-	movsd	%xmm1, 48(%ebp)
-	movsd	%xmm0, 56(%ebp)
-	movsd	%xmm2, %xmm0
-	addl	$64, %ebp
-	call	min_caml_sqrt
-	subl	$64, %ebp
-	movsd	56(%ebp), %xmm1
-	mulsd	%xmm0, %xmm1
-	movsd	48(%ebp), %xmm0
-	movsd	%xmm0, %xmm2
-	mulsd	%xmm0, %xmm2
-	movsd	%xmm1, %xmm3
-	mulsd	%xmm1, %xmm3
-	addsd	%xmm3, %xmm2
-	movsd	%xmm1, 64(%ebp)
-	movsd	%xmm2, %xmm0
-	addl	$72, %ebp
-	call	min_caml_sqrt
-	subl	$72, %ebp
-	movl	$l.10874, %eax
-	movsd	0(%eax), %xmm1
-	movsd	48(%ebp), %xmm2
-	movsd	%xmm0, 72(%ebp)
-	movsd	%xmm1, 80(%ebp)
-	movsd	%xmm2, %xmm0
-	addl	$88, %ebp
-	call	min_caml_abs_float
-	subl	$88, %ebp
-	movsd	80(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12476
-	movsd	48(%ebp), %xmm0
-	movsd	64(%ebp), %xmm1
-	movsd	%xmm0, 88(%ebp)
-	movsd	%xmm1, %xmm0
-	divsd	88(%ebp), %xmm0
-	addl	$88, %ebp
-	call	min_caml_abs_float
-	subl	$88, %ebp
-	addl	$88, %ebp
-	call	min_caml_atan
-	subl	$88, %ebp
-	movl	$l.10878, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	jmp	jbe_cont.12477
-jbe_else.12476:
-	movl	$l.10876, %eax
-	movsd	0(%eax), %xmm0
-jbe_cont.12477:
-	movsd	%xmm0, 88(%ebp)
-	addl	$96, %ebp
-	call	min_caml_floor
-	subl	$96, %ebp
-	movsd	88(%ebp), %xmm1
-	movsd	%xmm0, 96(%ebp)
-	movsd	%xmm1, %xmm0
-	subsd	96(%ebp), %xmm0
-	movl	4(%ebp), %eax
-	movsd	8(%eax), %xmm2
-	movl	0(%ebp), %eax
-	movl	20(%eax), %ebx
-	movsd	8(%ebx), %xmm3
-	subsd	%xmm3, %xmm2
-	movl	16(%eax), %eax
-	movsd	8(%eax), %xmm3
-	movsd	%xmm0, 96(%ebp)
-	movsd	%xmm2, 104(%ebp)
-	movsd	%xmm3, %xmm0
-	addl	$112, %ebp
-	call	min_caml_sqrt
-	subl	$112, %ebp
-	movsd	104(%ebp), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	$l.10874, %eax
-	movsd	0(%eax), %xmm0
-	movsd	88(%ebp), %xmm2
-	movsd	%xmm1, 112(%ebp)
-	movsd	%xmm0, 120(%ebp)
-	movsd	%xmm2, %xmm0
-	addl	$128, %ebp
-	call	min_caml_abs_float
-	subl	$128, %ebp
-	movsd	120(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12478
-	movsd	72(%ebp), %xmm0
-	movsd	112(%ebp), %xmm1
-	movsd	%xmm0, 128(%ebp)
-	movsd	%xmm1, %xmm0
-	divsd	128(%ebp), %xmm0
-	addl	$128, %ebp
-	call	min_caml_abs_float
-	subl	$128, %ebp
-	addl	$128, %ebp
-	call	min_caml_atan
-	subl	$128, %ebp
-	movl	$l.10878, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	jmp	jbe_cont.12479
-jbe_else.12478:
-	movl	$l.10876, %eax
-	movsd	0(%eax), %xmm0
-jbe_cont.12479:
-	movsd	%xmm0, 128(%ebp)
-	addl	$136, %ebp
-	call	min_caml_floor
-	subl	$136, %ebp
-	movsd	128(%ebp), %xmm1
-	subsd	%xmm0, %xmm1
-	movl	$l.10883, %eax
-	movsd	0(%eax), %xmm0
-	movl	$l.10885, %eax
-	movsd	0(%eax), %xmm2
-	movsd	96(%ebp), %xmm3
-	subsd	%xmm3, %xmm2
-	mulsd	%xmm2, %xmm2
-	subsd	%xmm2, %xmm0
-	movl	$l.10885, %eax
-	movsd	0(%eax), %xmm2
-	subsd	%xmm1, %xmm2
-	mulsd	%xmm2, %xmm2
-	subsd	%xmm2, %xmm0
-	movl	$min_caml_texture_color, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12480
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	jmp	jbe_cont.12481
-jbe_else.12480:
-	movl	$l.10889, %ebx
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-jbe_cont.12481:
-	movsd	%xmm0, 16(%eax)
-	ret
-je_else.12475:
-	ret
-raytracing.2128:
-	movl	$min_caml_tmin, %ebx
-	movl	$l.10917, %ecx
-	movsd	0(%ecx), %xmm1
-	movsd	%xmm1, 0(%ebx)
-	movl	$0, %ebx
-	movl	$min_caml_or_net, %ecx
-	movl	0(%ecx), %ecx
-	movsd	%xmm0, 0(%ebp)
-	movl	%eax, 8(%ebp)
-	movl	%ebx, %eax
-	movl	%ecx, %ebx
-	addl	$16, %ebp
-	call	trace_or_matrix.2099
-	subl	$16, %ebp
-	movl	$min_caml_tmin, %eax
-	movsd	0(%eax), %xmm0
-	movl	$l.10845, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12484
-	movl	$0, %eax
-	jmp	jbe_cont.12485
-jbe_else.12484:
-	movl	$l.10920, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12486
-	movl	$0, %eax
-	jmp	jbe_cont.12487
-jbe_else.12486:
-	movl	$1, %eax
-jbe_cont.12487:
-jbe_cont.12485:
-	cmpl	$0, %eax
-	jne	je_else.12488
-	movl	8(%ebp), %ebx
-	cmpl	$0, %ebx
-	jne	je_else.12490
-	jmp	je_cont.12491
-je_else.12490:
-	movl	$min_caml_vscan, %ecx
-	movl	$min_caml_light, %edx
-	movsd	0(%ecx), %xmm0
-	movsd	0(%edx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%ecx), %xmm1
-	movsd	8(%edx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%ecx), %xmm1
-	movsd	16(%edx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	movl	$l.10769, %ecx
-	movsd	0(%ecx), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12492
-	jmp	jbe_cont.12493
-jbe_else.12492:
-	movsd	%xmm0, %xmm1
-	mulsd	%xmm0, %xmm1
-	mulsd	%xmm0, %xmm1
-	movsd	0(%ebp), %xmm0
-	mulsd	%xmm0, %xmm1
-	movl	$min_caml_beam, %ecx
-	movsd	0(%ecx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_rgb, %ecx
-	movl	$min_caml_rgb, %edx
-	movsd	0(%edx), %xmm2
-	addsd	%xmm1, %xmm2
-	movsd	%xmm2, 0(%ecx)
-	movl	$min_caml_rgb, %ecx
-	movl	$min_caml_rgb, %edx
-	movsd	8(%edx), %xmm2
-	addsd	%xmm1, %xmm2
-	movsd	%xmm2, 8(%ecx)
-	movl	$min_caml_rgb, %ecx
-	movl	$min_caml_rgb, %edx
-	movsd	16(%edx), %xmm2
-	addsd	%xmm1, %xmm2
-	movsd	%xmm2, 16(%ecx)
-jbe_cont.12493:
-je_cont.12491:
-	jmp	je_cont.12489
-je_else.12488:
-je_cont.12489:
-	cmpl	$0, %eax
-	jne	je_else.12494
-	ret
-je_else.12494:
-	movl	$min_caml_objects, %eax
-	movl	$min_caml_crashed_object, %ebx
-	movl	0(%ebx), %ebx
-	movl	(%eax,%ebx,4), %eax
-	movl	$min_caml_crashed_point, %ebx
-	movl	4(%eax), %ecx
-	movl	%eax, 12(%ebp)
-	cmpl	$1, %ecx
-	jne	je_else.12496
-	addl	$16, %ebp
-	call	get_nvector_rect.2105
-	subl	$16, %ebp
-	jmp	je_cont.12497
-je_else.12496:
-	cmpl	$2, %ecx
-	jne	je_else.12498
-	movl	$min_caml_nvector, %ebx
-	movl	16(%eax), %ecx
-	movsd	0(%ecx), %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	movsd	%xmm0, 0(%ebx)
-	movl	$min_caml_nvector, %ebx
-	movl	16(%eax), %ecx
-	movsd	8(%ecx), %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	movsd	%xmm0, 8(%ebx)
-	movl	$min_caml_nvector, %ebx
-	movl	16(%eax), %ecx
-	movsd	16(%ecx), %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	movsd	%xmm0, 16(%ebx)
-	jmp	je_cont.12499
-je_else.12498:
-	movl	12(%eax), %ecx
-	cmpl	$0, %ecx
-	jne	je_else.12500
-	addl	$16, %ebp
-	call	get_nvector_second_norot.2109
-	subl	$16, %ebp
-	jmp	je_cont.12501
-je_else.12500:
-	addl	$16, %ebp
-	call	get_nvector_second_rot.2112
-	subl	$16, %ebp
-je_cont.12501:
-je_cont.12499:
-je_cont.12497:
-	movl	$min_caml_or_net, %eax
-	movl	0(%eax), %ebx
-	movl	$min_caml_crashed_point, %ecx
-	movl	0(%ebx), %eax
-	movl	0(%eax), %edx
-	cmpl	$-1, %edx
-	jne	je_else.12502
-	movl	$0, %eax
-	jmp	je_cont.12503
-je_else.12502:
-	cmpl	$99, %edx
-	jne	je_else.12504
-	movl	4(%eax), %edx
-	movl	%ecx, 16(%ebp)
-	movl	%ebx, 20(%ebp)
-	cmpl	$-1, %edx
-	jne	je_else.12506
-	movl	$0, %eax
-	jmp	je_cont.12507
-je_else.12506:
-	movl	$min_caml_and_net, %esi
-	movl	(%esi,%edx,4), %edx
-	movl	$0, %esi
-	movl	%eax, 24(%ebp)
-	movl	%edx, %ebx
-	movl	%esi, %eax
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12508
-	movl	24(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12510
-	movl	$0, %eax
-	jmp	je_cont.12511
-je_else.12510:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12512
-	movl	24(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12514
-	movl	$0, %eax
-	jmp	je_cont.12515
-je_else.12514:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12516
-	movl	24(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12518
-	movl	$0, %eax
-	jmp	je_cont.12519
-je_else.12518:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12520
-	movl	24(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12522
-	movl	$0, %eax
-	jmp	je_cont.12523
-je_else.12522:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12524
-	movl	24(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12526
-	movl	$0, %eax
-	jmp	je_cont.12527
-je_else.12526:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12528
-	movl	$7, %eax
-	movl	24(%ebp), %ebx
-	movl	16(%ebp), %ecx
-	addl	$32, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$32, %ebp
-	jmp	je_cont.12529
-je_else.12528:
-	movl	$1, %eax
-je_cont.12529:
-je_cont.12527:
-	jmp	je_cont.12525
-je_else.12524:
-	movl	$1, %eax
-je_cont.12525:
-je_cont.12523:
-	jmp	je_cont.12521
-je_else.12520:
-	movl	$1, %eax
-je_cont.12521:
-je_cont.12519:
-	jmp	je_cont.12517
-je_else.12516:
-	movl	$1, %eax
-je_cont.12517:
-je_cont.12515:
-	jmp	je_cont.12513
-je_else.12512:
-	movl	$1, %eax
-je_cont.12513:
-je_cont.12511:
-	jmp	je_cont.12509
-je_else.12508:
-	movl	$1, %eax
-je_cont.12509:
-je_cont.12507:
-	cmpl	$0, %eax
-	jne	je_else.12530
-	movl	$1, %eax
-	movl	20(%ebp), %ebx
-	movl	16(%ebp), %ecx
-	addl	$32, %ebp
-	call	shadow_check_one_or_matrix.2089
-	subl	$32, %ebp
-	jmp	je_cont.12531
-je_else.12530:
-	movl	$1, %eax
-je_cont.12531:
-	jmp	je_cont.12505
-je_else.12504:
-	movl	$min_caml_light, %esi
-	movl	%eax, 24(%ebp)
-	movl	%ecx, 16(%ebp)
-	movl	%ebx, 20(%ebp)
-	movl	%esi, %ebx
-	movl	%edx, %eax
-	addl	$32, %ebp
-	call	solver.2066
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12532
-	movl	$1, %eax
-	movl	20(%ebp), %ebx
-	movl	16(%ebp), %ecx
-	addl	$32, %ebp
-	call	shadow_check_one_or_matrix.2089
-	subl	$32, %ebp
-	jmp	je_cont.12533
-je_else.12532:
-	movl	$l.10845, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_solver_dist, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm1, %xmm0
-	ja	jbe_else.12534
-	movl	$1, %eax
-	movl	20(%ebp), %ebx
-	movl	16(%ebp), %ecx
-	addl	$32, %ebp
-	call	shadow_check_one_or_matrix.2089
-	subl	$32, %ebp
-	jmp	jbe_cont.12535
-jbe_else.12534:
-	movl	24(%ebp), %eax
-	movl	4(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12536
-	movl	$0, %eax
-	jmp	je_cont.12537
-je_else.12536:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12538
-	movl	24(%ebp), %eax
-	movl	8(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12540
-	movl	$0, %eax
-	jmp	je_cont.12541
-je_else.12540:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12542
-	movl	24(%ebp), %eax
-	movl	12(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12544
-	movl	$0, %eax
-	jmp	je_cont.12545
-je_else.12544:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12546
-	movl	24(%ebp), %eax
-	movl	16(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12548
-	movl	$0, %eax
-	jmp	je_cont.12549
-je_else.12548:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12550
-	movl	24(%ebp), %eax
-	movl	20(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12552
-	movl	$0, %eax
-	jmp	je_cont.12553
-je_else.12552:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12554
-	movl	24(%ebp), %eax
-	movl	24(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12556
-	movl	$0, %eax
-	jmp	je_cont.12557
-je_else.12556:
-	movl	$min_caml_and_net, %ecx
-	movl	(%ecx,%ebx,4), %ebx
-	movl	$0, %ecx
-	movl	16(%ebp), %edx
-	movl	%ecx, %eax
-	movl	%edx, %ecx
-	addl	$32, %ebp
-	call	shadow_check_and_group.2081
-	subl	$32, %ebp
-	cmpl	$0, %eax
-	jne	je_else.12558
-	movl	$7, %eax
-	movl	24(%ebp), %ebx
-	movl	16(%ebp), %ecx
-	addl	$32, %ebp
-	call	shadow_check_one_or_group.2085
-	subl	$32, %ebp
-	jmp	je_cont.12559
-je_else.12558:
-	movl	$1, %eax
-je_cont.12559:
-je_cont.12557:
-	jmp	je_cont.12555
-je_else.12554:
-	movl	$1, %eax
-je_cont.12555:
-je_cont.12553:
-	jmp	je_cont.12551
-je_else.12550:
-	movl	$1, %eax
-je_cont.12551:
-je_cont.12549:
-	jmp	je_cont.12547
-je_else.12546:
-	movl	$1, %eax
-je_cont.12547:
-je_cont.12545:
-	jmp	je_cont.12543
-je_else.12542:
-	movl	$1, %eax
-je_cont.12543:
-je_cont.12541:
-	jmp	je_cont.12539
-je_else.12538:
-	movl	$1, %eax
-je_cont.12539:
-je_cont.12537:
-	cmpl	$0, %eax
-	jne	je_else.12560
-	movl	$1, %eax
-	movl	20(%ebp), %ebx
-	movl	16(%ebp), %ecx
-	addl	$32, %ebp
-	call	shadow_check_one_or_matrix.2089
-	subl	$32, %ebp
-	jmp	je_cont.12561
-je_else.12560:
-	movl	$1, %eax
-je_cont.12561:
-jbe_cont.12535:
-je_cont.12533:
-je_cont.12505:
-je_cont.12503:
-	cmpl	$0, %eax
-	jne	je_else.12562
-	movl	$min_caml_nvector, %eax
-	movl	$min_caml_light, %ebx
-	movsd	0(%eax), %xmm0
-	movsd	0(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movsd	8(%eax), %xmm1
-	movsd	8(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	16(%eax), %xmm1
-	movsd	16(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12564
-	movl	$l.10926, %eax
-	movsd	0(%eax), %xmm1
-	addsd	%xmm1, %xmm0
-	jmp	jbe_cont.12565
-jbe_else.12564:
-	movl	$l.10926, %eax
-	movsd	0(%eax), %xmm0
-jbe_cont.12565:
-	movsd	0(%ebp), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	12(%ebp), %eax
-	movl	28(%eax), %ebx
-	movsd	0(%ebx), %xmm2
-	mulsd	%xmm2, %xmm0
-	jmp	je_cont.12563
-je_else.12562:
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm0
-je_cont.12563:
-	movl	$min_caml_crashed_point, %ebx
-	movl	12(%ebp), %eax
-	movsd	%xmm0, 32(%ebp)
-	addl	$40, %ebp
-	call	utexture.2118
-	subl	$40, %ebp
-	movl	$min_caml_rgb, %eax
-	movl	$min_caml_texture_color, %ebx
-	movsd	0(%eax), %xmm0
-	movsd	0(%ebx), %xmm1
-	movsd	32(%ebp), %xmm2
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movsd	8(%eax), %xmm0
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 8(%eax)
-	movsd	16(%eax), %xmm0
-	movsd	16(%ebx), %xmm1
-	mulsd	%xmm2, %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	8(%ebp), %eax
-	cmpl	$4, %eax
-	jg	jle_else.12567
-	movl	$l.10929, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	0(%ebp), %xmm1
-	comisd	%xmm0, %xmm1
-	ja	jbe_else.12568
-	ret
-jbe_else.12568:
-	movl	$l.10931, %ebx
-	movsd	0(%ebx), %xmm0
-	movl	$min_caml_vscan, %ebx
-	movl	$min_caml_nvector, %ecx
-	movsd	0(%ebx), %xmm3
-	movsd	0(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	movsd	8(%ebx), %xmm4
-	movsd	8(%ecx), %xmm5
-	mulsd	%xmm5, %xmm4
-	addsd	%xmm4, %xmm3
-	movsd	16(%ebx), %xmm4
-	movsd	16(%ecx), %xmm5
-	mulsd	%xmm5, %xmm4
-	addsd	%xmm4, %xmm3
-	mulsd	%xmm3, %xmm0
-	movl	$min_caml_vscan, %ebx
-	movl	$min_caml_nvector, %ecx
-	movsd	0(%ebx), %xmm3
-	movsd	0(%ecx), %xmm4
-	mulsd	%xmm0, %xmm4
-	addsd	%xmm4, %xmm3
-	movsd	%xmm3, 0(%ebx)
-	movsd	8(%ebx), %xmm3
-	movsd	8(%ecx), %xmm4
-	mulsd	%xmm0, %xmm4
-	addsd	%xmm4, %xmm3
-	movsd	%xmm3, 8(%ebx)
-	movsd	16(%ebx), %xmm3
-	movsd	16(%ecx), %xmm4
-	mulsd	%xmm4, %xmm0
-	addsd	%xmm0, %xmm3
-	movsd	%xmm3, 16(%ebx)
-	movl	12(%ebp), %ebx
-	movl	8(%ebx), %ecx
-	cmpl	$1, %ecx
-	jne	je_else.12570
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm0
-	movl	28(%ebx), %eax
-	movsd	8(%eax), %xmm3
-	comisd	%xmm3, %xmm0
-	jne	je_else.12571
-	ret
-je_else.12571:
-	movl	$min_caml_vscan, %eax
-	movl	$min_caml_light, %ecx
-	movsd	0(%eax), %xmm0
-	movsd	0(%ecx), %xmm3
-	mulsd	%xmm3, %xmm0
-	movsd	8(%eax), %xmm3
-	movsd	8(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm0
-	movsd	16(%eax), %xmm3
-	movsd	16(%ecx), %xmm4
-	mulsd	%xmm4, %xmm3
-	addsd	%xmm3, %xmm0
-	xorpd	min_caml_fnegd, %xmm0
-	movl	$l.10769, %eax
-	movsd	0(%eax), %xmm3
-	comisd	%xmm3, %xmm0
-	ja	jbe_else.12573
-	ret
-jbe_else.12573:
-	mulsd	%xmm0, %xmm0
-	mulsd	%xmm0, %xmm0
-	mulsd	%xmm1, %xmm0
-	mulsd	%xmm2, %xmm0
-	movl	28(%ebx), %eax
-	movsd	8(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_rgb, %eax
-	movl	$min_caml_rgb, %ebx
-	movsd	0(%ebx), %xmm1
-	addsd	%xmm0, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$min_caml_rgb, %eax
-	movl	$min_caml_rgb, %ebx
-	movsd	8(%ebx), %xmm1
-	addsd	%xmm0, %xmm1
-	movsd	%xmm1, 8(%eax)
-	movl	$min_caml_rgb, %eax
-	movl	$min_caml_rgb, %ebx
-	movsd	16(%ebx), %xmm1
-	addsd	%xmm0, %xmm1
-	movsd	%xmm1, 16(%eax)
-	ret
-je_else.12570:
-	cmpl	$2, %ecx
-	jne	je_else.12576
-	movl	$min_caml_viewpoint, %ecx
-	movl	$min_caml_crashed_point, %edx
-	movsd	0(%edx), %xmm0
-	movsd	%xmm0, 0(%ecx)
-	movl	$min_caml_viewpoint, %ecx
-	movl	$min_caml_crashed_point, %edx
-	movsd	8(%edx), %xmm0
-	movsd	%xmm0, 8(%ecx)
-	movl	$min_caml_viewpoint, %ecx
-	movl	$min_caml_crashed_point, %edx
-	movsd	16(%edx), %xmm0
-	movsd	%xmm0, 16(%ecx)
-	movl	$l.10792, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	28(%ebx), %ebx
-	movsd	0(%ebx), %xmm2
-	subsd	%xmm2, %xmm0
-	mulsd	%xmm1, %xmm0
-	addl	$1, %eax
-	jmp	raytracing.2128
-je_else.12576:
-	ret
-jle_else.12567:
-	ret
-scan_point.2135:
-	movl	$min_caml_size, %ebx
-	movl	0(%ebx), %ebx
-	cmpl	%eax, %ebx
-	jg	jle_else.12579
-	ret
-jle_else.12579:
-	movl	%eax, 0(%ebp)
-	addl	$8, %ebp
-	call	min_caml_float_of_int
-	subl	$8, %ebp
-	movl	$min_caml_scan_offset, %eax
-	movsd	0(%eax), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	$min_caml_scan_d, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_vscan, %eax
-	movl	$min_caml_cos_v, %ebx
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	$min_caml_wscan, %ebx
-	movsd	0(%ebx), %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$min_caml_vscan, %eax
-	movl	$min_caml_scan_sscany, %ebx
-	movsd	0(%ebx), %xmm1
-	movl	$min_caml_cos_v, %ebx
-	movsd	0(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_vp, %ebx
-	movsd	8(%ebx), %xmm2
-	subsd	%xmm2, %xmm1
-	movsd	%xmm1, 8(%eax)
-	movl	$min_caml_vscan, %eax
-	movsd	%xmm0, %xmm1
-	xorpd	min_caml_fnegd, %xmm1
-	movl	$min_caml_sin_v, %ebx
-	movsd	8(%ebx), %xmm2
-	mulsd	%xmm2, %xmm1
-	movl	$min_caml_wscan, %ebx
-	movsd	16(%ebx), %xmm2
-	addsd	%xmm2, %xmm1
-	movsd	%xmm1, 16(%eax)
-	mulsd	%xmm0, %xmm0
-	movl	$min_caml_scan_met1, %eax
-	movsd	0(%eax), %xmm1
-	addsd	%xmm1, %xmm0
-	addl	$8, %ebp
-	call	min_caml_sqrt
-	subl	$8, %ebp
-	movl	$min_caml_vscan, %eax
-	movl	$min_caml_vscan, %ebx
-	movsd	0(%ebx), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$min_caml_vscan, %eax
-	movl	$min_caml_vscan, %ebx
-	movsd	8(%ebx), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 8(%eax)
-	movl	$min_caml_vscan, %eax
-	movl	$min_caml_vscan, %ebx
-	movsd	16(%ebx), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 16(%eax)
-	movl	$min_caml_viewpoint, %eax
-	movl	$min_caml_view, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_viewpoint, %eax
-	movl	$min_caml_view, %ebx
-	movsd	8(%ebx), %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_viewpoint, %eax
-	movl	$min_caml_view, %ebx
-	movsd	16(%ebx), %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	$min_caml_rgb, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_rgb, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 8(%eax)
-	movl	$min_caml_rgb, %eax
-	movl	$l.10769, %ebx
-	movsd	0(%ebx), %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	$0, %eax
-	movl	$l.10792, %ebx
-	movsd	0(%ebx), %xmm0
-	addl	$8, %ebp
-	call	raytracing.2128
-	subl	$8, %ebp
-	movl	$min_caml_rgb, %eax
-	movsd	0(%eax), %xmm0
-	addl	$8, %ebp
-	call	min_caml_int_of_float
-	subl	$8, %ebp
-	cmpl	$255, %eax
-	jg	jle_else.12581
-	jmp	jle_cont.12582
-jle_else.12581:
-	movl	$255, %eax
-jle_cont.12582:
-	addl	$8, %ebp
-	call	min_caml_print_byte
-	subl	$8, %ebp
-	movl	$min_caml_rgb, %eax
-	movsd	8(%eax), %xmm0
-	addl	$8, %ebp
-	call	min_caml_int_of_float
-	subl	$8, %ebp
-	cmpl	$255, %eax
-	jg	jle_else.12583
-	jmp	jle_cont.12584
-jle_else.12583:
-	movl	$255, %eax
-jle_cont.12584:
-	addl	$8, %ebp
-	call	min_caml_print_byte
-	subl	$8, %ebp
-	movl	$min_caml_rgb, %eax
-	movsd	16(%eax), %xmm0
-	addl	$8, %ebp
-	call	min_caml_int_of_float
-	subl	$8, %ebp
-	cmpl	$255, %eax
-	jg	jle_else.12585
-	jmp	jle_cont.12586
-jle_else.12585:
-	movl	$255, %eax
-jle_cont.12586:
-	addl	$8, %ebp
-	call	min_caml_print_byte
-	subl	$8, %ebp
-	movl	0(%ebp), %eax
-	addl	$1, %eax
-	jmp	scan_point.2135
-scan_line.2137:
-	movl	$min_caml_size, %ebx
-	movl	0(%ebx), %ebx
-	cmpl	%eax, %ebx
-	jg	jle_else.12587
-	ret
-jle_else.12587:
-	movl	$min_caml_scan_sscany, %ebx
-	movl	$min_caml_scan_offset, %ecx
-	movsd	0(%ecx), %xmm0
-	movl	$l.10792, %ecx
-	movsd	0(%ecx), %xmm1
-	subsd	%xmm1, %xmm0
-	movl	%eax, 0(%ebp)
-	movl	%ebx, 4(%ebp)
-	movsd	%xmm0, 8(%ebp)
-	addl	$16, %ebp
-	call	min_caml_float_of_int
-	subl	$16, %ebp
-	movsd	8(%ebp), %xmm1
-	subsd	%xmm0, %xmm1
-	movl	$min_caml_scan_d, %eax
-	movsd	0(%eax), %xmm0
-	mulsd	%xmm1, %xmm0
-	movl	4(%ebp), %eax
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_scan_met1, %eax
-	movl	$min_caml_scan_sscany, %ebx
-	movsd	0(%ebx), %xmm0
-	mulsd	%xmm0, %xmm0
-	movl	$l.10941, %ebx
-	movsd	0(%ebx), %xmm1
-	addsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$min_caml_scan_sscany, %eax
-	movsd	0(%eax), %xmm0
-	movl	$min_caml_sin_v, %eax
-	movsd	0(%eax), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_wscan, %eax
-	movl	$min_caml_sin_v, %ebx
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm0, %xmm1
-	movl	$min_caml_vp, %ebx
-	movsd	0(%ebx), %xmm2
-	subsd	%xmm2, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$min_caml_wscan, %eax
-	movl	$min_caml_cos_v, %ebx
-	movsd	8(%ebx), %xmm1
-	mulsd	%xmm1, %xmm0
-	movl	$min_caml_vp, %ebx
-	movsd	16(%ebx), %xmm1
-	subsd	%xmm1, %xmm0
-	movsd	%xmm0, 16(%eax)
-	movl	$0, %eax
-	addl	$16, %ebp
-	call	scan_point.2135
-	subl	$16, %ebp
-	movl	0(%ebp), %eax
-	addl	$1, %eax
-	jmp	scan_line.2137
-.globl	min_caml_start
-min_caml_start:
-.globl	_min_caml_start
-_min_caml_start: # for cygwin
-	pushl	%eax
-	pushl	%ebx
-	pushl	%ecx
-	pushl	%edx
-	pushl	%esi
-	pushl	%edi
-	pushl	%ebp
-	movl	32(%esp),%ebp
-	movl	36(%esp),%eax
-	movl	%eax,min_caml_hp
-	movl	$768, %eax
-	movl	$768, %ebx
-	movl	$0, %ecx
-	movl	$min_caml_size, %edx
-	movl	%eax, 0(%edx)
-	movl	$min_caml_size, %eax
-	movl	%ebx, 4(%eax)
-	movl	$min_caml_dbg, %eax
-	movl	%ecx, 0(%eax)
-	call	read_environ.2029
-	movl	$0, %eax
-	call	read_nth_object.2031
-	cmpl	$0, %eax
-	jne	je_else.12589
-	jmp	je_cont.12590
-je_else.12589:
-	movl	$1, %eax
-	call	read_nth_object.2031
-	cmpl	$0, %eax
-	jne	je_else.12591
-	jmp	je_cont.12592
-je_else.12591:
-	movl	$2, %eax
-	call	read_nth_object.2031
-	cmpl	$0, %eax
-	jne	je_else.12593
-	jmp	je_cont.12594
-je_else.12593:
-	movl	$3, %eax
-	call	read_nth_object.2031
-	cmpl	$0, %eax
-	jne	je_else.12595
-	jmp	je_cont.12596
-je_else.12595:
-	movl	$4, %eax
-	call	read_object.2033
-je_cont.12596:
-je_cont.12594:
-je_cont.12592:
-je_cont.12590:
-	call	min_caml_read_int
-	cmpl	$-1, %eax
-	jne	je_else.12597
-	movl	$1, %eax
-	movl	$-1, %ebx
-	call	min_caml_create_array
-	jmp	je_cont.12598
-je_else.12597:
-	movl	%eax, 0(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.12599
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$8, %ebp
-	call	min_caml_create_array
-	subl	$8, %ebp
-	jmp	je_cont.12600
-je_else.12599:
-	movl	%eax, 4(%ebp)
-	addl	$8, %ebp
-	call	min_caml_read_int
-	subl	$8, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.12601
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$8, %ebp
-	call	min_caml_create_array
-	subl	$8, %ebp
-	jmp	je_cont.12602
-je_else.12601:
-	movl	%eax, 8(%ebp)
-	addl	$16, %ebp
-	call	min_caml_read_int
-	subl	$16, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.12603
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$16, %ebp
-	call	min_caml_create_array
-	subl	$16, %ebp
-	jmp	je_cont.12604
-je_else.12603:
-	movl	$4, %ebx
-	movl	%eax, 12(%ebp)
-	movl	%ebx, %eax
-	addl	$16, %ebp
-	call	read_net_item.2037
-	subl	$16, %ebp
-	movl	12(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.12604:
-	movl	8(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.12602:
-	movl	4(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.12600:
-	movl	0(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-je_cont.12598:
-	movl	0(%eax), %ebx
-	cmpl	$-1, %ebx
-	jne	je_else.12605
-	jmp	je_cont.12606
-je_else.12605:
-	movl	$min_caml_and_net, %ebx
-	movl	%eax, 0(%ebx)
-	movl	$1, %eax
-	addl	$16, %ebp
-	call	read_and_network.2041
-	subl	$16, %ebp
-je_cont.12606:
-	movl	$min_caml_or_net, %eax
-	movl	%eax, 16(%ebp)
-	addl	$24, %ebp
-	call	min_caml_read_int
-	subl	$24, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.12607
-	movl	$1, %eax
-	movl	$-1, %ebx
-	addl	$24, %ebp
-	call	min_caml_create_array
-	subl	$24, %ebp
-	movl	%eax, %ebx
-	jmp	je_cont.12608
-je_else.12607:
-	movl	%eax, 20(%ebp)
-	addl	$24, %ebp
-	call	min_caml_read_int
-	subl	$24, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.12609
-	movl	$2, %eax
-	movl	$-1, %ebx
-	addl	$24, %ebp
-	call	min_caml_create_array
-	subl	$24, %ebp
-	jmp	je_cont.12610
-je_else.12609:
-	movl	%eax, 24(%ebp)
-	addl	$32, %ebp
-	call	min_caml_read_int
-	subl	$32, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.12611
-	movl	$3, %eax
-	movl	$-1, %ebx
-	addl	$32, %ebp
-	call	min_caml_create_array
-	subl	$32, %ebp
-	jmp	je_cont.12612
-je_else.12611:
-	movl	%eax, 28(%ebp)
-	addl	$32, %ebp
-	call	min_caml_read_int
-	subl	$32, %ebp
-	cmpl	$-1, %eax
-	jne	je_else.12613
-	movl	$4, %eax
-	movl	$-1, %ebx
-	addl	$32, %ebp
-	call	min_caml_create_array
-	subl	$32, %ebp
-	jmp	je_cont.12614
-je_else.12613:
-	movl	$4, %ebx
-	movl	%eax, 32(%ebp)
-	movl	%ebx, %eax
-	addl	$40, %ebp
-	call	read_net_item.2037
-	subl	$40, %ebp
-	movl	32(%ebp), %ebx
-	movl	%ebx, 12(%eax)
-je_cont.12614:
-	movl	28(%ebp), %ebx
-	movl	%ebx, 8(%eax)
-je_cont.12612:
-	movl	24(%ebp), %ebx
-	movl	%ebx, 4(%eax)
-je_cont.12610:
-	movl	20(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-	movl	%eax, %ebx
-je_cont.12608:
-	movl	0(%ebx), %eax
-	cmpl	$-1, %eax
-	jne	je_else.12615
-	movl	$1, %eax
-	addl	$40, %ebp
-	call	min_caml_create_array
-	subl	$40, %ebp
-	jmp	je_cont.12616
-je_else.12615:
-	movl	$1, %eax
-	movl	%ebx, 36(%ebp)
-	addl	$40, %ebp
-	call	read_or_network.2039
-	subl	$40, %ebp
-	movl	36(%ebp), %ebx
-	movl	%ebx, 0(%eax)
-je_cont.12616:
-	movl	16(%ebp), %ebx
-	movl	%eax, 0(%ebx)
-	movl	$80, %eax
-	addl	$40, %ebp
-	call	min_caml_print_byte
-	subl	$40, %ebp
-	movl	$54, %eax
-	addl	$40, %ebp
-	call	min_caml_print_byte
-	subl	$40, %ebp
-	movl	$10, %eax
-	addl	$40, %ebp
-	call	min_caml_print_byte
-	subl	$40, %ebp
-	movl	$min_caml_size, %eax
-	movl	0(%eax), %eax
-	addl	$40, %ebp
-	call	min_caml_print_int
-	subl	$40, %ebp
-	movl	$32, %eax
-	addl	$40, %ebp
-	call	min_caml_print_byte
-	subl	$40, %ebp
-	movl	$min_caml_size, %eax
-	movl	4(%eax), %eax
-	addl	$40, %ebp
-	call	min_caml_print_int
-	subl	$40, %ebp
-	movl	$10, %eax
-	addl	$40, %ebp
-	call	min_caml_print_byte
-	subl	$40, %ebp
-	movl	$255, %eax
-	addl	$40, %ebp
-	call	min_caml_print_int
-	subl	$40, %ebp
-	movl	$10, %eax
-	addl	$40, %ebp
-	call	min_caml_print_byte
-	subl	$40, %ebp
-	movl	$min_caml_size, %eax
-	movl	0(%eax), %eax
-	addl	$40, %ebp
-	call	min_caml_float_of_int
-	subl	$40, %ebp
-	movl	$min_caml_scan_d, %eax
-	movl	$l.10943, %ebx
-	movsd	0(%ebx), %xmm1
-	divsd	%xmm0, %xmm1
-	movsd	%xmm1, 0(%eax)
-	movl	$min_caml_scan_offset, %eax
-	movl	$l.10807, %ebx
-	movsd	0(%ebx), %xmm1
-	divsd	%xmm1, %xmm0
-	movsd	%xmm0, 0(%eax)
-	movl	$0, %eax
-	addl	$40, %ebp
-	call	scan_line.2137
-	subl	$40, %ebp
-	popl	%ebp
-	popl	%edi
-	popl	%esi
-	popl	%edx
-	popl	%ecx
-	popl	%ebx
-	popl	%eax
-	ret
+l.4897:	-1.000000
+	.long	0x0
+	.long	0xbff00000
+l.4865:	0.785398
+	.long	0x54442d18
+	.long	0x3fe921fb
+l.4863:	2.437500
+	.long	0x0
+	.long	0x40038000
+l.4861:	0.437500
+	.long	0x0
+	.long	0x3fdc0000
+l.4858:	0.060035
+	.long	0x995957e0
+	.long	0x3faebcf8
+l.4856:	0.089764
+	.long	0xbc0b089d
+	.long	0x3fb6facd
+l.4854:	0.111111
+	.long	0xfde70747
+	.long	0x3fbc71c6
+l.4852:	0.142857
+	.long	0x9071ec70
+	.long	0x3fc24924
+l.4850:	0.200000
+	.long	0x9999999a
+	.long	0x3fc99999
+l.4848:	0.333333
+	.long	0x318abc87
+	.long	0x3fd55555
+l.4828:	180.000000
+	.long	0x0
+	.long	0x40668000
+l.4813:	1.000000
+	.long	0x0
+	.long	0x3ff00000
+l.4811:	2.000000
+	.long	0x0
+	.long	0x40000000
+l.4809:	1.570796
+	.long	0x54442d18
+	.long	0x3ff921fb
+l.4805:	6.283185
+	.long	0x54442d18
+	.long	0x401921fb
+l.4803:	0.000000
+	.long	0x0
+	.long	0x0
