@@ -180,11 +180,11 @@ pub Main:Insts={
 };
 Imm :i32 ={
     <s:r"-*[0-9]+"> => s.parse().unwrap(),
-    <s:r"-*[0-9]+,[0-9]+"> => s.replace(",",".").parse::<f32>().unwrap().to_bits() as i32
+    <s:r"-*[0-9]+[.|,][0-9]+"> => s.replace(",",".").parse::<f32>().unwrap().to_bits() as i32
 };
 
 Label :String = {
-    <s:r"[.|A-z][A-z|0-9|.]*"> => s.to_string()
+    <s:r"[.|A-z][.|A-z|0-9]*"> => s.to_string()
 };
 
 Reg:u8={

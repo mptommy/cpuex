@@ -2695,9 +2695,9 @@ impl Riscv64Core for EnvBase{
                 buf |= ((i as u8)as u32) << 8*count;
                 count += 1;
                 count %= 4;
-                println!("{:0>8b}",i);
+               // println!("{:0>8b}",i);
                 if count == 0{
-                    println!("i:{}",buf);
+              //      println!("i:{}",buf);
                     println!("f:{}",f32::from_le_bytes(floatbufs));
                 }
             }

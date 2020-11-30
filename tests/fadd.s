@@ -8,6 +8,6 @@ fadd fa0,fa0,fa3
 halt:
 j halt
 float1:
--1,5
+-1.5
 float2:
-2,0
+2.0
