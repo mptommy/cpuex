@@ -1800,7 +1800,7 @@ impl Riscv64Core for EnvBase{
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data = rs1_data as u32;
                 let shamt =Self::extract_shamt_field(inst);
-                let ans = rs1_data >> shamt;
+                let ans = rs1_data << shamt;
                 let ans = ans as i32;
                 self.write_reg(rd, ans);
                 if self.writing {println!("SLLI {},{},{}\n",rd,rs1,shamt);}
@@ -2392,14 +2392,14 @@ impl Riscv64Core for EnvBase{
                     (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:res as i32,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FMVXW=>{
-                if self.writing {println!("FMVXW {}\n",rs1);}
+                if self.writing {println!("FMVXW {},{}\n",rd,rs1);}
                 let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
                 let reg_data = EnvBase::float_to_int(rs1_data);
                 self.write_reg(rd,reg_data);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
             }
             RiscvInst::FMVWX=>{
-                if self.writing {println!("FMVWX {}\n",rs1);}
+                if self.writing {println!("FMVWX {},{}\n",rd,rs1);}
                 let (rs1_data,stall)=self.read_regfor(rs1,forwarding,forwarding2);
                 let reg_data = EnvBase::int_to_float(rs1_data as u32);
                 self.fwrite_reg(rd, EnvBase::int_to_float(rs1_data as u32));
