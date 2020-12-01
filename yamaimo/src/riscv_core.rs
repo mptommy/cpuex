@@ -249,6 +249,30 @@ impl EnvBase{
             }
         }
     }
+    pub fn read_int(&mut self,result:String){
+        let is = result.parse::<i32>().unwrap();
+        println!("{}",is);
+        self.inqueue.push_back((is & 0xff)as i8);
+        self.inqueue.push_back(((is>>8) & 0xff)as i8);
+        self.inqueue.push_back(((is>>16) & 0xff)as i8);
+        self.inqueue.push_back(((is>>24) & 0xff)as i8);
+    }
+    pub fn read_float(&mut self,result:String){
+        let fs = result.parse::<f32>().unwrap();
+        println!("{}f",fs);
+        let beints = fs.to_le_bytes();
+        self.inqueue.push_back(beints[0]as i8);
+        self.inqueue.push_back(beints[1]as i8);
+        self.inqueue.push_back(beints[2]as i8);
+        self.inqueue.push_back(beints[3]as i8);
+    }
+    pub fn read_maotme(&mut self,result:String){
+        if result.contains("."){
+            self.read_float(result);
+        }else{
+            self.read_int(result);
+        }
+    }
     fn int_to_float(u1:u32)->f32{
         let me = FloatInt{i:u1};
         unsafe{
@@ -2695,10 +2719,11 @@ impl Riscv64Core for EnvBase{
                 buf |= ((i as u8)as u32) << 8*count;
                 count += 1;
                 count %= 4;
-               // println!("{:0>8b}",i);
+                println!("{:0>8b}",i);
                 if count == 0{
-              //      println!("i:{}",buf);
+                    println!("i:{}",buf);
                     println!("f:{}",f32::from_le_bytes(floatbufs));
+                    buf = 0;
                 }
             }
            

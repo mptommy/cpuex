@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/target/debug/yamaimo",
-            "args": ["${workspaceFolder}/target/debug/mandel.out"],
+            "args": ["${workspaceFolder}/target/debug/in.out"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

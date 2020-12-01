@@ -15,6 +15,7 @@ use crate::riscv_core::DRAM_BASE;
 use crate::riscv_core::InstType;
 use crate::riscv_core::XlenType;
 
+
 fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let args:Vec<String>=env::args().collect::<Vec<String>>();
     if args.len() != 2{
@@ -37,8 +38,10 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let file = File::open("contest.sld");
     if let Ok(file) = file {
         let filebuf = BufReader::new(file);
-        for result in filebuf.lines(){
+      
+       /* for result in filebuf.lines(){
             let result = result?;
+            
             let iter = result.split_whitespace().map(|i| i.parse::<f32>().unwrap());
             for fs in iter{
                 let beints = fs.to_le_bytes();
@@ -46,6 +49,12 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                 riscv64_core.inqueue.push_back(beints[1]as i8);
                 riscv64_core.inqueue.push_back(beints[2]as i8);
                 riscv64_core.inqueue.push_back(beints[3]as i8);
+            }
+        }*/
+        for result in filebuf.lines(){
+            let result = result?;
+            for results in result.split_whitespace(){
+                riscv64_core.read_maotme(results.to_string());
             }
         }
     }
