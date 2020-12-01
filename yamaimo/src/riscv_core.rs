@@ -196,12 +196,17 @@ pub struct EnvBase{
     pub inqueue:VecDeque<i8>,
     pub outqueue:VecDeque<i8>,
     pub fpucore:FPUCore,
+
+    pub heapmax:i32,
+    pub stackmin:i32,
 }
 impl EnvBase{
     pub fn new() -> EnvBase{
         let fpucore = FPUCore::new();
         let fpucore = fpucore.load_table();
         EnvBase {
+            heapmax:HEAP_BASE,
+            stackmin:STACK_BASE,
             fpucore:fpucore,
             inqueue:VecDeque::new(),
             outqueue:VecDeque::new(),
@@ -517,6 +522,11 @@ impl Riscv64Core for EnvBase{
             self.regtoukei[reg_addr as usize]=self.regtoukei[reg_addr as usize]+1;
             self.m_regs[reg_addr as usize]=data;
             if self.writing {if self.writing {println!("     x{:02} <= {:08x}", reg_addr, data);}}
+        }
+        if reg_addr == 2{
+            self.stackmin = if self.stackmin > data{data}else{self.stackmin};
+        }else if reg_addr == 3{
+            self.heapmax = if self.heapmax > data{self.heapmax}else{data};
         }
     }
     fn fwrite_reg (&mut self,reg_addr:RegAddrType,data:f32){

@@ -189,11 +189,17 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         }
         count+=1;
     }
-    println!("STEPSUM:{}",count);
+    
     riscv64_core.set_finish_cpu();
     riscv64_core.output_reg();
+    
+    riscv64_core.output_outs();
+    println!("STEPSUM:{}",count);
     riscv64_core.output_toukei();
     riscv64_core.output_regtoukei();
-    riscv64_core.output_outs();
+    println!("HP:{}",riscv64_core.heapmax);
+    println!("HP-HEAP_BASE:{}",riscv64_core.heapmax-riscv_core::HEAP_BASE);
+    println!("SP:{}",riscv64_core.stackmin);
+    println!("SP_BASE-SP:{}",riscv_core::STACK_BASE-riscv64_core.stackmin);
     Ok(())
 }
