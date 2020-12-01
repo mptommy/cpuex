@@ -1,8 +1,8 @@
 `timescale 1ns / 100ps
 `default_nettype none
 
-module test_fadd
-    #(parameter NSTAGE = 2,
+module test_fmul
+    #(parameter NSTAGE = 3,
       parameter REPEATNUM = 50,
       parameter RANDSEED = 2) ();
 
@@ -25,18 +25,18 @@ logic 	val[NSTAGE:0];
 assign x1 = x1_reg[0];
 assign x2 = x2_reg[0];
 
-fadd u1(x1,x2,y,ovf,clk,rstn);
+fmul u1(x1,x2,y,ovf,clk,rstn);
 
 initial begin
-	// $dumpfile("test_fadd.vcd");
+	// $dumpfile("test_fmul.vcd");
 	// $dumpvars(0);
 
-    $display("start of checking module fadd");
+    $display("start of checking module fmul");
     $display("difference message format");
     $display("x1 = [input 1(bit)], [exponent 1(decimal)]");
     $display("x2 = [input 2(bit)], [exponent 2(decimal)]");
     $display("ref. : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
-    $display("fadd : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
+    $display("fmul : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
     
     #1;			//t = 1ns
     rstn = 0;
@@ -81,7 +81,7 @@ initial begin
 	    #1;
 	    clk = 1;
     end
-    $display("end of checking module fadd");
+    $display("end of checking module fmul");
     $finish;
 end
 
@@ -95,14 +95,14 @@ always @(posedge clk) begin
 	if (val[NSTAGE]) begin      //ここ、ステージ分けがちゃんとしていれば別に必要ないです。
 		fx1 = $bitstoshortreal(x1_reg[NSTAGE]);
 		fx2 = $bitstoshortreal(x2_reg[NSTAGE]);
-        fy = fx1 + fx2;
+        fy = fx1 * fx2;
         fybit = $shortrealtobits(fy);
 	    checkovf = x1_reg[NSTAGE][30:23] < 255 && x2_reg[NSTAGE][30:23] < 255;
-		if ( checkovf && fybit[30:23] == 255 ) begin
-		   fovf = 1;
-		end else begin
-		   fovf = 0;
-		end 
+	    if ( checkovf && fybit[30:23] == 255 ) begin // //inf以外とinf以外の計算の結果がinfになっている
+	    	fovf = 1;
+	    end else begin
+	    	fovf = 0;
+	    end
         
         diff = (fybit >= y) ? fybit - y : y - fybit;
         $display("diff = %d", diff);

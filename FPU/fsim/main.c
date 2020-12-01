@@ -211,7 +211,7 @@ int main(){
             ans = SubFloat(a, b);
             trueans = a - b;
             break;
-					case MUL:
+          case MUL:
             ans = MulFloat(a, b);
             trueans = a * b;
             break;

@@ -31,8 +31,6 @@ void AddSEF(sef *l, sef *s, sef *ans){
   PrintUIntBin(lf28);
   PrintUIntBin(sf28);*/
   
-  // (小 - 大)または(小 + (-大))で答えが負になるパターンがまだ未実装
-  
   if(l->s ^ s->s){   // signが異なる場合
     sub28 = lf28 - sf28;
     if(sub28 == 0){
@@ -69,7 +67,7 @@ float AddFloat(float f1, float f2){
   b.raw = f2;
   SepSEF(&a);
   SepSEF(&b);
-  if(a.e + a.f >= b.e + b.f){   // EFの部分を
+  if(a.e + a.f >= b.e + b.f){   // EFの部分を比較
     l = &a;
     s = &b;
   }

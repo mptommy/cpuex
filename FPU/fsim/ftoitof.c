@@ -1,3 +1,6 @@
+// ftoiがキャストの状態から変わってない！！要修正！！
+// itof、ftoiで丸めにより桁上がりする場合を考慮していない！
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "util.h"

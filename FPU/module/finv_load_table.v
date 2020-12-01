@@ -1,8 +1,11 @@
+// load_tableをノンブロッキング代入すべきかは要調査。
+
 `default_nettype none
 module finv_load_const_table (
     input wire [9:0] addr,
     output reg [57:0] cst,
-    input wire clk);
+    input wire clk,
+	input wire rstn);
 
 (* RAM_STYLE="BLOCK" *) reg [57:0] ram [1023:0];
 //always @(posedge clk)
@@ -1039,7 +1042,8 @@ endmodule
 module finv_load_grad_table (
     input wire [9:0] addr,
     output reg [34:0] grd,
-    input wire clk);
+    input wire clk,
+	input wire rstn);
 
 (* RAM_STYLE="BLOCK" *) reg [34:0] ram [1023:0];
 //always @(posedge clk)

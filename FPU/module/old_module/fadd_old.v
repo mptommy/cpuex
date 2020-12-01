@@ -1,26 +1,22 @@
 `default_nettype none
-module fadd #(NSTAGE = 2)(
+module fadd (
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
     output wire ovf,
     input wire clk,
     input wire rstn); 
-
-// stage = 0 (x1, x2)
-
-// stage = 1 (x1r[0], x2r[0] -> es, ss, tstck, mye)
-
-reg [31:0] x1r[1:0];
-reg [31:0] x2r[1:0];
+ 
+reg[31:0] x1rn;
+reg[31:0] x2rn;
 
 // 1. {s1,e1,m1} = x1、{s2,e2,m2} = x2
-wire s1 = x1r[0][31];
-wire [7:0] e1= x1r[0][30:23];
-wire [22:0] m1 = x1r[0][22:0];
-wire s2 = x2r[0][31];
-wire [7:0] e2= x2r[0][30:23];
-wire [22:0] m2 = x2r[0][22:0];
+wire s1 = x1rn[31];
+wire [7:0] e1= x1rn[30:23];
+wire [22:0] m1 = x1rn[22:0];
+wire s2 = x2rn[31];
+wire [7:0] e2= x2rn[30:23];
+wire [22:0] m2 = x2rn[22:0];
 
 // 2. 省略された最上位bitを再生し、さらに桁上がり1bit分を拡張した25bitの仮数m1a,m2aを生成する。
 wire [24:0] m1a = (e1 == 'b0) ? {2'b00,m1} : {2'b01,m1};
@@ -31,7 +27,7 @@ wire [7:0] e1a = (e1 == 'b0) ? 8'b1 : e1;  // 「例外調整」がちょっと�
 wire [7:0] e2a = (e2 == 'b0) ? 8'b1 : e2;
 
 // 4,5. 9bit数te = {1’b0,e1a} + {1’b0,~e2a} = 2^8 – 1 + e1a – e2aを計算する。
-wire [8:0] te = {1'b0,e1a} + {1'b0,~e2a};
+wire [8:0] te=  {1'b0,e1a} + {1'b0,~e2a};
 
 // 6. 指数の大小関係を調べる。teのMSBが1であるならe1a – e2a >= 1、つまりe1a > e2aを意味する。
 wire ce = (te[8] == 1) ? 0 : 1;
@@ -68,21 +64,49 @@ wire tstck = |(mia[28:0]);
 // さもなければ27bit数 mye = {ms,2’b0} – mia[55:29]を計算する。
 wire [26:0] mye = (s1 == s2) ? ({ms,2'b0} + mia[55:29]) : {ms,2'b0} - mia[55:29];
 
-
-
-// stage = 2 (x1r[1], esr, ssr, tstckr, myer -> y)
-
+// 以下は以上の変数までをレジスタで分割している。ここちょっとアヤシイ気がする。
+// 分割しようと思えばもっと出来そう。
 reg [7:0] esr;
-reg ssr;
-reg tstckr;
 reg [26:0] myer;
+reg tstckr;
+reg [31:0] m1r;
+reg [7:0] e1r;
+reg s1r;
+reg [31:0] m2r;
+reg [7:0] e2r;
+reg s2r;
+reg ssr;
 
-wire s1r = x1r[1][31];
-wire [7:0] e1r = x1r[1][30:23];
-wire [22:0] m1r = x1r[1][22:0];
-wire s2r = x2r[1][31];
-wire [7:0] e2r = x2r[1][30:23];
-wire [22:0] m2r = x2r[1][22:0];
+always @(posedge clk) begin
+    if(~rstn) begin
+        x1rn <= 'b0;
+        x2rn <= 'b0;
+
+        esr <= 'b0;
+        myer <= 'b0;
+        tstckr <= 0;
+        m1r <= 'b0;
+        e1r <= 'b0;
+        s1r <= 'b0;
+        m2r <= 'b0;
+        s2r <= 'b0;
+        e2r <= 'b0;
+    end else begin
+        x1rn <= x1;
+        x2rn <= x2;
+
+        esr <= es;
+        myer <= mye;
+        tstckr <= tstck;
+        m1r <= m1;
+        e1r <= e1;
+        s1r <= s1;
+        m2r <= m2;
+        s2r <= s2;
+        e2r <= e2;
+        ssr <= ss;
+    end
+end
 
 // 14. 8bit数esi = es + 1とする。
 wire [7:0] esi = esr + 1;
@@ -168,29 +192,6 @@ wire sy = (ey == 0 & my == 0 ) ? s1r && s2r : ssr;
 // オーバーフローが起こるのは、オペランドが両方共有限の数を表す場合。
 wire nzm1 = |(m1r[22:0]);
 wire nzm2 = |(m2r[22:0]);
-
-always @(posedge clk) begin
-    if(~rstn) begin
-        x1r[0] <= 'b0;
-        x2r[0] <= 'b0;
-        esr <= 'b0;
-        ssr <= 'b0;
-        myer <= 'b0;
-        tstckr <= 'b0;
-    end else begin
-        x1r[0] <= x1;
-        x2r[0] <= x2;
-        esr <= es;
-        ssr <= ss;
-        myer <= mye;
-        tstckr <= tstck;
-    end
-end
-
-always @(posedge clk) begin
-    x1r[1] <= x1r[0];
-    x2r[1] <= x2r[0];
-end
 
 assign y = (e1r == 8'd255 && e2r!= 8'd255)? {s1r,8'd255,nzm1,m1r[21:0]}:
                       (e1r != 8'd255 && e2r== 8'd255)? {s2r,8'd255,nzm2,m2r[21:0]}:

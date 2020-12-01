@@ -1,8 +1,8 @@
 `timescale 1ns / 100ps
 `default_nettype none
 
-module test_fadd
-    #(parameter NSTAGE = 2,
+module test_fdiv
+    #(parameter NSTAGE = 9,
       parameter REPEATNUM = 50,
       parameter RANDSEED = 2) ();
 
@@ -13,10 +13,9 @@ shortreal    fx1,fx2,fy;
 logic [31:0] fybit;
 bit 	      fovf;
 bit 	      checkovf;
-int i;
 
 logic clk, rstn;
-int diff;
+int i, diff;
 
 logic [31:0]	x1_reg[NSTAGE:0];
 logic [31:0]	x2_reg[NSTAGE:0];
@@ -25,18 +24,18 @@ logic 	val[NSTAGE:0];
 assign x1 = x1_reg[0];
 assign x2 = x2_reg[0];
 
-fadd u1(x1,x2,y,ovf,clk,rstn);
+fdiv u1(x1,x2,y,clk,rstn);
 
 initial begin
-	// $dumpfile("test_fadd.vcd");
+	// $dumpfile("test_fdiv.vcd");
 	// $dumpvars(0);
 
-    $display("start of checking module fadd");
+    $display("start of checking module fdiv");
     $display("difference message format");
     $display("x1 = [input 1(bit)], [exponent 1(decimal)]");
     $display("x2 = [input 2(bit)], [exponent 2(decimal)]");
-    $display("ref. : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
-    $display("fadd : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
+    $display("ref. : result(float) sign(bit),exponent(decimal),mantissa(bit)");
+    $display("fdiv : result(float) sign(bit),exponent(decimal),mantissa(bit)");
     
     #1;			//t = 1ns
     rstn = 0;
@@ -81,7 +80,7 @@ initial begin
 	    #1;
 	    clk = 1;
     end
-    $display("end of checking module fadd");
+    $display("end of checking module fdiv");
     $finish;
 end
 
@@ -95,26 +94,20 @@ always @(posedge clk) begin
 	if (val[NSTAGE]) begin      //ここ、ステージ分けがちゃんとしていれば別に必要ないです。
 		fx1 = $bitstoshortreal(x1_reg[NSTAGE]);
 		fx2 = $bitstoshortreal(x2_reg[NSTAGE]);
-        fy = fx1 + fx2;
+        fy = fx1 / fx2;
         fybit = $shortrealtobits(fy);
-	    checkovf = x1_reg[NSTAGE][30:23] < 255 && x2_reg[NSTAGE][30:23] < 255;
-		if ( checkovf && fybit[30:23] == 255 ) begin
-		   fovf = 1;
-		end else begin
-		   fovf = 0;
-		end 
         
         diff = (fybit >= y) ? fybit - y : y - fybit;
         $display("diff = %d", diff);
-        //if (y !== fybit || ovf !== fovf) begin
+        //if (diff >= 5) begin
    	        $display("\nx1 = %b %b %b, %3d",
 	        x1_reg[NSTAGE][31], x1_reg[NSTAGE][30:23], x1_reg[NSTAGE][22:0], x1_reg[NSTAGE][30:23]);
    	        $display("x2 = %b %b %b, %3d",
 	        x2_reg[NSTAGE][31], x2_reg[NSTAGE][30:23], x2_reg[NSTAGE][22:0], x2_reg[NSTAGE][30:23]);
-   	        $display("%e %b,%3d,%b %b", fy,
-	        fybit[31], fybit[30:23], fybit[22:0], fovf);
-   	        $display("%e %b,%3d,%b %b\n", $bitstoshortreal(y),
-	        y[31], y[30:23], y[22:0], ovf);
+   	        $display("%e %b,%3d,%b", fy,
+	        fybit[31], fybit[30:23], fybit[22:0]);
+   	        $display("%e %b,%3d,%b\n", $bitstoshortreal(y),
+	        y[31], y[30:23], y[22:0]);
         //end
     end
     //$display("val = %b, %b, %b", val[0], val[1], val[2]);
