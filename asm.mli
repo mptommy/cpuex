@@ -26,6 +26,7 @@ and exp =
   | FAbs of Id.t
   | FHalf of Id.t
   | FSqr of Id.t
+  | FLess of Id.t * Id.t
   | FToI of Id.t
   | IToF of Id.t
   | Floor of Id.t

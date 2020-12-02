@@ -28,6 +28,7 @@ and exp = (* 一つ一つの命令に対応する式 (caml2html: sparcasm_exp) *
   | FAbs of Id.t
   | FHalf of Id.t
   | FSqr of Id.t
+  | FLess of Id.t * Id.t
   | FToI of Id.t
   | IToF of Id.t
   | Floor of Id.t
@@ -108,7 +109,7 @@ let rec fv_exp = function
   | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | Out(x) | FSqrt(x) | FAbs(x) | FHalf(x) | FSqr(x) | FInv(x) | FToI(x) | IToF(x) | Floor(x) -> [x]
   | Add(x, y') | Sub(x, y') | Mul(x, y') | Div(x, y') | SLL(x, y') | Ld(x, y') | LdF(x, y') -> x :: fv_id_or_imm y'
   | St(x, y, z') | StF(x, y, z') -> x :: y :: fv_id_or_imm z'
-  | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y]
+  | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) | FLess(x, y) -> [x; y]
   | IfEq(x, y', e1, e2) | IfLE(x, y', e1, e2) | IfGE(x, y', e1, e2) -> x :: fv_id_or_imm y' @ remove_and_uniq S.empty (fv e1 @ fv e2) (* uniq here just for efficiency *)
   | IfFEq(x, y, e1, e2) | IfFLE(x, y, e1, e2) -> x :: y :: remove_and_uniq S.empty (fv e1 @ fv e2) (* uniq here just for efficiency *)
   | CallCls(x, ys, zs) -> x :: ys @ zs
