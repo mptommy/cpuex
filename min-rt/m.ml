@@ -922,8 +922,7 @@ let rec read_nth_object n =
      )
   else
     false (* データの終了 *)
-in
-
+in 
 (**** 物体データ全体の読み込み ****)
 let rec read_object n =
   if n < 60 then
@@ -936,8 +935,7 @@ in
 
 let rec read_all_object _ =
   read_object 0
-in
-
+in 
 (**** AND, OR ネットワークの読み込み ****)
 
 (* ネットワーク1つを読み込みベクトルにして返す *)
@@ -1109,8 +1107,7 @@ let rec solver index dirvec org =
   if m_shape = 1 then       solver_rect m dirvec b0 b1 b2    (* 直方体 *)
   else if m_shape = 2 then  solver_surface m dirvec b0 b1 b2 (* 平面 *)
   else                      solver_second m dirvec b0 b1 b2  (* 2次曲面/円錐 *)
-in
-
+in 
 (******************************************************************************
    solverのテーブル使用高速版
  *****************************************************************************)
@@ -1285,8 +1282,7 @@ let rec setup_rect_table vec m =
     const.(5) <- 1.0 /. vec.(2)
   );
   const
-in
-
+in 
 (* 平面オブジェクトに対する前処理 *)
 let rec setup_surface_table vec m =
   let const = create_array 4 0.0 in
@@ -1477,8 +1473,7 @@ let rec shadow_check_and_group iand_ofs and_group =
 	shadow_check_and_group (iand_ofs + 1) and_group
       else
 	false
-in
-
+in 
 (**** OR グループ or_group の影かどうかの判定 ****)
 let rec shadow_check_one_or_group ofs or_group =
   let head = or_group.(ofs) in
@@ -1662,8 +1657,7 @@ let rec solve_each_element_fast iand_ofs and_group dirvec =
 	 solve_each_element_fast (iand_ofs + 1) and_group dirvec
        else ()
    )
-in
-
+in 
 (**** 1つの OR-group について交点を調べる ****)
 let rec solve_one_or_network_fast ofs or_group dirvec =
   let head = or_group.(ofs) in
@@ -1845,8 +1839,7 @@ let rec utexture m p =
     texture_color.(2) <- (255.0 *. w12) /. 0.3
    )
   else ()
-in
-
+in 
 (******************************************************************************
    衝突点に当たる光源の直接光と反射光を計算する関数群
  *****************************************************************************)
@@ -2023,8 +2016,7 @@ let rec iter_trace_diffuse_rays dirvec_group nvector org index =
 
     iter_trace_diffuse_rays dirvec_group nvector org (index - 2)
    ) else ()
-in
-
+in 
 (* 与えられた方向ベクトルの集合に対し、その方向の間接光をサンプリングする *)
 let rec trace_diffuse_rays dirvec_group nvector org =
   setup_startp org;
@@ -2192,8 +2184,7 @@ let rec write_ppm_header _ =
     print_int 255;
     print_char 10
   )
-in
-
+in 
 let rec write_rgb_element x =
   let ix = int_of_float x in
   let elem = if ix > 255 then 255 else if ix < 0 then 0 else ix in
@@ -2376,8 +2367,7 @@ in
 
 let rec tan x =
   sin(x) /. cos(x)
-in
-
+in 
 (* ベクトル達が出来るだけ球面状に一様に分布するよう座標を補正する *)
 let rec adjust_position h ratio =
   let l = sqrt(h*.h +. 0.1) in
@@ -2506,8 +2496,7 @@ let rec setup_rect_reflection obj_id obj =
   add_reflection (nr+1) (sid+2) br n0 light.(1) n2;
   add_reflection (nr+2) (sid+3) br n0 n1 light.(2);
   n_reflections.(0) <- nr + 3
-in
-
+in 
 (* 平面について情報を追加する *)
 let rec setup_surface_reflection obj_id obj =
   let sid = obj_id * 4 + 1 in
@@ -2539,8 +2528,7 @@ let rec setup_reflections obj_id =
       else ()
     else ()
   else ()
-in
-
+in 
 (*****************************************************************************
    全体の制御
  *****************************************************************************)
@@ -2552,21 +2540,6 @@ let rec rt size_x size_y =
  image_size.(1) <- size_y;
  image_center.(0) <- size_x / 2;
  image_center.(1) <- size_y / 2;
- scan_pitch.(0) <- 128.0 /. float_of_int size_x;
- let prev = create_pixelline () in
- let cur  = create_pixelline () in
- let next = create_pixelline () in
- read_parameter();
- write_ppm_header ();
- init_dirvecs();
- veccpy (d_vec light_dirvec) light;
- setup_dirvec_constants light_dirvec;
- setup_reflections (n_objects.(0) - 1);
- pretrace_line cur 0 0;
- scan_line 0 prev cur next 2
+ ()
 )
-in
-
-let _ = rt 512 512
-
-in 0
+in ()

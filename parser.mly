@@ -119,7 +119,7 @@ exp: /* (* 一般の式 (caml2html: parser_exp) *) */
 | exp AST exp
     { Mul($1, $3) }
 | exp SLASH exp
-    { FDiv($1, $3) }
+    { Div($1, $3) }
 | exp AST_DOT exp
     { FMul($1, $3) }
 | exp SLASH_DOT exp
