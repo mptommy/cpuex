@@ -77,10 +77,10 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(x), Sub(y, V(z)) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" x y z
   | NonTail(x), Sub(y, C(z)) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" x y (-z)
   | NonTail(x), Mul(y, V(z)) -> raise Mul
-  | NonTail(x), Mul(y, C(z)) when is_pow_of_two z -> Printf.fprintf oc "\tsll\t%s %s %d\n" x y (log z)
+  | NonTail(x), Mul(y, C(z)) when is_pow_of_two z -> Printf.fprintf oc "\tslli\t%s %s %d\n" x y (log z)
   | NonTail(x), Mul(y, C(z)) -> raise Mul
   | NonTail(x), Div(y, V(z)) -> raise Div
-  | NonTail(x), Div(y, C(z)) when is_pow_of_two z -> Printf.fprintf oc "\tsra\t%s %s %d\n" x y (log z)
+  | NonTail(x), Div(y, C(z)) when is_pow_of_two z -> Printf.fprintf oc "\tsrai\t%s %s %d\n" x y (log z)
   | NonTail(x), Div(y, C(z)) -> raise Div
   | NonTail(x), SLL(y, z') -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" x y (pp_id_or_imm z')
   | NonTail(x), Ld(y, z') -> Printf.fprintf oc "\tlw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
@@ -94,6 +94,9 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(x), FDiv(y, z) -> Printf.fprintf oc "\tfdiv\t%s, %s, %s\n" x y z
   | NonTail(x), FInv(y) -> Printf.fprintf oc "\tfinv\t%s, %s\n" x y
   | NonTail(x), FSqrt(y) -> Printf.fprintf oc "\tfsqrt\t%s, %s\n" x y
+  | NonTail(x), FAbs(y) -> Printf.fprintf oc "\tfabs\t%s, %s\n" x y
+  | NonTail(x), FHalf(y) -> Printf.fprintf oc "\tfhalf\t%s, %s\n" x y
+  | NonTail(x), FSqr(y) -> Printf.fprintf oc "\tfmul\t%s, %s, %s\n" x y y
   | NonTail(x), FToI(y) -> Printf.fprintf oc "\tftoi\t%s, %s\n" x y
   | NonTail(x), IToF(y) -> Printf.fprintf oc "\titof\t%s, %s\n" x y
   | NonTail(x), Floor(y) -> Printf.fprintf oc "\tfloor\t%s, %s\n" x y
@@ -228,7 +231,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\tsw\t%s, %d(%s)\n" reg_ra (4 - ss) reg_sp;
       save reg_ra;
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sp reg_sp (-ss);
-      Printf.fprintf oc "\tjal\t%s\n" x;
+      Printf.fprintf oc "\tcall\t%s\n" x;
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sp reg_sp ss;
       Printf.fprintf oc "\tlw\t%s, %d(%s)\n" reg_ra (4 - ss) reg_sp;
       if List.mem a allregs && a <> regs.(0) then

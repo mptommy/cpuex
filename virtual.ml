@@ -102,6 +102,9 @@ let rec g env = function (* 式の仮想マシンコード生成 (caml2html: vir
        | "min_caml_read_int" ->Ans(In("read_int"))
        | "min_caml_read_float" -> Ans(In("read_float")) 
        | "min_caml_print_char" -> Ans(Out(List.hd ys)) 
+       | "min_caml_fabs" -> Ans(FAbs(List.hd float))
+       | "min_caml_fhalf" -> Ans(FHalf(List.hd float))
+       | "min_caml_fsqr" -> Ans(FSqr(List.hd float))
        | _ -> Ans(CallDir(Id.L(x), int, float))) (* 引数をintリストとfloatリストに分けて、CallDir *)
   | Closure.Tuple(xs) -> (* 組の生成 (caml2html: virtual_tuple) *)
       let y = Id.genid "t" in

@@ -1,2 +1,6 @@
-assoc.cmo : kNormal.cmi assoc.cmi
-assoc.cmx : kNormal.cmx assoc.cmi
+assoc.cmo : \
+    kNormal.cmi \
+    assoc.cmi
+assoc.cmx : \
+    kNormal.cmx \
+    assoc.cmi

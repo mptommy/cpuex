@@ -161,7 +161,7 @@ let rec kernel_atan a =
     a -. 0.3333333 *. a3 +. 0.2 *. a5 -. 0.142857142 *. a7 +. 0.111111104 *. a9 -. 0.08976446 *. a11 +. 0.060035485 *. a13 in
 
 let rec atan a = 
-    let abs_a = abs_float a in
+    let abs_a = fabs a in
     if abs_a < 0.4375 then kernel_atan a 
     else if abs_a < 2.4375 then pi /. 4.0 +. kernel_atan ((abs_a -. 1.0) /. (abs_a +. 1.0)) 
     else pi /. 2.0 -. kernel_atan (1.0 /. abs_a)

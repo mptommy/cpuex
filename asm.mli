@@ -23,6 +23,9 @@ and exp =
   | FDiv of Id.t * Id.t
   | FInv of Id.t
   | FSqrt of Id.t
+  | FAbs of Id.t
+  | FHalf of Id.t
+  | FSqr of Id.t
   | FToI of Id.t
   | IToF of Id.t
   | Floor of Id.t

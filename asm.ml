@@ -25,6 +25,9 @@ and exp = (* 一つ一つの命令に対応する式 (caml2html: sparcasm_exp) *
   | FDiv of Id.t * Id.t
   | FInv of Id.t
   | FSqrt of Id.t
+  | FAbs of Id.t
+  | FHalf of Id.t
+  | FSqr of Id.t
   | FToI of Id.t
   | IToF of Id.t
   | Floor of Id.t
@@ -102,7 +105,7 @@ let rec remove_and_uniq xs = function
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
   | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) | In _ -> []
-  | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | Out(x) | FSqrt(x) | FInv(x) | FToI(x) | IToF(x) | Floor(x) -> [x]
+  | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | Out(x) | FSqrt(x) | FAbs(x) | FHalf(x) | FSqr(x) | FInv(x) | FToI(x) | IToF(x) | Floor(x) -> [x]
   | Add(x, y') | Sub(x, y') | Mul(x, y') | Div(x, y') | SLL(x, y') | Ld(x, y') | LdF(x, y') -> x :: fv_id_or_imm y'
   | St(x, y, z') | StF(x, y, z') -> x :: y :: fv_id_or_imm z'
   | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) -> [x; y]
