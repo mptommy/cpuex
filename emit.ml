@@ -151,7 +151,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | Tail, (Set _ | SetL _ | Mov _ | Neg _ | Add _ | Sub _ | Mul _ | Div _ | SLL _ | Ld _ | FToI _ as exp) ->
       g' oc (NonTail(regs.(0)), exp);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
-  | Tail, (FMov _ | FNeg _ | FAdd _ | FSub _ | FMul _ | FDiv _ | FInv _ | FSqrt _ | LdF _ | IToF _ | Floor _ as exp) ->
+  | Tail, (FMov _ | FNeg _ | FAdd _ | FSub _ | FMul _ | FDiv _ | FInv _ | FSqrt _ | FAbs _ | FHalf _ | FSqr _ | LdF _ | IToF _ | Floor _ as exp) ->
       g' oc (NonTail(fregs.(0)), exp);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
   | Tail, (Restore(x) as exp) ->
@@ -223,8 +223,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       if List.mem a allregs && a <> regs.(0) then
         Printf.fprintf oc "\taddi\t%s, %s, 0\n" regs.(0) a
       else if List.mem a allfregs && a <> fregs.(0) then (* 浮動小数点 *)
-        (Printf.fprintf oc "\tfmv\t%s, %s\n" fregs.(0) a;
-         Printf.fprintf oc "\tfmv\t%s, %s\n" (co_freg fregs.(0)) (co_freg a))
+        Printf.fprintf oc "\tfmv\t%s, %s\n" fregs.(0) a
   | NonTail(a), CallDir(Id.L(x), ys, zs) ->
       g'_args oc [] ys zs;
       let ss = stacksize () in
@@ -237,8 +236,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       if List.mem a allregs && a <> regs.(0) then
         Printf.fprintf oc "\taddi\t%s, %s, 0\n" regs.(0) a
       else if List.mem a allfregs && a <> fregs.(0) then (* 浮動小数点 *)
-        (Printf.fprintf oc "\tfmv\t%s, %s\n" fregs.(0) a;
-         Printf.fprintf oc "\tfmv\t%s, %s\n" (co_freg fregs.(0)) (co_freg a))
+        Printf.fprintf oc "\tfmv\t%s, %s\n" fregs.(0) a
 and g'_tail_if oc e1 e2 b bn reg1 reg2 =
   let b_else = Id.genid (b ^ "_else") in
   Printf.fprintf oc "\t%s\t%s, %s, %s\n" bn reg1 reg2 b_else;

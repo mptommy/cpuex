@@ -95,7 +95,7 @@ let normal_print f s d e =
 let rec iter n e = (* β簡約、ネストしたletの簡約、インライン展開、定数畳み込み、不要定義削除をlimit回を上限として、結果が不変になるまで適用 *) (* 最適化処理を繰り返す (caml2html: main_iter) *)
   Format.eprintf "iteration %d@." n;
   if n = 0 then e else
-  let e' = normal_print Elim.f "Elim" 1 (normal_print ConstFold.f "ConstFold" 1 (normal_print Inline.f "Inline" 1 (normal_print Assoc.f "Assoc" 1 (normal_print Beta.f "Beta" 1 e)))) in
+  let e' = normal_print Elim.f "Elim" 0 (normal_print ConstFold.f "ConstFold" 0 (normal_print Inline.f "Inline" 0 (normal_print Assoc.f "Assoc" 0 (normal_print Beta.f "Beta" 0 e)))) in
   if e = e' then e else
   iter (n - 1) e'
 
@@ -108,10 +108,10 @@ let lexbuf outchan l = (* 引数のバッファに、字句解析、構文解析
           (Virtual.f
              (Closure.f
                 (iter !limit
-                   (normal_print Alpha.f "Alpha" 1
-                      (normal_print KNormal.f "KNormal" 1 
+                   (normal_print Alpha.f "Alpha" 0
+                      (normal_print KNormal.f "KNormal" 0 
                          (Typing.f
-                            (parse_print Lexer.token 1 l)))))))))
+                            (parse_print Lexer.token 0 l)))))))))
 
 let string s = lexbuf stdout (Lexing.from_string s) (* 文字列をコンパイルして標準出力に表示する (caml2html: main_string) *)
 

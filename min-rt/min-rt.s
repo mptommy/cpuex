@@ -3895,3 +3895,6725 @@ solver_rect_fast.3161:
 	addi	%sp, %sp, 72
 	lw	%ra, -68(%sp)
 	fmv	%ft0, %ft1
+	flw	%ft0, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	min_caml_fless
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10000
+	addi	%t0, %zero, 0
+	j	beq_cont.10001
+beq_else.10000:
+	lw	%t0, -48(%sp)
+	flw	%ft0, 16(%t0)
+	flw	%ft1, -40(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -32(%sp)
+	fadd	%ft0, %ft0, %ft2
+	fabs	%ft0, %ft0
+	lw	%t1, -28(%sp)
+	fsw	%ft0, -72(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	o_param_c.3037
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	min_caml_fless
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10003
+	addi	%t0, %zero, 0
+	j	beq_cont.10004
+beq_else.10003:
+	lw	%t0, -24(%sp)
+	flw	%ft0, 8(%t0)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	fiszero.2823
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10005
+	addi	%t0, %zero, 1
+	j	beq_cont.10006
+beq_else.10005:
+	addi	%t0, %zero, 0
+beq_cont.10006:
+beq_cont.10004:
+beq_cont.10001:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10007
+	lw	%t0, -24(%sp)
+	flw	%ft0, 16(%t0)
+	flw	%ft1, -16(%sp)
+	fsub	%ft0, %ft0, %ft1
+	flw	%ft2, 24(%t0)
+	fmul	%ft0, %ft0, %ft2
+	lw	%t1, -48(%sp)
+	flw	%ft2, 0(%t1)
+	fmul	%ft2, %ft0, %ft2
+	flw	%ft3, -8(%sp)
+	fadd	%ft2, %ft2, %ft3
+	fabs	%ft2, %ft2
+	lw	%t2, -28(%sp)
+	fsw	%ft0, -80(%sp)
+	fsw	%ft2, -88(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	o_param_a.3033
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -88(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	min_caml_fless
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10008
+	addi	%t0, %zero, 0
+	j	beq_cont.10009
+beq_else.10008:
+	lw	%t0, -48(%sp)
+	flw	%ft0, 16(%t0)
+	flw	%ft1, -80(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -32(%sp)
+	fadd	%ft0, %ft0, %ft2
+	fabs	%ft0, %ft0
+	lw	%t1, -28(%sp)
+	fsw	%ft0, -96(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	call	o_param_c.3037
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -96(%sp)
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	call	min_caml_fless
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10010
+	addi	%t0, %zero, 0
+	j	beq_cont.10011
+beq_else.10010:
+	lw	%t0, -24(%sp)
+	flw	%ft0, 24(%t0)
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	call	fiszero.2823
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10012
+	addi	%t0, %zero, 1
+	j	beq_cont.10013
+beq_else.10012:
+	addi	%t0, %zero, 0
+beq_cont.10013:
+beq_cont.10011:
+beq_cont.10009:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10014
+	lw	%t0, -24(%sp)
+	flw	%ft0, 32(%t0)
+	flw	%ft1, -32(%sp)
+	fsub	%ft0, %ft0, %ft1
+	flw	%ft1, 40(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t1, -48(%sp)
+	flw	%ft1, 0(%t1)
+	fmul	%ft1, %ft0, %ft1
+	flw	%ft2, -8(%sp)
+	fadd	%ft1, %ft1, %ft2
+	fabs	%ft1, %ft1
+	lw	%t2, -28(%sp)
+	fsw	%ft0, -104(%sp)
+	fsw	%ft1, -112(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	call	o_param_a.3033
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -112(%sp)
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	call	min_caml_fless
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10015
+	addi	%t0, %zero, 0
+	j	beq_cont.10016
+beq_else.10015:
+	lw	%t0, -48(%sp)
+	flw	%ft0, 8(%t0)
+	flw	%ft1, -104(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -16(%sp)
+	fadd	%ft0, %ft0, %ft2
+	fabs	%ft0, %ft0
+	lw	%t0, -28(%sp)
+	fsw	%ft0, -120(%sp)
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	call	o_param_b.3035
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -120(%sp)
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	call	min_caml_fless
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10017
+	addi	%t0, %zero, 0
+	j	beq_cont.10018
+beq_else.10017:
+	lw	%t0, -24(%sp)
+	flw	%ft0, 40(%t0)
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	call	fiszero.2823
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10019
+	addi	%t0, %zero, 1
+	j	beq_cont.10020
+beq_else.10019:
+	addi	%t0, %zero, 0
+beq_cont.10020:
+beq_cont.10018:
+beq_cont.10016:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10021
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10021:
+	lw	%t0, 0(%sp)
+	flw	%ft0, -104(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 3
+	jr	%ra
+beq_else.10014:
+	lw	%t0, 0(%sp)
+	flw	%ft0, -80(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 2
+	jr	%ra
+beq_else.10007:
+	lw	%t0, 0(%sp)
+	flw	%ft0, -40(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 1
+	jr	%ra
+solver_surface_fast.3168:
+	lw	%t0, 4(%t5)
+	flw	%ft3, 0(%t1)
+	sw	%t0, 0(%sp)
+	fsw	%ft2, -8(%sp)
+	fsw	%ft1, -16(%sp)
+	fsw	%ft0, -24(%sp)
+	sw	%t1, -32(%sp)
+	fmv	%ft0, %ft3
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	fisneg.2821
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10023
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10023:
+	lw	%t0, -32(%sp)
+	flw	%ft0, 8(%t0)
+	flw	%ft1, -24(%sp)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 16(%t0)
+	flw	%ft2, -16(%sp)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	flw	%ft1, 24(%t0)
+	flw	%ft2, -8(%sp)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 1
+	jr	%ra
+solver_second_fast.3174:
+	lw	%t2, 4(%t5)
+	flw	%ft3, 0(%t1)
+	sw	%t2, 0(%sp)
+	fsw	%ft3, -8(%sp)
+	sw	%t0, -16(%sp)
+	fsw	%ft2, -24(%sp)
+	fsw	%ft1, -32(%sp)
+	fsw	%ft0, -40(%sp)
+	sw	%t1, -48(%sp)
+	fmv	%ft0, %ft3
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	fiszero.2823
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10026
+	lw	%t0, -48(%sp)
+	flw	%ft0, 8(%t0)
+	flw	%ft1, -40(%sp)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft2, 16(%t0)
+	flw	%ft3, -32(%sp)
+	fmul	%ft2, %ft2, %ft3
+	fadd	%ft0, %ft0, %ft2
+	flw	%ft2, 24(%t0)
+	flw	%ft4, -24(%sp)
+	fmul	%ft2, %ft2, %ft4
+	fadd	%ft0, %ft0, %ft2
+	lw	%t1, -16(%sp)
+	fsw	%ft0, -56(%sp)
+	addi	%t0, %t1, 0
+	fmv	%ft2, %ft4
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft3
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	quadratic.3138
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	o_form.3025
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, -3
+	bne	%t4, %zero, beq_else.10027
+	la	%t0, l.6846
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -64(%sp)
+	fsub	%ft0, %ft1, %ft0
+	j	beq_cont.10028
+beq_else.10027:
+	flw	%ft0, -64(%sp)
+beq_cont.10028:
+	flw	%ft1, -56(%sp)
+	fmul	%ft2, %ft1, %ft1
+	flw	%ft3, -8(%sp)
+	fmul	%ft0, %ft3, %ft0
+	fsub	%ft0, %ft2, %ft0
+	fsw	%ft0, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	fispos.2819
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10029
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10029:
+	lw	%t0, -16(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	o_isinvert.3029
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10030
+	flw	%ft0, -72(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -56(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -48(%sp)
+	flw	%ft1, 32(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	j	beq_cont.10031
+beq_else.10030:
+	flw	%ft0, -72(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -56(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -48(%sp)
+	flw	%ft1, 32(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+beq_cont.10031:
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.10026:
+	addi	%t0, %zero, 0
+	jr	%ra
+solver_fast.3180:
+	lw	%s0, 16(%t5)
+	lw	%s1, 12(%t5)
+	lw	%a0, 8(%t5)
+	lw	%a1, 4(%t5)
+	sll	%a2, %t0, 2
+	lw	%a1, %a2(%a1)
+	flw	%ft0, 0(%t2)
+	sw	%s1, 0(%sp)
+	sw	%s0, -4(%sp)
+	sw	%a0, -8(%sp)
+	sw	%t0, -12(%sp)
+	sw	%t1, -16(%sp)
+	sw	%a1, -20(%sp)
+	sw	%t2, -24(%sp)
+	fsw	%ft0, -32(%sp)
+	addi	%t0, %a1, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	o_param_x.3041
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -24(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, -20(%sp)
+	fsw	%ft0, -48(%sp)
+	fsw	%ft1, -56(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_param_y.3043
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -24(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t0, -20(%sp)
+	fsw	%ft0, -64(%sp)
+	fsw	%ft1, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	o_param_z.3045
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -80(%sp)
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	call	d_const.3086
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	lw	%t1, -12(%sp)
+	sll	%t1, %t1, 2
+	lw	%t0, %t1(%t0)
+	lw	%t1, -20(%sp)
+	sw	%t0, -88(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	call	o_form.3025
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.10034
+	lw	%t0, -16(%sp)
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	call	d_vec.3084
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	addi	%t0, %t1, 0
+	flw	%ft0, -48(%sp)
+	flw	%ft1, -64(%sp)
+	flw	%ft2, -80(%sp)
+	lw	%t0, -20(%sp)
+	lw	%t2, -88(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10034:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.10035
+	flw	%ft0, -48(%sp)
+	flw	%ft1, -64(%sp)
+	flw	%ft2, -80(%sp)
+	lw	%t0, -20(%sp)
+	lw	%t1, -88(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10035:
+	flw	%ft0, -48(%sp)
+	flw	%ft1, -64(%sp)
+	flw	%ft2, -80(%sp)
+	lw	%t0, -20(%sp)
+	lw	%t1, -88(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+solver_surface_fast2.3184:
+	lw	%t0, 4(%t5)
+	flw	%ft0, 0(%t1)
+	sw	%t0, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%t1, -8(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	fisneg.2821
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10036
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10036:
+	lw	%t0, -8(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 24(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	addi	%t0, %zero, 1
+	jr	%ra
+solver_second_fast2.3191:
+	lw	%s0, 4(%t5)
+	flw	%ft3, 0(%t1)
+	sw	%s0, 0(%sp)
+	sw	%t0, -4(%sp)
+	fsw	%ft3, -8(%sp)
+	sw	%t2, -16(%sp)
+	fsw	%ft2, -24(%sp)
+	fsw	%ft1, -32(%sp)
+	fsw	%ft0, -40(%sp)
+	sw	%t1, -48(%sp)
+	fmv	%ft0, %ft3
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	fiszero.2823
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10038
+	lw	%t0, -48(%sp)
+	flw	%ft0, 8(%t0)
+	flw	%ft1, -40(%sp)
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 16(%t0)
+	flw	%ft2, -32(%sp)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	flw	%ft1, 24(%t0)
+	flw	%ft2, -24(%sp)
+	fmul	%ft1, %ft1, %ft2
+	fadd	%ft0, %ft0, %ft1
+	lw	%t1, -16(%sp)
+	flw	%ft1, 24(%t1)
+	fmul	%ft2, %ft0, %ft0
+	flw	%ft3, -8(%sp)
+	fmul	%ft1, %ft3, %ft1
+	fsub	%ft1, %ft2, %ft1
+	fsw	%ft0, -56(%sp)
+	fsw	%ft1, -64(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	fispos.2819
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10039
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10039:
+	lw	%t0, -4(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	o_isinvert.3029
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10040
+	flw	%ft0, -64(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -56(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -48(%sp)
+	flw	%ft1, 32(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	j	beq_cont.10041
+beq_else.10040:
+	flw	%ft0, -64(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -56(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -48(%sp)
+	flw	%ft1, 32(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+beq_cont.10041:
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.10038:
+	addi	%t0, %zero, 0
+	jr	%ra
+solver_fast2.3198:
+	lw	%t2, 16(%t5)
+	lw	%s0, 12(%t5)
+	lw	%s1, 8(%t5)
+	lw	%a0, 4(%t5)
+	sll	%a1, %t0, 2
+	lw	%a0, %a1(%a0)
+	sw	%s0, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%a0, -12(%sp)
+	sw	%t0, -16(%sp)
+	sw	%t1, -20(%sp)
+	addi	%t0, %a0, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_param_ctbl.3063
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft0, 0(%t0)
+	flw	%ft1, 8(%t0)
+	flw	%ft2, 16(%t0)
+	lw	%t1, -20(%sp)
+	sw	%t0, -28(%sp)
+	fsw	%ft2, -32(%sp)
+	fsw	%ft1, -40(%sp)
+	fsw	%ft0, -48(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	d_const.3086
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t1, -16(%sp)
+	sll	%t1, %t1, 2
+	lw	%t0, %t1(%t0)
+	lw	%t1, -12(%sp)
+	sw	%t0, -56(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_form.3025
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.10042
+	lw	%t0, -20(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	d_vec.3084
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t0, %t1, 0
+	flw	%ft0, -48(%sp)
+	flw	%ft1, -40(%sp)
+	flw	%ft2, -32(%sp)
+	lw	%t0, -12(%sp)
+	lw	%t2, -56(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10042:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.10043
+	flw	%ft0, -48(%sp)
+	flw	%ft1, -40(%sp)
+	flw	%ft2, -32(%sp)
+	lw	%t0, -12(%sp)
+	lw	%t1, -56(%sp)
+	lw	%t2, -28(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10043:
+	flw	%ft0, -48(%sp)
+	flw	%ft1, -40(%sp)
+	flw	%ft2, -32(%sp)
+	lw	%t0, -12(%sp)
+	lw	%t1, -56(%sp)
+	lw	%t2, -28(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+setup_rect_table.3201:
+	addi	%t2, %zero, 6
+	la	%s0, l.6833
+	flw	%ft0, 0(%s0)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 0(%t1)
+	sw	%t0, -12(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	fiszero.2823
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10044
+	lw	%t0, 0(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	o_isinvert.3029
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 0(%t1)
+	sw	%t0, -16(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	fisneg.2821
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -16(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	xor.2966
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, 0(%sp)
+	sw	%t0, -20(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_param_a.3033
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -20(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	fneg_cond.2971
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 0(%t0)
+	la	%t1, l.6846
+	flw	%ft0, 0(%t1)
+	lw	%t1, -4(%sp)
+	flw	%ft1, 0(%t1)
+	fdiv	%ft0, %ft0, %ft1
+	fsw	%ft0, 8(%t0)
+	j	beq_cont.10045
+beq_else.10044:
+	la	%t0, l.6833
+	flw	%ft0, 0(%t0)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 8(%t0)
+beq_cont.10045:
+	lw	%t1, -4(%sp)
+	flw	%ft0, 8(%t1)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	fiszero.2823
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10046
+	lw	%t0, 0(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_isinvert.3029
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 8(%t1)
+	sw	%t0, -24(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	fisneg.2821
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -24(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	xor.2966
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, 0(%sp)
+	sw	%t0, -28(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	o_param_b.3035
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -28(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	fneg_cond.2971
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 16(%t0)
+	la	%t1, l.6846
+	flw	%ft0, 0(%t1)
+	lw	%t1, -4(%sp)
+	flw	%ft1, 8(%t1)
+	fdiv	%ft0, %ft0, %ft1
+	fsw	%ft0, 24(%t0)
+	j	beq_cont.10047
+beq_else.10046:
+	la	%t0, l.6833
+	flw	%ft0, 0(%t0)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 24(%t0)
+beq_cont.10047:
+	lw	%t1, -4(%sp)
+	flw	%ft0, 16(%t1)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	fiszero.2823
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10048
+	lw	%t0, 0(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	o_isinvert.3029
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 16(%t1)
+	sw	%t0, -32(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	fisneg.2821
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -32(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	xor.2966
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, 0(%sp)
+	sw	%t0, -36(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	o_param_c.3037
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t0, -36(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	fneg_cond.2971
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 32(%t0)
+	la	%t1, l.6846
+	flw	%ft0, 0(%t1)
+	lw	%t1, -4(%sp)
+	flw	%ft1, 16(%t1)
+	fdiv	%ft0, %ft0, %ft1
+	fsw	%ft0, 40(%t0)
+	j	beq_cont.10049
+beq_else.10048:
+	la	%t0, l.6833
+	flw	%ft0, 0(%t0)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 40(%t0)
+beq_cont.10049:
+	jr	%ra
+setup_surface_table.3204:
+	addi	%t2, %zero, 4
+	la	%s0, l.6833
+	flw	%ft0, 0(%s0)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t2, 0(%sp)
+	sw	%t0, -12(%sp)
+	fsw	%ft0, -16(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_param_a.3033
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -24(%sp)
+	fsw	%ft1, -32(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	o_param_b.3035
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -24(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t0, 0(%sp)
+	fsw	%ft0, -40(%sp)
+	fsw	%ft1, -48(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_param_c.3037
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -40(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fsw	%ft0, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	fispos.2819
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10050
+	la	%t0, l.6833
+	flw	%ft0, 0(%t0)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 0(%t0)
+	j	beq_cont.10051
+beq_else.10050:
+	la	%t0, l.6905
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -56(%sp)
+	fdiv	%ft0, %ft0, %ft1
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_param_a.3033
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fdiv	%ft0, %ft0, %ft1
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	min_caml_fneg
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_param_b.3035
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fdiv	%ft0, %ft0, %ft1
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	min_caml_fneg
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t1, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_param_c.3037
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fdiv	%ft0, %ft0, %ft1
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	min_caml_fneg
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 24(%t0)
+beq_cont.10051:
+	jr	%ra
+setup_second_table.3207:
+	addi	%t2, %zero, 5
+	la	%s0, l.6833
+	flw	%ft0, 0(%s0)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 0(%t1)
+	flw	%ft1, 8(%t1)
+	flw	%ft2, 16(%t1)
+	lw	%t2, 0(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	quadratic.3138
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -16(%sp)
+	fsw	%ft1, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	o_param_a.3033
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fmul	%ft0, %ft1, %ft0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	min_caml_fneg
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -32(%sp)
+	fsw	%ft1, -40(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	o_param_b.3035
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fmul	%ft0, %ft1, %ft0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	min_caml_fneg
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -4(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -48(%sp)
+	fsw	%ft1, -56(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_param_c.3037
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft1, %ft0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	min_caml_fneg
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -12(%sp)
+	flw	%ft1, -16(%sp)
+	fsw	%ft1, 0(%t0)
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -64(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	o_isrot.3031
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10052
+	lw	%t0, -12(%sp)
+	flw	%ft0, -32(%sp)
+	fsw	%ft0, 8(%t0)
+	flw	%ft0, -48(%sp)
+	fsw	%ft0, 16(%t0)
+	flw	%ft0, -64(%sp)
+	fsw	%ft0, 24(%t0)
+	j	beq_cont.10053
+beq_else.10052:
+	lw	%t0, -4(%sp)
+	flw	%ft0, 16(%t0)
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -72(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	o_param_r2.3059
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -80(%sp)
+	fsw	%ft1, -88(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	o_param_r3.3061
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -80(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fhalf	%ft0, %ft0
+	flw	%ft1, -32(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t2, 0(%sp)
+	fsw	%ft0, -96(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	call	o_param_r1.3057
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	flw	%ft1, -96(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	lw	%t1, 0(%sp)
+	fsw	%ft0, -104(%sp)
+	fsw	%ft1, -112(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	call	o_param_r3.3061
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	flw	%ft1, -112(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -104(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fhalf	%ft0, %ft0
+	flw	%ft1, -48(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t1, -4(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t2, 0(%sp)
+	fsw	%ft0, -120(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	call	o_param_r1.3057
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	flw	%ft1, -120(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	flw	%ft1, 0(%t0)
+	lw	%t0, 0(%sp)
+	fsw	%ft0, -128(%sp)
+	fsw	%ft1, -136(%sp)
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	call	o_param_r2.3059
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	flw	%ft1, -136(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -128(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fhalf	%ft0, %ft0
+	flw	%ft1, -64(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 24(%t0)
+beq_cont.10053:
+	flw	%ft0, -16(%sp)
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	call	fiszero.2823
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10054
+	la	%t0, l.6846
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -16(%sp)
+	fdiv	%ft0, %ft0, %ft1
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 32(%t0)
+	j	beq_cont.10055
+beq_else.10054:
+beq_cont.10055:
+	lw	%t0, -12(%sp)
+	jr	%ra
+iter_setup_dirvec_constants.3210:
+	lw	%t2, 4(%t5)
+	addi	%t4, %t1, 0
+	blt	%t4, %zero, bge_else.10056
+	sll	%s0, %t1, 2
+	lw	%t2, %s0(%t2)
+	sw	%t5, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t2, -8(%sp)
+	sw	%t0, -12(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	d_const.3086
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -12(%sp)
+	sw	%t0, -20(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	d_vec.3084
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -8(%sp)
+	sw	%t0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_form.3025
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.10057
+	lw	%t0, -24(%sp)
+	lw	%t1, -8(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	setup_rect_table.3201
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -4(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -20(%sp)
+	sw	%t0, %t2(%s0)
+	j	beq_cont.10058
+beq_else.10057:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.10059
+	lw	%t0, -24(%sp)
+	lw	%t1, -8(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	setup_surface_table.3204
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -4(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -20(%sp)
+	sw	%t0, %t2(%s0)
+	j	beq_cont.10060
+beq_else.10059:
+	lw	%t0, -24(%sp)
+	lw	%t1, -8(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	setup_second_table.3207
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -4(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -20(%sp)
+	sw	%t0, %t2(%s0)
+beq_cont.10060:
+beq_cont.10058:
+	addi	%t1, %t1, -1
+	lw	%t0, -12(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10056:
+	jr	%ra
+setup_dirvec_constants.3213:
+	lw	%t1, 8(%t5)
+	lw	%t5, 4(%t5)
+	lw	%t1, 0(%t1)
+	addi	%t1, %t1, -1
+	lw	%t4, 0(%t5)
+	jr	%t4
+setup_startp_constants.3215:
+	lw	%t2, 4(%t5)
+	addi	%t4, %t1, 0
+	blt	%t4, %zero, bge_else.10062
+	sll	%s0, %t1, 2
+	lw	%t2, %s0(%t2)
+	sw	%t5, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t0, -8(%sp)
+	sw	%t2, -12(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	o_param_ctbl.3063
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -12(%sp)
+	sw	%t0, -20(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_form.3025
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -8(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t2, -12(%sp)
+	sw	%t0, -24(%sp)
+	fsw	%ft0, -32(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	o_param_x.3041
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -8(%sp)
+	flw	%ft0, 8(%t1)
+	lw	%t2, -12(%sp)
+	fsw	%ft0, -40(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	o_param_y.3043
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -8(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t2, -12(%sp)
+	fsw	%ft0, -48(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_param_z.3045
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t1, -24(%sp)
+	addi	%t4, %t1, -2
+	bne	%t4, %zero, beq_else.10064
+	lw	%t1, -12(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_param_abc.3039
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t1, -20(%sp)
+	flw	%ft0, 0(%t1)
+	flw	%ft1, 8(%t1)
+	flw	%ft2, 16(%t1)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	veciprod2.3001
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 24(%t0)
+	j	beq_cont.10065
+beq_else.10064:
+	addi	%t4, %t1, -2
+	bgt	%t4, %zero, ble_else.10066
+	j	ble_cont.10067
+ble_else.10066:
+	flw	%ft0, 0(%t0)
+	flw	%ft1, 8(%t0)
+	flw	%ft2, 16(%t0)
+	lw	%t2, -12(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	quadratic.3138
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -24(%sp)
+	addi	%t4, %t0, -3
+	bne	%t4, %zero, beq_else.10068
+	la	%t0, l.6846
+	flw	%ft1, 0(%t0)
+	fsub	%ft0, %ft0, %ft1
+	j	beq_cont.10069
+beq_else.10068:
+beq_cont.10069:
+	lw	%t0, -20(%sp)
+	fsw	%ft0, 24(%t0)
+ble_cont.10067:
+beq_cont.10065:
+	lw	%t0, -4(%sp)
+	addi	%t1, %t0, -1
+	lw	%t0, -8(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10062:
+	jr	%ra
+setup_startp.3218:
+	lw	%t1, 12(%t5)
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	sw	%t0, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%s0, -8(%sp)
+	addi	%t4, %t1, 0
+	addi	%t1, %t0, 0
+	addi	%t0, %t4, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	veccpy.2987
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -8(%sp)
+	lw	%t0, 0(%t0)
+	addi	%t1, %t0, -1
+	lw	%t0, 0(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+is_rect_outside.3220:
+	fabs	%ft0, %ft0
+	fsw	%ft2, 0(%sp)
+	sw	%t0, -8(%sp)
+	fsw	%ft1, -16(%sp)
+	fsw	%ft0, -24(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	o_param_a.3033
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -24(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	min_caml_fless
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10072
+	addi	%t0, %zero, 0
+	j	beq_cont.10073
+beq_else.10072:
+	flw	%ft0, -16(%sp)
+	fabs	%ft0, %ft0
+	lw	%t0, -8(%sp)
+	fsw	%ft0, -40(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	o_param_b.3035
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -40(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	min_caml_fless
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10075
+	addi	%t0, %zero, 0
+	j	beq_cont.10076
+beq_else.10075:
+	flw	%ft0, 0(%sp)
+	fabs	%ft0, %ft0
+	lw	%t0, -8(%sp)
+	fsw	%ft0, -48(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_param_c.3037
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -48(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	min_caml_fless
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+beq_cont.10076:
+beq_cont.10073:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10077
+	lw	%t0, -8(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_isinvert.3029
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10078
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.10078:
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10077:
+	lw	%t0, -8(%sp)
+	j	o_isinvert.3029
+is_plane_outside.3225:
+	sw	%t0, 0(%sp)
+	fsw	%ft2, -8(%sp)
+	fsw	%ft1, -16(%sp)
+	fsw	%ft0, -24(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	o_param_abc.3039
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft0, -24(%sp)
+	flw	%ft1, -16(%sp)
+	flw	%ft2, -8(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	veciprod2.3001
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, 0(%sp)
+	fsw	%ft0, -40(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	o_isinvert.3029
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft0, -40(%sp)
+	sw	%t0, -48(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	fisneg.2821
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -48(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	xor.2966
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10081
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.10081:
+	addi	%t0, %zero, 0
+	jr	%ra
+is_second_outside.3230:
+	sw	%t0, 0(%sp)
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	call	quadratic.3138
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	lw	%t0, 0(%sp)
+	fsw	%ft0, -8(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	o_form.3025
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, -3
+	bne	%t4, %zero, beq_else.10082
+	la	%t0, l.6846
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -8(%sp)
+	fsub	%ft0, %ft1, %ft0
+	j	beq_cont.10083
+beq_else.10082:
+	flw	%ft0, -8(%sp)
+beq_cont.10083:
+	lw	%t0, 0(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_isinvert.3029
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft0, -16(%sp)
+	sw	%t0, -24(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	fisneg.2821
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -24(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	xor.2966
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10084
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.10084:
+	addi	%t0, %zero, 0
+	jr	%ra
+is_outside.3235:
+	fsw	%ft2, 0(%sp)
+	fsw	%ft1, -8(%sp)
+	sw	%t0, -16(%sp)
+	fsw	%ft0, -24(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	o_param_x.3041
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -40(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	o_param_y.3043
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -8(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -48(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_param_z.3045
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, 0(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_form.3025
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.10087
+	flw	%ft0, -40(%sp)
+	flw	%ft1, -48(%sp)
+	flw	%ft2, -56(%sp)
+	lw	%t0, -16(%sp)
+	j	is_rect_outside.3220
+beq_else.10087:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.10088
+	flw	%ft0, -40(%sp)
+	flw	%ft1, -48(%sp)
+	flw	%ft2, -56(%sp)
+	lw	%t0, -16(%sp)
+	j	is_plane_outside.3225
+beq_else.10088:
+	flw	%ft0, -40(%sp)
+	flw	%ft1, -48(%sp)
+	flw	%ft2, -56(%sp)
+	lw	%t0, -16(%sp)
+	j	is_second_outside.3230
+check_all_inside.3240:
+	lw	%t2, 4(%t5)
+	sll	%s0, %t0, 2
+	lw	%s0, %s0(%t1)
+	addi	%t4, %s0, 1
+	bne	%t4, %zero, beq_else.10089
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.10089:
+	sll	%s0, %s0, 2
+	lw	%t2, %s0(%t2)
+	fsw	%ft2, 0(%sp)
+	fsw	%ft1, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%t1, -24(%sp)
+	sw	%t5, -28(%sp)
+	sw	%t0, -32(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	is_outside.3235
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10090
+	lw	%t0, -32(%sp)
+	addi	%t0, %t0, 1
+	flw	%ft0, -16(%sp)
+	flw	%ft1, -8(%sp)
+	flw	%ft2, 0(%sp)
+	lw	%t1, -24(%sp)
+	lw	%t5, -28(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10090:
+	addi	%t0, %zero, 0
+	jr	%ra
+shadow_check_and_group.3246:
+	lw	%t2, 28(%t5)
+	lw	%s0, 24(%t5)
+	lw	%s1, 20(%t5)
+	lw	%a0, 16(%t5)
+	lw	%a1, 12(%t5)
+	lw	%a2, 8(%t5)
+	lw	%a3, 4(%t5)
+	sll	%a4, %t0, 2
+	lw	%a4, %a4(%t1)
+	addi	%t4, %a4, 1
+	bne	%t4, %zero, beq_else.10091
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10091:
+	sll	%a4, %t0, 2
+	lw	%a4, %a4(%t1)
+	sw	%a3, 0(%sp)
+	sw	%a2, -4(%sp)
+	sw	%a1, -8(%sp)
+	sw	%t1, -12(%sp)
+	sw	%t5, -16(%sp)
+	sw	%t0, -20(%sp)
+	sw	%s1, -24(%sp)
+	sw	%a4, -28(%sp)
+	sw	%s0, -32(%sp)
+	addi	%t1, %a0, 0
+	addi	%t0, %a4, 0
+	addi	%t5, %t2, 0
+	addi	%t2, %a2, 0
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -32(%sp)
+	flw	%ft0, 0(%t1)
+	fsw	%ft0, -40(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10092
+	addi	%t0, %zero, 0
+	j	beq_cont.10093
+beq_else.10092:
+	la	%t0, l.7256
+	flw	%ft1, 0(%t0)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	min_caml_fless
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+beq_cont.10093:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10094
+	lw	%t0, -28(%sp)
+	sll	%t0, %t0, 2
+	lw	%t1, -24(%sp)
+	lw	%t0, %t0(%t1)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	o_isinvert.3029
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10095
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10095:
+	lw	%t0, -20(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -12(%sp)
+	lw	%t5, -16(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10094:
+	la	%t0, l.7258
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -40(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft1, %ft0
+	lw	%t1, -4(%sp)
+	flw	%ft2, 0(%t1)
+	fadd	%ft1, %ft1, %ft2
+	flw	%ft2, 8(%t0)
+	fmul	%ft2, %ft2, %ft0
+	flw	%ft3, 8(%t1)
+	fadd	%ft2, %ft2, %ft3
+	flw	%ft3, 16(%t0)
+	fmul	%ft0, %ft3, %ft0
+	flw	%ft3, 16(%t1)
+	fadd	%ft0, %ft0, %ft3
+	addi	%t0, %zero, 0
+	lw	%t1, -12(%sp)
+	lw	%t5, 0(%sp)
+	fmv	%ft10, %ft2
+	fmv	%ft2, %ft0
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft10
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10096
+	lw	%t0, -20(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -12(%sp)
+	lw	%t5, -16(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10096:
+	addi	%t0, %zero, 1
+	jr	%ra
+shadow_check_one_or_group.3249:
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	sll	%s1, %t0, 2
+	lw	%s1, %s1(%t1)
+	addi	%t4, %s1, 1
+	bne	%t4, %zero, beq_else.10097
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10097:
+	sll	%s1, %s1, 2
+	lw	%s0, %s1(%s0)
+	addi	%s1, %zero, 0
+	sw	%t1, 0(%sp)
+	sw	%t5, -4(%sp)
+	sw	%t0, -8(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %s1, 0
+	addi	%t5, %t2, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10098
+	lw	%t0, -8(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, 0(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10098:
+	addi	%t0, %zero, 1
+	jr	%ra
+shadow_check_one_or_matrix.3252:
+	lw	%t2, 20(%t5)
+	lw	%s0, 16(%t5)
+	lw	%s1, 12(%t5)
+	lw	%a0, 8(%t5)
+	lw	%a1, 4(%t5)
+	sll	%a2, %t0, 2
+	lw	%a2, %a2(%t1)
+	lw	%a3, 0(%a2)
+	addi	%t4, %a3, 1
+	bne	%t4, %zero, beq_else.10099
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10099:
+	sw	%a2, 0(%sp)
+	sw	%s1, -4(%sp)
+	sw	%t1, -8(%sp)
+	sw	%t5, -12(%sp)
+	sw	%t0, -16(%sp)
+	addi	%t4, %a3, -99
+	bne	%t4, %zero, beq_else.10100
+	addi	%t0, %zero, 1
+	j	beq_cont.10101
+beq_else.10100:
+	sw	%s0, -20(%sp)
+	addi	%t1, %a0, 0
+	addi	%t0, %a3, 0
+	addi	%t5, %t2, 0
+	addi	%t2, %a1, 0
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10102
+	addi	%t0, %zero, 0
+	j	beq_cont.10103
+beq_else.10102:
+	lw	%t0, -20(%sp)
+	flw	%ft0, 0(%t0)
+	la	%t0, l.7272
+	flw	%ft1, 0(%t0)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	min_caml_fless
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10104
+	addi	%t0, %zero, 0
+	j	beq_cont.10105
+beq_else.10104:
+	addi	%t0, %zero, 1
+	lw	%t1, 0(%sp)
+	lw	%t5, -4(%sp)
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10106
+	addi	%t0, %zero, 0
+	j	beq_cont.10107
+beq_else.10106:
+	addi	%t0, %zero, 1
+beq_cont.10107:
+beq_cont.10105:
+beq_cont.10103:
+beq_cont.10101:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10108
+	lw	%t0, -16(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -8(%sp)
+	lw	%t5, -12(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10108:
+	addi	%t0, %zero, 1
+	lw	%t1, 0(%sp)
+	lw	%t5, -4(%sp)
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10109
+	lw	%t0, -16(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -8(%sp)
+	lw	%t5, -12(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10109:
+	addi	%t0, %zero, 1
+	jr	%ra
+solve_each_element.3255:
+	lw	%s0, 36(%t5)
+	lw	%s1, 32(%t5)
+	lw	%a0, 28(%t5)
+	lw	%a1, 24(%t5)
+	lw	%a2, 20(%t5)
+	lw	%a3, 16(%t5)
+	lw	%a4, 12(%t5)
+	lw	%a5, 8(%t5)
+	lw	%a6, 4(%t5)
+	sll	%a7, %t0, 2
+	lw	%a7, %a7(%t1)
+	addi	%t4, %a7, 1
+	bne	%t4, %zero, beq_else.10110
+	jr	%ra
+beq_else.10110:
+	sw	%a3, 0(%sp)
+	sw	%a5, -4(%sp)
+	sw	%a4, -8(%sp)
+	sw	%a6, -12(%sp)
+	sw	%s1, -16(%sp)
+	sw	%s0, -20(%sp)
+	sw	%a0, -24(%sp)
+	sw	%t2, -28(%sp)
+	sw	%t1, -32(%sp)
+	sw	%t5, -36(%sp)
+	sw	%t0, -40(%sp)
+	sw	%a2, -44(%sp)
+	sw	%a7, -48(%sp)
+	addi	%t1, %t2, 0
+	addi	%t0, %a7, 0
+	addi	%t5, %a1, 0
+	addi	%t2, %s1, 0
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10112
+	lw	%t0, -48(%sp)
+	sll	%t0, %t0, 2
+	lw	%t1, -44(%sp)
+	lw	%t0, %t0(%t1)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_isinvert.3029
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10113
+	jr	%ra
+beq_else.10113:
+	lw	%t0, -40(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -32(%sp)
+	lw	%t2, -28(%sp)
+	lw	%t5, -36(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10112:
+	lw	%t1, -24(%sp)
+	flw	%ft1, 0(%t1)
+	la	%t1, l.6833
+	flw	%ft0, 0(%t1)
+	sw	%t0, -56(%sp)
+	fsw	%ft1, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	min_caml_fless
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10116
+	j	beq_cont.10117
+beq_else.10116:
+	lw	%t0, -20(%sp)
+	flw	%ft1, 0(%t0)
+	flw	%ft0, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	min_caml_fless
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10118
+	j	beq_cont.10119
+beq_else.10118:
+	la	%t0, l.7258
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -64(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -28(%sp)
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft1, %ft0
+	lw	%t1, -16(%sp)
+	flw	%ft2, 0(%t1)
+	fadd	%ft1, %ft1, %ft2
+	flw	%ft2, 8(%t0)
+	fmul	%ft2, %ft2, %ft0
+	flw	%ft3, 8(%t1)
+	fadd	%ft2, %ft2, %ft3
+	flw	%ft3, 16(%t0)
+	fmul	%ft3, %ft3, %ft0
+	flw	%ft4, 16(%t1)
+	fadd	%ft3, %ft3, %ft4
+	addi	%t1, %zero, 0
+	lw	%t2, -32(%sp)
+	lw	%t5, -12(%sp)
+	fsw	%ft3, -72(%sp)
+	fsw	%ft2, -80(%sp)
+	fsw	%ft1, -88(%sp)
+	fsw	%ft0, -96(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft2
+	fmv	%ft2, %ft3
+	sw	%ra, -108(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -112
+	jalr	%t4
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10120
+	j	beq_cont.10121
+beq_else.10120:
+	lw	%t0, -20(%sp)
+	flw	%ft0, -96(%sp)
+	fsw	%ft0, 0(%t0)
+	flw	%ft0, -88(%sp)
+	flw	%ft1, -80(%sp)
+	flw	%ft2, -72(%sp)
+	lw	%t0, -8(%sp)
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	call	vecset.2977
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	lw	%t0, -4(%sp)
+	lw	%t1, -48(%sp)
+	sw	%t1, 0(%t0)
+	lw	%t0, 0(%sp)
+	lw	%t1, -56(%sp)
+	sw	%t1, 0(%t0)
+beq_cont.10121:
+beq_cont.10119:
+beq_cont.10117:
+	lw	%t0, -40(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -32(%sp)
+	lw	%t2, -28(%sp)
+	lw	%t5, -36(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+solve_one_or_network.3259:
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sll	%a0, %t0, 2
+	lw	%a0, %a0(%t1)
+	addi	%t4, %a0, 1
+	bne	%t4, %zero, beq_else.10122
+	jr	%ra
+beq_else.10122:
+	sll	%a0, %a0, 2
+	lw	%s1, %a0(%s1)
+	addi	%a0, %zero, 0
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t5, -8(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t1, %s1, 0
+	addi	%t0, %a0, 0
+	addi	%t5, %s0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+trace_or_matrix.3263:
+	lw	%s0, 20(%t5)
+	lw	%s1, 16(%t5)
+	lw	%a0, 12(%t5)
+	lw	%a1, 8(%t5)
+	lw	%a2, 4(%t5)
+	sll	%a3, %t0, 2
+	lw	%a3, %a3(%t1)
+	lw	%a4, 0(%a3)
+	addi	%t4, %a4, 1
+	bne	%t4, %zero, beq_else.10124
+	jr	%ra
+beq_else.10124:
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t5, -8(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t4, %a4, -99
+	bne	%t4, %zero, beq_else.10126
+	addi	%s0, %zero, 1
+	addi	%t1, %a3, 0
+	addi	%t0, %s0, 0
+	addi	%t5, %a2, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	j	beq_cont.10127
+beq_else.10126:
+	sw	%a3, -20(%sp)
+	sw	%a2, -24(%sp)
+	sw	%s0, -28(%sp)
+	sw	%a0, -32(%sp)
+	addi	%t1, %t2, 0
+	addi	%t0, %a4, 0
+	addi	%t5, %a1, 0
+	addi	%t2, %s1, 0
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10128
+	j	beq_cont.10129
+beq_else.10128:
+	lw	%t0, -32(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t0, -28(%sp)
+	flw	%ft1, 0(%t0)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	min_caml_fless
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10130
+	j	beq_cont.10131
+beq_else.10130:
+	addi	%t0, %zero, 1
+	lw	%t1, -20(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -24(%sp)
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+beq_cont.10131:
+beq_cont.10129:
+beq_cont.10127:
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+judge_intersection.3267:
+	lw	%t1, 12(%t5)
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	la	%s1, l.7295
+	flw	%ft0, 0(%s1)
+	fsw	%ft0, 0(%t2)
+	addi	%s1, %zero, 0
+	lw	%s0, 0(%s0)
+	sw	%t2, 0(%sp)
+	addi	%t2, %t0, 0
+	addi	%t5, %t1, 0
+	addi	%t1, %s0, 0
+	addi	%t0, %s1, 0
+	sw	%ra, -4(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -8
+	jalr	%t4
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	lw	%t0, 0(%sp)
+	flw	%ft1, 0(%t0)
+	la	%t0, l.7272
+	flw	%ft0, 0(%t0)
+	fsw	%ft1, -8(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	min_caml_fless
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10132
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10132:
+	la	%t0, l.7301
+	flw	%ft1, 0(%t0)
+	flw	%ft0, -8(%sp)
+	j	min_caml_fless
+solve_each_element_fast.3269:
+	lw	%s0, 36(%t5)
+	lw	%s1, 32(%t5)
+	lw	%a0, 28(%t5)
+	lw	%a1, 24(%t5)
+	lw	%a2, 20(%t5)
+	lw	%a3, 16(%t5)
+	lw	%a4, 12(%t5)
+	lw	%a5, 8(%t5)
+	lw	%a6, 4(%t5)
+	sw	%a3, 0(%sp)
+	sw	%a5, -4(%sp)
+	sw	%a4, -8(%sp)
+	sw	%a6, -12(%sp)
+	sw	%s1, -16(%sp)
+	sw	%s0, -20(%sp)
+	sw	%a1, -24(%sp)
+	sw	%t5, -28(%sp)
+	sw	%a2, -32(%sp)
+	sw	%t2, -36(%sp)
+	sw	%a0, -40(%sp)
+	sw	%t1, -44(%sp)
+	sw	%t0, -48(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	d_vec.3084
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t1, -48(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -44(%sp)
+	lw	%t2, %t2(%s0)
+	addi	%t4, %t2, 1
+	bne	%t4, %zero, beq_else.10133
+	jr	%ra
+beq_else.10133:
+	lw	%s1, -36(%sp)
+	lw	%t5, -40(%sp)
+	sw	%t0, -56(%sp)
+	sw	%t2, -60(%sp)
+	addi	%t1, %s1, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10135
+	lw	%t0, -60(%sp)
+	sll	%t0, %t0, 2
+	lw	%t1, -32(%sp)
+	lw	%t0, %t0(%t1)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_isinvert.3029
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10136
+	jr	%ra
+beq_else.10136:
+	lw	%t0, -48(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -44(%sp)
+	lw	%t2, -36(%sp)
+	lw	%t5, -28(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10135:
+	lw	%t1, -24(%sp)
+	flw	%ft1, 0(%t1)
+	la	%t1, l.6833
+	flw	%ft0, 0(%t1)
+	sw	%t0, -64(%sp)
+	fsw	%ft1, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	min_caml_fless
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10139
+	j	beq_cont.10140
+beq_else.10139:
+	lw	%t0, -20(%sp)
+	flw	%ft1, 0(%t0)
+	flw	%ft0, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	min_caml_fless
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10141
+	j	beq_cont.10142
+beq_else.10141:
+	la	%t0, l.7258
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -72(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, -56(%sp)
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft1, %ft0
+	lw	%t1, -16(%sp)
+	flw	%ft2, 0(%t1)
+	fadd	%ft1, %ft1, %ft2
+	flw	%ft2, 8(%t0)
+	fmul	%ft2, %ft2, %ft0
+	flw	%ft3, 8(%t1)
+	fadd	%ft2, %ft2, %ft3
+	flw	%ft3, 16(%t0)
+	fmul	%ft3, %ft3, %ft0
+	flw	%ft4, 16(%t1)
+	fadd	%ft3, %ft3, %ft4
+	addi	%t0, %zero, 0
+	lw	%t1, -44(%sp)
+	lw	%t5, -12(%sp)
+	fsw	%ft3, -80(%sp)
+	fsw	%ft2, -88(%sp)
+	fsw	%ft1, -96(%sp)
+	fsw	%ft0, -104(%sp)
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft2
+	fmv	%ft2, %ft3
+	sw	%ra, -116(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -120
+	jalr	%t4
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10143
+	j	beq_cont.10144
+beq_else.10143:
+	lw	%t0, -20(%sp)
+	flw	%ft0, -104(%sp)
+	fsw	%ft0, 0(%t0)
+	flw	%ft0, -96(%sp)
+	flw	%ft1, -88(%sp)
+	flw	%ft2, -80(%sp)
+	lw	%t0, -8(%sp)
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	call	vecset.2977
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	lw	%t0, -4(%sp)
+	lw	%t1, -60(%sp)
+	sw	%t1, 0(%t0)
+	lw	%t0, 0(%sp)
+	lw	%t1, -64(%sp)
+	sw	%t1, 0(%t0)
+beq_cont.10144:
+beq_cont.10142:
+beq_cont.10140:
+	lw	%t0, -48(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -44(%sp)
+	lw	%t2, -36(%sp)
+	lw	%t5, -28(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+solve_one_or_network_fast.3273:
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sll	%a0, %t0, 2
+	lw	%a0, %a0(%t1)
+	addi	%t4, %a0, 1
+	bne	%t4, %zero, beq_else.10145
+	jr	%ra
+beq_else.10145:
+	sll	%a0, %a0, 2
+	lw	%s1, %a0(%s1)
+	addi	%a0, %zero, 0
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t5, -8(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t1, %s1, 0
+	addi	%t0, %a0, 0
+	addi	%t5, %s0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+trace_or_matrix_fast.3277:
+	lw	%s0, 16(%t5)
+	lw	%s1, 12(%t5)
+	lw	%a0, 8(%t5)
+	lw	%a1, 4(%t5)
+	sll	%a2, %t0, 2
+	lw	%a2, %a2(%t1)
+	lw	%a3, 0(%a2)
+	addi	%t4, %a3, 1
+	bne	%t4, %zero, beq_else.10147
+	jr	%ra
+beq_else.10147:
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t5, -8(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t4, %a3, -99
+	bne	%t4, %zero, beq_else.10149
+	addi	%s0, %zero, 1
+	addi	%t1, %a2, 0
+	addi	%t0, %s0, 0
+	addi	%t5, %a1, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	j	beq_cont.10150
+beq_else.10149:
+	sw	%a2, -20(%sp)
+	sw	%a1, -24(%sp)
+	sw	%s0, -28(%sp)
+	sw	%a0, -32(%sp)
+	addi	%t1, %t2, 0
+	addi	%t0, %a3, 0
+	addi	%t5, %s1, 0
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10151
+	j	beq_cont.10152
+beq_else.10151:
+	lw	%t0, -32(%sp)
+	flw	%ft0, 0(%t0)
+	lw	%t0, -28(%sp)
+	flw	%ft1, 0(%t0)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	min_caml_fless
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10153
+	j	beq_cont.10154
+beq_else.10153:
+	addi	%t0, %zero, 1
+	lw	%t1, -20(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -24(%sp)
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+beq_cont.10154:
+beq_cont.10152:
+beq_cont.10150:
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+judge_intersection_fast.3281:
+	lw	%t1, 12(%t5)
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	la	%s1, l.7295
+	flw	%ft0, 0(%s1)
+	fsw	%ft0, 0(%t2)
+	addi	%s1, %zero, 0
+	lw	%s0, 0(%s0)
+	sw	%t2, 0(%sp)
+	addi	%t2, %t0, 0
+	addi	%t5, %t1, 0
+	addi	%t1, %s0, 0
+	addi	%t0, %s1, 0
+	sw	%ra, -4(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -8
+	jalr	%t4
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	lw	%t0, 0(%sp)
+	flw	%ft1, 0(%t0)
+	la	%t0, l.7272
+	flw	%ft0, 0(%t0)
+	fsw	%ft1, -8(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	min_caml_fless
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10155
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10155:
+	la	%t0, l.7301
+	flw	%ft1, 0(%t0)
+	flw	%ft0, -8(%sp)
+	j	min_caml_fless
+get_nvector_rect.3283:
+	lw	%t1, 8(%t5)
+	lw	%t2, 4(%t5)
+	lw	%t2, 0(%t2)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%t2, -8(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	vecbzero.2985
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -8(%sp)
+	addi	%t1, %t0, -1
+	addi	%t0, %t0, -1
+	sll	%t0, %t0, 3
+	lw	%t2, -4(%sp)
+	flw	%ft0, %t0(%t2)
+	sw	%t1, -16(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	sgn.2969
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	min_caml_fneg
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t0, -16(%sp)
+	sll	%t0, %t0, 3
+	lw	%t1, 0(%sp)
+	fsw	%ft0, %t0(%t1)
+	jr	%ra
+get_nvector_plane.3285:
+	lw	%t1, 4(%t5)
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	o_param_a.3033
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_fneg
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	o_param_b.3035
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_fneg
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	o_param_c.3037
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_fneg
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+get_nvector_second.3287:
+	lw	%t1, 8(%t5)
+	lw	%t2, 4(%t5)
+	flw	%ft0, 0(%t2)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%t2, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_param_x.3041
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t1, -4(%sp)
+	fsw	%ft0, -32(%sp)
+	fsw	%ft1, -40(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	o_param_y.3043
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	flw	%ft1, -40(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -48(%sp)
+	fsw	%ft1, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_param_z.3045
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	o_param_a.3033
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	flw	%ft1, -32(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	o_param_b.3035
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -80(%sp)
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	call	o_param_c.3037
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	flw	%ft1, -64(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -88(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	o_isrot.3031
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10160
+	lw	%t0, 0(%sp)
+	flw	%ft0, -72(%sp)
+	fsw	%ft0, 0(%t0)
+	flw	%ft0, -80(%sp)
+	fsw	%ft0, 8(%t0)
+	flw	%ft0, -88(%sp)
+	fsw	%ft0, 16(%t0)
+	j	beq_cont.10161
+beq_else.10160:
+	lw	%t0, -4(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	o_param_r3.3061
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -96(%sp)
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	call	o_param_r2.3059
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	flw	%ft1, -64(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft2, -96(%sp)
+	fadd	%ft0, %ft2, %ft0
+	fhalf	%ft0, %ft0
+	flw	%ft2, -72(%sp)
+	fadd	%ft0, %ft2, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -4(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -108(%sp)
+	addi	%sp, %sp, -112
+	call	o_param_r3.3061
+	addi	%sp, %sp, 112
+	lw	%ra, -108(%sp)
+	flw	%ft1, -32(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -104(%sp)
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	call	o_param_r1.3057
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	flw	%ft1, -64(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -104(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fhalf	%ft0, %ft0
+	flw	%ft1, -80(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -4(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	call	o_param_r2.3059
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	flw	%ft1, -32(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	fsw	%ft0, -112(%sp)
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	call	o_param_r1.3057
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -112(%sp)
+	fadd	%ft0, %ft1, %ft0
+	fhalf	%ft0, %ft0
+	flw	%ft1, -88(%sp)
+	fadd	%ft0, %ft1, %ft0
+	lw	%t0, 0(%sp)
+	fsw	%ft0, 16(%t0)
+beq_cont.10161:
+	lw	%t1, -4(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	call	o_isinvert.3029
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, 0(%sp)
+	j	vecunit_sgn.2995
+get_nvector.3289:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sw	%t2, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%t1, -12(%sp)
+	sw	%s0, -16(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	o_form.3025
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.10162
+	lw	%t0, -12(%sp)
+	lw	%t5, -16(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10162:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.10163
+	lw	%t0, -4(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10163:
+	lw	%t0, -4(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+utexture.3292:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sw	%s1, 0(%sp)
+	sw	%s0, -4(%sp)
+	sw	%t1, -8(%sp)
+	sw	%t2, -12(%sp)
+	sw	%t0, -16(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	o_texturetype.3023
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -16(%sp)
+	sw	%t0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_color_red.3051
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 0(%t0)
+	lw	%t1, -16(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_color_green.3053
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -16(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	o_color_blue.3055
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 16(%t0)
+	lw	%t1, -24(%sp)
+	addi	%t4, %t1, -1
+	bne	%t4, %zero, beq_else.10164
+	lw	%t1, -8(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t2, -16(%sp)
+	fsw	%ft0, -32(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	o_param_x.3041
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -32(%sp)
+	fsub	%ft0, %ft1, %ft0
+	la	%t0, l.7393
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft0, %ft1
+	floor	%ft1, %ft1
+	la	%t0, l.7395
+	flw	%ft2, 0(%t0)
+	fmul	%ft1, %ft1, %ft2
+	fsub	%ft0, %ft0, %ft1
+	la	%t0, l.7376
+	flw	%ft1, 0(%t0)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	min_caml_fless
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t1, -8(%sp)
+	flw	%ft0, 16(%t1)
+	lw	%t1, -16(%sp)
+	sw	%t0, -40(%sp)
+	fsw	%ft0, -48(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	o_param_z.3045
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -48(%sp)
+	fsub	%ft0, %ft1, %ft0
+	la	%t0, l.7393
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft0, %ft1
+	floor	%ft1, %ft1
+	la	%t0, l.7395
+	flw	%ft2, 0(%t0)
+	fmul	%ft1, %ft1, %ft2
+	fsub	%ft0, %ft0, %ft1
+	la	%t0, l.7376
+	flw	%ft1, 0(%t0)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	min_caml_fless
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t1, -40(%sp)
+	addi	%t4, %t1, 0
+	bne	%t4, %zero, beq_else.10167
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10169
+	la	%t0, l.7369
+	flw	%ft0, 0(%t0)
+	j	beq_cont.10170
+beq_else.10169:
+	la	%t0, l.6833
+	flw	%ft0, 0(%t0)
+beq_cont.10170:
+	j	beq_cont.10168
+beq_else.10167:
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10171
+	la	%t0, l.6833
+	flw	%ft0, 0(%t0)
+	j	beq_cont.10172
+beq_else.10171:
+	la	%t0, l.7369
+	flw	%ft0, 0(%t0)
+beq_cont.10172:
+beq_cont.10168:
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 8(%t0)
+	jr	%ra
+beq_else.10164:
+	addi	%t4, %t1, -2
+	bne	%t4, %zero, beq_else.10174
+	lw	%t1, -8(%sp)
+	flw	%ft0, 8(%t1)
+	la	%t1, l.7385
+	flw	%ft1, 0(%t1)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t5, -4(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	fmul	%ft0, %ft0, %ft0
+	la	%t0, l.7369
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft1, %ft0
+	lw	%t0, -12(%sp)
+	fsw	%ft1, 0(%t0)
+	la	%t1, l.7369
+	flw	%ft1, 0(%t1)
+	la	%t1, l.6846
+	flw	%ft2, 0(%t1)
+	fsub	%ft0, %ft2, %ft0
+	fmul	%ft0, %ft1, %ft0
+	fsw	%ft0, 8(%t0)
+	jr	%ra
+beq_else.10174:
+	addi	%t4, %t1, -3
+	bne	%t4, %zero, beq_else.10176
+	lw	%t1, -8(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t2, -16(%sp)
+	fsw	%ft0, -56(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_param_x.3041
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -64(%sp)
+	fsw	%ft1, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	o_param_z.3045
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fsub	%ft0, %ft1, %ft0
+	flw	%ft1, -64(%sp)
+	fmul	%ft1, %ft1, %ft1
+	fmul	%ft0, %ft0, %ft0
+	fadd	%ft0, %ft1, %ft0
+	fsqrt	%ft0, %ft0
+	la	%t0, l.7376
+	flw	%ft1, 0(%t0)
+	fdiv	%ft0, %ft0, %ft1
+	floor	%ft1, %ft0
+	fsub	%ft0, %ft0, %ft1
+	la	%t0, l.7356
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t5, 0(%sp)
+	sw	%ra, -84(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -88
+	jalr	%t4
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	fmul	%ft0, %ft0, %ft0
+	la	%t0, l.7369
+	flw	%ft1, 0(%t0)
+	fmul	%ft1, %ft0, %ft1
+	lw	%t0, -12(%sp)
+	fsw	%ft1, 8(%t0)
+	la	%t1, l.6846
+	flw	%ft1, 0(%t1)
+	fsub	%ft0, %ft1, %ft0
+	la	%t1, l.7369
+	flw	%ft1, 0(%t1)
+	fmul	%ft0, %ft0, %ft1
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.10176:
+	addi	%t4, %t1, -4
+	bne	%t4, %zero, beq_else.10178
+	lw	%t1, -8(%sp)
+	flw	%ft0, 0(%t1)
+	lw	%t2, -16(%sp)
+	fsw	%ft0, -80(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -92(%sp)
+	addi	%sp, %sp, -96
+	call	o_param_x.3041
+	addi	%sp, %sp, 96
+	lw	%ra, -92(%sp)
+	flw	%ft1, -80(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -88(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	o_param_a.3033
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -88(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -8(%sp)
+	flw	%ft1, 16(%t0)
+	lw	%t1, -16(%sp)
+	fsw	%ft0, -96(%sp)
+	fsw	%ft1, -104(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -116(%sp)
+	addi	%sp, %sp, -120
+	call	o_param_z.3045
+	addi	%sp, %sp, 120
+	lw	%ra, -116(%sp)
+	flw	%ft1, -104(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -112(%sp)
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	call	o_param_c.3037
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -112(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -96(%sp)
+	fmul	%ft2, %ft1, %ft1
+	fmul	%ft3, %ft0, %ft0
+	fadd	%ft2, %ft2, %ft3
+	fabs	%ft3, %ft1
+	la	%t0, l.7350
+	flw	%ft4, 0(%t0)
+	fsw	%ft2, -120(%sp)
+	fsw	%ft0, -128(%sp)
+	fmv	%ft1, %ft4
+	fmv	%ft0, %ft3
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	call	min_caml_fless
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10179
+	flw	%ft0, -96(%sp)
+	flw	%ft1, -128(%sp)
+	fdiv	%ft0, %ft1, %ft0
+	fabs	%ft0, %ft0
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	call	atan.2934
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	la	%t0, l.7354
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	la	%t0, l.7356
+	flw	%ft1, 0(%t0)
+	fdiv	%ft0, %ft0, %ft1
+	j	beq_cont.10180
+beq_else.10179:
+	la	%t0, l.7352
+	flw	%ft0, 0(%t0)
+beq_cont.10180:
+	floor	%ft1, %ft0
+	fsub	%ft0, %ft0, %ft1
+	lw	%t0, -8(%sp)
+	flw	%ft1, 8(%t0)
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -136(%sp)
+	fsw	%ft1, -144(%sp)
+	sw	%ra, -156(%sp)
+	addi	%sp, %sp, -160
+	call	o_param_y.3043
+	addi	%sp, %sp, 160
+	lw	%ra, -156(%sp)
+	flw	%ft1, -144(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	fsw	%ft0, -152(%sp)
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	call	o_param_b.3035
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	fsqrt	%ft0, %ft0
+	flw	%ft1, -152(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -120(%sp)
+	fabs	%ft2, %ft1
+	la	%t0, l.7350
+	flw	%ft3, 0(%t0)
+	fsw	%ft0, -160(%sp)
+	fmv	%ft1, %ft3
+	fmv	%ft0, %ft2
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	call	min_caml_fless
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10181
+	flw	%ft0, -120(%sp)
+	flw	%ft1, -160(%sp)
+	fdiv	%ft0, %ft1, %ft0
+	fabs	%ft0, %ft0
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	call	atan.2934
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	la	%t0, l.7354
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	la	%t0, l.7356
+	flw	%ft1, 0(%t0)
+	fdiv	%ft0, %ft0, %ft1
+	j	beq_cont.10182
+beq_else.10181:
+	la	%t0, l.7352
+	flw	%ft0, 0(%t0)
+beq_cont.10182:
+	floor	%ft1, %ft0
+	fsub	%ft0, %ft0, %ft1
+	la	%t0, l.7363
+	flw	%ft1, 0(%t0)
+	la	%t0, l.7365
+	flw	%ft2, 0(%t0)
+	flw	%ft3, -136(%sp)
+	fsub	%ft2, %ft2, %ft3
+	fmul	%ft2, %ft2, %ft2
+	fsub	%ft1, %ft1, %ft2
+	la	%t0, l.7365
+	flw	%ft2, 0(%t0)
+	fsub	%ft0, %ft2, %ft0
+	fmul	%ft0, %ft0, %ft0
+	fsub	%ft0, %ft1, %ft0
+	fsw	%ft0, -168(%sp)
+	sw	%ra, -180(%sp)
+	addi	%sp, %sp, -184
+	call	fisneg.2821
+	addi	%sp, %sp, 184
+	lw	%ra, -180(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10183
+	flw	%ft0, -168(%sp)
+	j	beq_cont.10184
+beq_else.10183:
+	la	%t0, l.6833
+	flw	%ft0, 0(%t0)
+beq_cont.10184:
+	la	%t0, l.7369
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft1, %ft0
+	la	%t0, l.7371
+	flw	%ft1, 0(%t0)
+	fdiv	%ft0, %ft0, %ft1
+	lw	%t0, -12(%sp)
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.10178:
+	jr	%ra
+add_light.3295:
+	lw	%t0, 8(%t5)
+	lw	%t1, 4(%t5)
+	fsw	%ft2, 0(%sp)
+	fsw	%ft1, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%t0, -24(%sp)
+	sw	%t1, -28(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	fispos.2819
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10187
+	j	beq_cont.10188
+beq_else.10187:
+	flw	%ft0, -16(%sp)
+	lw	%t0, -28(%sp)
+	lw	%t1, -24(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	vecaccum.3006
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+beq_cont.10188:
+	flw	%ft0, -8(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	fispos.2819
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10189
+	jr	%ra
+beq_else.10189:
+	flw	%ft0, -8(%sp)
+	fmul	%ft0, %ft0, %ft0
+	fmul	%ft0, %ft0, %ft0
+	flw	%ft1, 0(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -28(%sp)
+	flw	%ft1, 0(%t0)
+	fadd	%ft1, %ft1, %ft0
+	fsw	%ft1, 0(%t0)
+	flw	%ft1, 8(%t0)
+	fadd	%ft1, %ft1, %ft0
+	fsw	%ft1, 8(%t0)
+	flw	%ft1, 16(%t0)
+	fadd	%ft0, %ft1, %ft0
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+trace_reflections.3299:
+	lw	%t2, 32(%t5)
+	lw	%s0, 28(%t5)
+	lw	%s1, 24(%t5)
+	lw	%a0, 20(%t5)
+	lw	%a1, 16(%t5)
+	lw	%a2, 12(%t5)
+	lw	%a3, 8(%t5)
+	lw	%a4, 4(%t5)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10192
+	sll	%a5, %t0, 2
+	lw	%s0, %a5(%s0)
+	sw	%t5, 0(%sp)
+	sw	%t0, -4(%sp)
+	fsw	%ft1, -8(%sp)
+	sw	%a4, -16(%sp)
+	sw	%t1, -20(%sp)
+	fsw	%ft0, -24(%sp)
+	sw	%a0, -32(%sp)
+	sw	%t2, -36(%sp)
+	sw	%s1, -40(%sp)
+	sw	%s0, -44(%sp)
+	sw	%a2, -48(%sp)
+	sw	%a3, -52(%sp)
+	sw	%a1, -56(%sp)
+	addi	%t0, %s0, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	r_dvec.3090
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t5, -56(%sp)
+	sw	%t0, -64(%sp)
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10193
+	j	beq_cont.10194
+beq_else.10193:
+	lw	%t0, -52(%sp)
+	lw	%t0, 0(%t0)
+	slli	%t0 %t0 2
+	lw	%t1, -48(%sp)
+	lw	%t1, 0(%t1)
+	add	%t0, %t0, %t1
+	lw	%t1, -44(%sp)
+	sw	%t0, -68(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	r_surface_id.3088
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	lw	%t1, -68(%sp)
+	bne	%t1, %t0, beq_else.10195
+	addi	%t0, %zero, 0
+	lw	%t1, -40(%sp)
+	lw	%t1, 0(%t1)
+	lw	%t5, -36(%sp)
+	sw	%ra, -76(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -80
+	jalr	%t4
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10197
+	lw	%t0, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	d_vec.3084
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -32(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	veciprod.2998
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	lw	%t0, -44(%sp)
+	fsw	%ft0, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	r_bright.3092
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -24(%sp)
+	fmul	%ft2, %ft0, %ft1
+	flw	%ft3, -72(%sp)
+	fmul	%ft2, %ft2, %ft3
+	lw	%t0, -64(%sp)
+	fsw	%ft2, -80(%sp)
+	fsw	%ft0, -88(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	d_vec.3084
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -20(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	veciprod.2998
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fmul	%ft1, %ft1, %ft0
+	flw	%ft0, -80(%sp)
+	flw	%ft2, -8(%sp)
+	lw	%t5, -16(%sp)
+	sw	%ra, -100(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -104
+	jalr	%t4
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	j	beq_cont.10198
+beq_else.10197:
+beq_cont.10198:
+	j	beq_cont.10196
+beq_else.10195:
+beq_cont.10196:
+beq_cont.10194:
+	lw	%t0, -4(%sp)
+	addi	%t0, %t0, -1
+	flw	%ft0, -24(%sp)
+	flw	%ft1, -8(%sp)
+	lw	%t1, -20(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10192:
+	jr	%ra
+trace_ray.3304:
+	lw	%s0, 80(%t5)
+	lw	%s1, 76(%t5)
+	lw	%a0, 72(%t5)
+	lw	%a1, 68(%t5)
+	lw	%a2, 64(%t5)
+	lw	%a3, 60(%t5)
+	lw	%a4, 56(%t5)
+	lw	%a5, 52(%t5)
+	lw	%a6, 48(%t5)
+	lw	%a7, 44(%t5)
+	lw	%s2, 40(%t5)
+	lw	%s3, 36(%t5)
+	lw	%s4, 32(%t5)
+	lw	%s5, 28(%t5)
+	lw	%s6, 24(%t5)
+	lw	%s7, 20(%t5)
+	lw	%s8, 16(%t5)
+	lw	%s9, 12(%t5)
+	lw	%s10, 8(%t5)
+	lw	%s11, 4(%t5)
+	addi	%t4, %t0, -4
+	bgt	%t4, %zero, ble_else.10200
+	sw	%t5, 0(%sp)
+	fsw	%ft1, -8(%sp)
+	sw	%a0, -16(%sp)
+	sw	%s1, -20(%sp)
+	sw	%s3, -24(%sp)
+	sw	%a4, -28(%sp)
+	sw	%s11, -32(%sp)
+	sw	%a3, -36(%sp)
+	sw	%a6, -40(%sp)
+	sw	%s2, -44(%sp)
+	sw	%a1, -48(%sp)
+	sw	%t2, -52(%sp)
+	sw	%s6, -56(%sp)
+	sw	%s0, -60(%sp)
+	sw	%s7, -64(%sp)
+	sw	%a2, -68(%sp)
+	sw	%s9, -72(%sp)
+	sw	%a7, -76(%sp)
+	sw	%s8, -80(%sp)
+	sw	%a5, -84(%sp)
+	sw	%s10, -88(%sp)
+	fsw	%ft0, -96(%sp)
+	sw	%s4, -104(%sp)
+	sw	%t0, -108(%sp)
+	sw	%t1, -112(%sp)
+	sw	%s5, -116(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -124(%sp)
+	addi	%sp, %sp, -128
+	call	p_surface_ids.3069
+	addi	%sp, %sp, 128
+	lw	%ra, -124(%sp)
+	lw	%t1, -112(%sp)
+	lw	%t5, -116(%sp)
+	sw	%t0, -124(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -132(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -136
+	jalr	%t4
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10203
+	addi	%t0, %zero, -1
+	lw	%t1, -108(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -124(%sp)
+	sw	%t0, %t2(%s0)
+	addi	%t4, %t1, 0
+	bne	%t4, %zero, beq_else.10204
+	jr	%ra
+beq_else.10204:
+	lw	%t0, -112(%sp)
+	lw	%t1, -104(%sp)
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	call	veciprod.2998
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	sw	%ra, -132(%sp)
+	addi	%sp, %sp, -136
+	call	min_caml_fneg
+	addi	%sp, %sp, 136
+	lw	%ra, -132(%sp)
+	fsw	%ft0, -128(%sp)
+	sw	%ra, -140(%sp)
+	addi	%sp, %sp, -144
+	call	fispos.2819
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10206
+	jr	%ra
+beq_else.10206:
+	flw	%ft0, -128(%sp)
+	fmul	%ft1, %ft0, %ft0
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -96(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -88(%sp)
+	flw	%ft1, 0(%t0)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -84(%sp)
+	flw	%ft1, 0(%t0)
+	fadd	%ft1, %ft1, %ft0
+	fsw	%ft1, 0(%t0)
+	flw	%ft1, 8(%t0)
+	fadd	%ft1, %ft1, %ft0
+	fsw	%ft1, 8(%t0)
+	flw	%ft1, 16(%t0)
+	fadd	%ft0, %ft1, %ft0
+	fsw	%ft0, 16(%t0)
+	jr	%ra
+beq_else.10203:
+	lw	%t0, -80(%sp)
+	lw	%t0, 0(%t0)
+	sll	%t1, %t0, 2
+	lw	%t2, -76(%sp)
+	lw	%t1, %t1(%t2)
+	sw	%t0, -136(%sp)
+	sw	%t1, -140(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	call	o_reflectiontype.3027
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	lw	%t1, -140(%sp)
+	sw	%t0, -144(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -148(%sp)
+	addi	%sp, %sp, -152
+	call	o_diffuse.3047
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	flw	%ft1, -96(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -140(%sp)
+	lw	%t1, -112(%sp)
+	lw	%t5, -72(%sp)
+	fsw	%ft0, -152(%sp)
+	sw	%ra, -164(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -168
+	jalr	%t4
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	lw	%t0, -68(%sp)
+	lw	%t1, -64(%sp)
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	call	veccpy.2987
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	lw	%t0, -140(%sp)
+	lw	%t1, -64(%sp)
+	lw	%t5, -60(%sp)
+	sw	%ra, -164(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -168
+	jalr	%t4
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	lw	%t0, -136(%sp)
+	slli	%t0 %t0 2
+	lw	%t1, -56(%sp)
+	lw	%t1, 0(%t1)
+	add	%t0, %t0, %t1
+	lw	%t1, -108(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -124(%sp)
+	sw	%t0, %t2(%s0)
+	lw	%t0, -52(%sp)
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	call	p_intersection_points.3067
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	lw	%t1, -108(%sp)
+	sll	%t2, %t1, 2
+	lw	%t0, %t2(%t0)
+	lw	%t2, -64(%sp)
+	addi	%t1, %t2, 0
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	call	veccpy.2987
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	lw	%t0, -52(%sp)
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	call	p_calc_diffuse.3071
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	lw	%t1, -140(%sp)
+	sw	%t0, -160(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	call	o_diffuse.3047
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	la	%t0, l.7365
+	flw	%ft1, 0(%t0)
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	call	min_caml_fless
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10210
+	addi	%t0, %zero, 1
+	lw	%t1, -108(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -160(%sp)
+	sw	%t0, %t2(%s0)
+	lw	%t0, -52(%sp)
+	sw	%ra, -164(%sp)
+	addi	%sp, %sp, -168
+	call	p_energy.3073
+	addi	%sp, %sp, 168
+	lw	%ra, -164(%sp)
+	lw	%t1, -108(%sp)
+	sll	%t2, %t1, 2
+	lw	%t2, %t2(%t0)
+	lw	%s0, -48(%sp)
+	sw	%t0, -164(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	call	veccpy.2987
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	lw	%t0, -108(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -164(%sp)
+	lw	%t1, %t1(%t2)
+	la	%t2, l.7427
+	flw	%ft0, 0(%t2)
+	flw	%ft1, -152(%sp)
+	fmul	%ft0, %ft0, %ft1
+	addi	%t0, %t1, 0
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	call	vecscale.3016
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	lw	%t0, -52(%sp)
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	call	p_nvectors.3082
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	lw	%t1, -108(%sp)
+	sll	%t2, %t1, 2
+	lw	%t0, %t2(%t0)
+	lw	%t2, -44(%sp)
+	addi	%t1, %t2, 0
+	sw	%ra, -172(%sp)
+	addi	%sp, %sp, -176
+	call	veccpy.2987
+	addi	%sp, %sp, 176
+	lw	%ra, -172(%sp)
+	j	beq_cont.10211
+beq_else.10210:
+	addi	%t0, %zero, 0
+	lw	%t1, -108(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -160(%sp)
+	sw	%t0, %t2(%s0)
+beq_cont.10211:
+	la	%t0, l.7430
+	flw	%ft0, 0(%t0)
+	lw	%t0, -112(%sp)
+	lw	%t1, -44(%sp)
+	fsw	%ft0, -168(%sp)
+	sw	%ra, -180(%sp)
+	addi	%sp, %sp, -184
+	call	veciprod.2998
+	addi	%sp, %sp, 184
+	lw	%ra, -180(%sp)
+	flw	%ft1, -168(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -112(%sp)
+	lw	%t1, -44(%sp)
+	sw	%ra, -180(%sp)
+	addi	%sp, %sp, -184
+	call	vecaccum.3006
+	addi	%sp, %sp, 184
+	lw	%ra, -180(%sp)
+	lw	%t0, -140(%sp)
+	sw	%ra, -180(%sp)
+	addi	%sp, %sp, -184
+	call	o_hilight.3049
+	addi	%sp, %sp, 184
+	lw	%ra, -180(%sp)
+	flw	%ft1, -96(%sp)
+	fmul	%ft0, %ft1, %ft0
+	addi	%t0, %zero, 0
+	lw	%t1, -40(%sp)
+	lw	%t1, 0(%t1)
+	lw	%t5, -36(%sp)
+	fsw	%ft0, -176(%sp)
+	sw	%ra, -188(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -192
+	jalr	%t4
+	addi	%sp, %sp, 192
+	lw	%ra, -188(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10212
+	lw	%t0, -44(%sp)
+	lw	%t1, -104(%sp)
+	sw	%ra, -188(%sp)
+	addi	%sp, %sp, -192
+	call	veciprod.2998
+	addi	%sp, %sp, 192
+	lw	%ra, -188(%sp)
+	sw	%ra, -188(%sp)
+	addi	%sp, %sp, -192
+	call	min_caml_fneg
+	addi	%sp, %sp, 192
+	lw	%ra, -188(%sp)
+	flw	%ft1, -152(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -112(%sp)
+	lw	%t1, -104(%sp)
+	fsw	%ft0, -184(%sp)
+	sw	%ra, -196(%sp)
+	addi	%sp, %sp, -200
+	call	veciprod.2998
+	addi	%sp, %sp, 200
+	lw	%ra, -196(%sp)
+	sw	%ra, -196(%sp)
+	addi	%sp, %sp, -200
+	call	min_caml_fneg
+	addi	%sp, %sp, 200
+	lw	%ra, -196(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -184(%sp)
+	flw	%ft2, -176(%sp)
+	lw	%t5, -32(%sp)
+	sw	%ra, -196(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -200
+	jalr	%t4
+	addi	%sp, %sp, 200
+	lw	%ra, -196(%sp)
+	j	beq_cont.10213
+beq_else.10212:
+beq_cont.10213:
+	lw	%t0, -64(%sp)
+	lw	%t5, -28(%sp)
+	sw	%ra, -196(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -200
+	jalr	%t4
+	addi	%sp, %sp, 200
+	lw	%ra, -196(%sp)
+	lw	%t0, -24(%sp)
+	lw	%t0, 0(%t0)
+	addi	%t0, %t0, -1
+	flw	%ft0, -152(%sp)
+	flw	%ft1, -176(%sp)
+	lw	%t1, -112(%sp)
+	lw	%t5, -20(%sp)
+	sw	%ra, -196(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -200
+	jalr	%t4
+	addi	%sp, %sp, 200
+	lw	%ra, -196(%sp)
+	la	%t0, l.7434
+	flw	%ft0, 0(%t0)
+	flw	%ft1, -96(%sp)
+	sw	%ra, -196(%sp)
+	addi	%sp, %sp, -200
+	call	min_caml_fless
+	addi	%sp, %sp, 200
+	lw	%ra, -196(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10214
+	jr	%ra
+beq_else.10214:
+	lw	%t0, -108(%sp)
+	addi	%t4, %t0, -4
+	blt	%t4, %zero, bge_else.10216
+	j	bge_cont.10217
+bge_else.10216:
+	addi	%t1, %t0, 1
+	addi	%t2, %zero, -1
+	sll	%t1, %t1, 2
+	lw	%s0, -124(%sp)
+	sw	%t2, %t1(%s0)
+bge_cont.10217:
+	lw	%t1, -144(%sp)
+	addi	%t4, %t1, -2
+	bne	%t4, %zero, beq_else.10218
+	la	%t1, l.6846
+	flw	%ft0, 0(%t1)
+	lw	%t1, -140(%sp)
+	fsw	%ft0, -192(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -204(%sp)
+	addi	%sp, %sp, -208
+	call	o_diffuse.3047
+	addi	%sp, %sp, 208
+	lw	%ra, -204(%sp)
+	flw	%ft1, -192(%sp)
+	fsub	%ft0, %ft1, %ft0
+	flw	%ft1, -96(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -108(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -16(%sp)
+	flw	%ft1, 0(%t1)
+	flw	%ft2, -8(%sp)
+	fadd	%ft1, %ft2, %ft1
+	lw	%t1, -112(%sp)
+	lw	%t2, -52(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10218:
+	jr	%ra
+ble_else.10200:
+	jr	%ra
+trace_diffuse_ray.3310:
+	lw	%t1, 48(%t5)
+	lw	%t2, 44(%t5)
+	lw	%s0, 40(%t5)
+	lw	%s1, 36(%t5)
+	lw	%a0, 32(%t5)
+	lw	%a1, 28(%t5)
+	lw	%a2, 24(%t5)
+	lw	%a3, 20(%t5)
+	lw	%a4, 16(%t5)
+	lw	%a5, 12(%t5)
+	lw	%a6, 8(%t5)
+	lw	%a7, 4(%t5)
+	sw	%t2, 0(%sp)
+	sw	%a7, -4(%sp)
+	fsw	%ft0, -8(%sp)
+	sw	%a2, -16(%sp)
+	sw	%a1, -20(%sp)
+	sw	%s0, -24(%sp)
+	sw	%s1, -28(%sp)
+	sw	%a4, -32(%sp)
+	sw	%t1, -36(%sp)
+	sw	%a6, -40(%sp)
+	sw	%t0, -44(%sp)
+	sw	%a0, -48(%sp)
+	sw	%a5, -52(%sp)
+	addi	%t5, %a3, 0
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10221
+	jr	%ra
+beq_else.10221:
+	lw	%t0, -52(%sp)
+	lw	%t0, 0(%t0)
+	sll	%t0, %t0, 2
+	lw	%t1, -48(%sp)
+	lw	%t0, %t0(%t1)
+	lw	%t1, -44(%sp)
+	sw	%t0, -60(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	d_vec.3084
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -60(%sp)
+	lw	%t5, -40(%sp)
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -60(%sp)
+	lw	%t1, -32(%sp)
+	lw	%t5, -36(%sp)
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t0, %zero, 0
+	lw	%t1, -28(%sp)
+	lw	%t1, 0(%t1)
+	lw	%t5, -24(%sp)
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10223
+	lw	%t0, -20(%sp)
+	lw	%t1, -16(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	veciprod.2998
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	min_caml_fneg
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	fsw	%ft0, -64(%sp)
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	fispos.2819
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10224
+	la	%t0, l.6833
+	flw	%ft0, 0(%t0)
+	j	beq_cont.10225
+beq_else.10224:
+	flw	%ft0, -64(%sp)
+beq_cont.10225:
+	flw	%ft1, -8(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -60(%sp)
+	fsw	%ft0, -72(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	o_diffuse.3047
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fmul	%ft0, %ft1, %ft0
+	lw	%t0, -4(%sp)
+	lw	%t1, 0(%sp)
+	j	vecaccum.3006
+beq_else.10223:
+	jr	%ra
+iter_trace_diffuse_rays.3313:
+	lw	%s1, 4(%t5)
+	addi	%t4, %s0, 0
+	blt	%t4, %zero, bge_else.10227
+	sll	%a0, %s0, 2
+	lw	%a0, %a0(%t0)
+	sw	%t2, 0(%sp)
+	sw	%t5, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%t0, -12(%sp)
+	sw	%s0, -16(%sp)
+	sw	%t1, -20(%sp)
+	addi	%t0, %a0, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	d_vec.3084
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -20(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	veciprod.2998
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	fsw	%ft0, -32(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	fisneg.2821
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10229
+	lw	%t0, -16(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -12(%sp)
+	lw	%t1, %t1(%t2)
+	la	%s0, l.7456
+	flw	%ft0, 0(%s0)
+	flw	%ft1, -32(%sp)
+	fdiv	%ft0, %ft1, %ft0
+	lw	%t5, -8(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	j	beq_cont.10230
+beq_else.10229:
+	lw	%t0, -16(%sp)
+	addi	%t1, %t0, 1
+	sll	%t1, %t1, 2
+	lw	%t2, -12(%sp)
+	lw	%t1, %t1(%t2)
+	la	%s0, l.7453
+	flw	%ft0, 0(%s0)
+	flw	%ft1, -32(%sp)
+	fdiv	%ft0, %ft1, %ft0
+	lw	%t5, -8(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+beq_cont.10230:
+	lw	%t0, -16(%sp)
+	addi	%s0, %t0, -2
+	lw	%t0, -12(%sp)
+	lw	%t1, -20(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10227:
+	jr	%ra
+trace_diffuse_rays.3318:
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%t0, -8(%sp)
+	sw	%s1, -12(%sp)
+	addi	%t0, %t2, 0
+	addi	%t5, %s0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%s0, %zero, 118
+	lw	%t0, -8(%sp)
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -12(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+trace_diffuse_ray_80percent.3322:
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sw	%t2, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%s0, -8(%sp)
+	sw	%s1, -12(%sp)
+	sw	%t0, -16(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10232
+	j	beq_cont.10233
+beq_else.10232:
+	lw	%a0, 0(%s1)
+	addi	%t0, %a0, 0
+	addi	%t5, %s0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+beq_cont.10233:
+	lw	%t0, -16(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.10234
+	j	beq_cont.10235
+beq_else.10234:
+	lw	%t1, -12(%sp)
+	lw	%t2, 4(%t1)
+	lw	%s0, -4(%sp)
+	lw	%s1, 0(%sp)
+	lw	%t5, -8(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	addi	%t2, %s1, 0
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+beq_cont.10235:
+	lw	%t0, -16(%sp)
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.10236
+	j	beq_cont.10237
+beq_else.10236:
+	lw	%t1, -12(%sp)
+	lw	%t2, 8(%t1)
+	lw	%s0, -4(%sp)
+	lw	%s1, 0(%sp)
+	lw	%t5, -8(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	addi	%t2, %s1, 0
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+beq_cont.10237:
+	lw	%t0, -16(%sp)
+	addi	%t4, %t0, -3
+	bne	%t4, %zero, beq_else.10238
+	j	beq_cont.10239
+beq_else.10238:
+	lw	%t1, -12(%sp)
+	lw	%t2, 12(%t1)
+	lw	%s0, -4(%sp)
+	lw	%s1, 0(%sp)
+	lw	%t5, -8(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	addi	%t2, %s1, 0
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+beq_cont.10239:
+	lw	%t0, -16(%sp)
+	addi	%t4, %t0, -4
+	bne	%t4, %zero, beq_else.10240
+	jr	%ra
+beq_else.10240:
+	lw	%t0, -12(%sp)
+	lw	%t0, 16(%t0)
+	lw	%t1, -4(%sp)
+	lw	%t2, 0(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+calc_diffuse_using_1point.3326:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	sw	%s0, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%t1, -12(%sp)
+	sw	%t0, -16(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	p_received_ray_20percent.3075
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -16(%sp)
+	sw	%t0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	p_nvectors.3082
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -16(%sp)
+	sw	%t0, -28(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	p_intersection_points.3067
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -16(%sp)
+	sw	%t0, -32(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	p_energy.3073
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -12(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -24(%sp)
+	lw	%t2, %t2(%s0)
+	lw	%s0, -8(%sp)
+	sw	%t0, -36(%sp)
+	addi	%t1, %t2, 0
+	addi	%t0, %s0, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	veccpy.2987
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t0, -16(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	p_group_id.3077
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t1, -12(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -28(%sp)
+	lw	%t2, %t2(%s0)
+	sll	%s0, %t1, 2
+	lw	%s1, -32(%sp)
+	lw	%s0, %s0(%s1)
+	lw	%t5, -4(%sp)
+	addi	%t1, %t2, 0
+	addi	%t2, %s0, 0
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t0, -12(%sp)
+	sll	%t0, %t0, 2
+	lw	%t1, -36(%sp)
+	lw	%t1, %t0(%t1)
+	lw	%t0, 0(%sp)
+	lw	%t2, -8(%sp)
+	j	vecaccumv.3019
+calc_diffuse_using_5points.3329:
+	lw	%a0, 8(%t5)
+	lw	%a1, 4(%t5)
+	sll	%a2, %t0, 2
+	lw	%t1, %a2(%t1)
+	sw	%a0, 0(%sp)
+	sw	%a1, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%s0, -12(%sp)
+	sw	%t2, -16(%sp)
+	sw	%t0, -20(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	p_received_ray_20percent.3075
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -20(%sp)
+	addi	%t2, %t1, -1
+	sll	%t2, %t2, 2
+	lw	%s0, -16(%sp)
+	lw	%t2, %t2(%s0)
+	sw	%t0, -28(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	p_received_ray_20percent.3075
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -20(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -16(%sp)
+	lw	%t2, %t2(%s0)
+	sw	%t0, -32(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	p_received_ray_20percent.3075
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -20(%sp)
+	addi	%t2, %t1, 1
+	sll	%t2, %t2, 2
+	lw	%s0, -16(%sp)
+	lw	%t2, %t2(%s0)
+	sw	%t0, -36(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	p_received_ray_20percent.3075
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t1, -20(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -12(%sp)
+	lw	%t2, %t2(%s0)
+	sw	%t0, -40(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	p_received_ray_20percent.3075
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t1, -8(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -28(%sp)
+	lw	%t2, %t2(%s0)
+	lw	%s0, -4(%sp)
+	sw	%t0, -44(%sp)
+	addi	%t1, %t2, 0
+	addi	%t0, %s0, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	veccpy.2987
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -8(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -32(%sp)
+	lw	%t1, %t1(%t2)
+	lw	%t2, -4(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	vecadd.3010
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -8(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -36(%sp)
+	lw	%t1, %t1(%t2)
+	lw	%t2, -4(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	vecadd.3010
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -8(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -40(%sp)
+	lw	%t1, %t1(%t2)
+	lw	%t2, -4(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	vecadd.3010
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -8(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -44(%sp)
+	lw	%t1, %t1(%t2)
+	lw	%t2, -4(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	vecadd.3010
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -20(%sp)
+	sll	%t0, %t0, 2
+	lw	%t1, -16(%sp)
+	lw	%t0, %t0(%t1)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	p_energy.3073
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t1, -8(%sp)
+	sll	%t1, %t1, 2
+	lw	%t1, %t1(%t0)
+	lw	%t0, 0(%sp)
+	lw	%t2, -4(%sp)
+	j	vecaccumv.3019
+do_without_neighbors.3335:
+	lw	%t2, 4(%t5)
+	addi	%t4, %t1, -4
+	bgt	%t4, %zero, ble_else.10242
+	sw	%t5, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%t0, -8(%sp)
+	sw	%t1, -12(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	p_surface_ids.3069
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -12(%sp)
+	sll	%t2, %t1, 2
+	lw	%t0, %t2(%t0)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10243
+	lw	%t0, -8(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	p_calc_diffuse.3071
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -12(%sp)
+	sll	%t2, %t1, 2
+	lw	%t0, %t2(%t0)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10244
+	j	beq_cont.10245
+beq_else.10244:
+	lw	%t0, -8(%sp)
+	lw	%t5, -4(%sp)
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+beq_cont.10245:
+	lw	%t0, -12(%sp)
+	addi	%t1, %t0, 1
+	lw	%t0, -8(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10243:
+	jr	%ra
+ble_else.10242:
+	jr	%ra
+neighbors_exist.3338:
+	lw	%t2, 4(%t5)
+	lw	%s0, 4(%t2)
+	addi	%s1, %t1, 1
+	bgt	%s0, %s1, ble_else.10248
+	addi	%t0, %zero, 0
+	jr	%ra
+ble_else.10248:
+	addi	%t4, %t1, 0
+	bgt	%t4, %zero, ble_else.10249
+	addi	%t0, %zero, 0
+	jr	%ra
+ble_else.10249:
+	lw	%t1, 0(%t2)
+	addi	%t2, %t0, 1
+	bgt	%t1, %t2, ble_else.10250
+	addi	%t0, %zero, 0
+	jr	%ra
+ble_else.10250:
+	addi	%t4, %t0, 0
+	bgt	%t4, %zero, ble_else.10251
+	addi	%t0, %zero, 0
+	jr	%ra
+ble_else.10251:
+	addi	%t0, %zero, 1
+	jr	%ra
+get_surface_id.3342:
+	sw	%t1, 0(%sp)
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	call	p_surface_ids.3069
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	lw	%t1, 0(%sp)
+	sll	%t1, %t1, 2
+	lw	%t0, %t1(%t0)
+	jr	%ra
+neighbors_are_available.3345:
+	sll	%a0, %t0, 2
+	lw	%a0, %a0(%t2)
+	sw	%t2, 0(%sp)
+	sw	%s0, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%t1, -12(%sp)
+	sw	%t0, -16(%sp)
+	addi	%t1, %s1, 0
+	addi	%t0, %a0, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	get_surface_id.3342
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t1, -16(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -12(%sp)
+	lw	%t2, %t2(%s0)
+	lw	%s0, -8(%sp)
+	sw	%t0, -24(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	get_surface_id.3342
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -24(%sp)
+	bne	%t0, %t1, beq_else.10252
+	lw	%t0, -16(%sp)
+	sll	%t2, %t0, 2
+	lw	%s0, -4(%sp)
+	lw	%t2, %t2(%s0)
+	lw	%s0, -8(%sp)
+	addi	%t1, %s0, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	get_surface_id.3342
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -24(%sp)
+	bne	%t0, %t1, beq_else.10253
+	lw	%t0, -16(%sp)
+	addi	%t2, %t0, -1
+	sll	%t2, %t2, 2
+	lw	%s0, 0(%sp)
+	lw	%t2, %t2(%s0)
+	lw	%s1, -8(%sp)
+	addi	%t1, %s1, 0
+	addi	%t0, %t2, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	get_surface_id.3342
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -24(%sp)
+	bne	%t0, %t1, beq_else.10254
+	lw	%t0, -16(%sp)
+	addi	%t0, %t0, 1
+	sll	%t0, %t0, 2
+	lw	%t2, 0(%sp)
+	lw	%t0, %t0(%t2)
+	lw	%t2, -8(%sp)
+	addi	%t1, %t2, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	get_surface_id.3342
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -24(%sp)
+	bne	%t0, %t1, beq_else.10255
+	addi	%t0, %zero, 1
+	jr	%ra
+beq_else.10255:
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10254:
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10253:
+	addi	%t0, %zero, 0
+	jr	%ra
+beq_else.10252:
+	addi	%t0, %zero, 0
+	jr	%ra
+try_exploit_neighbors.3351:
+	lw	%a1, 8(%t5)
+	lw	%a2, 4(%t5)
+	sll	%a3, %t0, 2
+	lw	%a3, %a3(%s0)
+	addi	%t4, %a0, -4
+	bgt	%t4, %zero, ble_else.10256
+	sw	%t1, 0(%sp)
+	sw	%t5, -4(%sp)
+	sw	%a2, -8(%sp)
+	sw	%a3, -12(%sp)
+	sw	%a1, -16(%sp)
+	sw	%a0, -20(%sp)
+	sw	%s1, -24(%sp)
+	sw	%s0, -28(%sp)
+	sw	%t2, -32(%sp)
+	sw	%t0, -36(%sp)
+	addi	%t1, %a0, 0
+	addi	%t0, %a3, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	get_surface_id.3342
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10257
+	lw	%t0, -36(%sp)
+	lw	%t1, -32(%sp)
+	lw	%t2, -28(%sp)
+	lw	%s0, -24(%sp)
+	lw	%s1, -20(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	neighbors_are_available.3345
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10258
+	lw	%t0, -36(%sp)
+	sll	%t0, %t0, 2
+	lw	%t1, -28(%sp)
+	lw	%t0, %t0(%t1)
+	lw	%t1, -20(%sp)
+	lw	%t5, -16(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10258:
+	lw	%t0, -12(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	p_calc_diffuse.3071
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%s1, -20(%sp)
+	sll	%t1, %s1, 2
+	lw	%t0, %t1(%t0)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10259
+	j	beq_cont.10260
+beq_else.10259:
+	lw	%t0, -36(%sp)
+	lw	%t1, -32(%sp)
+	lw	%t2, -28(%sp)
+	lw	%s0, -24(%sp)
+	lw	%t5, -8(%sp)
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+beq_cont.10260:
+	lw	%t0, -20(%sp)
+	addi	%a0, %t0, 1
+	lw	%t0, -36(%sp)
+	lw	%t1, 0(%sp)
+	lw	%t2, -32(%sp)
+	lw	%s0, -28(%sp)
+	lw	%s1, -24(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10257:
+	jr	%ra
+ble_else.10256:
+	jr	%ra
+write_ppm_header.3358:
+	lw	%t0, 4(%t5)
+	addi	%t1, %zero, 80
+	out	%t1
+	addi	%t1, %zero, 51
+	out	%t1
+	addi	%t1, %zero, 10
+	out	%t1
+	lw	%t1, 0(%t0)
+	sw	%t0, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	call	min_caml_print_int
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%t0, %zero, 32
+	out	%t0
+	lw	%t0, 0(%sp)
+	lw	%t0, 4(%t0)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_print_int
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 32
+	out	%t0
+	addi	%t0, %zero, 255
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_print_int
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 10
+	out	%t0
+	jr	%ra
+write_rgb_element.3360:
+	ftoi	%t0, %ft0
+	addi	%t4, %t0, -255
+	bgt	%t4, %zero, ble_else.10264
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10266
+	j	bge_cont.10267
+bge_else.10266:
+	addi	%t0, %zero, 0
+bge_cont.10267:
+	j	ble_cont.10265
+ble_else.10264:
+	addi	%t0, %zero, 255
+ble_cont.10265:
+	j	min_caml_print_int
+write_rgb.3362:
+	lw	%t0, 4(%t5)
+	flw	%ft0, 0(%t0)
+	sw	%t0, 0(%sp)
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	call	write_rgb_element.3360
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%t0, %zero, 32
+	out	%t0
+	lw	%t0, 0(%sp)
+	flw	%ft0, 8(%t0)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	write_rgb_element.3360
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 32
+	out	%t0
+	lw	%t0, 0(%sp)
+	flw	%ft0, 16(%t0)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	write_rgb_element.3360
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 10
+	out	%t0
+	jr	%ra
+pretrace_diffuse_rays.3364:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	addi	%t4, %t1, -4
+	bgt	%t4, %zero, ble_else.10269
+	sw	%t5, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%s0, -8(%sp)
+	sw	%s1, -12(%sp)
+	sw	%t1, -16(%sp)
+	sw	%t0, -20(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	get_surface_id.3342
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10270
+	lw	%t0, -20(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	p_calc_diffuse.3071
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -16(%sp)
+	sll	%t2, %t1, 2
+	lw	%t0, %t2(%t0)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10271
+	j	beq_cont.10272
+beq_else.10271:
+	lw	%t0, -20(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	p_group_id.3077
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -12(%sp)
+	sw	%t0, -28(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	vecbzero.2985
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -20(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	p_nvectors.3082
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -20(%sp)
+	sw	%t0, -32(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	p_intersection_points.3067
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -28(%sp)
+	sll	%t1, %t1, 2
+	lw	%t2, -8(%sp)
+	lw	%t1, %t1(%t2)
+	lw	%t2, -16(%sp)
+	sll	%s0, %t2, 2
+	lw	%s1, -32(%sp)
+	lw	%s0, %s0(%s1)
+	sll	%s1, %t2, 2
+	lw	%t0, %s1(%t0)
+	lw	%t5, -4(%sp)
+	addi	%t2, %t0, 0
+	addi	%t0, %t1, 0
+	addi	%t1, %s0, 0
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -20(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	p_received_ray_20percent.3075
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t1, -16(%sp)
+	sll	%t2, %t1, 2
+	lw	%t0, %t2(%t0)
+	lw	%t2, -12(%sp)
+	addi	%t1, %t2, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	veccpy.2987
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+beq_cont.10272:
+	lw	%t0, -16(%sp)
+	addi	%t1, %t0, 1
+	lw	%t0, -20(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10270:
+	jr	%ra
+ble_else.10269:
+	jr	%ra
+pretrace_pixels.3367:
+	lw	%s0, 36(%t5)
+	lw	%s1, 32(%t5)
+	lw	%a0, 28(%t5)
+	lw	%a1, 24(%t5)
+	lw	%a2, 20(%t5)
+	lw	%a3, 16(%t5)
+	lw	%a4, 12(%t5)
+	lw	%a5, 8(%t5)
+	lw	%a6, 4(%t5)
+	addi	%t4, %t1, 0
+	blt	%t4, %zero, bge_else.10275
+	flw	%ft3, 0(%a2)
+	lw	%a2, 0(%a6)
+	sub	%a2, %t1, %a2
+	itof	%ft4, %a2
+	fmul	%ft3, %ft3, %ft4
+	flw	%ft4, 0(%a1)
+	fmul	%ft4, %ft3, %ft4
+	fadd	%ft4, %ft4, %ft0
+	fsw	%ft4, 0(%a4)
+	flw	%ft4, 8(%a1)
+	fmul	%ft4, %ft3, %ft4
+	fadd	%ft4, %ft4, %ft1
+	fsw	%ft4, 8(%a4)
+	flw	%ft4, 16(%a1)
+	fmul	%ft3, %ft3, %ft4
+	fadd	%ft3, %ft3, %ft2
+	fsw	%ft3, 16(%a4)
+	addi	%a1, %zero, 0
+	fsw	%ft2, 0(%sp)
+	fsw	%ft1, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%t5, -24(%sp)
+	sw	%a5, -28(%sp)
+	sw	%t2, -32(%sp)
+	sw	%a4, -36(%sp)
+	sw	%s1, -40(%sp)
+	sw	%t0, -44(%sp)
+	sw	%t1, -48(%sp)
+	sw	%s0, -52(%sp)
+	sw	%a0, -56(%sp)
+	sw	%a3, -60(%sp)
+	addi	%t1, %a1, 0
+	addi	%t0, %a4, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	vecunit_sgn.2995
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -60(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	vecbzero.2985
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -56(%sp)
+	lw	%t1, -52(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	veccpy.2987
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	addi	%t0, %zero, 0
+	la	%t1, l.6846
+	flw	%ft0, 0(%t1)
+	lw	%t1, -48(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -44(%sp)
+	lw	%t2, %t2(%s0)
+	la	%s1, l.6833
+	flw	%ft1, 0(%s1)
+	lw	%s1, -36(%sp)
+	lw	%t5, -40(%sp)
+	addi	%t1, %s1, 0
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -48(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -44(%sp)
+	lw	%t1, %t1(%t2)
+	addi	%t0, %t1, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	p_rgb.3065
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t1, -60(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	veccpy.2987
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -48(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -44(%sp)
+	lw	%t1, %t1(%t2)
+	lw	%s0, -32(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %s0, 0
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	p_set_group_id.3079
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -48(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -44(%sp)
+	lw	%t1, %t1(%t2)
+	addi	%s0, %zero, 0
+	lw	%t5, -28(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %s0, 0
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -48(%sp)
+	addi	%t0, %t0, -1
+	addi	%t1, %zero, 1
+	lw	%t2, -32(%sp)
+	sw	%t0, -68(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	add_mod5.2974
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	addi	%t0, %t2, 0
+	flw	%ft0, -16(%sp)
+	flw	%ft1, -8(%sp)
+	flw	%ft2, 0(%sp)
+	lw	%t0, -44(%sp)
+	lw	%t1, -68(%sp)
+	lw	%t5, -24(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10275:
+	jr	%ra
+pretrace_line.3374:
+	lw	%s0, 24(%t5)
+	lw	%s1, 20(%t5)
+	lw	%a0, 16(%t5)
+	lw	%a1, 12(%t5)
+	lw	%a2, 8(%t5)
+	lw	%a3, 4(%t5)
+	flw	%ft0, 0(%a0)
+	lw	%a0, 4(%a3)
+	sub	%t1, %t1, %a0
+	itof	%ft1, %t1
+	fmul	%ft0, %ft0, %ft1
+	flw	%ft1, 0(%s1)
+	fmul	%ft1, %ft0, %ft1
+	flw	%ft2, 0(%s0)
+	fadd	%ft1, %ft1, %ft2
+	flw	%ft2, 8(%s1)
+	fmul	%ft2, %ft0, %ft2
+	flw	%ft3, 8(%s0)
+	fadd	%ft2, %ft2, %ft3
+	flw	%ft3, 16(%s1)
+	fmul	%ft0, %ft0, %ft3
+	flw	%ft3, 16(%s0)
+	fadd	%ft0, %ft0, %ft3
+	lw	%t1, 0(%a2)
+	addi	%t1, %t1, -1
+	addi	%t5, %a1, 0
+	fmv	%ft10, %ft2
+	fmv	%ft2, %ft0
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft10
+	lw	%t4, 0(%t5)
+	jr	%t4
+scan_pixel.3378:
+	lw	%a0, 24(%t5)
+	lw	%a1, 20(%t5)
+	lw	%a2, 16(%t5)
+	lw	%a3, 12(%t5)
+	lw	%a4, 8(%t5)
+	lw	%a5, 4(%t5)
+	lw	%a4, 0(%a4)
+	bgt	%a4, %t0, ble_else.10277
+	jr	%ra
+ble_else.10277:
+	sll	%a4, %t0, 2
+	lw	%a4, %a4(%s0)
+	sw	%t5, 0(%sp)
+	sw	%a0, -4(%sp)
+	sw	%t2, -8(%sp)
+	sw	%a1, -12(%sp)
+	sw	%a5, -16(%sp)
+	sw	%s0, -20(%sp)
+	sw	%s1, -24(%sp)
+	sw	%t1, -28(%sp)
+	sw	%t0, -32(%sp)
+	sw	%a3, -36(%sp)
+	sw	%a2, -40(%sp)
+	addi	%t0, %a4, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	p_rgb.3065
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -40(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	veccpy.2987
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -32(%sp)
+	lw	%t1, -28(%sp)
+	lw	%t2, -24(%sp)
+	lw	%t5, -36(%sp)
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10279
+	lw	%t0, -32(%sp)
+	sll	%t1, %t0, 2
+	lw	%t2, -20(%sp)
+	lw	%t1, %t1(%t2)
+	addi	%s0, %zero, 0
+	lw	%t5, -16(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %s0, 0
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	j	beq_cont.10280
+beq_else.10279:
+	addi	%a0, %zero, 0
+	lw	%t0, -32(%sp)
+	lw	%t1, -28(%sp)
+	lw	%t2, -8(%sp)
+	lw	%s0, -20(%sp)
+	lw	%s1, -24(%sp)
+	lw	%t5, -12(%sp)
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+beq_cont.10280:
+	lw	%t5, -4(%sp)
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -32(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, -28(%sp)
+	lw	%t2, -8(%sp)
+	lw	%s0, -20(%sp)
+	lw	%s1, -24(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+scan_line.3384:
+	lw	%a0, 12(%t5)
+	lw	%a1, 8(%t5)
+	lw	%a2, 4(%t5)
+	lw	%a3, 4(%a2)
+	bgt	%a3, %t0, ble_else.10281
+	jr	%ra
+ble_else.10281:
+	lw	%a2, 4(%a2)
+	addi	%a2, %a2, -1
+	sw	%t5, 0(%sp)
+	sw	%s1, -4(%sp)
+	sw	%s0, -8(%sp)
+	sw	%t2, -12(%sp)
+	sw	%t1, -16(%sp)
+	sw	%t0, -20(%sp)
+	sw	%a0, -24(%sp)
+	bgt	%a2, %t0, ble_else.10283
+	j	ble_cont.10284
+ble_else.10283:
+	addi	%a2, %t0, 1
+	addi	%t2, %s1, 0
+	addi	%t1, %a2, 0
+	addi	%t0, %s0, 0
+	addi	%t5, %a1, 0
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+ble_cont.10284:
+	addi	%t0, %zero, 0
+	lw	%t1, -20(%sp)
+	lw	%t2, -16(%sp)
+	lw	%s0, -12(%sp)
+	lw	%s1, -8(%sp)
+	lw	%t5, -24(%sp)
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -20(%sp)
+	addi	%t0, %t0, 1
+	addi	%t1, %zero, 2
+	lw	%t2, -4(%sp)
+	sw	%t0, -32(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	add_mod5.2974
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	addi	%t0, %s1, 0
+	lw	%t0, -32(%sp)
+	lw	%t1, -12(%sp)
+	lw	%t2, -8(%sp)
+	lw	%s0, -16(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+create_float5x3array.3390:
+	addi	%t0, %zero, 3
+	la	%t1, l.6833
+	flw	%ft0, 0(%t1)
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%t0, %t1, 0
+	addi	%t0, %zero, 5
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	call	min_caml_create_array
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%t1, %zero, 3
+	la	%t2, l.6833
+	flw	%ft0, 0(%t2)
+	sw	%t0, -4(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	sw	%t0, 4(%t1)
+	addi	%t0, %zero, 3
+	la	%t2, l.6833
+	flw	%ft0, 0(%t2)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	sw	%t0, 8(%t1)
+	addi	%t0, %zero, 3
+	la	%t2, l.6833
+	flw	%ft0, 0(%t2)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	sw	%t0, 12(%t1)
+	addi	%t0, %zero, 3
+	la	%t2, l.6833
+	flw	%ft0, 0(%t2)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	sw	%t0, 16(%t1)
+	add	%t0, %zero, %t1
+	jr	%ra
+create_pixel.3392:
+	addi	%t0, %zero, 3
+	la	%t1, l.6833
+	flw	%ft0, 0(%t1)
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	sw	%t0, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	create_float5x3array.3390
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t1, %zero, 5
+	addi	%t2, %zero, 0
+	sw	%t0, -8(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t1, %zero, 5
+	addi	%t2, %zero, 0
+	sw	%t0, -12(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	min_caml_create_array
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	sw	%t0, -16(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	create_float5x3array.3390
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	sw	%t0, -20(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	create_float5x3array.3390
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t1, %zero, 1
+	addi	%t2, %zero, 0
+	sw	%t0, -24(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	min_caml_create_array
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	sw	%t0, -28(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	create_float5x3array.3390
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	add	%t1, %zero, %gp
+	addi	%gp, %gp, 32
+	sw	%t0, 28(%t1)
+	lw	%t0, -28(%sp)
+	sw	%t0, 24(%t1)
+	lw	%t0, -24(%sp)
+	sw	%t0, 20(%t1)
+	lw	%t0, -20(%sp)
+	sw	%t0, 16(%t1)
+	lw	%t0, -16(%sp)
+	sw	%t0, 12(%t1)
+	lw	%t0, -12(%sp)
+	sw	%t0, 8(%t1)
+	lw	%t0, -8(%sp)
+	sw	%t0, 4(%t1)
+	lw	%t0, -4(%sp)
+	sw	%t0, 0(%t1)
+	add	%t0, %zero, %t1
+	jr	%ra
+init_line_elements.3394:
+	addi	%t4, %t1, 0
+	blt	%t4, %zero, bge_else.10285
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	create_pixel.3392
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -4(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, 0(%sp)
+	sw	%t0, %t2(%s0)
+	addi	%t1, %t1, -1
+	addi	%t0, %s0, 0
+	j	init_line_elements.3394
+bge_else.10285:
+	jr	%ra
+create_pixelline.3397:
+	lw	%t0, 4(%t5)
+	lw	%t1, 0(%t0)
+	sw	%t0, 0(%sp)
+	sw	%t1, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	create_pixel.3392
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -4(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, 0(%sp)
+	lw	%t1, 0(%t1)
+	addi	%t1, %t1, -2
+	j	init_line_elements.3394
+tan.3399:
+	lw	%t0, 8(%t5)
+	lw	%t1, 4(%t5)
+	fsw	%ft0, 0(%sp)
+	sw	%t1, -8(%sp)
+	addi	%t5, %t0, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	flw	%ft1, 0(%sp)
+	lw	%t5, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fdiv	%ft0, %ft1, %ft0
+	jr	%ra
+adjust_position.3401:
+	lw	%t0, 4(%t5)
+	fmul	%ft0, %ft0, %ft0
+	la	%t1, l.7434
+	flw	%ft2, 0(%t1)
+	fadd	%ft0, %ft0, %ft2
+	fsqrt	%ft0, %ft0
+	la	%t1, l.6846
+	flw	%ft2, 0(%t1)
+	fdiv	%ft2, %ft2, %ft0
+	fsw	%ft0, 0(%sp)
+	sw	%t0, -8(%sp)
+	fsw	%ft1, -16(%sp)
+	fmv	%ft0, %ft2
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	atan.2934
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, -16(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t5, -8(%sp)
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	flw	%ft1, 0(%sp)
+	fmul	%ft0, %ft0, %ft1
+	jr	%ra
+calc_dirvec.3404:
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	addi	%t4, %t0, -5
+	blt	%t4, %zero, bge_else.10287
+	fmul	%ft2, %ft0, %ft0
+	fmul	%ft3, %ft1, %ft1
+	fadd	%ft2, %ft2, %ft3
+	la	%t0, l.6846
+	flw	%ft3, 0(%t0)
+	fadd	%ft2, %ft2, %ft3
+	fsqrt	%ft2, %ft2
+	fdiv	%ft0, %ft0, %ft2
+	fdiv	%ft1, %ft1, %ft2
+	la	%t0, l.6846
+	flw	%ft3, 0(%t0)
+	fdiv	%ft2, %ft3, %ft2
+	sll	%t0, %t1, 2
+	lw	%t0, %t0(%s0)
+	sll	%t1, %t2, 2
+	lw	%t1, %t1(%t0)
+	sw	%t0, 0(%sp)
+	sw	%t2, -4(%sp)
+	fsw	%ft2, -8(%sp)
+	fsw	%ft1, -16(%sp)
+	fsw	%ft0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	d_vec.3084
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft0, -24(%sp)
+	flw	%ft1, -16(%sp)
+	flw	%ft2, -8(%sp)
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	vecset.2977
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t1, %t0, 40
+	sll	%t1, %t1, 2
+	lw	%t2, 0(%sp)
+	lw	%t1, %t1(%t2)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	d_vec.3084
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft0, -16(%sp)
+	sw	%t0, -36(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	min_caml_fneg
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	fmv	%ft0, %ft2
+	flw	%ft0, -24(%sp)
+	flw	%ft1, -8(%sp)
+	lw	%t0, -36(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	vecset.2977
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t1, %t0, 80
+	sll	%t1, %t1, 2
+	lw	%t2, 0(%sp)
+	lw	%t1, %t1(%t2)
+	addi	%t0, %t1, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	d_vec.3084
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft0, -24(%sp)
+	sw	%t0, -40(%sp)
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	min_caml_fneg
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	flw	%ft1, -16(%sp)
+	fsw	%ft0, -48(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	min_caml_fneg
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	fmv	%ft0, %ft2
+	flw	%ft0, -8(%sp)
+	flw	%ft1, -48(%sp)
+	lw	%t0, -40(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	vecset.2977
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t1, %t0, 1
+	sll	%t1, %t1, 2
+	lw	%t2, 0(%sp)
+	lw	%t1, %t1(%t2)
+	addi	%t0, %t1, 0
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	d_vec.3084
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft0, -24(%sp)
+	sw	%t0, -56(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	min_caml_fneg
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	flw	%ft1, -16(%sp)
+	fsw	%ft0, -64(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -76(%sp)
+	addi	%sp, %sp, -80
+	call	min_caml_fneg
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	flw	%ft1, -8(%sp)
+	fsw	%ft0, -72(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	min_caml_fneg
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	fmv	%ft0, %ft2
+	flw	%ft0, -64(%sp)
+	flw	%ft1, -72(%sp)
+	lw	%t0, -56(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	vecset.2977
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t1, %t0, 41
+	sll	%t1, %t1, 2
+	lw	%t2, 0(%sp)
+	lw	%t1, %t1(%t2)
+	addi	%t0, %t1, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	d_vec.3084
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft0, -24(%sp)
+	sw	%t0, -80(%sp)
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	min_caml_fneg
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -8(%sp)
+	fsw	%ft0, -88(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	min_caml_fneg
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -88(%sp)
+	flw	%ft2, -16(%sp)
+	lw	%t0, -80(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	vecset.2977
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t0, %t0, 81
+	sll	%t0, %t0, 2
+	lw	%t1, 0(%sp)
+	lw	%t0, %t0(%t1)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	d_vec.3084
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft0, -8(%sp)
+	sw	%t0, -96(%sp)
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	min_caml_fneg
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -24(%sp)
+	flw	%ft2, -16(%sp)
+	lw	%t0, -96(%sp)
+	j	vecset.2977
+bge_else.10287:
+	fsw	%ft2, -104(%sp)
+	sw	%t2, -4(%sp)
+	sw	%t1, -112(%sp)
+	sw	%t5, -116(%sp)
+	fsw	%ft3, -120(%sp)
+	sw	%s1, -128(%sp)
+	sw	%t0, -132(%sp)
+	addi	%t5, %s1, 0
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft2
+	sw	%ra, -140(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -144
+	jalr	%t4
+	addi	%sp, %sp, 144
+	lw	%ra, -140(%sp)
+	lw	%t0, -132(%sp)
+	addi	%t0, %t0, 1
+	flw	%ft1, -120(%sp)
+	lw	%t5, -128(%sp)
+	fsw	%ft0, -136(%sp)
+	sw	%t0, -144(%sp)
+	sw	%ra, -148(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -152
+	jalr	%t4
+	addi	%sp, %sp, 152
+	lw	%ra, -148(%sp)
+	fmv	%ft0, %ft1
+	flw	%ft0, -136(%sp)
+	flw	%ft2, -104(%sp)
+	flw	%ft3, -120(%sp)
+	lw	%t0, -144(%sp)
+	lw	%t1, -112(%sp)
+	lw	%t2, -4(%sp)
+	lw	%t5, -116(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+calc_dirvecs.3412:
+	lw	%s0, 4(%t5)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10292
+	itof	%ft1, %t0
+	la	%s1, l.6883
+	flw	%ft2, 0(%s1)
+	fmul	%ft1, %ft1, %ft2
+	la	%s1, l.7564
+	flw	%ft2, 0(%s1)
+	fsub	%ft2, %ft1, %ft2
+	addi	%s1, %zero, 0
+	la	%a0, l.6833
+	flw	%ft1, 0(%a0)
+	la	%a0, l.6833
+	flw	%ft3, 0(%a0)
+	sw	%t5, 0(%sp)
+	fsw	%ft0, -8(%sp)
+	sw	%t1, -16(%sp)
+	sw	%s0, -20(%sp)
+	sw	%t2, -24(%sp)
+	sw	%t0, -28(%sp)
+	addi	%t0, %s1, 0
+	addi	%t5, %s0, 0
+	fmv	%ft10, %ft3
+	fmv	%ft3, %ft0
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft10
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft0, -28(%sp)
+	itof	%ft1, %ft0
+	la	%t0, l.6883
+	flw	%ft2, 0(%t0)
+	fmul	%ft1, %ft1, %ft2
+	la	%t0, l.7434
+	flw	%ft2, 0(%t0)
+	fadd	%ft2, %ft1, %ft2
+	addi	%t0, %zero, 0
+	la	%t1, l.6833
+	flw	%ft1, 0(%t1)
+	la	%t1, l.6833
+	flw	%ft3, 0(%t1)
+	lw	%t1, -24(%sp)
+	addi	%t2, %t1, 2
+	flw	%ft4, -8(%sp)
+	lw	%s0, -16(%sp)
+	lw	%t5, -20(%sp)
+	addi	%t1, %s0, 0
+	fmv	%ft0, %ft1
+	fmv	%ft1, %ft3
+	fmv	%ft3, %ft4
+	sw	%ra, -36(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -40
+	jalr	%t4
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	lw	%t0, -28(%sp)
+	addi	%t0, %t0, -1
+	addi	%t1, %zero, 1
+	lw	%t2, -16(%sp)
+	sw	%t0, -36(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -44(%sp)
+	addi	%sp, %sp, -48
+	call	add_mod5.2974
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	addi	%t0, %t1, 0
+	flw	%ft0, -8(%sp)
+	lw	%t0, -36(%sp)
+	lw	%t2, -24(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10292:
+	jr	%ra
+calc_dirvec_rows.3417:
+	lw	%s0, 4(%t5)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10295
+	itof	%ft0, %t0
+	la	%s1, l.6883
+	flw	%ft1, 0(%s1)
+	fmul	%ft0, %ft0, %ft1
+	la	%s1, l.7564
+	flw	%ft1, 0(%s1)
+	fsub	%ft0, %ft0, %ft1
+	addi	%s1, %zero, 4
+	sw	%t5, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%t1, -8(%sp)
+	sw	%t0, -12(%sp)
+	addi	%t0, %s1, 0
+	addi	%t5, %s0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, -1
+	addi	%t1, %zero, 2
+	lw	%t2, -8(%sp)
+	sw	%t0, -20(%sp)
+	addi	%t0, %t2, 0
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	add_mod5.2974
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -4(%sp)
+	addi	%t2, %t0, 4
+	lw	%t0, -20(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10295:
+	jr	%ra
+create_dirvec.3421:
+	lw	%t0, 4(%t5)
+	addi	%t1, %zero, 3
+	la	%t2, l.6833
+	flw	%ft0, 0(%t2)
+	sw	%t0, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	call	min_caml_create_float_array
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, 0(%sp)
+	lw	%t0, 0(%t0)
+	sw	%t1, -8(%sp)
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	call	min_caml_create_array
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	add	%t1, %zero, %gp
+	addi	%gp, %gp, 8
+	sw	%t0, 4(%t1)
+	lw	%t0, -8(%sp)
+	sw	%t0, 0(%t1)
+	add	%t0, %zero, %t1
+	jr	%ra
+create_dirvec_elements.3423:
+	lw	%t2, 4(%t5)
+	addi	%t4, %t1, 0
+	blt	%t4, %zero, bge_else.10297
+	sw	%t5, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%t1, -8(%sp)
+	addi	%t5, %t2, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -8(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -4(%sp)
+	sw	%t0, %t2(%s0)
+	addi	%t1, %t1, -1
+	lw	%t5, 0(%sp)
+	addi	%t0, %s0, 0
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10297:
+	jr	%ra
+create_dirvecs.3426:
+	lw	%t1, 12(%t5)
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10299
+	addi	%s1, %zero, 120
+	sw	%t5, 0(%sp)
+	sw	%t2, -4(%sp)
+	sw	%t1, -8(%sp)
+	sw	%t0, -12(%sp)
+	sw	%s1, -16(%sp)
+	addi	%t5, %s0, 0
+	sw	%ra, -20(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -24
+	jalr	%t4
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -16(%sp)
+	sw	%ra, -28(%sp)
+	addi	%sp, %sp, -32
+	call	min_caml_create_array
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t1, -12(%sp)
+	sll	%t2, %t1, 2
+	lw	%s0, -8(%sp)
+	sw	%t0, %t2(%s0)
+	sll	%t0, %t1, 2
+	lw	%t0, %t0(%s0)
+	addi	%t2, %zero, 118
+	lw	%t5, -4(%sp)
+	addi	%t1, %t2, 0
+	sw	%ra, -28(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -32
+	jalr	%t4
+	addi	%sp, %sp, 32
+	lw	%ra, -28(%sp)
+	lw	%t0, -12(%sp)
+	addi	%t0, %t0, -1
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10299:
+	jr	%ra
+init_dirvec_constants.3428:
+	lw	%t2, 4(%t5)
+	addi	%t4, %t1, 0
+	blt	%t4, %zero, bge_else.10301
+	sll	%s0, %t1, 2
+	lw	%s0, %s0(%t0)
+	sw	%t0, 0(%sp)
+	sw	%t5, -4(%sp)
+	sw	%t1, -8(%sp)
+	addi	%t0, %s0, 0
+	addi	%t5, %t2, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -8(%sp)
+	addi	%t1, %t0, -1
+	lw	%t0, 0(%sp)
+	lw	%t5, -4(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10301:
+	jr	%ra
+init_vecset_constants.3431:
+	lw	%t1, 8(%t5)
+	lw	%t2, 4(%t5)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10303
+	sll	%s0, %t0, 2
+	lw	%t2, %s0(%t2)
+	addi	%s0, %zero, 119
+	sw	%t5, 0(%sp)
+	sw	%t0, -4(%sp)
+	addi	%t0, %t2, 0
+	addi	%t5, %t1, 0
+	addi	%t1, %s0, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t0, %t0, -1
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+bge_else.10303:
+	jr	%ra
+init_dirvecs.3433:
+	lw	%t0, 12(%t5)
+	lw	%t1, 8(%t5)
+	lw	%t2, 4(%t5)
+	addi	%s0, %zero, 4
+	sw	%t0, 0(%sp)
+	sw	%t2, -4(%sp)
+	addi	%t0, %s0, 0
+	addi	%t5, %t1, 0
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 9
+	addi	%t1, %zero, 0
+	addi	%t2, %zero, 0
+	lw	%t5, -4(%sp)
+	sw	%ra, -12(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -16
+	jalr	%t4
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%t0, %zero, 4
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+add_reflection.3435:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%t5, 4(%t5)
+	sw	%s0, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%t1, -8(%sp)
+	fsw	%ft0, -16(%sp)
+	sw	%t2, -24(%sp)
+	fsw	%ft3, -32(%sp)
+	fsw	%ft2, -40(%sp)
+	fsw	%ft1, -48(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	sw	%t0, -60(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	d_vec.3084
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft0, -48(%sp)
+	flw	%ft1, -40(%sp)
+	flw	%ft2, -32(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	vecset.2977
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	lw	%t0, -60(%sp)
+	lw	%t5, -24(%sp)
+	sw	%ra, -68(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -72
+	jalr	%t4
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	add	%t0, %zero, %gp
+	addi	%gp, %gp, 16
+	flw	%ft0, -16(%sp)
+	fsw	%ft0, 8(%t0)
+	lw	%t1, -60(%sp)
+	sw	%t1, 4(%t0)
+	lw	%t1, -8(%sp)
+	sw	%t1, 0(%t0)
+	lw	%t1, -4(%sp)
+	sll	%t1, %t1, 2
+	lw	%t2, 0(%sp)
+	sw	%t0, %t1(%t2)
+	jr	%ra
+setup_rect_reflection.3442:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	slli	%t0 %t0 2
+	lw	%a0, 0(%t2)
+	la	%a1, l.6846
+	flw	%ft0, 0(%a1)
+	sw	%t2, 0(%sp)
+	sw	%a0, -4(%sp)
+	sw	%s1, -8(%sp)
+	sw	%t0, -12(%sp)
+	sw	%s0, -16(%sp)
+	fsw	%ft0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	o_diffuse.3047
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -16(%sp)
+	flw	%ft1, 0(%t0)
+	fsw	%ft0, -40(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	min_caml_fneg
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t0, -16(%sp)
+	flw	%ft1, 8(%t0)
+	fsw	%ft0, -48(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	min_caml_fneg
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -16(%sp)
+	flw	%ft1, 16(%t0)
+	fsw	%ft0, -56(%sp)
+	fmv	%ft0, %ft1
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	min_caml_fneg
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	fmv	%ft0, %ft3
+	lw	%t0, -12(%sp)
+	addi	%t1, %t0, 1
+	lw	%t2, -16(%sp)
+	flw	%ft1, 0(%t2)
+	flw	%ft0, -40(%sp)
+	flw	%ft2, -56(%sp)
+	lw	%s0, -4(%sp)
+	lw	%t5, -8(%sp)
+	fsw	%ft3, -64(%sp)
+	addi	%t0, %s0, 0
+	sw	%ra, -76(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -80
+	jalr	%t4
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t1, %t0, 1
+	lw	%t2, -12(%sp)
+	addi	%s0, %t2, 2
+	lw	%s1, -16(%sp)
+	flw	%ft2, 8(%s1)
+	flw	%ft0, -40(%sp)
+	flw	%ft1, -48(%sp)
+	flw	%ft3, -64(%sp)
+	lw	%t5, -8(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %s0, 0
+	sw	%ra, -76(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -80
+	jalr	%t4
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t1, %t0, 2
+	lw	%t2, -12(%sp)
+	addi	%t2, %t2, 3
+	lw	%s0, -16(%sp)
+	flw	%ft3, 16(%s0)
+	flw	%ft0, -40(%sp)
+	flw	%ft1, -48(%sp)
+	flw	%ft2, -56(%sp)
+	lw	%t5, -8(%sp)
+	addi	%t0, %t1, 0
+	addi	%t1, %t2, 0
+	sw	%ra, -76(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -80
+	jalr	%t4
+	addi	%sp, %sp, 80
+	lw	%ra, -76(%sp)
+	lw	%t0, -4(%sp)
+	addi	%t0, %t0, 3
+	lw	%t1, 0(%sp)
+	sw	%t0, 0(%t1)
+	jr	%ra
+setup_surface_reflection.3445:
+	lw	%t2, 12(%t5)
+	lw	%s0, 8(%t5)
+	lw	%s1, 4(%t5)
+	slli	%t0 %t0 2
+	addi	%t0, %t0, 1
+	lw	%a0, 0(%t2)
+	la	%a1, l.6846
+	flw	%ft0, 0(%a1)
+	sw	%t2, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%a0, -8(%sp)
+	sw	%s1, -12(%sp)
+	sw	%s0, -16(%sp)
+	sw	%t1, -20(%sp)
+	fsw	%ft0, -24(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -36(%sp)
+	addi	%sp, %sp, -40
+	call	o_diffuse.3047
+	addi	%sp, %sp, 40
+	lw	%ra, -36(%sp)
+	flw	%ft1, -24(%sp)
+	fsub	%ft0, %ft1, %ft0
+	lw	%t0, -20(%sp)
+	fsw	%ft0, -40(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	o_param_abc.3039
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	addi	%t0, %t1, 0
+	lw	%t0, -16(%sp)
+	sw	%ra, -52(%sp)
+	addi	%sp, %sp, -56
+	call	veciprod.2998
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	la	%t0, l.6844
+	flw	%ft1, 0(%t0)
+	lw	%t0, -20(%sp)
+	fsw	%ft0, -48(%sp)
+	fsw	%ft1, -56(%sp)
+	sw	%ra, -68(%sp)
+	addi	%sp, %sp, -72
+	call	o_param_a.3033
+	addi	%sp, %sp, 72
+	lw	%ra, -68(%sp)
+	flw	%ft1, -56(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -16(%sp)
+	flw	%ft2, 0(%t0)
+	fsub	%ft0, %ft0, %ft2
+	la	%t1, l.6844
+	flw	%ft2, 0(%t1)
+	lw	%t1, -20(%sp)
+	fsw	%ft0, -64(%sp)
+	fsw	%ft2, -72(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -84(%sp)
+	addi	%sp, %sp, -88
+	call	o_param_b.3035
+	addi	%sp, %sp, 88
+	lw	%ra, -84(%sp)
+	flw	%ft1, -72(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -16(%sp)
+	flw	%ft2, 8(%t0)
+	fsub	%ft0, %ft0, %ft2
+	la	%t1, l.6844
+	flw	%ft2, 0(%t1)
+	lw	%t1, -20(%sp)
+	fsw	%ft0, -80(%sp)
+	fsw	%ft2, -88(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -100(%sp)
+	addi	%sp, %sp, -104
+	call	o_param_c.3037
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	flw	%ft1, -88(%sp)
+	fmul	%ft0, %ft1, %ft0
+	flw	%ft1, -48(%sp)
+	fmul	%ft0, %ft0, %ft1
+	lw	%t0, -16(%sp)
+	flw	%ft1, 16(%t0)
+	fsub	%ft3, %ft0, %ft1
+	flw	%ft0, -40(%sp)
+	flw	%ft1, -64(%sp)
+	flw	%ft2, -80(%sp)
+	lw	%t0, -8(%sp)
+	lw	%t1, -4(%sp)
+	lw	%t5, -12(%sp)
+	sw	%ra, -100(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -104
+	jalr	%t4
+	addi	%sp, %sp, 104
+	lw	%ra, -100(%sp)
+	lw	%t0, -8(%sp)
+	addi	%t0, %t0, 1
+	lw	%t1, 0(%sp)
+	sw	%t0, 0(%t1)
+	jr	%ra
+setup_reflections.3448:
+	lw	%t1, 12(%t5)
+	lw	%t2, 8(%t5)
+	lw	%s0, 4(%t5)
+	addi	%t4, %t0, 0
+	blt	%t4, %zero, bge_else.10313
+	sll	%s1, %t0, 2
+	lw	%s0, %s1(%s0)
+	sw	%t1, 0(%sp)
+	sw	%t0, -4(%sp)
+	sw	%t2, -8(%sp)
+	sw	%s0, -12(%sp)
+	addi	%t0, %s0, 0
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	o_reflectiontype.3027
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.10314
+	lw	%t0, -12(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	o_diffuse.3047
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	la	%t0, l.6846
+	flw	%ft1, 0(%t0)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	min_caml_fless
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, 0
+	bne	%t4, %zero, beq_else.10315
+	jr	%ra
+beq_else.10315:
+	lw	%t0, -12(%sp)
+	sw	%ra, -20(%sp)
+	addi	%sp, %sp, -24
+	call	o_form.3025
+	addi	%sp, %sp, 24
+	lw	%ra, -20(%sp)
+	addi	%t4, %t0, -1
+	bne	%t4, %zero, beq_else.10317
+	lw	%t0, -4(%sp)
+	lw	%t1, -12(%sp)
+	lw	%t5, -8(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10317:
+	addi	%t4, %t0, -2
+	bne	%t4, %zero, beq_else.10318
+	lw	%t0, -4(%sp)
+	lw	%t1, -12(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+beq_else.10318:
+	jr	%ra
+beq_else.10314:
+	jr	%ra
+bge_else.10313:
+	jr	%ra
+rt.3450:
+	lw	%t2, 56(%t5)
+	lw	%s0, 52(%t5)
+	lw	%s1, 48(%t5)
+	lw	%a0, 44(%t5)
+	lw	%a1, 40(%t5)
+	lw	%a2, 36(%t5)
+	lw	%a3, 32(%t5)
+	lw	%a4, 28(%t5)
+	lw	%a5, 24(%t5)
+	lw	%a6, 20(%t5)
+	lw	%a7, 16(%t5)
+	lw	%s2, 12(%t5)
+	lw	%s3, 8(%t5)
+	lw	%t5, 4(%t5)
+	sw	%t0, 0(%s2)
+	sw	%t1, 4(%s2)
+	srai	%s2 %t0 1
+	sw	%s2, 0(%s3)
+	srai	%t1 %t1 1
+	sw	%t1, 4(%s3)
+	la	%t1, l.7613
+	flw	%ft0, 0(%t1)
+	itof	%ft1, %t0
+	fdiv	%ft0, %ft0, %ft1
+	fsw	%ft0, 0(%a0)
+	sw	%a1, 0(%sp)
+	sw	%a3, -4(%sp)
+	sw	%s0, -8(%sp)
+	sw	%a4, -12(%sp)
+	sw	%s1, -16(%sp)
+	sw	%a6, -20(%sp)
+	sw	%a5, -24(%sp)
+	sw	%a7, -28(%sp)
+	sw	%t2, -32(%sp)
+	sw	%a2, -36(%sp)
+	sw	%t5, -40(%sp)
+	sw	%ra, -44(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -48
+	jalr	%t4
+	addi	%sp, %sp, 48
+	lw	%ra, -44(%sp)
+	lw	%t5, -40(%sp)
+	sw	%t0, -48(%sp)
+	sw	%ra, -52(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -56
+	jalr	%t4
+	addi	%sp, %sp, 56
+	lw	%ra, -52(%sp)
+	lw	%t5, -40(%sp)
+	sw	%t0, -52(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t5, -36(%sp)
+	sw	%t0, -56(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t5, -32(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t5, -28(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -24(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	d_vec.3084
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t1, -20(%sp)
+	sw	%ra, -60(%sp)
+	addi	%sp, %sp, -64
+	call	veccpy.2987
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -24(%sp)
+	lw	%t5, -16(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	lw	%t0, -12(%sp)
+	lw	%t0, 0(%t0)
+	addi	%t0, %t0, -1
+	lw	%t5, -8(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t1, %zero, 0
+	addi	%t2, %zero, 0
+	lw	%t0, -52(%sp)
+	lw	%t5, -4(%sp)
+	sw	%ra, -60(%sp)
+	lw	%t4, 0(%t5)
+	addi	%sp, %sp, -64
+	jalr	%t4
+	addi	%sp, %sp, 64
+	lw	%ra, -60(%sp)
+	addi	%t0, %zero, 0
+	addi	%s1, %zero, 2
+	lw	%t1, -48(%sp)
+	lw	%t2, -52(%sp)
+	lw	%s0, -56(%sp)
+	lw	%t5, 0(%sp)
+	lw	%t4, 0(%t5)
+	jr	%t4
+l.7890:
+	40.000000
+l.7888:
+	3.141593
+l.7883:
+	0.999848
+l.7880:
+	0.999391
+l.7877:
+	0.998630
+l.7874:
+	0.997564
+l.7871:
+	0.996195
+l.7868:
+	0.994522
+l.7865:
+	0.992546
+l.7862:
+	0.990268
+l.7859:
+	0.987688
+l.7856:
+	0.984808
+l.7853:
+	0.981627
+l.7850:
+	0.978148
+l.7847:
+	0.974370
+l.7844:
+	0.970296
+l.7841:
+	0.965926
+l.7838:
+	0.961262
+l.7835:
+	0.956305
+l.7832:
+	0.951057
+l.7829:
+	0.945519
+l.7826:
+	0.939693
+l.7823:
+	0.933580
+l.7820:
+	0.927184
+l.7817:
+	0.920505
+l.7814:
+	0.913545
+l.7811:
+	0.906308
+l.7808:
+	0.898794
+l.7805:
+	0.891007
+l.7802:
+	0.882948
+l.7799:
+	0.874620
+l.7796:
+	0.866025
+l.7793:
+	0.857167
+l.7790:
+	0.848048
+l.7787:
+	0.838671
+l.7784:
+	0.829038
+l.7781:
+	0.819152
+l.7778:
+	0.809017
+l.7775:
+	0.798636
+l.7772:
+	0.788011
+l.7769:
+	0.777146
+l.7766:
+	0.766044
+l.7763:
+	0.754710
+l.7760:
+	0.743145
+l.7757:
+	0.731354
+l.7754:
+	0.719340
+l.7751:
+	0.707107
+l.7748:
+	0.694658
+l.7745:
+	0.681998
+l.7742:
+	0.669131
+l.7739:
+	0.656059
+l.7736:
+	0.642788
+l.7733:
+	0.629320
+l.7730:
+	0.615661
+l.7727:
+	0.601815
+l.7724:
+	0.587785
+l.7721:
+	0.573576
+l.7718:
+	0.559193
+l.7715:
+	0.544639
+l.7712:
+	0.529919
+l.7709:
+	0.515038
+l.7704:
+	0.484810
+l.7701:
+	0.469472
+l.7698:
+	0.453990
+l.7695:
+	0.438371
+l.7692:
+	0.422618
+l.7689:
+	0.406737
+l.7686:
+	0.390731
+l.7683:
+	0.374607
+l.7680:
+	0.358368
+l.7677:
+	0.342020
+l.7674:
+	0.325568
+l.7671:
+	0.309017
+l.7668:
+	0.292372
+l.7665:
+	0.275637
+l.7662:
+	0.258819
+l.7659:
+	0.241922
+l.7656:
+	0.224951
+l.7653:
+	0.207912
+l.7650:
+	0.190809
+l.7647:
+	0.173648
+l.7644:
+	0.156434
+l.7641:
+	0.139173
+l.7638:
+	0.121869
+l.7635:
+	0.104528
+l.7632:
+	0.087156
+l.7629:
+	0.069756
+l.7626:
+	0.052336
+l.7623:
+	0.034899
+l.7620:
+	0.017452
+l.7613:
+	128.000000
+l.7564:
+	0.900000
+l.7456:
+	150.000000
+l.7453:
+	-150.000000
+l.7434:
+	0.100000
+l.7430:
+	-2.000000
+l.7427:
+	0.003906
+l.7395:
+	20.000000
+l.7393:
+	0.050000
+l.7385:
+	0.250000
+l.7376:
+	10.000000
+l.7371:
+	0.300000
+l.7369:
+	255.000000
+l.7365:
+	0.500000
+l.7363:
+	0.150000
+l.7356:
+	3.141593
+l.7354:
+	30.000000
+l.7352:
+	15.000000
+l.7350:
+	0.000100
+l.7301:
+	100000000.000000
+l.7295:
+	1000000000.000000
+l.7272:
+	-0.100000
+l.7258:
+	0.010000
+l.7256:
+	-0.200000
+l.7001:
+	-200.000000
+l.6998:
+	200.000000
+l.6993:
+	0.017453
+l.6905:
+	-1.000000
+l.6897:
+	0.785398
+l.6895:
+	2.437500
+l.6893:
+	0.437500
+l.6891:
+	0.060035
+l.6889:
+	0.089764
+l.6887:
+	0.111111
+l.6885:
+	0.142857
+l.6883:
+	0.200000
+l.6881:
+	0.333333
+l.6861:
+	180.000000
+l.6846:
+	1.000000
+l.6844:
+	2.000000
+l.6842:
+	1.570796
+l.6838:
+	6.283185
+l.6833:
+	0.000000
