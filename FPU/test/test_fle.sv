@@ -55,7 +55,7 @@ initial begin
                 (x2d[30:23] == 8'b00000000 && x2d[22:0] != 0) ? 32'b0 : x2d;
         fx1 = $bitstoshortreal(x1i);
         fx2 = $bitstoshortreal(x2i);
-        fy = (fx1 < fx2);       //nanの時は常にfalseだが、まあいいでしょう。
+        fy = (fx1 <= fx2);       //nanの時は常にfalseだが、まあいいでしょう。
 	    /*checkovf = e1 < 255 && e2 < 255;
 	    if ( checkovf && fybit[30:23] == 255 ) begin // //inf以外とinf以外の計算の結果がinfになっている
 	    	fovf = 1;
