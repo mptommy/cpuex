@@ -1,2 +1,1 @@
-regAlloc.cmi : \
-    asm.cmi
+regAlloc.cmi : asm.cmi

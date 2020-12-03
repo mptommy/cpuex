@@ -77,14 +77,21 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(x), Sub(y, V(z)) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" x y z
   | NonTail(x), Sub(y, C(z)) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" x y (-z)
   | NonTail(x), Mul(y, V(z)) -> raise Mul
-  | NonTail(x), Mul(y, C(z)) when is_pow_of_two z -> Printf.fprintf oc "\tslli\t%s %s %d\n" x y (log z)
+  | NonTail(x), Mul(y, C(z)) when is_pow_of_two z -> Printf.fprintf oc "\tslli\t%s, %s, %d\n" x y (log z)
   | NonTail(x), Mul(y, C(z)) -> raise Mul
   | NonTail(x), Div(y, V(z)) -> raise Div
-  | NonTail(x), Div(y, C(z)) when is_pow_of_two z -> Printf.fprintf oc "\tsrai\t%s %s %d\n" x y (log z)
+  | NonTail(x), Div(y, C(z)) when is_pow_of_two z -> Printf.fprintf oc "\tsrai\t%s, %s, %d\n" x y (log z)
   | NonTail(x), Div(y, C(z)) -> raise Div
-  | NonTail(x), SLL(y, z') -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" x y (pp_id_or_imm z')
-  | NonTail(x), Ld(y, z') -> Printf.fprintf oc "\tlw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
-  | NonTail(_), St(x, y, z') -> Printf.fprintf oc "\tsw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
+  | NonTail(x), SLL(y, V(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" x y z
+  | NonTail(x), SLL(y, C(z)) -> Printf.fprintf oc "\tslli\t%s, %s, %d\n" x y z
+  | NonTail(x), Ld(y, V(z)) -> 
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" y y z;
+      Printf.fprintf oc "\tlw\t%s, 0(%s)\n" x y
+  | NonTail(x), Ld(y, C(z)) -> Printf.fprintf oc "\tlw\t%s, %d(%s)\n" x z y
+  | NonTail(_), St(x, y, V(z)) -> 
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" y y z;
+      Printf.fprintf oc "\tsw\t%s, 0(%s)\n" x y
+  | NonTail(_), St(x, y, C(z)) -> Printf.fprintf oc "\tsw\t%s, %d(%s)\n" x z y
   | NonTail(x), FMov(y) when x = y -> ()
   | NonTail(x), FMov(y) -> Printf.fprintf oc "\tfmv\t%s, %s\n" x y;
   | NonTail(x), FNeg(y) -> Printf.fprintf oc "\tfneg\t%s, %s\n" x y;
@@ -111,24 +118,37 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\tor\t%s, %s, %s\n" x x "%t6"; 
       Printf.fprintf oc "\tin\t%s\n" "%t6";
       Printf.fprintf oc "\tslli\t%s, %s, 24\n" "%t6" "%t6";     
-      Printf.fprintf oc "\tor\t%s, %s, %s\n" x x "%t6"; 
-      Printf.fprintf oc "\tret\n"
+      Printf.fprintf oc "\tor\t%s, %s, %s\n" x x "%t6"
   | NonTail(x), In("read_float") -> 
-      Printf.fprintf oc "\tin\t%s\n" x;
-      Printf.fprintf oc "\tin\t%s\n" "%ft11";
-      Printf.fprintf oc "\tslli\t%s, %s, 8\n" "%ft11" "%ft11";
-      Printf.fprintf oc "\tor\t%s, %s, %s\n" x x "%ft11";
-      Printf.fprintf oc "\tin\t%s\n" "%ft11";
-      Printf.fprintf oc "\tslli\t%s, %s, 16\n" "%ft11" "%ft11";     
-      Printf.fprintf oc "\tor\t%s, %s, %s\n" x x "%ft11"; 
-      Printf.fprintf oc "\tin\t%s\n" "%ft11";
-      Printf.fprintf oc "\tslli\t%s, %s, 24\n" "%ft11" "%ft11";     
-      Printf.fprintf oc "\tor\t%s, %s, %s\n" x x "%ft11"; 
-      Printf.fprintf oc "\tret\n"
-  | NonTail(_), Out(x) -> Printf.fprintf oc "\tout\t%s\n" x
+      Printf.fprintf oc "\tin\t%s\n" "%t5";
+      Printf.fprintf oc "\tin\t%s\n" "%t6";
+      Printf.fprintf oc "\tslli\t%s, %s, 8\n" "%t6" "%t6";
+      Printf.fprintf oc "\tor\t%s, %s, %s\n" "%t5" "%t5" "%t6";
+      Printf.fprintf oc "\tin\t%s\n" "%t6";
+      Printf.fprintf oc "\tslli\t%s, %s, 16\n" "%t6" "%t6";     
+      Printf.fprintf oc "\tor\t%s, %s, %s\n" "%t5" "%t5" "%t6"; 
+      Printf.fprintf oc "\tin\t%s\n" "%t6";
+      Printf.fprintf oc "\tslli\t%s, %s, 24\n" "%t6" "%t6";     
+      Printf.fprintf oc "\tor\t%s, %s, %s\n" "%t5" "%t5" "%t6";
+      Printf.fprintf oc "\tfmv\t%s, %s\n" x "%t5"
+  | NonTail(_), Out(x, "print_char") -> Printf.fprintf oc "\tout\t%s\n" x
+  | NonTail(_), Out(x, "print_int") -> 
+      Printf.fprintf oc "\tout\t%s\n" x;
+      Printf.fprintf oc "\tsrli\t%s, 8\n" x;
+      Printf.fprintf oc "\tout\t%s\n" x;
+      Printf.fprintf oc "\tsrli\t%s, 8\n" x;
+      Printf.fprintf oc "\tout\t%s\n" x;
+      Printf.fprintf oc "\tsrli\t%s, 8\n" x;
+      Printf.fprintf oc "\tout\t%s\n" x
   (* 浮動小数点のロードストア *)
-  | NonTail(x), LdF(y, z') -> Printf.fprintf oc "\tflw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
-  | NonTail(_), StF(x, y, z') -> Printf.fprintf oc "\tfsw\t%s, %s(%s)\n" x (pp_id_or_imm z') y
+  | NonTail(x), LdF(y, V(z)) ->
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" y y z;
+      Printf.fprintf oc "\tflw\t%s, 0(%s)\n" x y
+  | NonTail(x), LdF(y, C(z)) -> Printf.fprintf oc "\tflw\t%s, %d(%s)\n" x z y
+  | NonTail(_), StF(x, y, V(z)) -> 
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" y y z;
+      Printf.fprintf oc "\tfsw\t%s, 0(%s)\n" x y    
+  | NonTail(_), StF(x, y, C(z)) -> Printf.fprintf oc "\tfsw\t%s, %d(%s)\n" x z y  
   (* 浮動小数点のロードストア *)
   | NonTail(_), Comment(s) -> Printf.fprintf oc "\t! %s\n" s
   (* 退避の仮想命令の実装 (caml2html: emit_save) *)

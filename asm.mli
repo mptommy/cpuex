@@ -31,7 +31,7 @@ and exp =
   | IToF of Id.t
   | Floor of Id.t
   | In of string
-  | Out of Id.t
+  | Out of Id.t * string
   | LdF of Id.t * id_or_imm
   | StF of Id.t * Id.t * id_or_imm
   | Comment of string

@@ -33,7 +33,7 @@ and exp = (* 一つ一つの命令に対応する式 (caml2html: sparcasm_exp) *
   | IToF of Id.t
   | Floor of Id.t
   | In of string
-  | Out of Id.t
+  | Out of Id.t * string
   | LdF of Id.t * id_or_imm
   | StF of Id.t * Id.t * id_or_imm
   | Comment of string
@@ -61,7 +61,7 @@ let regs = (* Array.init 16 (fun i -> Printf.sprintf "%%r%d" i) *)
      "%s1"; 
      "%a0"; "%a1"; "%a2"; "%a3"; "%a4"; "%a5"; "%a6"; "%a7";
      "%s2"; "%s3"; "%s4"; "%s5"; "%s6"; "%s7"; "%s8"; "%s9"; "%s10"; "%s11";
-     "%t3"; "%t4"; "%t5" |]
+     "%t3"; "%t4" |]
 (* let regs_tmp = 
   [| "%t0"; "%t1"; "%t2"; "%t3"; "%t4"; "%t5"; "%t6";
      "%s2"; "%s3"; "%s4"; "%s5"; "%s6"; "%s7"; "%s8"; "%s9"; "%s10"; "%s11" |]
@@ -106,7 +106,7 @@ let rec remove_and_uniq xs = function
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
   | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) | In _ -> []
-  | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | Out(x) | FSqrt(x) | FAbs(x) | FHalf(x) | FSqr(x) | FInv(x) | FToI(x) | IToF(x) | Floor(x) -> [x]
+  | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | Out(x, _) | FSqrt(x) | FAbs(x) | FHalf(x) | FSqr(x) | FInv(x) | FToI(x) | IToF(x) | Floor(x) -> [x]
   | Add(x, y') | Sub(x, y') | Mul(x, y') | Div(x, y') | SLL(x, y') | Ld(x, y') | LdF(x, y') -> x :: fv_id_or_imm y'
   | St(x, y, z') | StF(x, y, z') -> x :: y :: fv_id_or_imm z'
   | FAdd(x, y) | FSub(x, y) | FMul(x, y) | FDiv(x, y) | FLess(x, y) -> [x; y]
