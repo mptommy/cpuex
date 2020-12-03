@@ -13,12 +13,13 @@ logic [31:0] fybit;
 bit 	      fovf;
 bit 	      checkovf;
 int i;
-logic [31:0] r;;
+logic [31:0] r;
 
 logic clk, rstn;
 logic [3:0] ctl;
 logic en, ready;
 int diff;
+int totalclk;
 
 logic [31:0] x1_reg[MAX_NSTAGE:0];
 logic [31:0] x2_reg[MAX_NSTAGE:0];
@@ -49,6 +50,7 @@ initial begin
     x2_reg[0] = 0;
     i=0;
     wait_clock = 0;
+    totalclk = 0;
 
     #1;			//t = 2ns
     clk = 0;
@@ -86,13 +88,19 @@ initial begin
 		clk = 1;
         en <= 0;
 
-        // ラッパーのモジュールにポンポン値を入れてしまうと、答えの衝突と何の答えか分からなくなることが起こるため、とりあえずストール。
-        repeat(MAX_NSTAGE) begin
+        // ラッパーのモジュールにポンポン値を入れてしまうと、答えの衝突と何の答えか分からなくなることが起こるため、結果が出るまではストール。
+        while (~ready) begin
             #1;
 		    clk = 0;
 		    #1;
 		    clk = 1;
         end
+        /*repeat (MAX_NSTAGE) begin
+            #1;
+		    clk = 0;
+		    #1;
+		    clk = 1;
+        end*/
     end
     repeat(MAX_NSTAGE) begin
         #1;
@@ -105,6 +113,7 @@ initial begin
 end
 
 always @(posedge clk) begin
+    totalclk = totalclk+1;
     if(~rstn) begin
 	    x1_reg[MAX_NSTAGE:0] <= {default: 32'b0};
 	    x2_reg[MAX_NSTAGE:0] <= {default: 32'b0};
@@ -171,7 +180,7 @@ always @(posedge clk) begin
 	        y[31], y[30:23], y[22:0]);
         //end
     end
-    //$display("val = %b, %b, %b", val[0], val[1], val[2]);
+    $display("total clocks = %d", totalclk);
     //$display("%e %b,%3d,%b %b\n", $bitstoshortreal(y),y[31], y[30:23], y[22:0], ovf);
 end
 endmodule
