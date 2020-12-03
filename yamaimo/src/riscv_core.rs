@@ -39,7 +39,7 @@ pub enum RiscvInst{
     NOP,
     WFI,
     FMADDS,FMSUBS,FNMSUBS,FNMADDS,FADDS,FSUBS,FMULS,FDIVS,FSQRTS,FSGNJS,FSGNJNS,FSGNJXS,FMINS,FMAXS,FCVTWS,FCVTWUS,FMVXW,FEQS,FLTS,FLES,FCLASSS,FCVTSW,FCVTSWU,
-    FMVWX,FLW,FSW,
+    FMVWX,FLW,FSW,FHALF,
     MUL,MULH,MULHSU,MULHU,DIV,DIVU,REM,REMU,IN,OUT
 }
 #[derive(Copy,Clone)]
@@ -133,6 +133,7 @@ pub enum NRiscvInst{
     DIVU(u8,i32,i32),
     REM(u8,i32,i32),
     REMU(u8,i32,i32),
+    FHALF(u8,f32),
     STALL,
     IN(u8),
     OUT(i8),
@@ -973,6 +974,21 @@ impl Riscv64Core for EnvBase{
                             _ => panic!("MM"),
                         }
                     },
+                    0x7c=>{
+                        match shamt{
+                            0b0=>{
+                                let (rs1_data,stall)=self.fread_regfor(rs1,forwarding,forwarding2);
+                                if stall {
+                                    return NRiscvInst::STALL;
+                                }
+                                match funct3{
+                                    0b0 => {if self.writing {println!("FHALF {},{}\n",rd,rs1);}NRiscvInst::FHALF(rd,rs1_data)},
+                                    _ => panic!("MM"),
+                                }
+                            },
+                            _ => panic!("MM"),
+                        }
+                    },
                     0x33=>{
                         let (rs1_data,stall1)  = self.read_regfor(rs1,forwarding,forwarding2);
                         let (rs2_data,stall2)  = self.read_regfor(rs2,forwarding,forwarding2);
@@ -1223,6 +1239,17 @@ impl Riscv64Core for EnvBase{
                             _ => panic!("MM"),
                         }
                     },
+                    0x7c=>{
+                        match shamt{
+                            0b0=>{
+                                match funct3{
+                                    0b0 => RiscvInst::FHALF,
+                                    _ => panic!("MM"),
+                                }
+                            },
+                            _ => panic!("MM"),
+                        }
+                    }
                     0x33=>{
                         match funct3{
                             0 => RiscvInst::MUL,
@@ -1499,6 +1526,10 @@ impl Riscv64Core for EnvBase{
             }
             NRiscvInst::FSQRTS(rd,rs1_data)=>{
                 let reg_data = rs1_data.sqrt();
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            NRiscvInst::FHALF(rd,rs1_data)=>{
+                let reg_data = rs1_data/2.0;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             NRiscvInst::FSGNJS(rd,rs1_data,rs2_data)=>{
@@ -2231,6 +2262,13 @@ impl Riscv64Core for EnvBase{
                 let reg_data = rs1_data.sqrt();
                 self.fwrite_reg(rd, reg_data);
                 if self.writing {println!("SQRTS {},{}\n",rd,rs1);}
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
+            }
+            RiscvInst::FHALF=>{
+                let (rs1_data,stall)  = self.fread_regfor(rs1,forwarding,forwarding2);
+                let reg_data = rs1_data/2.0;
+                self.fwrite_reg(rd, reg_data);
+                if self.writing {println!("HALF {},{}\n",rd,rs1);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
             RiscvInst::FSGNJS=>{

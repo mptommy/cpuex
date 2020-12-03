@@ -73,11 +73,11 @@ pub enum Insts{
     LBL(u8,String),
     LHL(u8,String),
     LWL(u8,String),
-    SBL(u8,String,u8),
-    SHL(u8,String,u8),
-    SWL(u8,String,u8),
+    SBL(u8,String),
+    SHL(u8,String),
+    SWL(u8,String),
     FLWL(u8,String),
-    FSWL(u8,String,u8),
+    FSWL(u8,String),
     CALL(i32),
     CALLL(String),
     TAIL(i32),
@@ -116,6 +116,7 @@ pub enum Insts{
     DIVU(u8,u8,u8),
     REM(u8,u8,u8),
     REMU(u8,u8,u8),
+    FHALF(u8,u8),
     IN(u8),
     OUT(u8),
     IMM(i32),
@@ -952,24 +953,24 @@ impl Instruction{
                     Instruction::code(Insts::FLW(r1,0,r1)),s
                 )
             },
-            Insts::SBL(r1,s,r2)=>{
+            Insts::SBL(r1,s)=>{
                 Instruction::labeling(
-                    Instruction::code(Insts::SB(r1,0,r2)),s
+                    Instruction::code(Insts::SB(r1,0,r1)),s
                 )
             },
-            Insts::SHL(r1,s,r2)=>{
+            Insts::SHL(r1,s)=>{
                 Instruction::labeling(
-                    Instruction::code(Insts::SH(r1,0,r2)),s
+                    Instruction::code(Insts::SH(r1,0,r1)),s
                 )
             },
-            Insts::SWL(r1,s,r2)=>{
+            Insts::SWL(r1,s)=>{
                 Instruction::labeling(
-                    Instruction::code(Insts::SW(r1,0,r2)),s
+                    Instruction::code(Insts::SW(r1,0,r1)),s
                 )
             },
-            Insts::FSWL(r1,s,r2)=>{
+            Insts::FSWL(r1,s)=>{
                 Instruction::labeling(
-                    Instruction::code(Insts::FSW(r1,0,r2)),s
+                    Instruction::code(Insts::FSW(r1,0,r1)),s
                 )
             },
             Insts::FMADDS(rd,r1,r2,r3)=>{
@@ -1076,6 +1077,18 @@ impl Instruction{
                     op15_19:r1,
                     op20_24:0,
                     op25_31:0b0101100,
+                    optype:inst,
+                    ..Default::default()
+                }
+            },
+            Insts::FHALF(rd,r1)=>{
+                Instruction{
+                    op0_6:0b1010011,
+                    op7_11:rd,
+                    op12_14:0,
+                    op15_19:r1,
+                    op20_24:0,
+                    op25_31:0b1111100,
                     optype:inst,
                     ..Default::default()
                 }
@@ -1425,21 +1438,21 @@ impl Machine{
                 vecs.push(Insts::AUIPCL(31,(&s).to_string()));
                 vecs.push(Insts::FLWL(r1,(&s).to_string()));
             },
-            Insts::SBL(rd,s,rt)=>{
-                vecs.push(Insts::AUIPCL(rt,(&s).to_string()));
-                vecs.push(Insts::SBL(rd,(&s).to_string(),rt));
+            Insts::SBL(rd,s)=>{
+                vecs.push(Insts::AUIPCL(31,(&s).to_string()));
+                vecs.push(Insts::SBL(rd,(&s).to_string()));
             },
-            Insts::SHL(rd,s,rt)=>{
-                vecs.push(Insts::AUIPCL(rt,(&s).to_string()));
-                vecs.push(Insts::SHL(rd,(&s).to_string(),rt));
+            Insts::SHL(rd,s)=>{
+                vecs.push(Insts::AUIPCL(31,(&s).to_string()));
+                vecs.push(Insts::SHL(rd,(&s).to_string()));
             },
-            Insts::SWL(rd,s,rt)=>{
-                vecs.push( Insts::AUIPCL(rt,(&s).to_string()));
-                vecs.push(Insts::SWL(rd,(&s).to_string(),rt));
-            },
-            Insts::FSWL(rd,s,_rt)=>{
+            Insts::SWL(rd,s)=>{
                 vecs.push( Insts::AUIPCL(31,(&s).to_string()));
-                vecs.push(Insts::FSWL(rd,(&s).to_string(),31));
+                vecs.push(Insts::SWL(rd,(&s).to_string()));
+            },
+            Insts::FSWL(rd,s)=>{
+                vecs.push( Insts::AUIPCL(31,(&s).to_string()));
+                vecs.push(Insts::FSWL(rd,(&s).to_string()));
             },
             Insts::CALL(i)=>{
                 vecs.push(Insts::AUIPC(6,i >> 12));
@@ -1556,19 +1569,19 @@ impl Machine{
                             self.insts[i].optype = Insts::FLW(*r1,(sa+4)&0xfff,31);
                             self.insts[i] = Instruction::code(Insts::FLW(*r1,(sa+4)&0xfff,31));
                         },
-                        Insts::SB(r1,_l,r2)=>{
-                            self.insts[i].optype = Insts::SB(*r1,(sa+4)&0xfff,*r2);
-                            self.insts[i] = Instruction::code(Insts::SB(*r1,(sa+4)&0xfff,*r2));
+                        Insts::SB(r1,_l,_r2)=>{
+                            self.insts[i].optype = Insts::SB(*r1,(sa+4)&0xfff,31);
+                            self.insts[i] = Instruction::code(Insts::SB(*r1,(sa+4)&0xfff,31));
                         },
-                        Insts::SH(r1,_l,r2)=>{
-                            self.insts[i].optype = Insts::SH(*r1,(sa+4)&0xfff,*r2);
-                            self.insts[i] = Instruction::code(Insts::SH(*r1,(sa+4)&0xfff,*r2));
+                        Insts::SH(r1,_l,_r2)=>{
+                            self.insts[i].optype = Insts::SH(*r1,(sa+4)&0xfff,31);
+                            self.insts[i] = Instruction::code(Insts::SH(*r1,(sa+4)&0xfff,31));
                         },
-                        Insts::SW(r1,_l,r2)=>{
-                            self.insts[i].optype = Insts::SW(*r1,(sa+4)&0xfff,*r2);
-                            self.insts[i] = Instruction::code(Insts::SW(*r1,(sa+4)&0xfff,*r2));
+                        Insts::SW(r1,_l,_r2)=>{
+                            self.insts[i].optype = Insts::SW(*r1,(sa+4)&0xfff,31);
+                            self.insts[i] = Instruction::code(Insts::SW(*r1,(sa+4)&0xfff,31));
                         },
-                        Insts::FSW(r1,_l,r2)=>{
+                        Insts::FSW(r1,_l,_r2)=>{
                             self.insts[i].optype = Insts::FSW(*r1,(sa+4)&0xfff,31);
                             self.insts[i] = Instruction::code(Insts::FSW(*r1,(sa+4)&0xfff,31));
                         },
