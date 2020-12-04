@@ -1,18 +1,14 @@
 `default_nettype none
-module ftoi #(parameter NSTAGE = 3)(
+module ftoi #(parameter NSTAGE = 2)(
     input wire [31:0] x,
     output wire [31:0] y,
     input wire clk,
     input wire rstn);
 
-// stage = 0 (x)
+// stage = 0 (x -> absyni, inc)
 
-// stage = 1 (xr[0] -> absyni, inc)
-
-reg [31:0] xr[2:0];
-
-wire [7:0] e = xr[0][30:23];
-wire [22:0] m = xr[0][22:0];
+wire [7:0] e = x[30:23];
+wire [22:0] m = x[22:0];
 
 wire [31:0] absyni =(e < 8'b01111110) ? 32'b0 :
                     (e == 8'b01111110) ? 32'b1 :
@@ -74,18 +70,19 @@ wire inc =  (e == 8'b01111111) ? m[22] :
             (e == 8'b10010100) ? m[1] :
             (e == 8'b10010101) ? m[0] : 1'b0;
 
-// stage = 2 (absyni, inc -> absy)
+// stage = 1 (absyni, inc -> absy)
 
 reg [31:0] absynir;
 reg incr;
 
 wire [31:0] absy = absynir + incr;
 
-// stage = 3 (absyr -> y)
+// stage = 2 (absyr -> y)
 
+reg [31:0] xr[1:0];
 reg [31:0] absyr;
 
-wire s = xr[2][31];
+wire s = xr[1][31];
 
 always @(posedge clk) begin
     if(~rstn) begin
@@ -102,7 +99,7 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
-    xr[2:1] <= xr[1:0];
+    xr[1] <= xr[0];
 end
 
 assign y = (s == 0) ? absyr : (~absyr) + 1'b1;

@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_ftoi
-    #(parameter NSTAGE = 3,
+    #(parameter NSTAGE = 2,
       parameter REPEATNUM = 100,
       parameter RANDSEED = 2) ();
 

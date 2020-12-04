@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_floor
-    #(parameter NSTAGE = 2,
+    #(parameter NSTAGE = 1,
       parameter REPEATNUM = 50,
       parameter RANDSEED = 2) ();
 

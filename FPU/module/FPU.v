@@ -36,11 +36,11 @@ module FPU(clk, rstn, ctl, x1, x2, y, ready, en);
     fabs fabs_instance(x1, fabs_y, clk, rstn);
     fneg fneg_instance(x1, fneg_y, clk, rstn);
 
-    localparam FADD_NSTAGE = 2;
-    localparam FSUB_NSTAGE = 2;
-    localparam FMUL_NSTAGE = 3;
-    localparam FINV_NSTAGE = 4;
-    localparam FDIV_NSTAGE = 9;
+    localparam FADD_NSTAGE = 1;
+    localparam FSUB_NSTAGE = 1;
+    localparam FMUL_NSTAGE = 2;
+    localparam FINV_NSTAGE = 3;
+    localparam FDIV_NSTAGE = 6;
     localparam FHALF_NSTAGE = 0;
     localparam FEQ_NSTAGE = 0;
     localparam FLE_NSTAGE = 0;

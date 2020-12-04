@@ -1,21 +1,17 @@
 `default_nettype none
-module itof #(parameter NSTAGE = 3) (
+module itof #(parameter NSTAGE = 2) (
     input wire [31:0] x,
     output wire [31:0] y,
     input wire clk,
     input wire rstn);
 
-// stage = 0 (x)
+// stage = 0 (x -> absx)
 
-// stage = 1 (xr[0] -> absx)
+wire s = x[31];     // 答えのsignビットはxの正負=x[31]に一致。
 
-reg [31:0] xr[1:0];
+wire [31:0] absx = (s == 0) ? x : (~x) + 1'b1;      // 負の最大値1000...0の時に1000...0になることに注意。
 
-wire s = xr[0][31];     // 答えのsignビットはxの正負=x[31]に一致。
-
-wire [31:0] absx = (s == 0) ? xr[0] : (~xr[0]) + 1'b1;      // 負の最大値1000...0の時に1000...0になることに注意。
-
-// stage = 2 (sr, absxr -> yni, inc)
+// stage = 1 (sr, absxr -> yni, inc)
 
 reg sr;
 reg [31:0] absxr;
@@ -62,7 +58,7 @@ wire inc =  (absxr[30] == 1) ? absxr[6] :
             (absxr[25] == 1) ? absxr[1] :
             (absxr[24] == 1) ? absxr[0] : 1'b0;
 
-// stage = 3 (ynir, incr -> y)
+// stage = 2 (ynir, incr -> y)
 
 reg [31:0] ynir;
 reg incr;
@@ -76,13 +72,11 @@ wire [22:0] ym = (mp[23]) ? {1'b0, mp[22:1]} : mp[22:0];
 
 always @(posedge clk) begin
     if(~rstn) begin
-        xr[0] <= 'b0;
         sr <= 'b0;
         absxr <= 'b0;
         ynir <= 'b0;
         incr <= 'b0;
     end else begin
-        xr[0] <= x;
         sr <= s;
         absxr <= absx;
         ynir <= yni;
