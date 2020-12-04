@@ -8,20 +8,19 @@ module FPU(clk, rstn, ctl, x1, x2, y, ready, en);
 
     reg [3:0] count;
 
-    wire fadd = (ctl == 2);
-    // 以下、ctlの数値は適当です。変えてください。
-    wire fsub = (ctl == 3);
-    wire fmul = (ctl == 4);
-    wire finv = (ctl == 5);
-    wire fdiv = (ctl == 6);
-    wire fhalf = (ctl == 7);
-    //wire ftoi = (ctl == 8);
-    //wire itof = (ctl == 9);
-    //wire floor = (ctl == 10);
-    wire feq = (ctl == 11);
-    wire fle = (ctl == 12);
-    wire fabs = (ctl == 13);
-    wire fneg = (ctl == 14);
+    wire fadd = (ctl == 0);
+    wire fsub = (ctl == 1);
+    wire fmul = (ctl == 2);
+    wire finv = (ctl == 3);
+    wire fdiv = (ctl == 4);
+    wire fhalf = (ctl == 5);
+    //wire ftoi = (ctl == 6);
+    //wire itof = (ctl == 7);
+    //wire floor = (ctl == 8);
+    wire feq = (ctl == 9);
+    wire fle = (ctl == 10);
+    wire fabs = (ctl == 11);
+    wire fneg = (ctl == 12);
 
     wire [31:0] fadd_y, fsub_y, fmul_y, finv_y, fdiv_y, fhalf_y, fabs_y, fneg_y;
     wire feq_y, fle_y;

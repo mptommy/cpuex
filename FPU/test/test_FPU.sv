@@ -65,17 +65,17 @@ initial begin
     repeat(REPEATNUM) begin
         r = $urandom();
         case (r[3:0])
-            4'b0000: ctl <= 2;
-            4'b0001: ctl <= 3;
-            4'b0010: ctl <= 4;
-            4'b0011: ctl <= 5;
-            4'b0100: ctl <= 6;
-            4'b0101: ctl <= 7;
-            4'b0110: ctl <= 11;
-            4'b0111: ctl <= 12;
-            4'b1000: ctl <= 13;
-            4'b1001: ctl <= 14;
-            default: ctl <= 13;
+            4'b0000: ctl <= 0;
+            4'b0001: ctl <= 1;
+            4'b0010: ctl <= 2;
+            4'b0011: ctl <= 3;
+            4'b0100: ctl <= 4;
+            4'b0101: ctl <= 5;
+            4'b0110: ctl <= 9;
+            4'b0111: ctl <= 10;
+            4'b1000: ctl <= 11;
+            4'b1001: ctl <= 12;
+            default: ctl <= 2;
         endcase
         
         x1_reg[0] <= $urandom();
@@ -134,16 +134,16 @@ always @(posedge clk) begin
 		fx1 = $bitstoshortreal(x1_reg[wait_clock]);
 		fx2 = $bitstoshortreal(x2_reg[wait_clock]);
         case (ctl)
-            2: fy = fx1 + fx2;
-            3: fy = fx1 - fx2;
-            4: fy = fx1 * fx2;
-            5: fy = 1.0 / fx1;
-            6: fy = fx1 / fx2;
-            7: fy = fx1 / 2;
-            11: fy = 0;
-            12: fy = 0;
-            13: fy = (fx1 < 0) ? -fx1 : fx1;
-            14: fy = -fx1;
+            0: fy = fx1 + fx2;
+            1: fy = fx1 - fx2;
+            2: fy = fx1 * fx2;
+            3: fy = 1.0 / fx1;
+            4: fy = fx1 / fx2;
+            5: fy = fx1 / 2;
+            9: fy = 0;
+            10: fy = 0;
+            11: fy = (fx1 < 0) ? -fx1 : fx1;
+            12: fy = -fx1;
         endcase
         fybit = $shortrealtobits(fy);
         if (ctl == 11) begin
@@ -154,16 +154,16 @@ always @(posedge clk) begin
         
         $display("");
         case (ctl)
-            2: $display("fadd");
-            3: $display("fsub");
-            4: $display("fmul");
-            5: $display("finv");
-            6: $display("fdiv");
-            7: $display("fhalf");
-            11: $display("feq");
-            12: $display("fle");
-            13: $display("fabs");
-            14: $display("fneg");
+            0: $display("fadd");
+            1: $display("fsub");
+            2: $display("fmul");
+            3: $display("finv");
+            4: $display("fdiv");
+            5: $display("fhalf");
+            9: $display("feq");
+            10: $display("fle");
+            11: $display("fabs");
+            12: $display("fneg");
         endcase
         //$display("wait_clock = %d", wait_clock);
 
