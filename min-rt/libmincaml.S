@@ -20,4 +20,4 @@ create_float_array_loop:
 create_float_array_cont:
 	fsw	%ft0, 0(%gp)
 	addi %gp, %gp, 4
-	jal create_array_loop
+	jal create_float_array_loop
