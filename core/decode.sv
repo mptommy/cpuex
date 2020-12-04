@@ -46,6 +46,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign fsub = (funct7 == 7'b0000100) && (opcode == 7'b1010011);
     assign fmul = (funct7 == 7'b0001000) && (opcode == 7'b1010011);
     assign fdiv = (funct7 == 7'b0001100) && (opcode == 7'b1010011);
+    assign fneg = (funct7 == 7'b0010000) && (funct3 == 3'b001) && (opcode == 7'b1010011);
 
     always @ (posedge clk) begin
         //DECODE
@@ -171,6 +172,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                             fmul ? 2 :
                 // fdiv: fdiv(4)
                             fdiv ? 4 :
+                // fneg: fneg(12)
+                            fneg ? 12 :
                 // default => zero (31)
                             31;
                 // in jalr, use the absolute address
@@ -178,10 +181,10 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 write_reg <= instr_raw[11:7];
                 data_out <= out_type;
                 data_in <= in_type;
-                readf1 <= (fadd || fsub || fmul || fdiv) ? 1 : 0;
-                readf2 <= (fadd || fsub || fmul || fdiv || fsw) ? 1 : 0;
-                writef <= (fadd || fsub || fmul || fdiv || flw) ? 1 : 0;
-                use_fpu <= (fadd || fsub || fmul || fdiv) ? 1 : 0;
+                readf1 <= (fadd || fsub || fmul || fdiv || fneg) ? 1 : 0;
+                readf2 <= (fadd || fsub || fmul || fdiv || fneg || fsw) ? 1 : 0;
+                writef <= (fadd || fsub || fmul || fdiv || fneg || flw) ? 1 : 0;
+                use_fpu <= (fadd || fsub || fmul || fdiv || fneg) ? 1 : 0;
             end else begin
                 data_out <= 0;
                 data_in <= 0;
