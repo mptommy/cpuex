@@ -1,7 +1,7 @@
 //後でオーバーフローとアンダーフローに対応しよう。
 
 `default_nettype none
-module fmul #(parameter NSTAGE = 2)(
+module fmul (
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,

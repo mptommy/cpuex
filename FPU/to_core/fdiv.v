@@ -1,5 +1,5 @@
 `default_nettype none
-module fdiv #(parameter NSTAGE = 6)(
+module fdiv (
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
@@ -35,7 +35,9 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
-    x1r[3:1] <= x1r[2:0];
+    x1r[3] <= x1r[2];
+    x1r[2] <= x1r[1];
+    x1r[1] <= x1r[0];
 end
 
 assign y = ans;
