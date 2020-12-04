@@ -69,7 +69,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let mut formembuf1=ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
     let mut forwardingbuf1=ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
     let mut finishcount = 0;
-
+    let mut togo:i32 = -1;
     println!("PIPELINE?[y/n]");
     let mut read = String::new();
     std::io::stdin().read_line(&mut read).ok();
@@ -82,6 +82,9 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             finishcount = 0;
         }else{
             finishcount = finishcount + 1;
+        }
+        if (togo*4) as u32 == riscv64_core.fetch_pc{
+            togo = -1;step = true;
         }
         if step&&renzoku >= 0{
             let mut looping = true;
@@ -114,6 +117,11 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                         let num:i32 = coms.next().unwrap().parse().unwrap();
                         renzoku = -num;
                         looping = false;
+                    }
+                    "pc"=>{
+                        let num:i32 = coms.next().unwrap().parse().unwrap();
+                        togo = num;
+                        looping = false;step=false;
                     }
                     "inst"=>{
                         riscv64_core.output_toukei();
