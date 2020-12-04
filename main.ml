@@ -37,7 +37,7 @@ let rec print_syntax_t s = match (s:Syntax.t) with
   | Syntax.FAdd(e1, e2) -> Printf.printf "FAdd\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
   | Syntax.FSub(e1, e2) -> Printf.printf "FSUB\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
   | Syntax.FMul(e1, e2) -> Printf.printf "FMUL\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
-  | Syntax.FDiv(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
+  | Syntax.FDiv(e1, e2) -> Printf.printf "FDIV\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
   | Syntax.If(e1, e2, e3) -> Printf.printf "IF\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; put_tab (); print_syntax_t e3; count_LR := !count_LR - 1
   | Syntax.Let(xt, e1, e2) -> Printf.printf "LET\n"; count_LR := !count_LR + 1; put_tab (); print_id_t xt; Printf.printf "\n"; put_tab (); print_syntax_t e1; put_tab (); print_syntax_t e2; count_LR := !count_LR - 1
   | Syntax.Var(e) -> Printf.printf "VAR "; print_id e; Printf.printf "\n"
@@ -70,7 +70,7 @@ let rec print_knormal_t k = match (k:KNormal.t) with
   | KNormal.FAdd(e1, e2) -> Printf.printf "FAdd\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
   | KNormal.FSub(e1, e2) -> Printf.printf "FSUB\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
   | KNormal.FMul(e1, e2) -> Printf.printf "FMUL\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
-  | KNormal.FDiv(e1, e2) -> Printf.printf "DIV\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
+  | KNormal.FDiv(e1, e2) -> Printf.printf "FDIV\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; count_LR := !count_LR - 1
   | KNormal.IfEq(e1, e2, e3, e4) -> Printf.printf "IFEQ\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; put_tab (); print_knormal_t e3; put_tab (); print_knormal_t e4; count_LR := !count_LR - 1
   | KNormal.IfLE(e1, e2, e3, e4) -> Printf.printf "IFLE\n"; count_LR := !count_LR + 1; put_tab (); print_id e1; Printf.printf "\n"; put_tab (); print_id e2; Printf.printf "\n"; put_tab (); print_knormal_t e3; put_tab (); print_knormal_t e4; count_LR := !count_LR - 1
   | KNormal.Let(xt, e1, e2) -> Printf.printf "LET\n"; count_LR := !count_LR + 1; put_tab (); print_id_t xt; Printf.printf "\n"; put_tab (); print_knormal_t e1; put_tab (); print_knormal_t e2; count_LR := !count_LR - 1
