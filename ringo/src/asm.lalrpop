@@ -160,7 +160,7 @@ pub Main:Insts={
     "fmv.w.x" <rd:Reg>","<r1:Reg>=> Insts::FMVWX(rd,r1),
     "floor"<rd:Reg>","<r1:Reg>=>Insts::FCVTWS(rd,r1,1),
     "ftoi"<rd:Reg>","<r1:Reg>=>Insts::FCVTWS(rd,r1,4), 
-    "itof"<rd:Reg>","<r1:Reg>=>Insts::FCVTWS(rd,r1,0), 
+    "itof"<rd:Reg>","<r1:Reg>=>Insts::FCVTSW(rd,r1), 
     "flw" <r:Reg>","<i:Imm>"("<r1:Reg>")" => Insts::FLW(r,i,r1),
     "fsw" <r:Reg>","<i:Imm>"("<r1:Reg>")" => Insts::FSW(r,i,r1),
 
