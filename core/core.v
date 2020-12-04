@@ -8,7 +8,8 @@ module core (clk, rst, test, uart_output, uart_input);
     localparam state_in = 6;
 
     reg [31:0] pc;
-    reg [2:0] state;
+    reg [2:0] state_reg;
+    wire [2:0] state;
 
     wire [31:0] mem_data_read;
     wire rstn;
@@ -34,6 +35,8 @@ module core (clk, rst, test, uart_output, uart_input);
     wire [31:0] mem_addr, mem_write_data, reg_write_data;
     wire writef_;
     wire data_ready;
+
+    assign state = (~data_ready && (state_reg == 3)) ? 2 : state_reg;
 
     exec exec_instance(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relative,
         mem_read, mem_write, alu_pc, alu_src, reg_write, reg1_data_wire, reg2_data_wire,
@@ -84,35 +87,35 @@ module core (clk, rst, test, uart_output, uart_input);
     always @(posedge clk) begin
         if (rst) begin
             pc <= 0;
-            state <= 0;
+            state_reg <= 0;
             in_data_write <= 0;
         end else begin
             if (state == 0) begin
-                state <= 1;
+                state_reg <= 1;
             end else if (state == 1) begin
-                state <= 2;
+                state_reg <= 2;
             end else if (state == 2) begin
                 use_in_data <= 0;
                 in_data_write <= 0;
                 if (data_out)
-                    state <= state_out;
+                    state_reg <= state_out;
                 else if (data_in)
-                    state <= state_in;
+                    state_reg <= state_in;
                 else if (data_ready)
-                    state <= 3;
+                    state_reg <= 3;
             end else if (state == 3) begin
-                state <= 4;
+                state_reg <= 4;
             end else if (state == 4) begin
                 pc <= branch_ ? branch_addr : pc + 4;
-                state <= 0;
+                state_reg <= 0;
             end else if (state == state_out) begin
                 if (~tx_busy)
-                    state <= 3;
+                    state_reg <= 3;
             end else if (state == state_in) begin
                 if (rx_ready) begin
                     use_in_data <= 1;
                     in_data_write <= {24'b0, in_data_wire};
-                    state <= 3;
+                    state_reg <= 3;
                 end
             end
         end

@@ -160,8 +160,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                             fsw ? 2 :
                 // flw: add(2)
                             flw ? 2 :
-                // fadd: add(2)
-                            fadd ? 2 :
+                // fadd: fadd(0)
+                            fadd ? 0 :
                 // default => zero (31)
                             31;
                 // in jalr, use the absolute address
