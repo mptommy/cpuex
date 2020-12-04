@@ -242,9 +242,9 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sp reg_sp ss;
       Printf.fprintf oc "\tlw\t%s, %d(%s)\n" reg_ra (4 - ss) reg_sp;
       if List.mem a allregs && a <> regs.(0) then
-        Printf.fprintf oc "\taddi\t%s, %s, 0\n" regs.(0) a
+        Printf.fprintf oc "\taddi\t%s, %s, 0\n" a regs.(0)
       else if List.mem a allfregs && a <> fregs.(0) then (* 浮動小数点 *)
-        Printf.fprintf oc "\tfmv\t%s, %s\n" fregs.(0) a
+        Printf.fprintf oc "\tfmv\t%s, %s\n" a fregs.(0)
   | NonTail(a), CallDir(Id.L(x), ys, zs) ->
       g'_args oc [] ys zs;
       let ss = stacksize () in
@@ -255,9 +255,9 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sp reg_sp ss;
       Printf.fprintf oc "\tlw\t%s, %d(%s)\n" reg_ra (4 - ss) reg_sp;
       if List.mem a allregs && a <> regs.(0) then
-        Printf.fprintf oc "\taddi\t%s, %s, 0\n" regs.(0) a
+        Printf.fprintf oc "\taddi\t%s, %s, 0\n" a regs.(0)
       else if List.mem a allfregs && a <> fregs.(0) then (* 浮動小数点 *)
-        Printf.fprintf oc "\tfmv\t%s, %s\n" fregs.(0) a
+        Printf.fprintf oc "\tfmv\t%s, %s\n" a fregs.(0)
 and g'_tail_if oc e1 e2 b bn reg1 reg2 =
   let b_else = Id.genid (b ^ "_else") in
   Printf.fprintf oc "\t%s\t%s, %s, %s\n" bn reg1 reg2 b_else;
