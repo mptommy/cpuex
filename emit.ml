@@ -85,12 +85,12 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(x), SLL(y, V(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" x y z
   | NonTail(x), SLL(y, C(z)) -> Printf.fprintf oc "\tslli\t%s, %s, %d\n" x y z
   | NonTail(x), Ld(y, V(z)) -> 
-      Printf.fprintf oc "\tadd\t%s, %s, %s\n" y y z;
-      Printf.fprintf oc "\tlw\t%s, 0(%s)\n" x y
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;
+      Printf.fprintf oc "\tlw\t%s, 0(%s)\n" x reg_sw
   | NonTail(x), Ld(y, C(z)) -> Printf.fprintf oc "\tlw\t%s, %d(%s)\n" x z y
   | NonTail(_), St(x, y, V(z)) -> 
-      Printf.fprintf oc "\tadd\t%s, %s, %s\n" y y z;
-      Printf.fprintf oc "\tsw\t%s, 0(%s)\n" x y
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;
+      Printf.fprintf oc "\tsw\t%s, 0(%s)\n" x reg_sw
   | NonTail(_), St(x, y, C(z)) -> Printf.fprintf oc "\tsw\t%s, %d(%s)\n" x z y
   | NonTail(x), FMov(y) when x = y -> ()
   | NonTail(x), FMov(y) -> Printf.fprintf oc "\tfmv\t%s, %s\n" x y;
@@ -142,12 +142,12 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\tout\t%s\n" x
   (* 浮動小数点のロードストア *)
   | NonTail(x), LdF(y, V(z)) ->
-      Printf.fprintf oc "\tadd\t%s, %s, %s\n" y y z;
-      Printf.fprintf oc "\tflw\t%s, 0(%s)\n" x y
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;
+      Printf.fprintf oc "\tflw\t%s, 0(%s)\n" x reg_sw
   | NonTail(x), LdF(y, C(z)) -> Printf.fprintf oc "\tflw\t%s, %d(%s)\n" x z y
   | NonTail(_), StF(x, y, V(z)) -> 
-      Printf.fprintf oc "\tadd\t%s, %s, %s\n" y y z;
-      Printf.fprintf oc "\tfsw\t%s, 0(%s)\n" x y    
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;
+      Printf.fprintf oc "\tfsw\t%s, 0(%s)\n" x reg_sw   
   | NonTail(_), StF(x, y, C(z)) -> Printf.fprintf oc "\tfsw\t%s, %d(%s)\n" x z y  
   (* 浮動小数点のロードストア *)
   | NonTail(_), Comment(s) -> Printf.fprintf oc "\t! %s\n" s

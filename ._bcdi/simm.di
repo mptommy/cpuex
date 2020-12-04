@@ -1,1 +1,2 @@
-simm.cmi : asm.cmi
+simm.cmi : \
+    asm.cmi

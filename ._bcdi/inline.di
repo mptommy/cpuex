@@ -1,1 +1,2 @@
-inline.cmi : kNormal.cmi
+inline.cmi : \
+    kNormal.cmi

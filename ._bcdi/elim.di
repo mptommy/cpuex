@@ -1,1 +1,2 @@
-elim.cmi : kNormal.cmi
+elim.cmi : \
+    kNormal.cmi

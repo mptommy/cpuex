@@ -1573,13 +1573,13 @@ sin.2928:
 	ftoi	%t0, %ft3
 	slli	%t1, %t0, 3
 	lw	%t2, -8(%sp)
-	add	%t2, %t2, %t1
-	flw	%ft3, 0(%t2)
+	add	%t3, %t2, %t1
+	flw	%ft3, 0(%t3)
 	addi	%t1, %zero, 90
 	sub	%t0, %t1, %t0
 	slli	%t0, %t0, 3
-	add	%t2, %t2, %t0
-	flw	%ft4, 0(%t2)
+	add	%t3, %t2, %t0
+	flw	%ft4, 0(%t3)
 	floor	%ft5, %ft1
 	fsub	%ft1, %ft1, %ft5
 	fmul	%ft1, %ft1, %ft2
@@ -2877,8 +2877,8 @@ beq_cont.9886:
 	lw	%a0, -8(%sp)
 	slli	%a0, %a0, 2
 	lw	%a1, -4(%sp)
-	add	%a1, %a1, %a0
-	sw	%t1, 0(%a1)
+	add	%t3, %a1, %a0
+	sw	%t1, 0(%t3)
 	addi	%t3, %s1, -3
 	bne	%t3, %zero, beq_else.9887
 	flw	%ft0, 0(%t2)
@@ -3058,8 +3058,8 @@ beq_else.9906:
 	lw	%t1, -4(%sp)
 	slli	%t1, %t1, 2
 	lw	%t2, 0(%sp)
-	add	%t0, %t0, %t1
-	sw	%t2, 0(%t0)
+	add	%t3, %t0, %t1
+	sw	%t2, 0(%t3)
 	jr	%ra
 read_or_network.3111:
 	addi	%t1, %zero, 0
@@ -3090,8 +3090,8 @@ beq_else.9907:
 	lw	%t1, 0(%sp)
 	slli	%t1, %t1, 2
 	lw	%t2, -8(%sp)
-	add	%t0, %t0, %t1
-	sw	%t2, 0(%t0)
+	add	%t3, %t0, %t1
+	sw	%t2, 0(%t3)
 	jr	%ra
 read_and_network.3113:
 	lw	%t1, 4(%t4)
@@ -3113,8 +3113,8 @@ beq_else.9908:
 	lw	%t1, -8(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -4(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	addi	%t0, %t1, 1
 	lw	%t4, 0(%sp)
 	lw	%t3, 0(%t4)
@@ -3170,8 +3170,8 @@ read_parameter.3115:
 solver_rect_surface.3117:
 	lw	%a0, 4(%t4)
 	slli	%a1, %t2, 3
-	add	%t1, %t1, %a1
-	flw	%ft3, 0(%t1)
+	add	%t3, %t1, %a1
+	flw	%ft3, 0(%t3)
 	sw	%a0, 0(%sp)
 	fsw	%ft2, -8(%sp)
 	sw	%s1, -16(%sp)
@@ -3206,8 +3206,8 @@ solver_rect_surface.3117:
 	lw	%t1, -52(%sp)
 	slli	%t2, %t1, 3
 	lw	%s0, -48(%sp)
-	add	%s0, %s0, %t2
-	flw	%ft0, 0(%s0)
+	add	%t3, %s0, %t2
+	flw	%ft0, 0(%t3)
 	sw	%t0, -68(%sp)
 	sw	%ra, -76(%sp)
 	addi	%sp, %sp, -80
@@ -3224,8 +3224,8 @@ solver_rect_surface.3117:
 	lw	%t1, -52(%sp)
 	slli	%t2, %t1, 3
 	lw	%s0, -64(%sp)
-	add	%s0, %s0, %t2
-	flw	%ft0, 0(%s0)
+	add	%t3, %s0, %t2
+	flw	%ft0, 0(%t3)
 	sw	%ra, -76(%sp)
 	addi	%sp, %sp, -80
 	call	fneg_cond.2971
@@ -3236,21 +3236,21 @@ solver_rect_surface.3117:
 	lw	%t0, -52(%sp)
 	slli	%t0, %t0, 3
 	lw	%t1, -48(%sp)
-	add	%t1, %t1, %t0
-	flw	%ft1, 0(%t1)
+	add	%t3, %t1, %t0
+	flw	%ft1, 0(%t3)
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t0, -32(%sp)
 	slli	%t2, %t0, 3
-	add	%t1, %t1, %t2
-	flw	%ft1, 0(%t1)
+	add	%t3, %t1, %t2
+	flw	%ft1, 0(%t3)
 	fmul	%ft1, %ft0, %ft1
 	flw	%ft2, -24(%sp)
 	fadd	%ft1, %ft1, %ft2
 	fabs	%ft1, %ft1
 	slli	%t0, %t0, 3
 	lw	%t2, -64(%sp)
-	add	%t2, %t2, %t0
-	flw	%ft2, 0(%t2)
+	add	%t3, %t2, %t0
+	flw	%ft2, 0(%t3)
 	fless	%t0, %ft1, %ft2
 	addi	%t3, %t0, 0
 	bne	%t3, %zero, beq_else.9915
@@ -3259,15 +3259,15 @@ solver_rect_surface.3117:
 beq_else.9915:
 	lw	%t0, -16(%sp)
 	slli	%s0, %t0, 3
-	add	%t1, %t1, %s0
-	flw	%ft1, 0(%t1)
+	add	%t3, %t1, %s0
+	flw	%ft1, 0(%t3)
 	fmul	%ft1, %ft0, %ft1
 	flw	%ft2, -8(%sp)
 	fadd	%ft1, %ft1, %ft2
 	fabs	%ft1, %ft1
 	slli	%t0, %t0, 3
-	add	%t2, %t2, %t0
-	flw	%ft2, 0(%t2)
+	add	%t3, %t2, %t0
+	flw	%ft2, 0(%t3)
 	fless	%t0, %ft1, %ft2
 	addi	%t3, %t0, 0
 	bne	%t3, %zero, beq_else.9916
@@ -3728,8 +3728,8 @@ solver.3157:
 	lw	%a0, 8(%t4)
 	lw	%a1, 4(%t4)
 	slli	%t0, %t0, 2
-	add	%a1, %a1, %t0
-	lw	%t0, 0(%a1)
+	add	%t3, %a1, %t0
+	lw	%t0, 0(%t3)
 	flw	%ft0, 0(%t2)
 	sw	%s1, 0(%sp)
 	sw	%s0, -4(%sp)
@@ -4182,8 +4182,8 @@ solver_fast.3180:
 	lw	%a0, 8(%t4)
 	lw	%a1, 4(%t4)
 	slli	%a2, %t0, 2
-	add	%a1, %a1, %a2
-	lw	%a1, 0(%a1)
+	add	%t3, %a1, %a2
+	lw	%a1, 0(%t3)
 	flw	%ft0, 0(%t2)
 	sw	%s1, 0(%sp)
 	sw	%s0, -4(%sp)
@@ -4235,8 +4235,8 @@ solver_fast.3180:
 	lw	%ra, -92(%sp)
 	lw	%t1, -12(%sp)
 	slli	%t1, %t1, 2
-	add	%t0, %t0, %t1
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t1
+	lw	%t0, 0(%t3)
 	lw	%t1, -20(%sp)
 	sw	%t0, -88(%sp)
 	addi	%t0, %t1, 0
@@ -4397,8 +4397,8 @@ solver_fast2.3198:
 	lw	%s1, 8(%t4)
 	lw	%a0, 4(%t4)
 	slli	%a1, %t0, 2
-	add	%a0, %a0, %a1
-	lw	%a0, 0(%a0)
+	add	%t3, %a0, %a1
+	lw	%a0, 0(%t3)
 	sw	%s0, 0(%sp)
 	sw	%t2, -4(%sp)
 	sw	%s1, -8(%sp)
@@ -4427,8 +4427,8 @@ solver_fast2.3198:
 	lw	%ra, -60(%sp)
 	lw	%t1, -16(%sp)
 	slli	%t1, %t1, 2
-	add	%t0, %t0, %t1
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t1
+	lw	%t0, 0(%t3)
 	lw	%t1, -12(%sp)
 	sw	%t0, -56(%sp)
 	addi	%t0, %t1, 0
@@ -4987,8 +4987,8 @@ iter_setup_dirvec_constants.3210:
 	addi	%t3, %t1, 0
 	blt	%t3, %zero, bge_else.9998
 	slli	%s0, %t1, 2
-	add	%t2, %t2, %s0
-	lw	%t2, 0(%t2)
+	add	%t3, %t2, %s0
+	lw	%t2, 0(%t3)
 	sw	%t4, 0(%sp)
 	sw	%t1, -4(%sp)
 	sw	%t2, -8(%sp)
@@ -5026,8 +5026,8 @@ iter_setup_dirvec_constants.3210:
 	lw	%t1, -4(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -20(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	j	beq_cont.10000
 beq_else.9999:
 	addi	%t3, %t0, -2
@@ -5042,8 +5042,8 @@ beq_else.9999:
 	lw	%t1, -4(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -20(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	j	beq_cont.10002
 beq_else.10001:
 	lw	%t0, -24(%sp)
@@ -5056,8 +5056,8 @@ beq_else.10001:
 	lw	%t1, -4(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -20(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 beq_cont.10002:
 beq_cont.10000:
 	addi	%t1, %t1, -1
@@ -5079,8 +5079,8 @@ setup_startp_constants.3215:
 	addi	%t3, %t1, 0
 	blt	%t3, %zero, bge_else.10004
 	slli	%s0, %t1, 2
-	add	%t2, %t2, %s0
-	lw	%t2, 0(%t2)
+	add	%t3, %t2, %s0
+	lw	%t2, 0(%t3)
 	sw	%t4, 0(%sp)
 	sw	%t1, -4(%sp)
 	sw	%t0, -8(%sp)
@@ -5446,16 +5446,16 @@ beq_else.10030:
 check_all_inside.3240:
 	lw	%t2, 4(%t4)
 	slli	%s0, %t0, 2
-	add	%t1, %t1, %s0
-	lw	%s0, 0(%t1)
+	add	%t3, %t1, %s0
+	lw	%s0, 0(%t3)
 	addi	%t3, %s0, 1
 	bne	%t3, %zero, beq_else.10031
 	addi	%t0, %zero, 1
 	jr	%ra
 beq_else.10031:
 	slli	%s0, %s0, 2
-	add	%t2, %t2, %s0
-	lw	%t2, 0(%t2)
+	add	%t3, %t2, %s0
+	lw	%t2, 0(%t3)
 	fsw	%ft2, 0(%sp)
 	fsw	%ft1, -8(%sp)
 	fsw	%ft0, -16(%sp)
@@ -5491,16 +5491,16 @@ shadow_check_and_group.3246:
 	lw	%a2, 8(%t4)
 	lw	%a3, 4(%t4)
 	slli	%a4, %t0, 2
-	add	%t1, %t1, %a4
-	lw	%a4, 0(%t1)
+	add	%t3, %t1, %a4
+	lw	%a4, 0(%t3)
 	addi	%t3, %a4, 1
 	bne	%t3, %zero, beq_else.10033
 	addi	%t0, %zero, 0
 	jr	%ra
 beq_else.10033:
 	slli	%a4, %t0, 2
-	add	%t1, %t1, %a4
-	lw	%a4, 0(%t1)
+	add	%t3, %t1, %a4
+	lw	%a4, 0(%t3)
 	sw	%a3, 0(%sp)
 	sw	%a2, -4(%sp)
 	sw	%a1, -8(%sp)
@@ -5536,8 +5536,8 @@ beq_cont.10035:
 	lw	%t0, -28(%sp)
 	slli	%t0, %t0, 2
 	lw	%t1, -24(%sp)
-	add	%t1, %t1, %t0
-	lw	%t0, 0(%t1)
+	add	%t3, %t1, %t0
+	lw	%t0, 0(%t3)
 	sw	%ra, -44(%sp)
 	addi	%sp, %sp, -48
 	call	o_isinvert.3029
@@ -5600,16 +5600,16 @@ shadow_check_one_or_group.3249:
 	lw	%t2, 8(%t4)
 	lw	%s0, 4(%t4)
 	slli	%s1, %t0, 2
-	add	%t1, %t1, %s1
-	lw	%s1, 0(%t1)
+	add	%t3, %t1, %s1
+	lw	%s1, 0(%t3)
 	addi	%t3, %s1, 1
 	bne	%t3, %zero, beq_else.10039
 	addi	%t0, %zero, 0
 	jr	%ra
 beq_else.10039:
 	slli	%s1, %s1, 2
-	add	%s0, %s0, %s1
-	lw	%s0, 0(%s0)
+	add	%t3, %s0, %s1
+	lw	%s0, 0(%t3)
 	addi	%s1, %zero, 0
 	sw	%t1, 0(%sp)
 	sw	%t4, -4(%sp)
@@ -5641,8 +5641,8 @@ shadow_check_one_or_matrix.3252:
 	lw	%a0, 8(%t4)
 	lw	%a1, 4(%t4)
 	slli	%a2, %t0, 2
-	add	%t1, %t1, %a2
-	lw	%a2, 0(%t1)
+	add	%t3, %t1, %a2
+	lw	%a2, 0(%t3)
 	lw	%a3, 0(%a2)
 	addi	%t3, %a3, 1
 	bne	%t3, %zero, beq_else.10041
@@ -5744,8 +5744,8 @@ solve_each_element.3255:
 	lw	%a5, 8(%t4)
 	lw	%a6, 4(%t4)
 	slli	%a7, %t0, 2
-	add	%t1, %t1, %a7
-	lw	%a7, 0(%t1)
+	add	%t3, %t1, %a7
+	lw	%a7, 0(%t3)
 	addi	%t3, %a7, 1
 	bne	%t3, %zero, beq_else.10052
 	jr	%ra
@@ -5778,8 +5778,8 @@ beq_else.10052:
 	lw	%t0, -48(%sp)
 	slli	%t0, %t0, 2
 	lw	%t1, -44(%sp)
-	add	%t1, %t1, %t0
-	lw	%t0, 0(%t1)
+	add	%t3, %t1, %t0
+	lw	%t0, 0(%t3)
 	sw	%ra, -60(%sp)
 	addi	%sp, %sp, -64
 	call	o_isinvert.3029
@@ -5885,15 +5885,15 @@ solve_one_or_network.3259:
 	lw	%s0, 8(%t4)
 	lw	%s1, 4(%t4)
 	slli	%a0, %t0, 2
-	add	%t1, %t1, %a0
-	lw	%a0, 0(%t1)
+	add	%t3, %t1, %a0
+	lw	%a0, 0(%t3)
 	addi	%t3, %a0, 1
 	bne	%t3, %zero, beq_else.10064
 	jr	%ra
 beq_else.10064:
 	slli	%a0, %a0, 2
-	add	%s1, %s1, %a0
-	lw	%s1, 0(%s1)
+	add	%t3, %s1, %a0
+	lw	%s1, 0(%t3)
 	addi	%a0, %zero, 0
 	sw	%t2, 0(%sp)
 	sw	%t1, -4(%sp)
@@ -5922,8 +5922,8 @@ trace_or_matrix.3263:
 	lw	%a1, 8(%t4)
 	lw	%a2, 4(%t4)
 	slli	%a3, %t0, 2
-	add	%t1, %t1, %a3
-	lw	%a3, 0(%t1)
+	add	%t3, %t1, %a3
+	lw	%a3, 0(%t3)
 	lw	%a4, 0(%a3)
 	addi	%t3, %a4, 1
 	bne	%t3, %zero, beq_else.10066
@@ -6060,8 +6060,8 @@ solve_each_element_fast.3269:
 	lw	%t1, -48(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -44(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	addi	%t3, %t2, 1
 	bne	%t3, %zero, beq_else.10075
 	jr	%ra
@@ -6083,8 +6083,8 @@ beq_else.10075:
 	lw	%t0, -60(%sp)
 	slli	%t0, %t0, 2
 	lw	%t1, -32(%sp)
-	add	%t1, %t1, %t0
-	lw	%t0, 0(%t1)
+	add	%t3, %t1, %t0
+	lw	%t0, 0(%t3)
 	sw	%ra, -68(%sp)
 	addi	%sp, %sp, -72
 	call	o_isinvert.3029
@@ -6190,15 +6190,15 @@ solve_one_or_network_fast.3273:
 	lw	%s0, 8(%t4)
 	lw	%s1, 4(%t4)
 	slli	%a0, %t0, 2
-	add	%t1, %t1, %a0
-	lw	%a0, 0(%t1)
+	add	%t3, %t1, %a0
+	lw	%a0, 0(%t3)
 	addi	%t3, %a0, 1
 	bne	%t3, %zero, beq_else.10087
 	jr	%ra
 beq_else.10087:
 	slli	%a0, %a0, 2
-	add	%s1, %s1, %a0
-	lw	%s1, 0(%s1)
+	add	%t3, %s1, %a0
+	lw	%s1, 0(%t3)
 	addi	%a0, %zero, 0
 	sw	%t2, 0(%sp)
 	sw	%t1, -4(%sp)
@@ -6226,8 +6226,8 @@ trace_or_matrix_fast.3277:
 	lw	%a0, 8(%t4)
 	lw	%a1, 4(%t4)
 	slli	%a2, %t0, 2
-	add	%t1, %t1, %a2
-	lw	%a2, 0(%t1)
+	add	%t3, %t1, %a2
+	lw	%a2, 0(%t3)
 	lw	%a3, 0(%a2)
 	addi	%t3, %a3, 1
 	bne	%t3, %zero, beq_else.10089
@@ -6349,8 +6349,8 @@ get_nvector_rect.3283:
 	addi	%t0, %t0, -1
 	slli	%t0, %t0, 3
 	lw	%t2, -4(%sp)
-	add	%t2, %t2, %t0
-	flw	%ft0, 0(%t2)
+	add	%t3, %t2, %t0
+	flw	%ft0, 0(%t3)
 	sw	%t1, -16(%sp)
 	sw	%ra, -20(%sp)
 	addi	%sp, %sp, -24
@@ -6361,8 +6361,8 @@ get_nvector_rect.3283:
 	lw	%t0, -16(%sp)
 	slli	%t0, %t0, 3
 	lw	%t1, 0(%sp)
-	add	%t1, %t1, %t0
-	fsw	%ft0, 0(%t1)
+	add	%t3, %t1, %t0
+	fsw	%ft0, 0(%t3)
 	jr	%ra
 get_nvector_plane.3285:
 	lw	%t1, 4(%t4)
@@ -7038,8 +7038,8 @@ trace_reflections.3299:
 	addi	%t3, %t0, 0
 	blt	%t3, %zero, bge_else.10134
 	slli	%a5, %t0, 2
-	add	%s0, %s0, %a5
-	lw	%s0, 0(%s0)
+	add	%t3, %s0, %a5
+	lw	%s0, 0(%t3)
 	sw	%t4, 0(%sp)
 	sw	%t0, -4(%sp)
 	fsw	%ft1, -8(%sp)
@@ -7237,8 +7237,8 @@ trace_ray.3304:
 	lw	%t1, -108(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -124(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	addi	%t3, %t1, 0
 	bne	%t3, %zero, beq_else.10146
 	jr	%ra
@@ -7285,8 +7285,8 @@ beq_else.10145:
 	lw	%t0, 0(%t0)
 	slli	%t1, %t0, 2
 	lw	%t2, -76(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	sw	%t0, -136(%sp)
 	sw	%t1, -140(%sp)
 	addi	%t0, %t1, 0
@@ -7339,8 +7339,8 @@ beq_else.10145:
 	lw	%t1, -108(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -124(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	lw	%t0, -52(%sp)
 	sw	%ra, -164(%sp)
 	addi	%sp, %sp, -168
@@ -7349,8 +7349,8 @@ beq_else.10145:
 	lw	%ra, -164(%sp)
 	lw	%t1, -108(%sp)
 	slli	%t2, %t1, 2
-	add	%t0, %t0, %t2
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t2
+	lw	%t0, 0(%t3)
 	lw	%t2, -64(%sp)
 	addi	%t1, %t2, 0
 	sw	%ra, -164(%sp)
@@ -7381,8 +7381,8 @@ beq_else.10145:
 	lw	%t1, -108(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -160(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	lw	%t0, -52(%sp)
 	sw	%ra, -164(%sp)
 	addi	%sp, %sp, -168
@@ -7391,8 +7391,8 @@ beq_else.10145:
 	lw	%ra, -164(%sp)
 	lw	%t1, -108(%sp)
 	slli	%t2, %t1, 2
-	add	%t0, %t0, %t2
-	lw	%t2, 0(%t0)
+	add	%t3, %t0, %t2
+	lw	%t2, 0(%t3)
 	lw	%s0, -48(%sp)
 	sw	%t0, -164(%sp)
 	addi	%t1, %s0, 0
@@ -7405,8 +7405,8 @@ beq_else.10145:
 	lw	%t0, -108(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -164(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	la	%t2, l.7427
 	flw	%ft0, 0(%t2)
 	flw	%ft1, -152(%sp)
@@ -7425,8 +7425,8 @@ beq_else.10145:
 	lw	%ra, -172(%sp)
 	lw	%t1, -108(%sp)
 	slli	%t2, %t1, 2
-	add	%t0, %t0, %t2
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t2
+	lw	%t0, 0(%t3)
 	lw	%t2, -44(%sp)
 	addi	%t1, %t2, 0
 	sw	%ra, -172(%sp)
@@ -7440,8 +7440,8 @@ beq_else.10152:
 	lw	%t1, -108(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -160(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 beq_cont.10153:
 	la	%t0, l.7430
 	flw	%ft0, 0(%t0)
@@ -7552,8 +7552,8 @@ bge_else.10158:
 	addi	%t2, %zero, -1
 	slli	%t1, %t1, 2
 	lw	%s0, -124(%sp)
-	add	%s0, %s0, %t1
-	sw	%t2, 0(%s0)
+	add	%t3, %s0, %t1
+	sw	%t2, 0(%t3)
 bge_cont.10159:
 	lw	%t1, -144(%sp)
 	addi	%t3, %t1, -2
@@ -7628,8 +7628,8 @@ beq_else.10163:
 	lw	%t0, 0(%t0)
 	slli	%t0, %t0, 2
 	lw	%t1, -48(%sp)
-	add	%t1, %t1, %t0
-	lw	%t0, 0(%t1)
+	add	%t3, %t1, %t0
+	lw	%t0, 0(%t3)
 	lw	%t1, -44(%sp)
 	sw	%t0, -60(%sp)
 	addi	%t0, %t1, 0
@@ -7711,8 +7711,8 @@ iter_trace_diffuse_rays.3313:
 	addi	%t3, %s0, 0
 	blt	%t3, %zero, bge_else.10169
 	slli	%a0, %s0, 2
-	add	%t0, %t0, %a0
-	lw	%a0, 0(%t0)
+	add	%t3, %t0, %a0
+	lw	%a0, 0(%t3)
 	sw	%t2, 0(%sp)
 	sw	%t4, -4(%sp)
 	sw	%s1, -8(%sp)
@@ -7742,8 +7742,8 @@ iter_trace_diffuse_rays.3313:
 	lw	%t0, -16(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -12(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	la	%s0, l.7456
 	flw	%ft0, 0(%s0)
 	flw	%ft1, -32(%sp)
@@ -7762,8 +7762,8 @@ beq_else.10171:
 	addi	%t1, %t0, 1
 	slli	%t1, %t1, 2
 	lw	%t2, -12(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	la	%s0, l.7453
 	flw	%ft0, 0(%s0)
 	flw	%ft1, -32(%sp)
@@ -7944,8 +7944,8 @@ calc_diffuse_using_1point.3326:
 	lw	%t1, -12(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -24(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	lw	%s0, -8(%sp)
 	sw	%t0, -36(%sp)
 	addi	%t1, %t2, 0
@@ -7964,12 +7964,12 @@ calc_diffuse_using_1point.3326:
 	lw	%t1, -12(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -28(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	slli	%s0, %t1, 2
 	lw	%s1, -32(%sp)
-	add	%s1, %s1, %s0
-	lw	%s0, 0(%s1)
+	add	%t3, %s1, %s0
+	lw	%s0, 0(%t3)
 	lw	%t4, -4(%sp)
 	addi	%t1, %t2, 0
 	addi	%t2, %s0, 0
@@ -7982,8 +7982,8 @@ calc_diffuse_using_1point.3326:
 	lw	%t0, -12(%sp)
 	slli	%t0, %t0, 2
 	lw	%t1, -36(%sp)
-	add	%t1, %t1, %t0
-	lw	%t1, 0(%t1)
+	add	%t3, %t1, %t0
+	lw	%t1, 0(%t3)
 	lw	%t0, 0(%sp)
 	lw	%t2, -8(%sp)
 	j	vecaccumv.3019
@@ -7991,8 +7991,8 @@ calc_diffuse_using_5points.3329:
 	lw	%a0, 8(%t4)
 	lw	%a1, 4(%t4)
 	slli	%a2, %t0, 2
-	add	%t1, %t1, %a2
-	lw	%t1, 0(%t1)
+	add	%t3, %t1, %a2
+	lw	%t1, 0(%t3)
 	sw	%a0, 0(%sp)
 	sw	%a1, -4(%sp)
 	sw	%s1, -8(%sp)
@@ -8009,8 +8009,8 @@ calc_diffuse_using_5points.3329:
 	addi	%t2, %t1, -1
 	slli	%t2, %t2, 2
 	lw	%s0, -16(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	sw	%t0, -28(%sp)
 	addi	%t0, %t2, 0
 	sw	%ra, -36(%sp)
@@ -8021,8 +8021,8 @@ calc_diffuse_using_5points.3329:
 	lw	%t1, -20(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -16(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	sw	%t0, -32(%sp)
 	addi	%t0, %t2, 0
 	sw	%ra, -36(%sp)
@@ -8034,8 +8034,8 @@ calc_diffuse_using_5points.3329:
 	addi	%t2, %t1, 1
 	slli	%t2, %t2, 2
 	lw	%s0, -16(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	sw	%t0, -36(%sp)
 	addi	%t0, %t2, 0
 	sw	%ra, -44(%sp)
@@ -8046,8 +8046,8 @@ calc_diffuse_using_5points.3329:
 	lw	%t1, -20(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -12(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	sw	%t0, -40(%sp)
 	addi	%t0, %t2, 0
 	sw	%ra, -44(%sp)
@@ -8058,8 +8058,8 @@ calc_diffuse_using_5points.3329:
 	lw	%t1, -8(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -28(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	lw	%s0, -4(%sp)
 	sw	%t0, -44(%sp)
 	addi	%t1, %t2, 0
@@ -8072,8 +8072,8 @@ calc_diffuse_using_5points.3329:
 	lw	%t0, -8(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -32(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	lw	%t2, -4(%sp)
 	addi	%t0, %t2, 0
 	sw	%ra, -52(%sp)
@@ -8084,8 +8084,8 @@ calc_diffuse_using_5points.3329:
 	lw	%t0, -8(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -36(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	lw	%t2, -4(%sp)
 	addi	%t0, %t2, 0
 	sw	%ra, -52(%sp)
@@ -8096,8 +8096,8 @@ calc_diffuse_using_5points.3329:
 	lw	%t0, -8(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -40(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	lw	%t2, -4(%sp)
 	addi	%t0, %t2, 0
 	sw	%ra, -52(%sp)
@@ -8108,8 +8108,8 @@ calc_diffuse_using_5points.3329:
 	lw	%t0, -8(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -44(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	lw	%t2, -4(%sp)
 	addi	%t0, %t2, 0
 	sw	%ra, -52(%sp)
@@ -8120,8 +8120,8 @@ calc_diffuse_using_5points.3329:
 	lw	%t0, -20(%sp)
 	slli	%t0, %t0, 2
 	lw	%t1, -16(%sp)
-	add	%t1, %t1, %t0
-	lw	%t0, 0(%t1)
+	add	%t3, %t1, %t0
+	lw	%t0, 0(%t3)
 	sw	%ra, -52(%sp)
 	addi	%sp, %sp, -56
 	call	p_energy.3073
@@ -8129,8 +8129,8 @@ calc_diffuse_using_5points.3329:
 	lw	%ra, -52(%sp)
 	lw	%t1, -8(%sp)
 	slli	%t1, %t1, 2
-	add	%t0, %t0, %t1
-	lw	%t1, 0(%t0)
+	add	%t3, %t0, %t1
+	lw	%t1, 0(%t3)
 	lw	%t0, 0(%sp)
 	lw	%t2, -4(%sp)
 	j	vecaccumv.3019
@@ -8149,8 +8149,8 @@ do_without_neighbors.3335:
 	lw	%ra, -20(%sp)
 	lw	%t1, -12(%sp)
 	slli	%t2, %t1, 2
-	add	%t0, %t0, %t2
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t2
+	lw	%t0, 0(%t3)
 	addi	%t3, %t0, 0
 	blt	%t3, %zero, bge_else.10185
 	lw	%t0, -8(%sp)
@@ -8161,8 +8161,8 @@ do_without_neighbors.3335:
 	lw	%ra, -20(%sp)
 	lw	%t1, -12(%sp)
 	slli	%t2, %t1, 2
-	add	%t0, %t0, %t2
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t2
+	lw	%t0, 0(%t3)
 	addi	%t3, %t0, 0
 	bne	%t3, %zero, beq_else.10186
 	j	beq_cont.10187
@@ -8221,13 +8221,13 @@ get_surface_id.3342:
 	lw	%ra, -4(%sp)
 	lw	%t1, 0(%sp)
 	slli	%t1, %t1, 2
-	add	%t0, %t0, %t1
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t1
+	lw	%t0, 0(%t3)
 	jr	%ra
 neighbors_are_available.3345:
 	slli	%a0, %t0, 2
-	add	%t2, %t2, %a0
-	lw	%a0, 0(%t2)
+	add	%t3, %t2, %a0
+	lw	%a0, 0(%t3)
 	sw	%t2, 0(%sp)
 	sw	%s0, -4(%sp)
 	sw	%s1, -8(%sp)
@@ -8243,8 +8243,8 @@ neighbors_are_available.3345:
 	lw	%t1, -16(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -12(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	lw	%s0, -8(%sp)
 	sw	%t0, -24(%sp)
 	addi	%t1, %s0, 0
@@ -8259,8 +8259,8 @@ neighbors_are_available.3345:
 	lw	%t0, -16(%sp)
 	slli	%t2, %t0, 2
 	lw	%s0, -4(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	lw	%s0, -8(%sp)
 	addi	%t1, %s0, 0
 	addi	%t0, %t2, 0
@@ -8275,8 +8275,8 @@ neighbors_are_available.3345:
 	addi	%t2, %t0, -1
 	slli	%t2, %t2, 2
 	lw	%s0, 0(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	lw	%s1, -8(%sp)
 	addi	%t1, %s1, 0
 	addi	%t0, %t2, 0
@@ -8291,8 +8291,8 @@ neighbors_are_available.3345:
 	addi	%t0, %t0, 1
 	slli	%t0, %t0, 2
 	lw	%t2, 0(%sp)
-	add	%t2, %t2, %t0
-	lw	%t0, 0(%t2)
+	add	%t3, %t2, %t0
+	lw	%t0, 0(%t3)
 	lw	%t2, -8(%sp)
 	addi	%t1, %t2, 0
 	sw	%ra, -28(%sp)
@@ -8320,8 +8320,8 @@ try_exploit_neighbors.3351:
 	lw	%a1, 8(%t4)
 	lw	%a2, 4(%t4)
 	slli	%a3, %t0, 2
-	add	%s0, %s0, %a3
-	lw	%a3, 0(%s0)
+	add	%t3, %s0, %a3
+	lw	%a3, 0(%t3)
 	addi	%t3, %a0, -4
 	bgt	%t3, %zero, ble_else.10198
 	sw	%t1, 0(%sp)
@@ -8358,8 +8358,8 @@ try_exploit_neighbors.3351:
 	lw	%t0, -36(%sp)
 	slli	%t0, %t0, 2
 	lw	%t1, -28(%sp)
-	add	%t1, %t1, %t0
-	lw	%t0, 0(%t1)
+	add	%t3, %t1, %t0
+	lw	%t0, 0(%t3)
 	lw	%t1, -20(%sp)
 	lw	%t4, -16(%sp)
 	lw	%t3, 0(%t4)
@@ -8373,8 +8373,8 @@ beq_else.10200:
 	lw	%ra, -44(%sp)
 	lw	%s1, -20(%sp)
 	slli	%t1, %s1, 2
-	add	%t0, %t0, %t1
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t1
+	lw	%t0, 0(%t3)
 	addi	%t3, %t0, 0
 	bne	%t3, %zero, beq_else.10201
 	j	beq_cont.10202
@@ -8523,8 +8523,8 @@ pretrace_diffuse_rays.3364:
 	lw	%ra, -28(%sp)
 	lw	%t1, -16(%sp)
 	slli	%t2, %t1, 2
-	add	%t0, %t0, %t2
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t2
+	lw	%t0, 0(%t3)
 	addi	%t3, %t0, 0
 	bne	%t3, %zero, beq_else.10214
 	j	beq_cont.10215
@@ -8560,16 +8560,16 @@ beq_else.10214:
 	lw	%t1, -28(%sp)
 	slli	%t1, %t1, 2
 	lw	%t2, -8(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	lw	%t2, -16(%sp)
 	slli	%s0, %t2, 2
 	lw	%s1, -32(%sp)
-	add	%s1, %s1, %s0
-	lw	%s0, 0(%s1)
+	add	%t3, %s1, %s0
+	lw	%s0, 0(%t3)
 	slli	%s1, %t2, 2
-	add	%t0, %t0, %s1
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %s1
+	lw	%t0, 0(%t3)
 	lw	%t4, -4(%sp)
 	addi	%t2, %t0, 0
 	addi	%t0, %t1, 0
@@ -8588,8 +8588,8 @@ beq_else.10214:
 	lw	%ra, -36(%sp)
 	lw	%t1, -16(%sp)
 	slli	%t2, %t1, 2
-	add	%t0, %t0, %t2
-	lw	%t0, 0(%t0)
+	add	%t3, %t0, %t2
+	lw	%t0, 0(%t3)
 	lw	%t2, -12(%sp)
 	addi	%t1, %t2, 0
 	sw	%ra, -36(%sp)
@@ -8677,8 +8677,8 @@ pretrace_pixels.3367:
 	lw	%t1, -48(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -44(%sp)
-	add	%s0, %s0, %t2
-	lw	%t2, 0(%s0)
+	add	%t3, %s0, %t2
+	lw	%t2, 0(%t3)
 	la	%s1, l.6833
 	flw	%ft1, 0(%s1)
 	lw	%s1, -36(%sp)
@@ -8693,8 +8693,8 @@ pretrace_pixels.3367:
 	lw	%t0, -48(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -44(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	addi	%t0, %t1, 0
 	sw	%ra, -68(%sp)
 	addi	%sp, %sp, -72
@@ -8710,8 +8710,8 @@ pretrace_pixels.3367:
 	lw	%t0, -48(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -44(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	lw	%s0, -32(%sp)
 	addi	%t0, %t1, 0
 	addi	%t1, %s0, 0
@@ -8723,8 +8723,8 @@ pretrace_pixels.3367:
 	lw	%t0, -48(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -44(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	addi	%s0, %zero, 0
 	lw	%t4, -28(%sp)
 	addi	%t0, %t1, 0
@@ -8802,8 +8802,8 @@ scan_pixel.3378:
 	jr	%ra
 ble_else.10220:
 	slli	%a4, %t0, 2
-	add	%s0, %s0, %a4
-	lw	%a4, 0(%s0)
+	add	%t3, %s0, %a4
+	lw	%a4, 0(%t3)
 	sw	%t4, 0(%sp)
 	sw	%a0, -4(%sp)
 	sw	%t2, -8(%sp)
@@ -8843,8 +8843,8 @@ ble_else.10220:
 	lw	%t0, -32(%sp)
 	slli	%t1, %t0, 2
 	lw	%t2, -20(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	addi	%s0, %zero, 0
 	lw	%t4, -16(%sp)
 	addi	%t0, %t1, 0
@@ -9105,8 +9105,8 @@ init_line_elements.3394:
 	lw	%t1, -4(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, 0(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	addi	%t1, %t1, -1
 	addi	%t0, %s0, 0
 	j	init_line_elements.3394
@@ -9207,11 +9207,11 @@ calc_dirvec.3404:
 	flw	%ft3, 0(%t0)
 	fdiv	%ft2, %ft3, %ft2
 	slli	%t0, %t1, 2
-	add	%s0, %s0, %t0
-	lw	%t0, 0(%s0)
+	add	%t3, %s0, %t0
+	lw	%t0, 0(%t3)
 	slli	%t1, %t2, 2
-	add	%t0, %t0, %t1
-	lw	%t1, 0(%t0)
+	add	%t3, %t0, %t1
+	lw	%t1, 0(%t3)
 	sw	%t0, 0(%sp)
 	sw	%t2, -4(%sp)
 	fsw	%ft2, -8(%sp)
@@ -9235,8 +9235,8 @@ calc_dirvec.3404:
 	addi	%t1, %t0, 40
 	slli	%t1, %t1, 2
 	lw	%t2, 0(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	addi	%t0, %t1, 0
 	sw	%ra, -36(%sp)
 	addi	%sp, %sp, -40
@@ -9258,8 +9258,8 @@ calc_dirvec.3404:
 	addi	%t1, %t0, 80
 	slli	%t1, %t1, 2
 	lw	%t2, 0(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	addi	%t0, %t1, 0
 	sw	%ra, -36(%sp)
 	addi	%sp, %sp, -40
@@ -9282,8 +9282,8 @@ calc_dirvec.3404:
 	addi	%t1, %t0, 1
 	slli	%t1, %t1, 2
 	lw	%t2, 0(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	addi	%t0, %t1, 0
 	sw	%ra, -36(%sp)
 	addi	%sp, %sp, -40
@@ -9308,8 +9308,8 @@ calc_dirvec.3404:
 	addi	%t1, %t0, 41
 	slli	%t1, %t1, 2
 	lw	%t2, 0(%sp)
-	add	%t2, %t2, %t1
-	lw	%t1, 0(%t2)
+	add	%t3, %t2, %t1
+	lw	%t1, 0(%t3)
 	addi	%t0, %t1, 0
 	sw	%ra, -36(%sp)
 	addi	%sp, %sp, -40
@@ -9333,8 +9333,8 @@ calc_dirvec.3404:
 	addi	%t0, %t0, 81
 	slli	%t0, %t0, 2
 	lw	%t1, 0(%sp)
-	add	%t1, %t1, %t0
-	lw	%t0, 0(%t1)
+	add	%t3, %t1, %t0
+	lw	%t0, 0(%t3)
 	sw	%ra, -36(%sp)
 	addi	%sp, %sp, -40
 	call	d_vec.3084
@@ -9555,8 +9555,8 @@ create_dirvec_elements.3423:
 	lw	%t1, -8(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -4(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	addi	%t1, %t1, -1
 	lw	%t4, 0(%sp)
 	addi	%t0, %s0, 0
@@ -9593,11 +9593,11 @@ create_dirvecs.3426:
 	lw	%t1, -12(%sp)
 	slli	%t2, %t1, 2
 	lw	%s0, -8(%sp)
-	add	%s0, %s0, %t2
-	sw	%t0, 0(%s0)
+	add	%t3, %s0, %t2
+	sw	%t0, 0(%t3)
 	slli	%t0, %t1, 2
-	add	%s0, %s0, %t0
-	lw	%t0, 0(%s0)
+	add	%t3, %s0, %t0
+	lw	%t0, 0(%t3)
 	addi	%t2, %zero, 118
 	lw	%t4, -4(%sp)
 	addi	%t1, %t2, 0
@@ -9619,8 +9619,8 @@ init_dirvec_constants.3428:
 	addi	%t3, %t1, 0
 	blt	%t3, %zero, bge_else.10241
 	slli	%s0, %t1, 2
-	add	%t0, %t0, %s0
-	lw	%s0, 0(%t0)
+	add	%t3, %t0, %s0
+	lw	%s0, 0(%t3)
 	sw	%t0, 0(%sp)
 	sw	%t4, -4(%sp)
 	sw	%t1, -8(%sp)
@@ -9646,8 +9646,8 @@ init_vecset_constants.3431:
 	addi	%t3, %t0, 0
 	blt	%t3, %zero, bge_else.10243
 	slli	%s0, %t0, 2
-	add	%t2, %t2, %s0
-	lw	%t2, 0(%t2)
+	add	%t3, %t2, %s0
+	lw	%t2, 0(%t3)
 	addi	%s0, %zero, 119
 	sw	%t4, 0(%sp)
 	sw	%t0, -4(%sp)
@@ -9747,8 +9747,8 @@ add_reflection.3435:
 	lw	%t1, -4(%sp)
 	slli	%t1, %t1, 2
 	lw	%t2, 0(%sp)
-	add	%t2, %t2, %t1
-	sw	%t0, 0(%t2)
+	add	%t3, %t2, %t1
+	sw	%t0, 0(%t3)
 	jr	%ra
 setup_rect_reflection.3442:
 	lw	%t2, 12(%t4)
@@ -9953,8 +9953,8 @@ setup_reflections.3448:
 	addi	%t3, %t0, 0
 	blt	%t3, %zero, bge_else.10253
 	slli	%s1, %t0, 2
-	add	%s0, %s0, %s1
-	lw	%s0, 0(%s0)
+	add	%t3, %s0, %s1
+	lw	%s0, 0(%t3)
 	sw	%t1, 0(%sp)
 	sw	%t0, -4(%sp)
 	sw	%t2, -8(%sp)
