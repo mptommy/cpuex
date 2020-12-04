@@ -68,7 +68,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   (* 末尾でなかったら計算結果をdestにセット (caml2html: emit_nontail) *)
   | NonTail(_), Nop -> ()
   | NonTail(x), Set(i) -> Printf.fprintf oc "\taddi\t%s, %s, %d\n" x "%zero" i (* ワードの即値をレジスタに代入 *)
-  | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tla\t%s, %s\n" x y (* まだ *)
+  | NonTail(x), SetL(Id.L(y)) -> Printf.fprintf oc "\tla\t%s, %s\n" x y 
   | NonTail(x), Mov(y) when x = y -> ()
   | NonTail(x), Mov(y) -> Printf.fprintf oc "\tadd\t%s, %s, %s\n" x "%zero" y
   | NonTail(x), Neg(y) -> Printf.fprintf oc "\tsub\t%s, %s, %s\n" x "%zero" y
@@ -185,22 +185,22 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
       g'_tail_if oc e1 e2 "beq" "bne" reg_sw reg_zero 
   | Tail, IfEq(x, V(y), e1, e2) ->
-      g'_tail_if oc e1 e2 "beq" "bne"x y
+      g'_tail_if oc e1 e2 "beq" "bne" x y
   | Tail, IfLE(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
       g'_tail_if oc e1 e2 "ble" "bgt" reg_sw reg_zero
   | Tail, IfLE(x, V(y), e1, e2) ->
-      g'_tail_if oc e1 e2 "ble" "bgt"x y
+      g'_tail_if oc e1 e2 "ble" "bgt" x y
   | Tail, IfGE(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
       g'_tail_if oc e1 e2 "bge" "blt" reg_sw reg_zero
   | Tail, IfGE(x, V(y), e1, e2) ->
-      g'_tail_if oc e1 e2 "bge" "blt"x y
+      g'_tail_if oc e1 e2 "bge" "blt" x y
   | Tail, IfFEq(x, y, e1, e2) ->
       Printf.fprintf oc "\tfeq\t%s, %s, %s\n" reg_sw x y;
       g'_tail_if oc e1 e2 "bne" "beq" reg_sw reg_zero
   | Tail, IfFLE(x, y, e1, e2) ->
-      Printf.fprintf oc "\tfle\t%s, %s, %s\n" reg_sw x y; (* equalはないらしい *)
+      Printf.fprintf oc "\tfle\t%s, %s, %s\n" reg_sw x y; 
       g'_tail_if oc e1 e2 "bne" "beq" reg_sw reg_zero
   | NonTail(z), IfEq(x, C(y), e1, e2) ->
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
@@ -221,7 +221,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\tfeq\t%s, %s, %s\n" reg_sw x y;
       g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "beq" reg_sw reg_zero
   | NonTail(z), IfFLE(x, y, e1, e2) ->
-      Printf.fprintf oc "\tfle\t%s, %s, %s\n" reg_sw x y; (* equalはないらしい *)
+      Printf.fprintf oc "\tfle\t%s, %s, %s\n" reg_sw x y; 
       g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "beq" reg_sw reg_zero
   (* 関数呼び出しの仮想命令の実装 (caml2html: emit_call) *)
   | Tail, CallCls(x, ys, zs) -> (* 末尾呼び出し (caml2html: emit_tailcall) *)
@@ -315,7 +315,7 @@ let f oc (Prog(data, fundefs, e)) =
   (* Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n"; (* from gcc; why 112? *) *)
   stackset := S.empty;
   stackmap := [];
-  g oc (NonTail("%g0"), e);
+  (* g oc (NonTail("%g0"), e); *)
   (* Printf.fprintf oc "\tret\n"; *)
   Printf.fprintf oc "halt:\n";
   Printf.fprintf oc "\tjal\thalt\n";
