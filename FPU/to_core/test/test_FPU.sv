@@ -1,0 +1,188 @@
+`timescale 1ns / 100ps
+`default_nettype none
+
+module test_FPU
+    #(parameter MAX_NSTAGE = 10,
+      parameter REPEATNUM = 50,
+      parameter RANDSEED = 2) ();
+
+wire [31:0] x1,x2,y;
+wire        ovf;
+shortreal    fx1,fx2,fy;
+logic [31:0] fybit;
+bit 	      fovf;
+bit 	      checkovf;
+int i;
+logic [31:0] r;
+
+logic clk, rstn;
+logic [3:0] ctl;
+logic en, ready;
+int diff;
+int totalclk;
+
+logic [31:0] x1_reg[MAX_NSTAGE:0];
+logic [31:0] x2_reg[MAX_NSTAGE:0];
+logic [4:0] wait_clock;
+
+//localparam FADD_NSTAGE = 2;
+
+assign x1 = x1_reg[0];
+assign x2 = x2_reg[0];
+
+FPU u1(clk,rstn,ctl,x1,x2,y,ready,en);
+
+initial begin
+	// $dumpfile("test_FPU.vcd");
+	// $dumpvars(0);
+
+    $display("start of checking module FPU");
+    $display("difference message format");
+    $display("x1 = [input 1(bit)], [exponent 1(decimal)]");
+    $display("x2 = [input 2(bit)], [exponent 2(decimal)]");
+    $display("ref. : result(float) sign(bit),exponent(decimal),mantissa(bit)");
+    $display("FPU : result(float) sign(bit),exponent(decimal),mantissa(bit)");
+
+    #1;			//t = 1ns
+    rstn = 0;
+    clk = 1;
+    x1_reg[0] = 0;
+    x2_reg[0] = 0;
+    i=0;
+    wait_clock = 0;
+    totalclk = 0;
+
+    #1;			//t = 2ns
+    clk = 0;
+    #1;			//t = 3ns
+    clk = 1;
+    rstn = 1;
+
+    repeat(RANDSEED * REPEATNUM) begin
+        i = $urandom();
+    end
+
+    repeat(REPEATNUM) begin
+        r = $urandom();
+        case (r[3:0])
+            4'b0000: ctl <= 0;
+            4'b0001: ctl <= 1;
+            4'b0010: ctl <= 2;
+            4'b0011: ctl <= 3;
+            4'b0100: ctl <= 4;
+            4'b0101: ctl <= 5;
+            4'b0110: ctl <= 9;
+            4'b0111: ctl <= 10;
+            4'b1000: ctl <= 11;
+            4'b1001: ctl <= 12;
+            default: ctl <= 2;
+        endcase
+        
+        x1_reg[0] <= $urandom();
+        x2_reg[0] <= $urandom();
+        en <= 1;
+
+        #1;
+		clk = 0;
+        #1;
+		clk = 1;
+        en <= 0;
+
+        // ラッパーのモジュールにポンポン値を入れてしまうと、答えの衝突と何の答えか分からなくなることが起こるため、結果が出るまではストール。
+        while (~ready) begin
+            #1;
+		    clk = 0;
+		    #1;
+		    clk = 1;
+        end
+        /*repeat (MAX_NSTAGE) begin
+            #1;
+		    clk = 0;
+		    #1;
+		    clk = 1;
+        end*/
+    end
+    repeat(MAX_NSTAGE) begin
+        #1;
+	    clk = 0;
+	    #1;
+	    clk = 1;
+    end
+    $display("end of checking module FPU");
+    $finish;
+end
+
+always @(posedge clk) begin
+    totalclk = totalclk+1;
+    if(~rstn) begin
+	    x1_reg[MAX_NSTAGE:0] <= {default: 32'b0};
+	    x2_reg[MAX_NSTAGE:0] <= {default: 32'b0};
+        wait_clock <= 0;
+    end else begin
+        x2_reg[MAX_NSTAGE:1] <= x2_reg[MAX_NSTAGE-1:0];
+        x1_reg[MAX_NSTAGE:1] <= x1_reg[MAX_NSTAGE-1:0];
+        if(en) begin
+            wait_clock <= 1;
+        end else begin
+            wait_clock <= wait_clock + 1;
+        end
+    end
+end
+   
+always @(posedge clk) begin
+	if (ready) begin
+		fx1 = $bitstoshortreal(x1_reg[wait_clock]);
+		fx2 = $bitstoshortreal(x2_reg[wait_clock]);
+        case (ctl)
+            0: fy = fx1 + fx2;
+            1: fy = fx1 - fx2;
+            2: fy = fx1 * fx2;
+            3: fy = 1.0 / fx1;
+            4: fy = fx1 / fx2;
+            5: fy = fx1 / 2;
+            9: fy = 0;
+            10: fy = 0;
+            11: fy = (fx1 < 0) ? -fx1 : fx1;
+            12: fy = -fx1;
+        endcase
+        fybit = $shortrealtobits(fy);
+        if (ctl == 11) begin
+            fybit[0] = (fx1 == fx2);
+        end else if (ctl == 12) begin
+            fybit[0] = (fx1 <= fx2);
+        end
+        
+        $display("");
+        case (ctl)
+            0: $display("fadd");
+            1: $display("fsub");
+            2: $display("fmul");
+            3: $display("finv");
+            4: $display("fdiv");
+            5: $display("fhalf");
+            9: $display("feq");
+            10: $display("fle");
+            11: $display("fabs");
+            12: $display("fneg");
+        endcase
+        //$display("wait_clock = %d", wait_clock);
+
+        diff = (fybit >= y) ? fybit - y : y - fybit;
+        $display("diff = %d", diff);
+        //if (y !== fybit || ovf !== fovf) begin
+   	        $display("x1 = %b %b %b, %3d",
+	        x1_reg[wait_clock][31], x1_reg[wait_clock][30:23], x1_reg[wait_clock][22:0], x1_reg[wait_clock][30:23]);
+   	        $display("x2 = %b %b %b, %3d",
+	        x2_reg[wait_clock][31], x2_reg[wait_clock][30:23], x2_reg[wait_clock][22:0], x2_reg[wait_clock][30:23]);
+   	        $display("%e %b,%3d,%b", fy,
+	        fybit[31], fybit[30:23], fybit[22:0]);
+   	        $display("%e %b,%3d,%b\n", $bitstoshortreal(y),
+	        y[31], y[30:23], y[22:0]);
+        //end
+    end
+    $display("total clocks = %d", totalclk);
+    //$display("%e %b,%3d,%b %b\n", $bitstoshortreal(y),y[31], y[30:23], y[22:0], ovf);
+end
+endmodule
+
+`default_nettype wire
