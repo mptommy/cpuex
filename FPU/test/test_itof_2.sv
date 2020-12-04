@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_itof
-    #(parameter NSTAGE = 3,
+    #(parameter NSTAGE = 2,
       parameter REPEATNUM = 50,
       parameter RANDSEED = 2) ();
 
@@ -12,6 +12,7 @@ logic [31:0] absx, fybit, absfybit;
 
 logic clk, rstn;
 int i, diff;
+logic [31:0] r, x1d;
 
 logic [31:0]	x1_reg[NSTAGE:0];
 logic 	val[NSTAGE:0];
@@ -49,7 +50,9 @@ initial begin
     end
 
     repeat(REPEATNUM) begin
-        x1_reg[0] <= $urandom();
+        r = $urandom();
+        x1d = $urandom();
+        x1_reg[0] <= (r[0]) ? x1d : {x1d[31], 21'b0, x1d[9:0]};
         val[0] <= 1;
 
         #1;

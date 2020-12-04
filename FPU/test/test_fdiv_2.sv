@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_fdiv
-    #(parameter NSTAGE = 9,
+    #(parameter NSTAGE = 6,
       parameter REPEATNUM = 50,
       parameter RANDSEED = 2) ();
 

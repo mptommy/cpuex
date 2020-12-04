@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_fadd
-   #(parameter NSTAGE = 2)
+   #(parameter NSTAGE = 1)
     ();
 wire [31:0] x1,x2,y;
 //wire input_ready,output_ready,received;

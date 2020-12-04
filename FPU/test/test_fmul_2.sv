@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_fmul
-    #(parameter NSTAGE = 3,
+    #(parameter NSTAGE = 2,
       parameter REPEATNUM = 50,
       parameter RANDSEED = 2) ();
 

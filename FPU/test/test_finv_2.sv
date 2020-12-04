@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_finv
-    #(parameter NSTAGE = 4,
+    #(parameter NSTAGE = 3,
       parameter REPEATNUM = 50,
       parameter RANDSEED = 2) ();
 

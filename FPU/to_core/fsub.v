@@ -1,7 +1,7 @@
 // x2がnan, -nan以外は動きます。とりあえず。
 
 `default_nettype none
-module fsub #(NSTAGE = 2)(
+module fsub #(NSTAGE = 1)(
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
@@ -9,19 +9,17 @@ module fsub #(NSTAGE = 2)(
     input wire clk,
     input wire rstn); 
 
-// stage = 0 (x1, x2)
+// stage = 0 (x1, x2 -> es, ss, tstck, mye)
 
-// stage = 1 (x1r[0], x2rn[0] -> es, ss, tstck, mye)
+reg [31:0] x1r;
+reg [31:0] x2rn;
 
-reg [31:0] x1r[1:0];
-reg [31:0] x2rn[1:0];
-
-wire s1 = x1r[0][31];
-wire [7:0] e1= x1r[0][30:23];
-wire [22:0] m1 = x1r[0][22:0];
-wire s2 = x2rn[0][31];
-wire [7:0] e2= x2rn[0][30:23];
-wire [22:0] m2 = x2rn[0][22:0];
+wire s1 = x1[31];
+wire [7:0] e1= x1[30:23];
+wire [22:0] m1 = x1[22:0];
+wire s2 = ~x2[31];
+wire [7:0] e2= x2[30:23];
+wire [22:0] m2 = x2[22:0];
 
 wire [24:0] m1a = (e1 == 'b0) ? {2'b00,m1} : {2'b01,m1};
 wire [24:0] m2a = (e2== 'b0) ? {2'b00,m2} : {2'b01,m2};
@@ -53,19 +51,19 @@ wire tstck = |(mia[28:0]);
 
 wire [26:0] mye = (s1 == s2) ? ({ms,2'b0} + mia[55:29]) : {ms,2'b0} - mia[55:29];
 
-// stage = 2 (x1r[1], esr, ssr, tstckr, myer -> y)
+// stage = 2 (x1r, x2rn, esr, ssr, tstckr, myer -> y)
 
 reg [7:0] esr;
 reg ssr;
 reg tstckr;
 reg [26:0] myer;
 
-wire s1r = x1r[1][31];
-wire [7:0] e1r = x1r[1][30:23];
-wire [22:0] m1r = x1r[1][22:0];
-wire s2r = x2rn[1][31];
-wire [7:0] e2r = x2rn[1][30:23];
-wire [22:0] m2r = x2rn[1][22:0];
+wire s1r = x1r[31];
+wire [7:0] e1r = x1r[30:23];
+wire [22:0] m1r = x1r[22:0];
+wire s2r = x2rn[31];
+wire [7:0] e2r = x2rn[30:23];
+wire [22:0] m2r = x2rn[22:0];
 
 wire [7:0] esi = esr + 1;
 
@@ -119,25 +117,20 @@ wire nzm2 = |(m2r[22:0]);
 
 always @(posedge clk) begin
     if(~rstn) begin
-        x1r[0] <= 'b0;
-        x2rn[0] <= 'b0;
+        x1r <= 'b0;
+        x2rn <= 'b0;
         esr <= 'b0;
         ssr <= 'b0;
         myer <= 'b0;
         tstckr <= 'b0;
     end else begin
-        x1r[0] <= x1;
-        x2rn[0] <= {~x2[31], x2[30:0]};
+        x1r <= x1;
+        x2rn <= {~x2[31], x2[30:0]};
         esr <= es;
         ssr <= ss;
         myer <= mye;
         tstckr <= tstck;
     end
-end
-
-always @(posedge clk) begin
-    x1r[1] <= x1r[0];
-    x2rn[1] <= x2rn[0];
 end
 
 assign y = (e1r == 8'd255 && e2r!= 8'd255)? {s1r,8'd255,nzm1,m1r[21:0]}:

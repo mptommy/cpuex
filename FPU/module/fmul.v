@@ -1,7 +1,7 @@
 //後でオーバーフローとアンダーフローに対応しよう。
 
 `default_nettype none
-module fmul #(parameter NSTAGE = 3)(
+module fmul #(parameter NSTAGE = 2)(
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
@@ -9,16 +9,11 @@ module fmul #(parameter NSTAGE = 3)(
     input wire clk,
     input wire rstn);
 
-// 入力時がstage = 0 (x1, x2)
-
-// stage = 1 (x1r[0], x2r[0] -> hh, hl, lh)
-
-reg[31:0] x1r[1:0];
-reg[31:0] x2r[1:0];
+// stage = 0 (x1, x2 -> hh, hl, lh)
 
 // 1. {s1,e1,m1} = x1、{s2,e2,m2} = x2
-wire [22:0] m1 = x1r[0][22:0];
-wire [22:0] m2 = x2r[0][22:0];
+wire [22:0] m1 = x1[22:0];
+wire [22:0] m2 = x2[22:0];
 
 // 2. H, Lに分割する。
 wire [12:0] hi1 = {1'b1, m1[22:11]};
@@ -31,8 +26,10 @@ wire [25:0] hh = hi1 * hi2;
 wire [23:0] hl = hi1 * lo2;
 wire [23:0] lh = lo1 * hi2;
 
-// stage = 2 (hhr, hlr, lhr, x1r[1], x2r[1] -> mmul, ym0, ye0)
+// stage = 1 (x1r, x2r, hhr, hlr, lhr -> mmul, ym0, ye0)
 
+reg[31:0] x1r;
+reg[31:0] x2r;
 reg [25:0] hhr;
 reg [23:0] hlr;
 reg [23:0] lhr;
@@ -46,15 +43,15 @@ wire [22:0] ym0 =   (mmul[26] == 1) ? mmul[25:3] :
                     (mmul[24] == 1) ? mmul[23:1] : mmul[22:0];
 
 // 6. 符号部と繰り上がり前の指数部の計算。
-wire s1 = x1r[1][31];
-wire s2 = x2r[1][31];
+wire s1 = x1r[31];
+wire s2 = x2r[31];
 wire ys = s1 ^ s2;
 
-wire [7:0] e1= x1r[1][30:23];
-wire [7:0] e2= x2r[1][30:23];
+wire [7:0] e1= x1r[30:23];
+wire [7:0] e2= x2r[30:23];
 wire [9:0] ye0 = e1 + e2 + 129;      //256-127
 
-// stage = 3 (ysr, mmulr, ym0r, ye0r -> ovf, y)
+// stage = 2 (ysr, mmulr, ym0r, ye0r -> ovf, y)
 
 reg ysr;
 reg [22:0] ym0r;
@@ -71,8 +68,8 @@ wire [22:0] ym = (ye == 255 || ye == 0) ? 0 : ym0r;
 
 always @(posedge clk) begin
     if(~rstn) begin
-        x1r[0] <= 'b0;
-        x2r[0] <= 'b0;
+        x1r <= 'b0;
+        x2r <= 'b0;
         hhr <= 'b0;
         hlr <= 'b0;
         lhr <= 'b0;
@@ -81,8 +78,8 @@ always @(posedge clk) begin
         ym0r <= 'b0;
         ye0r <= 'b0;
     end else begin
-        x1r[0] <= x1;
-        x2r[0] <= x2;
+        x1r <= x1;
+        x2r <= x2;
         hhr <= hh;
         hlr <= hl;
         lhr <= lh;
@@ -91,11 +88,6 @@ always @(posedge clk) begin
         ym0r <= ym0;
         ye0r <= ye0;
     end
-end
-
-always @(posedge clk) begin
-    x1r[1] <= x1r[0];
-    x2r[1] <= x2r[0];
 end
 
 assign ovf = (ye0[9] == 1) ? 1 : 0;
