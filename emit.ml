@@ -315,7 +315,7 @@ let f oc (Prog(data, fundefs, e)) =
   (* Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n"; (* from gcc; why 112? *) *)
   stackset := S.empty;
   stackmap := [];
-  (* g oc (NonTail("%g0"), e); *)
+  g oc (NonTail("%g0"), e);
   (* Printf.fprintf oc "\tret\n"; *)
   Printf.fprintf oc "halt:\n";
   Printf.fprintf oc "\tjal\thalt\n";
