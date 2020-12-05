@@ -4,9 +4,9 @@ module sqrt #(parameter NSTAGE = 5)(
     output wire [31:0] y,
     //output wire ovf,
     input wire clk,
-    input wire rstn); 
+    input wire rstn);
 
-// stage = 0 (x -> csr, grd) 
+// stage = 0 (x -> csr, grd)
 
 reg[31:0] xr[4:0];
 
@@ -81,7 +81,10 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
-    xr[4:1] <= xr[3:0];
+    xr[4] <= xr[3];
+    xr[3] <= xr[2];
+    xr[2] <= xr[1];
+    xr[1] <= xr[0];
     cstr[1] <= cstr[0];
 end
 

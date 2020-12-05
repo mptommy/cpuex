@@ -3,7 +3,7 @@
 `default_nettype none
 module sqrt_load_const_table (
     input wire [9:0] addr,
-    output reg [81:0] cst,
+    output wire [81:0] cst,
     input wire clk,
 	input wire rstn);
 
@@ -1041,7 +1041,7 @@ endmodule
 
 module sqrt_load_grad_table (
     input wire [9:0] addr,
-    output reg [70:0] grd,
+    output wire [70:0] grd,
     input wire clk,
 	input wire rstn);
 

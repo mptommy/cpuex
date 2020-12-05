@@ -1,5 +1,5 @@
 `default_nettype none
-module itof #(parameter NSTAGE = 2) (
+module itof (
     input wire [31:0] x,
     output wire [31:0] y,
     input wire clk,
@@ -46,7 +46,7 @@ wire [31:0] yni =   (absxr[30] == 1) ? {sr, 8'b10011101, absxr[29:7]} :
                     (absxr[3] == 1) ? {sr, 8'b10000010, absxr[2:0], 20'b0} :
                     (absxr[2] == 1) ? {sr, 8'b10000001, absxr[1:0], 21'b0} :
                     (absxr[1] == 1) ? {sr, 8'b10000000, absxr[0], 22'b0} :
-                    (absxr[0] == 1) ? {sr, 8'b01111111, 23'b0} : 
+                    (absxr[0] == 1) ? {sr, 8'b01111111, 23'b0} :
                     (absxr[31] == 1) ? {1'b1, 8'b10011110, 23'b0} : 32'b0;
 
 // 1/2ulpが1(つまり、(ulp以下)≧1/2)なら切り上げ。実際には最近接偶数丸めを行っているっぽい。

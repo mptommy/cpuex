@@ -1,12 +1,12 @@
 `default_nettype none
-module finv #(parameter NSTAGE = 3)(
+module finv (
     input wire [31:0] x,
     output wire [31:0] y,
     //output wire ovf,
     input wire clk,
-    input wire rstn); 
+    input wire rstn);
 
-// stage = 0 (x -> csr, grd) 
+// stage = 0 (x -> csr, grd)
 
 reg[31:0] xr[2:0];
 
@@ -64,7 +64,8 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
-    xr[2:1] <= xr[1:0];
+    xr[2] <= xr[1];
+    xr[1] <= xr[0];
     cstr[1] <= cstr[0];
 end
 

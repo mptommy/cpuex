@@ -1,5 +1,5 @@
 `default_nettype none
-module ftoi #(parameter NSTAGE = 2)(
+module ftoi (
     input wire [31:0] x,
     output wire [31:0] y,
     input wire clk,
