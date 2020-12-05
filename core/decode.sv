@@ -53,6 +53,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign feq = (funct7 == 7'b1010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
     assign feq = (funct7 == 7'b1010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
     assign fle = (funct7 == 7'b1010000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
+    assign fmv = (funct7 == 7'b0010000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
+    assign fabs = (funct7 == 7'b0010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
 
     always @ (posedge clk) begin
         //DECODE
@@ -190,6 +192,10 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                             feq ? 9 :
                 // fle: fle(10):
                             fle ? 10 :
+                // fmv: choosea(9):
+                            fmv ? 9 :
+                // fabs: fabs(10):
+                            fabs ? 11 :
                 // default => zero (31)
                             31;
                 // in jalr, use the absolute address
@@ -197,10 +203,10 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 write_reg <= instr_raw[11:7];
                 data_out <= out_type;
                 data_in <= in_type;
-                readf1 <= (fadd || fsub || fmul || fdiv || fneg || fhalf || feq || fle || fmv_x_w) ? 1 : 0;
-                readf2 <= (fadd || fsub || fmul || fdiv || fneg || fhalf || feq || fle || fsw) ? 1 : 0;
-                writef <= (fadd || fsub || fmul || fdiv || fneg || fhalf || flw || fmv_w_x) ? 1 : 0;
-                use_fpu <= (fadd || fsub || fmul || fdiv || fneg || fhalf || feq || fle) ? 1 : 0;
+                readf1 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fmv || fhalf || feq || fle || fmv_x_w) ? 1 : 0;
+                readf2 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fmv || fhalf || feq || fle || fsw) ? 1 : 0;
+                writef <= (fadd || fsub || fmul || fdiv || fneg || fabs || fmv || fhalf || flw || fmv_w_x) ? 1 : 0;
+                use_fpu <= (fadd || fsub || fmul || fdiv || fneg || fabs || fhalf || feq || fle) ? 1 : 0;
             end else begin
                 data_out <= 0;
                 data_in <= 0;
