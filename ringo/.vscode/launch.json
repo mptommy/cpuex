@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Launch",
             "program": "${workspaceFolder}/target/debug/ringo",
-            "args": ["${workspaceFolder}/target/debug/lwlabel2.s"],
+            "args": ["${workspaceFolder}/target/debug/mandelb.s"],
             "cwd": "${workspaceFolder}"
         },
       /*  {
