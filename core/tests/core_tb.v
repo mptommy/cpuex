@@ -18,28 +18,47 @@ module core_tb();
     uart_tx uart_tx_instance(sending, start_sending, uart_busy, uart_in, clk, rstn);
     always #10 clk = ~clk;
 
+    reg [1:0] send_count;
+
     initial begin
         rst = 1;
         clk = 0;
         received = 0;
         start_sending = 0;
         sending = 0;
+        send_count = 0;
         #55 rst = 0;
-        #1000000 $finish();
+        #2000000 $finish();
     end
+
+    reg wait_busy;
     always @(posedge clk) begin
         if (received == 8'b10101010) begin
             start_sending <= 1;
-            sending <= 9;
+            sending <= 3;
             received <= 0;
-        end else if(rdata_ready_uart)
+            send_count <= 3;
+            wait_busy <= 1;
+        end else if ((send_count > 0) && uart_busy) begin
+            start_sending <= 0;
+        end else if ((send_count > 0) && ~uart_busy && ~wait_busy) begin
+            start_sending <= 1;
+            sending <= send_count - 1;
+            send_count <= send_count - 1;
+            wait_busy  <= 1;
+        end else if ((send_count > 0) && ~uart_busy && wait_busy) begin
+            wait_busy  <= 0;
+        end else if(rdata_ready_uart) begin
+            $display("Received: %d\n", rdata_uart);
             received <= rdata_uart;
+        end
     end
     initial begin
         $dumpfile("core_test.vcd");
         $dumpvars(0, received);
         $dumpvars(0, sending);
         $dumpvars(0, start_sending);
+        $dumpvars(0, send_count);
         $dumpvars(3, core_instance);
         $dumpvars(1, uart_rx_instance);
         $dumpvars(1, uart_tx_instance);
