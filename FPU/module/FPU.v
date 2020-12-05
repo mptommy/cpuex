@@ -64,7 +64,7 @@ module FPU(clk, rstn, ctl, x1, x2, y, ready, en);
     localparam FHALF_NSTAGE = 0;
     localparam FTOI_NSTAGE = 2;
     localparam ITOF_NSTAGE = 2;
-    localparam FLOOR_NSTAGE = 2;
+    localparam FLOOR_NSTAGE = 1;
     localparam FEQ_NSTAGE = 0;
     localparam FLE_NSTAGE = 0;
     localparam FABS_NSTAGE = 0;

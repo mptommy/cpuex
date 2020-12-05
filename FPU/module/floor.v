@@ -1,5 +1,5 @@
 `default_nettype none
-module floor #(parameter NSTAGE = 2)(
+module floor #(parameter NSTAGE = 1)(
     input wire [31:0] x,
     output wire [31:0] y,
     input wire clk,
