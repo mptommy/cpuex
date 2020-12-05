@@ -13,6 +13,23 @@ module registerfile(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, c
     assign Data1 = readf1 ? FRF[Read1] : RF[Read1];
     assign Data2 = readf2 ? FRF[Read2] : RF[Read2];
 
+    generate
+      genvar idx;
+      for(idx = 0; idx < 32; idx = idx+1) begin: register
+        wire [31:0] register;
+        assign register = RF[idx];
+      end
+    endgenerate
+
+    generate
+      genvar fidx;
+      for(fidx = 0; fidx < 32; fidx = fidx+1) begin: fregister
+        wire [31:0] fregister;
+        assign fregister = FRF[fidx];
+      end
+    endgenerate
+
+
     always @(posedge clk) begin
         if (rst) begin
             RF[0] <= 0;

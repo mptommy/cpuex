@@ -29,6 +29,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign funct7 = instr_raw[31:25];
     wire [5:0] funct6;
     assign funct6 = funct7[6:1];
+    wire [2:0] rm;
+    assign rm = instr_raw[14:12];
 
     wire r_type, i_type, s_type, sb_type, uj_type, flw, fsw, fadd;
 
@@ -56,6 +58,9 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign fmv = (funct7 == 7'b0010000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
     assign fabs = (funct7 == 7'b0010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
     assign fsqrt = (funct7 == 7'b0101100) && (opcode == 7'b1010011);
+    assign itof = (funct7 == 7'b1101000) && (opcode == 7'b1010011);
+    assign ftoi = (funct7 == 7'b1100000) && (opcode == 7'b1010011) && (rm == 3'b000);
+    assign floor = (funct7 == 7'b1100000) && (opcode == 7'b1010011) && (rm == 3'b010);
 
     always @ (posedge clk) begin
         //DECODE
@@ -173,32 +178,25 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                             fsw ? 2 :
                 // flw: add(2)
                             flw ? 2 :
-                // fadd: fadd(0)
                             fadd ? 0 :
-                // fsub: fsub(1)
                             fsub ? 1 :
-                // fmul: fmul(2)
                             fmul ? 2 :
-                // fdiv: fdiv(4)
                             fdiv ? 4 :
-                // fhalf: fhalf(5)
                             fhalf ? 5 :
-                // fneg: fneg(12)
                             fneg ? 12 :
                 // fmv.w.x: choosea(9):
                             fmv_w_x ? 9 :
                 // fmv.x.w: choosea(9):
                             fmv_x_w ? 9 :
-                // feq: feq(9)
                             feq ? 9 :
-                // fle: fle(10):
                             fle ? 10 :
                 // fmv: choosea(9):
                             fmv ? 9 :
-                // fabs: fabs(11):
                             fabs ? 11 :
-                // fsqrt: sqrt(19)
                             fsqrt ? 19 :
+                            itof ? 7 :
+                            ftoi ? 6 :
+                            floor ? 8 :
                 // default => zero (31)
                             31;
                 // in jalr, use the absolute address
@@ -206,10 +204,10 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 write_reg <= instr_raw[11:7];
                 data_out <= out_type;
                 data_in <= in_type;
-                readf1 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || feq || fle || fmv_x_w) ? 1 : 0;
-                readf2 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || feq || fle || fsw) ? 1 : 0;
-                writef <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || flw || fmv_w_x) ? 1 : 0;
-                use_fpu <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fhalf || feq || fle) ? 1 : 0;
+                readf1 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || floor || ftoi || feq || fle || fmv_x_w) ? 1 : 0;
+                readf2 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || floor || ftoi || feq || fle || fsw) ? 1 : 0;
+                writef <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || floor || itof || flw || fmv_w_x) ? 1 : 0;
+                use_fpu <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fhalf || feq || fle || itof || floor || ftoi) ? 1 : 0;
             end else begin
                 data_out <= 0;
                 data_in <= 0;

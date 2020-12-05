@@ -1,0 +1,7 @@
+0:ADDI(10, 0, 13412)
+1:ADDI(11, 0, -3249)
+2:FCVTSW(10, 10)
+3:FCVTSW(11, 11)
+4:FADDS(10, 11, 10)
+5:LABEL("halt")
+5:JALL(0, "halt")

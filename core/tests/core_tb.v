@@ -40,7 +40,7 @@ module core_tb();
         $dumpvars(0, received);
         $dumpvars(0, sending);
         $dumpvars(0, start_sending);
-        $dumpvars(1, core_instance);
+        $dumpvars(3, core_instance);
         $dumpvars(1, uart_rx_instance);
         $dumpvars(1, uart_tx_instance);
     end
