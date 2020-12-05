@@ -35,14 +35,23 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
     let moto = split[0];
     let mut mac= Machine::new();
     let mut meireis:Vec<Insts>=Vec::new();
+    let mut meireis2:Vec<Insts>=Vec::new();
     let file = File::open(&args[1]).unwrap();
     let filebuf = BufReader::new (file);
-
+    println!("WRITE?[y/n]");
+    let mut read = String::new();
+    std::io::stdin().read_line(&mut read).ok();
+    let mut reads = read.split_whitespace();
+    let write =match reads.next().unwrap(){
+        "y"=> true,"n"=>false,_=>false
+    };
     for result in filebuf.lines(){
         let l = result?;
-        println!("{}",l);
+      if write{  println!("{}",l);}
         let inst = asm::MainParser::new().parse(&l).unwrap();
-        meireis = mac.gijimeirei(inst,meireis);
+       let (bmeireis,bmeireis2) = mac.gijimeirei(inst,meireis,meireis2);
+       meireis = bmeireis;
+       meireis2 = bmeireis2;
     }
 
     while true{
@@ -59,9 +68,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
                 let libbuf = BufReader::new (lib);
                 for result in libbuf.lines(){
                     let l = result?;
-                    println!("{}",l);
+                    if write{println!("{}",l);}
                     let inst = asm::MainParser::new().parse(&l).unwrap();
-                    meireis = mac.gijimeirei(inst,meireis);
+                    let (bmeireis,bmeireis2) = mac.gijimeirei(inst,meireis,meireis2);
+                    meireis = bmeireis;
+                    meireis2 = bmeireis2;
                 }
             }
         }
@@ -79,15 +90,28 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
     let file = File::open(path).unwrap();
    let mut filebuf = BufWriter::new (file);*/
    let file2 = File::create(moto.to_string()+".mem").unwrap();
+   let file3 = File::create(moto.to_string()+".ns").unwrap();
    let mut filebuf2 = BufWriter::new (file2);
+   let mut filebuf3 = BufWriter::new (file3);
     for inst in mac.insts{
         filebuf.write_all(&Instruction::tohex4(&inst))?;
         let strs = format!("{:0>32b}",Instruction::tohex(&inst));  // "4.40"
        let check = &strs;
        writeln!(filebuf2,"{}", format!("{}",check));
+       
         //filebuf2.writeln!(strs);
        // println!("{:>08b}",Instruction::tohex(&inst));
         //writeln!(filebuf,"{:>08x}\n",Instruction::tohex(inst)).unwrap();
+    }
+    let mut i = 0;
+    for inst in meireis2{
+        let strs = format!("{}:{:?}",i,&inst);
+        let check = &strs;
+       writeln!(filebuf3,"{}", format!("{}",check));
+       if let Insts::LABEL(_) = inst.clone(){
+        i -= 1;
+        }
+    i += 1;
     }
     Ok(())
 }

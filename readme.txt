@@ -6,10 +6,15 @@ https://qiita.com/yoshiyasu1111/items/0c3d08658560d4b91431
 作業ディレクトリにて
 cargo build
 でコンパイル、target/debugの中に実行ファイル(yamaimo/ringo)ができます
+cargo build --release
+でreleaseコンパイル、早い。target/releaseの中にできる。
 
 動かし方
-./ringo hogehoge.s hogehoge.out
-でアセンブリを機械語に。エラーが出たら出たところが標準出力されてるはず。
+./ringo hogehoge.s 
+途中経過が見たければ[write?]にyを。見ないほうが早い。
+何かライブラリを入れたければ[any libraries?]にアセンブリ名を。なければn。
+レイトレならlibmincaml.Sです
+
 ./yamaimo hogehoge.out
 で機械語実行。
 
@@ -22,4 +27,6 @@ f hoge(自然数) ->floatレジスタのhoge番目の値をダンプ
 all ->すべてのレジスタの値ダンプ
 go hoge(自然数)->hogeステップすすめる
 inst ->現在のところの命令の統計を降順で表示
+pc hoge(自然数)->プログラムカウンタがhogeになるまで飛ばす。
+
 それ以外->ステップを一歩すすめる

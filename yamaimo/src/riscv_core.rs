@@ -327,6 +327,11 @@ impl EnvBase{
         let uimm32:XlenType = Self::extract_bit_field (hex, 31, 20);
         return Self::extend_sign (uimm32, 11);
     }
+    fn extract_ifield_u (hex: InstType) -> XlenType
+    {
+        let uimm32:XlenType = Self::extract_bit_field (hex, 31, 20);
+        return uimm32;
+    }
     fn extract_ufield (hex: InstType) -> XlenType
     {
         let uimm32:XlenType = Self::extract_bit_field (hex, 31, 12);
@@ -1776,7 +1781,7 @@ impl Riscv64Core for EnvBase{
         }else{
             self.toukei.insert(dec_inst,1);
         }
-        if self.writing {println!("{:08x} : {:08x} // DASM({:08x})", self.fetch_pc as u32, inst as u32, inst as u32);}
+        if self.writing {println!("{} : {:08x} // DASM({:08x})", self.fetch_pc / 4 as u32, inst as u32, inst as u32);}
         let rs1 = Self::get_rs1_addr (inst);
         let rs2 = Self::get_rs2_addr (inst);
         let rs3=Self::get_rs3_addr(inst);
@@ -2113,6 +2118,8 @@ impl Riscv64Core for EnvBase{
                 let mut addr: AddrType = Self::extract_ifield (inst) as AddrType;
                 let (rs1_data,stall)  = self.read_regfor(rs1,forwarding,forwarding2);
                 let rs1_data = rs1_data as AddrType;
+                let addrbak = addr;
+
                 addr = (Wrapping(rs1_data) + Wrapping(addr)).0;
                 addr = addr & (!0x01);
                 let reg_data = (self.fetch_pc-DRAM_BASE + 4) as XlenType;
@@ -2120,7 +2127,7 @@ impl Riscv64Core for EnvBase{
                 self.m_finish_cpu = addr+DRAM_BASE == self.fetch_pc;
                 self.fetch_pc = addr+DRAM_BASE;
                 update_pc = true;
-                if self.writing {println!("JALR {},{},{} \n",rd,addr,rs1);}
+                if self.writing {println!("JALR {},{},{}:togo {} \n",rd,addrbak,rs1,addr);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
@@ -2407,7 +2414,7 @@ impl Riscv64Core for EnvBase{
                                 zantei
                             },
                             0b001 =>{rs1_data.trunc()as i32},
-                            0b010 => {rs1_data.floor() as i32},
+                            0b100 => {rs1_data.floor() as i32},
                             0b011 => {rs1_data.ceil()as i32},
                             0b110 =>{
                                 let fract = rs1_data.fract();
@@ -2419,7 +2426,7 @@ impl Riscv64Core for EnvBase{
                                 zantei
                             }
                             0b111=>{panic!("DYNAMIC HA MIJISSOU");}
-                            _ =>{panic!("INVALID RM")}
+                            _ =>{println!("{} is",rm);panic!("INVALID RM")}
                         }
                     };
                     self.write_reg(rd,res);

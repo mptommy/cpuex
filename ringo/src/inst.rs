@@ -1409,85 +1409,119 @@ impl Machine{
             insts:Vec::new(),
         }
     }
-    pub fn gijimeirei(&mut self,inst:Insts,mut vecs:Vec<Insts>)->Vec<Insts>{
+    pub fn gijimeirei(&mut self,inst:Insts,mut vecs:Vec<Insts>,mut vecs2:Vec<Insts>)->(Vec<Insts>,Vec<Insts>){
         match inst{
             Insts::LABEL(s)=>{
+
+                vecs2.push(Insts::LABEL((&s).to_string()));
                 self.labels.insert(s,(vecs.len() as i32)*4);
+                
             },
             Insts::LA(r1,i)=>{
                 vecs.push(Insts::AUIPC(r1, i >> 12));
+			vecs2.push(Insts::AUIPC(r1, i >> 12));
                 vecs.push(Insts::ADDI(r1,r1,i&0xfff));
+			vecs2.push(Insts::ADDI(r1,r1,i&0xfff));
             },
             Insts::LAL(r1,s)=>{
                 vecs.push(Insts::AUIPCL(r1,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(r1,(&s).to_string()));
                 vecs.push(Insts::ADDIL(r1,r1,(&s).to_string()));
+			vecs2.push(Insts::ADDIL(r1,r1,(&s).to_string()));
             },
             Insts::LBL(r1,s)=>{
                 vecs.push(Insts::AUIPCL(r1,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(r1,(&s).to_string()));
                 vecs.push(Insts::LBL(r1,(&s).to_string()));
+			vecs2.push(Insts::LBL(r1,(&s).to_string()));
             },
             Insts::LHL(r1,s)=>{
                 vecs.push(Insts::AUIPCL(r1,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(r1,(&s).to_string()));
                 vecs.push(Insts::LHL(r1,(&s).to_string()));
+			vecs2.push(Insts::LHL(r1,(&s).to_string()));
             },
             Insts::LWL(r1,s)=>{
                 vecs.push(Insts::AUIPCL(r1,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(r1,(&s).to_string()));
                 vecs.push(Insts::LWL(r1,(&s).to_string()));
+			vecs2.push(Insts::LWL(r1,(&s).to_string()));
             },
             Insts::FLWL(r1,s)=>{
                 vecs.push(Insts::AUIPCL(31,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(31,(&s).to_string()));
                 vecs.push(Insts::FLWL(r1,(&s).to_string()));
+			vecs2.push(Insts::FLWL(r1,(&s).to_string()));
             },
             Insts::SBL(rd,s)=>{
                 vecs.push(Insts::AUIPCL(31,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(31,(&s).to_string()));
                 vecs.push(Insts::SBL(rd,(&s).to_string()));
+			vecs2.push(Insts::SBL(rd,(&s).to_string()));
             },
             Insts::SHL(rd,s)=>{
                 vecs.push(Insts::AUIPCL(31,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(31,(&s).to_string()));
                 vecs.push(Insts::SHL(rd,(&s).to_string()));
+			vecs2.push(Insts::SHL(rd,(&s).to_string()));
             },
             Insts::SWL(rd,s)=>{
                 vecs.push( Insts::AUIPCL(31,(&s).to_string()));
+			vecs2.push( Insts::AUIPCL(31,(&s).to_string()));
                 vecs.push(Insts::SWL(rd,(&s).to_string()));
+			vecs2.push(Insts::SWL(rd,(&s).to_string()));
             },
             Insts::FSWL(rd,s)=>{
                 vecs.push( Insts::AUIPCL(31,(&s).to_string()));
+			vecs2.push( Insts::AUIPCL(31,(&s).to_string()));
                 vecs.push(Insts::FSWL(rd,(&s).to_string()));
+			vecs2.push(Insts::FSWL(rd,(&s).to_string()));
             },
             Insts::CALL(i)=>{
                 vecs.push(Insts::AUIPC(6,i >> 12));
+			vecs2.push(Insts::AUIPC(6,i >> 12));
                 if i < 0{
                     vecs.push(Insts::JALR(1,6,(i&0xfff)|((0xfffff000u32)as i32)));
+			vecs2.push(Insts::JALR(1,6,(i&0xfff)|((0xfffff000u32)as i32)));
                 }
                 else{
                     vecs.push(Insts::JALR(1,6,i&0xfff));
+			vecs2.push(Insts::JALR(1,6,i&0xfff));
                 }
             },
             Insts::CALLL(s)=>{
                 vecs.push(Insts::AUIPCL(6,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(6,(&s).to_string()));
                 vecs.push(Insts::JALRL(1,6,(&s).to_string()));
+			vecs2.push(Insts::JALRL(1,6,(&s).to_string()));
             },
             Insts::TAIL(i)=>{
                 vecs.push(Insts::AUIPC(6,i >> 12));
+			vecs2.push(Insts::AUIPC(6,i >> 12));
                 if i < 0{
                     vecs.push(Insts::JALR(0,6,(i&0xfff)|((0xfffff000u32)as i32)));
+			vecs2.push(Insts::JALR(0,6,(i&0xfff)|((0xfffff000u32)as i32)));
                 }
                 else{
                     vecs.push(Insts::JALR(0,6,i&0xfff));
+			vecs2.push(Insts::JALR(0,6,i&0xfff));
                 }
                 
             },
             Insts::TAILL(s)=>{
                 vecs.push(Insts::AUIPCL(6,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(6,(&s).to_string()));
                 vecs.push(Insts::JALRL(0,6,(&s).to_string()));
+			vecs2.push(Insts::JALRL(0,6,(&s).to_string()));
                 
             },
             _ =>{
-                vecs.push(inst);
+                vecs.push(inst.clone());
+			vecs2.push(inst);
             }
 
         }
-        return vecs;
+        return (vecs,vecs2);
     }
     pub fn output_assem(&mut self){
         for i in 0 .. self.insts.len(){
@@ -1532,7 +1566,7 @@ impl Machine{
                             
                             let buf = 
                             if sa < 0{
-                                Insts::JALR(*r1,*r2,((sa+4)&0xfff)|((0xfffff000u32)as i32))
+                                Insts::JALR(*r1,*r2,((sa+4)&0xfff)|((0xfffff000 as u32)as i32))
                             }
                             else{
                                 Insts::JALR(*r1,*r2,(sa+4)&0xfff)
@@ -1542,8 +1576,12 @@ impl Machine{
                             //auipcとの整合を保つために+4しておく
                         },
                         Insts::AUIPC(r1,_l)=>{
-                            self.insts[i].optype = Insts::AUIPC(*r1,sa >> 12);
-                            self.insts[i] = Instruction::code(Insts::AUIPC(*r1,sa >> 12));
+                            let mut res = sa >> 12;
+                            if sa&0b100000000000 != 0{
+                                res = res + 1;
+                            }
+                            self.insts[i].optype = Insts::AUIPC(*r1,res);
+                            self.insts[i] = Instruction::code(Insts::AUIPC(*r1,res));
                         },
                         Insts::AUIPCLOAD(r1,_l)=>{
                             self.insts[i].optype = Insts::AUIPC(*r1,self.insts[i].buf >> 12);
