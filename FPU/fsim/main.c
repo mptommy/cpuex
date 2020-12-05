@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <math.h>
 #include "util.h"
 #include "faddsub.h"
 #include "fmul.h"
 #include "finv.h"
 #include "fdiv.h"
 #include "ftoitof.h"
+#include "sqrt.h"
 
 int main(){
   char command[8], opc[8];
@@ -18,6 +20,7 @@ int main(){
   OPERATOR oper;
   srand((unsigned)time(NULL));
   LoadTable();
+  SqrtLoadTable();
   while(1){
     printf("command: ");
     scanf("%s", command);
@@ -169,6 +172,27 @@ int main(){
       printf("my answer: %f\n", ans);
       PrintFloatBin(ans);
     }
+    else if(strcmp(command, "sqrt") == 0){
+      printf("square rooting number: ");
+      scanf("%f", &a);
+      PrintFloatBin(a);
+      printf("true answer: %f\n", (float)sqrt((double)a));
+      PrintFloatBin((float)sqrt((double)a));
+      ans = SqrtFloat(a);
+      printf("my answer: %f\n", ans);
+      PrintFloatBin(ans);
+    }
+    else if(strcmp(command, "sqrtu") == 0){
+      printf("square rooting number(uint): ");
+      scanf("%u", &ua);
+      a = utof(ua);
+      PrintFloatBin(a);
+      printf("true answer: %f\n", (float)sqrt((double)a));
+      PrintFloatBin((float)sqrt((double)a));
+      ans = SqrtFloat(a);
+      printf("my answer: %f\n", ans);
+      PrintFloatBin(ans);
+    }
     else if(strcmp(command, "rand") == 0){
       printf("Verifying opecode: ");
       scanf("%s", opc);
@@ -186,6 +210,8 @@ int main(){
         oper = FTOI;
       else if(strcmp(opc, "itof") == 0)
         oper = ITOF;
+      else if(strcmp(opc, "sqrt") == 0)
+        oper = SQRT;
       else
         continue;
       printf("sample number: ");
@@ -196,7 +222,7 @@ int main(){
           a = normalize(utof((unsigned)rand()));    // int範囲で生成してunsignedキャストしているので正？
           b = normalize(utof((unsigned)rand()));    //
         }
-        else if(oper == INV || oper == FTOI){
+        else if(oper == INV || oper == FTOI || oper == SQRT){
           a = normalize(utof((unsigned)rand()));
         }
         else if(oper == ITOF){
@@ -230,6 +256,10 @@ int main(){
           case ITOF:
             ans = IntToFloat(a_int);
             trueans = (float)a_int;
+            break;
+          case SQRT:
+            ans = SqrtFloat(a);
+            trueans = (float)sqrt((double)a);
             break;
         }
         //printf("%f %f %f %f ", a, b, a+b, ans);
@@ -299,6 +329,14 @@ int main(){
             PrintFloatBin(trueans);
             PrintFloatBin(ans);
           }
+        }
+        if(diff >= 4 && oper == SQRT && GetE(a) != 0 && GetE(a) != emask && GetE(trueans) != 0 && GetE(trueans) != emask){
+          miss++;
+          printf("%f %f %f NG\n", a, trueans, ans);
+          printf("uint: %u\n", ftou(a));
+          PrintFloatBin(a);
+          PrintFloatBin(trueans);
+          PrintFloatBin(ans);
         }
       }
       if(!miss)

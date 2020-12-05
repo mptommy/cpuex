@@ -92,11 +92,13 @@ always @(posedge clk) begin
 		
         fx1 = $bitstoshortreal(x1_reg[NSTAGE]);
         e1 = x1_reg[NSTAGE][30:23];
+        // $floorを使えたので、そちらに変えたほうがいいかも。
         ri = $rtoi(fx1);
         fl = $itor(ri);
 
         fybit = (e1 > 23+127) ? x1_reg[NSTAGE] :
                 (fx1 != fl && fx1 < 0) ? $shortrealtobits(fl - 1.0) : $shortrealtobits(fl);
+
         fy = $bitstoshortreal(fybit);
 
         diff = (fybit >= y) ? fybit - y : y - fybit;

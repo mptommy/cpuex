@@ -1,36 +1,36 @@
 `timescale 1ns / 100ps
 `default_nettype none
 
-module test_itof
-    #(parameter NSTAGE = 2,
-      parameter REPEATNUM = 50,
+module test_sqrt
+    #(parameter NSTAGE = 5,
+      parameter REPEATNUM = 500,
       parameter RANDSEED = 2) ();
 
 wire [31:0] x1,y;
-shortreal    fx1, fy, absfy;
-logic [31:0] absx, fybit, absfybit;
+logic [31:0] x1d;
+shortreal    fx1,fy;
+logic [31:0] fybit;
 
 logic clk, rstn;
 int i, diff;
-logic [31:0] r, x1d;
 
 logic [31:0] x1_reg[NSTAGE:0];
 logic val[NSTAGE:0];
 
 assign x1 = x1_reg[0];
 
-itof u1(x1,y,clk,rstn);
+sqrt u1(x1,y,clk,rstn);
 
 initial begin
-	// $dumpfile("test_itof.vcd");
+	// $dumpfile("test_sqrt.vcd");
 	// $dumpvars(0);
 
-    $display("start of checking module itof");
+    $display("start of checking module sqrt");
     $display("difference message format");
     $display("x1 = [input 1(bit)], [exponent 1(decimal)]");
     $display("x2 = [input 2(bit)], [exponent 2(decimal)]");
     $display("ref. : result(float) sign(bit),exponent(decimal),mantissa(bit)");
-    $display("itof : result(float) sign(bit),exponent(decimal),mantissa(bit)");
+    $display("sqrt : result(float) sign(bit),exponent(decimal),mantissa(bit)");
     
     #1;			//t = 1ns
     rstn = 0;
@@ -50,9 +50,8 @@ initial begin
     end
 
     repeat(REPEATNUM) begin
-        r = $urandom();
         x1d = $urandom();
-        x1_reg[0] <= (r[0]) ? x1d : {x1d[31], 21'b0, x1d[9:0]};
+        x1_reg[0] <= {1'b0, x1d[30:0]};
         val[0] <= 1;
 
         #1;
@@ -75,7 +74,7 @@ initial begin
 	    #1;
 	    clk = 1;
     end
-    $display("end of checking module itof");
+    $display("end of checking module sqrt");
     $finish;
 end
 
@@ -87,20 +86,18 @@ end
 always @(posedge clk) begin
 	if (val[NSTAGE]) begin      //ここ、ステージ分けがちゃんとしていれば別に必要ないです。
 		
-        absx = (x1_reg[NSTAGE][31] == 1) ? (~x1_reg[NSTAGE]) + 1 : x1_reg[NSTAGE];
-        absfy = $itor(absx);
-        absfybit = $shortrealtobits(absfy);
-        fybit = {x1_reg[NSTAGE][31], absfybit[30:0]};
-        fy = $bitstoshortreal(fybit);
+        fx1 = $bitstoshortreal(x1_reg[NSTAGE]);
+        fy = $sqrt(fx1);
+        fybit = $shortrealtobits(fy);
 
         diff = (fybit >= y) ? fybit - y : y - fybit;
         $display("diff = %d", diff);
-        //if(diff >= 1) begin
-   	        $display("x = %b, %d",
-	        x1_reg[NSTAGE], $signed(x1_reg[NSTAGE]));
-   	        $display("%.15f %b,%3d,%b", fy,
+        //if(diff >= 4) begin
+   	        $display("x = %b %b %b, %f",
+	        x1_reg[NSTAGE][31], x1_reg[NSTAGE][30:23], x1_reg[NSTAGE][22:0], fx1);
+   	        $display("%e %b,%3d,%b", fy,
 	        fybit[31], fybit[30:23], fybit[22:0]);
-   	        $display("%.15f %b,%3d,%b\n", $bitstoshortreal(y),
+   	        $display("%e %b,%3d,%b\n", $bitstoshortreal(y),
 	        y[31], y[30:23], y[22:0]);
         //end
     end
