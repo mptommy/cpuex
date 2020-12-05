@@ -9,7 +9,7 @@ module exec(clk, rst, pc, state, imm, ctl, branch_uc, branch_c, branch_relative,
     input [31:0] pc;
     input [2:0] state;
     input [31:0] imm;
-    input [3:0] ctl;
+    input [4:0] ctl;
     input branch_uc, branch_c, branch_relative, mem_read_in, mem_write_in, alu_pc, alu_src, reg_write_in;
     input [31:0] reg1_data, reg2_data;
     input [4:0] write_reg_in;

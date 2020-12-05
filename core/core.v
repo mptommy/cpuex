@@ -16,7 +16,7 @@ module core (clk, rst, test, uart_output, uart_input);
     assign rstn = ~rst;
 
     wire [31:0] imm;
-    wire [3:0] alu_ctl;
+    wire [4:0] alu_ctl;
     wire branch_relative, branch_uc, branch_c, mem_read, mem_write,
         alu_pc, alu_src, reg_write, data_out, data_in, readf1, readf2, writef, use_fpu;
     wire [4:0] read_reg1, read_reg2, write_reg;

@@ -1,5 +1,5 @@
 module ALU (ALUctl, A, B, ALUOut, Zero);
-    input [3:0] ALUctl;
+    input [4:0] ALUctl;
     input [31:0] A, B;
     output reg[31:0] ALUOut;
     output Zero;
