@@ -29,8 +29,6 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign funct7 = instr_raw[31:25];
     wire [5:0] funct6;
     assign funct6 = funct7[6:1];
-    wire [2:0] rm;
-    assign rm = instr_raw[14:12];
 
     wire r_type, i_type, s_type, sb_type, uj_type, flw, fsw, fadd;
 
@@ -59,8 +57,11 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign fabs = (funct7 == 7'b0010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
     assign fsqrt = (funct7 == 7'b0101100) && (opcode == 7'b1010011);
     assign itof = (funct7 == 7'b1101000) && (opcode == 7'b1010011);
-    assign ftoi = (funct7 == 7'b1100000) && (opcode == 7'b1010011) && (rm == 3'b000);
-    assign floor = (funct7 == 7'b1100000) && (opcode == 7'b1010011) && (rm == 3'b010);
+    assign ftoi = (funct7 == 7'b1100000) && (opcode == 7'b1010011) && (funct3 == 3'b000);
+    assign floor = (funct7 == 7'b1100000) && (opcode == 7'b1010011) && (funct3 == 3'b010);
+    assign flt = (funct7 == 7'b1010000) && (funct3 == 3'b001) && (opcode == 7'b1010011);
+    assign fmax = (funct7 == 7'b0010100) && (funct3 == 3'b001) & (opcode == 7'b1010011);
+    assign fmin = (funct7 == 7'b0010100) && (funct3 == 3'b000) & (opcode == 7'b1010011);
 
     always @ (posedge clk) begin
         //DECODE
@@ -197,6 +198,10 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                             itof ? 7 :
                             ftoi ? 6 :
                             floor ? 8 :
+                // flt: fless(13)
+                            flt ? 13 :
+                            fmin ? 14 :
+                            fmax ? 15 :
                 // default => zero (31)
                             31;
                 // in jalr, use the absolute address
@@ -204,10 +209,10 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 write_reg <= instr_raw[11:7];
                 data_out <= out_type;
                 data_in <= in_type;
-                readf1 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || floor || ftoi || feq || fle || fmv_x_w) ? 1 : 0;
-                readf2 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || floor || ftoi || feq || fle || fsw) ? 1 : 0;
-                writef <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmv || fhalf || floor || itof || flw || fmv_w_x) ? 1 : 0;
-                use_fpu <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fhalf || feq || fle || itof || floor || ftoi) ? 1 : 0;
+                readf1 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fmv_x_w) ? 1 : 0;
+                readf2 <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fsw) ? 1 : 0;
+                writef <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmax || fmin || fmv || fhalf || floor || itof || flw || fmv_w_x) ? 1 : 0;
+                use_fpu <= (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fhalf || feq || fle || itof || floor || ftoi) ? 1 : 0;
             end else begin
                 data_out <= 0;
                 data_in <= 0;
