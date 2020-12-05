@@ -15,7 +15,7 @@ wire abslt, abseq;
 
 assign abslt = (abs1 < abs2);
 assign abseq = (abs1 == abs2);
-assign y = (~s1 & ~s2 & abslt) | (s1 & ~s2) | (s1 & s2 & ~abslt & ~abseq);
+assign y = (~s1 & ~s2 & abslt) | (s1 & ~s2 & (|x1[30:0]) & (|x2[30:0])) | (s1 & s2 & ~abslt & ~abseq);
 
 endmodule
 `default_nettype wire

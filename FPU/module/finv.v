@@ -40,6 +40,9 @@ wire s = xr[2][31];
 wire [7:0] e = xr[2][30:23];
 wire [22:0] m = xr[2][22:0];
 
+wire iszero = ~(|e);
+wire isinf = (&e);
+
 wire ys = s;
 wire [7:0] ye = (m == 0) ? 254 - e : 253 - e;  //e = 254がアヤシイ
 wire [22:0] ym = (m == 0) ? 23'b0 : mtmpr[56:34] + mtmpr[33];  //適当に丸めている
@@ -65,7 +68,8 @@ always @(posedge clk) begin
     cstr[1] <= cstr[0];
 end
 
-assign y = {ys, ye, ym};
+assign y =  (iszero) ? {ys, 8'b11111111, 23'b0} :
+            (isinf) ? {ys, 31'b0} : {ys, ye, ym};
 
 endmodule
 `default_nettype wire

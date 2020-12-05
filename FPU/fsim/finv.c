@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "util.h"
-#include "fmul.h"
 #include "finv.h"
 
 //const unsigned int m_high10_mask = ((1 << 10) - 1) << 13;
@@ -12,11 +11,11 @@ unsigned long long grad_table[1024];
 
 void LoadTable(){
   FILE *fp;
-  fp = fopen("const_table.txt", "r");
+  fp = fopen("finv_const_table.txt", "r");
   for(int i=0;i<1024;++i)
     fscanf(fp, "%llu", &const_table[i]);
   fclose(fp);
-  fp = fopen("grad_table.txt", "r");
+  fp = fopen("finv_grad_table.txt", "r");
   for(int i=0;i<1024;++i)
     fscanf(fp, "%llu", &grad_table[i]);
   fclose(fp);

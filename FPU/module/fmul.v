@@ -26,10 +26,10 @@ wire [25:0] hh = hi1 * hi2;
 wire [23:0] hl = hi1 * lo2;
 wire [23:0] lh = lo1 * hi2;
 
-// stage = 1 (x1r, x2r, hhr, hlr, lhr -> mmul, ym0, ye0)
+// stage = 1 (x1r[0], x2r[0], hhr, hlr, lhr -> mmul, ym0, ye0)
 
-reg[31:0] x1r;
-reg[31:0] x2r;
+reg [31:0] x1r[1:0];
+reg [31:0] x2r[1:0];
 reg [25:0] hhr;
 reg [23:0] hlr;
 reg [23:0] lhr;
@@ -43,12 +43,12 @@ wire [22:0] ym0 =   (mmul[26] == 1) ? mmul[25:3] :
                     (mmul[24] == 1) ? mmul[23:1] : mmul[22:0];
 
 // 6. 符号部と繰り上がり前の指数部の計算。
-wire s1 = x1r[31];
-wire s2 = x2r[31];
+wire s1 = x1r[0][31];
+wire s2 = x2r[0][31];
 wire ys = s1 ^ s2;
 
-wire [7:0] e1= x1r[30:23];
-wire [7:0] e2= x2r[30:23];
+wire [7:0] e1= x1r[0][30:23];
+wire [7:0] e2= x2r[0][30:23];
 wire [9:0] ye0 = e1 + e2 + 129;      //256-127
 
 // stage = 2 (ysr, mmulr, ym0r, ye0r -> ovf, y)
@@ -59,6 +59,9 @@ reg [9:0] ye0r;
 reg [26:0] mmulr;
 
 // 7. シフト分だけ指数部に加える。オーバーフロー・アンダーフローする場合の指数部の正規化。
+
+wire iszero = (~(|x1r[1][30:23]) | ~(|x2r[1][30:23]));
+
 wire [8:0] ye = (ye0r[9] == 1) ? 255 :
                 (ye0r[8] == 0) ? 0 :
                 (mmulr[26] == 1) ? ye0r + 2 :
@@ -68,8 +71,8 @@ wire [22:0] ym = (ye == 255 || ye == 0) ? 0 : ym0r;
 
 always @(posedge clk) begin
     if(~rstn) begin
-        x1r <= 'b0;
-        x2r <= 'b0;
+        x1r[0] <= 'b0;
+        x2r[0] <= 'b0;
         hhr <= 'b0;
         hlr <= 'b0;
         lhr <= 'b0;
@@ -78,8 +81,10 @@ always @(posedge clk) begin
         ym0r <= 'b0;
         ye0r <= 'b0;
     end else begin
-        x1r <= x1;
-        x2r <= x2;
+        x1r[0] <= x1;
+        x2r[0] <= x2;
+        x1r[1] <= x1r[0];
+        x2r[1] <= x2r[0];
         hhr <= hh;
         hlr <= hl;
         lhr <= lh;
@@ -91,7 +96,7 @@ always @(posedge clk) begin
 end
 
 assign ovf = (ye0[9] == 1) ? 1 : 0;
-assign y = {ysr, ye[7:0], ym};
+assign y = (iszero) ? {ysr, 31'b0} : {ysr, ye[7:0], ym};
 
 endmodule
 `default_nettype wire
