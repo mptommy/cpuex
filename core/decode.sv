@@ -31,6 +31,9 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign funct6 = funct7[6:1];
 
     wire r_type, i_type, s_type, sb_type, uj_type, flw, fsw, fadd;
+    wire fsub, fmul, fdiv, fhalf, fneg, fmv_x_w, fmv_w_x, feq, fle, fmv, fabd, fsqrt, itof,
+            ftoi, floor, flt, fmax, fmin;
+    wire lui, auipc;
 
     assign r_type = (opcode == 7'b0110011);
     assign i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
@@ -51,7 +54,6 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign fmv_x_w = (funct7 == 7'b1110000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
     assign fmv_w_x = (funct7 == 7'b1111000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
     assign feq = (funct7 == 7'b1010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
-    assign feq = (funct7 == 7'b1010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
     assign fle = (funct7 == 7'b1010000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
     assign fmv = (funct7 == 7'b0010000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
     assign fabs = (funct7 == 7'b0010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
@@ -62,6 +64,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign flt = (funct7 == 7'b1010000) && (funct3 == 3'b001) && (opcode == 7'b1010011);
     assign fmax = (funct7 == 7'b0010100) && (funct3 == 3'b001) & (opcode == 7'b1010011);
     assign fmin = (funct7 == 7'b0010100) && (funct3 == 3'b000) & (opcode == 7'b1010011);
+    assign lui = (opcode == 7'b0110111);
+    assign auipc = (opcode == 7'b0010111);
 
     always @ (posedge clk) begin
         //DECODE
@@ -115,8 +119,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                 reg_write <= (s_type || sb_type || fsw) ? 0 : 1;
 
                 alu_ctl <=
-                //  u_type: add (2)
-                            u_type ? 2 :
+                            auipc ? 2 :
+                            lui ? 10 :
                 // addi => add (2)
                             ((opcode == 7'b0010011) && (funct3 == 3'b000)) ? 2 :
                 // slti => lt (7)
