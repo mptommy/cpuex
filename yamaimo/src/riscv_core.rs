@@ -2055,13 +2055,23 @@ impl Riscv64Core for EnvBase{
                 self.write_reg(rd,reg_data);
                 if self.writing {println!("ADDI {},{} {}\n",rd,rs1,imm_data);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            
             }
             RiscvInst::BEQ | RiscvInst::BNE | RiscvInst::BLT | RiscvInst::BGE | RiscvInst::BLTU | RiscvInst::BGEU => {
-                if self.writing {println!("HIKAKU\n");}
+                let addr:AddrType = Self::extract_sb_field(inst) as AddrType;
+                if self.writing {
+                    match dec_inst{
+                        RiscvInst::BEQ  => println!("BEQ {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BNE  => println!("BNE {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BLT  =>println!("BLT {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BGE  => println!("BGE {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BLTU => println!("BLTU {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BGEU => println!("BGEU {},{} {}\n",rs1,rs2,addr),
+                        _               => panic!("Unknown value Branch"),
+                    }
+                }
                 let rs1_data = self.read_reg(rs1);
                 let rs2_data = self.read_reg(rs2);
-                let addr:AddrType = Self::extract_sb_field(inst) as AddrType;
+                
                 let jump_en: bool;
                 jump_en = 
                     match dec_inst {
