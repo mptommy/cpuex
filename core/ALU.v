@@ -9,7 +9,6 @@ module ALU (ALUctl, A, B, ALUOut, Zero);
     assign shiftB = B[4:0];
 
     wire [31:0] sll_out;
-    assign sll_out = A << shiftB;
 
     assign ALUOut =
             (ALUctl == 0) ? (A & B) :

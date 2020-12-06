@@ -33,7 +33,7 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     wire r_type, i_type, s_type, sb_type, uj_type, flw, fsw, fadd;
     wire fsub, fmul, fdiv, fhalf, fneg, fmv_x_w, fmv_w_x, feq, fle, fmv, fabd, fsqrt, itof,
             ftoi, floor, flt, fmax, fmin;
-    wire lui, auipc;
+    wire lui, auipc, lw, sw;
 
     assign r_type = (opcode == 7'b0110011);
     assign i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
@@ -66,6 +66,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
     assign fmin = (funct7 == 7'b0010100) && (funct3 == 3'b000) & (opcode == 7'b1010011);
     assign lui = (opcode == 7'b0110111);
     assign auipc = (opcode == 7'b0010111);
+    assign lw = (opcode == 7'b0000011) && (funct3 == 3'b010);
+    assign sw = (opcode == 7'b0100011) && (funct3 == 3'b010);
 
     always @ (posedge clk) begin
         //DECODE
@@ -107,10 +109,8 @@ module decode(clk, rst, state, instr_raw, imm, alu_ctl, branch_uc, branch_c, bra
                             0;
 
                 branch_c <= sb_type ? 1 : 0;
-                //lw
-                mem_read <= (i_type && (funct3 == 3'b010)) || flw;
-                //sw
-                mem_write <= (s_type && (funct3 == 3'b010)) || fsw;
+                mem_read <= lw || flw;
+                mem_write <= sw || fsw;
                 // use pc as the first src?
                 alu_pc <= (opcode == 7'b0010111) ? 1 : 0;
                 // 1: imm, 0: reg2
