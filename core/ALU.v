@@ -1,33 +1,32 @@
 module ALU (ALUctl, A, B, ALUOut, Zero);
     input [4:0] ALUctl;
     input [31:0] A, B;
-    output reg[31:0] ALUOut;
+    output [31:0] ALUOut;
     output Zero;
     assign Zero = (ALUOut == 0);
 
-    initial begin
-        ALUOut = 0;
-    end
+    wire [4:0] shiftB;
+    assign shiftB = B[4:0];
 
-    always @ (ALUctl, A, B) begin
-        case (ALUctl)
-            0: ALUOut <= A & B;
-            1: ALUOut <= A | B;
-            2: ALUOut <= $signed(A) + $signed(B);
-            3: ALUOut <= A ^ B; //xor
-            4: ALUOut <= A << B; // logical left shift
-            5: ALUOut <= A >> B; // logical right shift
-            6: ALUOut <= $signed(A) - $signed(B);
-            7: ALUOut <= $signed(A) < $signed(B) ? 1 : 0;
-            8: ALUOut <= $signed(A) >= $signed(B) ? 1 : 0;
-            9: ALUOut <= A;
-            10: ALUOut <= B;
-            11: ALUOut <= A == B;
-            12: ALUOut <= A != B;
-            13: ALUOut <= A < B ? 1 : 0; // lt: unsigned
-            14: ALUOut <= A >= B ? 1 : 0; // ge: unsigned
-            15: ALUOut <= $signed(A) >>> B; // arithmetic right shift
-            default: ALUOut <= 0;
-        endcase
-    end
+    wire [31:0] sll_out;
+    assign sll_out = A << shiftB;
+
+    assign ALUOut =
+            (ALUctl == 0) ? (A & B) :
+            (ALUctl == 1) ? (A | B) :
+            (ALUctl == 2) ? ($signed(A) + $signed(B)) :
+            (ALUctl == 3) ? (A ^ B) : //xor
+            (ALUctl == 4) ? (A << shiftB) : // logical left shift
+            (ALUctl == 5) ? (A >> B) : // logical right shift
+            (ALUctl == 6) ? ($signed(A) - $signed(B)) :
+            (ALUctl == 7) ? ($signed(A) < $signed(B) ? 1 : 0) :
+            (ALUctl == 8) ? ($signed(A) >= $signed(B) ? 1 : 0) :
+            (ALUctl == 9) ? A :
+            (ALUctl == 10) ? B :
+            (ALUctl == 11) ? (A == B) :
+            (ALUctl == 12) ? (A != B) :
+            (ALUctl == 13) ? (A < B ? 1 : 0) : // lt: unsigned
+            (ALUctl == 14) ? (A >= B ? 1 : 0) : // ge: unsigned
+            (ALUctl == 15) ? ($signed(A) >>> B) : // arithmetic right shift
+            0;
 endmodule
