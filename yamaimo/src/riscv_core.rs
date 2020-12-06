@@ -257,7 +257,7 @@ impl EnvBase{
     }
     pub fn read_int(&mut self,result:String){
         let is = result.parse::<i32>().unwrap();
-        println!("{}",is);
+        //println!("{}",is);
         self.inqueue.push_back((is & 0xff)as i8);
         self.inqueue.push_back(((is>>8) & 0xff)as i8);
         self.inqueue.push_back(((is>>16) & 0xff)as i8);
@@ -265,7 +265,7 @@ impl EnvBase{
     }
     pub fn read_float(&mut self,result:String){
         let fs = result.parse::<f32>().unwrap();
-        println!("{}f",fs);
+        //println!("{}f",fs);
         let beints = fs.to_le_bytes();
         self.inqueue.push_back(beints[0]as i8);
         self.inqueue.push_back(beints[1]as i8);
