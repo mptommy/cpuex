@@ -27,12 +27,13 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
 
     let mut riscv64_core = EnvBase::new();
     //riscv64_core.m_pc = 66398+riscv64_core.m_pc;
-
+    riscv64_core.writing = false;
     for result in filebuf.bytes(){
         let l:u8 = result?;
         riscv64_core.write_memory_byte(hex_addr + DRAM_BASE,l as XlenType);
         hex_addr=hex_addr+1;
     }
+    riscv64_core.writing = true;
     riscv64_core.write_reg(2,riscv_core::STACK_BASE-8);
     riscv64_core.write_reg(3,riscv_core::HEAP_BASE);
     let file = File::open("contest.sld");
@@ -57,6 +58,9 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                 riscv64_core.read_maotme(results.to_string());
             }
         }
+        println!("LOAD contest.sld");
+    }else{
+        println!("NO contest.sld");
     }
     let mut count:u64 = 0;
     let finish = false;
