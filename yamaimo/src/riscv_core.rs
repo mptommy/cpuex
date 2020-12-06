@@ -427,6 +427,7 @@ pub trait Riscv64Core{
     fn output_toukei(&mut self);
     fn output_regtoukei(&mut self);
     fn output_outs(&mut self);
+    fn output_mem(&mut self,i:i32);
 }
 
 impl Riscv64Core for EnvBase{
@@ -2395,6 +2396,23 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FCVTWS=>{
                 if self.writing {println!("FCVTWS {}\n",rs1);}
                 let rs1_data = self.fread_reg(rs1);
+                match rm{
+                    0b000 =>{
+                        let reg_data = fpu::float_to_int(rs1_data);
+                        self.write_reg(rd,reg_data);
+                        (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+                    },
+                    0b010 =>{
+                        let reg_data = rs1_data.floor();
+                        self.fwrite_reg(rd,reg_data);
+                        (ForMem{fdata:reg_data,isint:false,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:0,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                    },
+                    _ =>{println!("{} is",rm);panic!("INVALID RM")}
+                }
+            }
+           /* RiscvInst::FCVTWS=>{
+                if self.writing {println!("FCVTWS {}\n",rs1);}
+                let rs1_data = self.fread_reg(rs1);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{i32::MAX}
                     else if rs1_data == f32::NEG_INFINITY{i32::MIN}
@@ -2430,7 +2448,7 @@ impl Riscv64Core for EnvBase{
                     };
                     self.write_reg(rd,res);
                     (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:res,rd:rd,fdata:0.0,isint:true,issigned:false})
-            }
+            }*/
             RiscvInst::FCVTWUS=>{
                 if self.writing {println!("FCVTWUS {}\n",rs1);}
                 let rs1_data = self.fread_reg(rs1);
@@ -2487,7 +2505,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FCVTSW=>{
                 if self.writing {println!("FCVTSW {}\n",rs1);}
                 let rs1_data = self.read_reg(rs1);
-                let reg_data = rs1_data as f32;
+                let reg_data = fpu::int_to_float(rs1_data);
                 self.fwrite_reg(rd,reg_data);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
@@ -2734,6 +2752,15 @@ impl Riscv64Core for EnvBase{
     fn output_regi(&mut self,i:i32){
         let i = i as usize;
         println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.m_regs[i].to_string());
+    }
+    fn output_mem(&mut self,i:i32){
+        let i = i as u32;
+        let base_addr:AddrType = i-DRAM_BASE;
+        let fetch_data = ((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
+        ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
+        ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
+        ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        println!("{},({:08x})",fetch_data,fetch_data);
     }
     fn output_fregi(&mut self,i:i32){
         let i = i as usize;
