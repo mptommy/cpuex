@@ -134,12 +134,12 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(_), Out(x, "print_char") -> Printf.fprintf oc "\tout\t%s\n" x
   | NonTail(_), Out(x, "print_int") -> 
       Printf.fprintf oc "\tout\t%s\n" x;
-      Printf.fprintf oc "\tsrli\t%s, %s, 8\n" x x;
-      Printf.fprintf oc "\tout\t%s\n" x;
-      Printf.fprintf oc "\tsrli\t%s, %s, 8\n" x x;
-      Printf.fprintf oc "\tout\t%s\n" x;
-      Printf.fprintf oc "\tsrli\t%s, %s, 8\n" x x;
-      Printf.fprintf oc "\tout\t%s\n" x
+      Printf.fprintf oc "\tsrli\t%s, %s, 8\n" reg_sw x;
+      Printf.fprintf oc "\tout\t%s\n" reg_sw;
+      Printf.fprintf oc "\tsrli\t%s, %s, 16\n" reg_sw x;
+      Printf.fprintf oc "\tout\t%s\n" reg_sw;
+      Printf.fprintf oc "\tsrli\t%s, %s, 24\n" reg_sw x;
+      Printf.fprintf oc "\tout\t%s\n" reg_sw
   (* 浮動小数点のロードストア *)
   | NonTail(x), LdF(y, V(z)) ->
       Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;

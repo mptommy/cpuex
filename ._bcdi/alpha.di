@@ -1,1 +1,4 @@
-alpha.cmi : m.cmo kNormal.cmi id.cmo
+alpha.cmi : \
+    m.cmo \
+    kNormal.cmi \
+    id.cmo
