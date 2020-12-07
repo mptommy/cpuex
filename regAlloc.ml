@@ -138,7 +138,7 @@ and g' dest cont regenv = function (* 各命令のレジスタ割り当て (caml
   | FLess(x, y) -> (Ans(FLess(find x Type.Float regenv, find y Type.Float regenv)), regenv)
   | FInv(x) -> (Ans(FInv(find x Type.Float regenv)), regenv)
   | FToI(x) -> (Ans(FToI(find x Type.Float regenv)), regenv)
-  | IToF(x) -> (Ans(IToF(find x Type.Float regenv)), regenv)
+  | IToF(x) -> (Ans(IToF(find x Type.Int regenv)), regenv)
   | Floor(x) -> (Ans(Floor(find x Type.Float regenv)), regenv)
   | FSqrt(x) -> (Ans(FSqrt(find x Type.Float regenv)), regenv)
   | FAbs(x) -> (Ans(FAbs(find x Type.Float regenv)), regenv)

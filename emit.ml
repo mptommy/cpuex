@@ -130,7 +130,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\tin\t%s\n" "%t6";
       Printf.fprintf oc "\tslli\t%s, %s, 24\n" "%t6" "%t6";     
       Printf.fprintf oc "\tor\t%s, %s, %s\n" "%t5" "%t5" "%t6";
-      Printf.fprintf oc "\tfmv\t%s, %s\n" x "%t5"
+      Printf.fprintf oc "\tfmv.w.x\t%s, %s\n" x "%t5"
   | NonTail(_), Out(x, "print_char") -> Printf.fprintf oc "\tout\t%s\n" x
   | NonTail(_), Out(x, "print_int") -> 
       Printf.fprintf oc "\tout\t%s\n" x;
@@ -169,10 +169,10 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | Tail, (Nop | St _ | StF _ | Comment _ | Save _ | In _ | Out _ as exp) ->
       g' oc (NonTail(Id.gentmp Type.Unit), exp);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
-  | Tail, (Set _ | SetL _ | Mov _ | Neg _ | Add _ | Sub _ | Mul _ | Div _ | SLL _ | Ld _ | FToI _ as exp) ->
+  | Tail, (Set _ | SetL _ | Mov _ | Neg _ | Add _ | Sub _ | Mul _ | Div _ | SLL _ | Ld _ | FToI _ | FLess _ as exp) ->
       g' oc (NonTail(regs.(0)), exp);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
-  | Tail, (FMov _ | FNeg _ | FAdd _ | FSub _ | FMul _ | FDiv _ | FInv _ | FSqrt _ | FAbs _ | FHalf _ | FSqr _ | FLess _ | LdF _ | IToF _ | Floor _ as exp) ->
+  | Tail, (FMov _ | FNeg _ | FAdd _ | FSub _ | FMul _ | FDiv _ | FInv _ | FSqrt _ | FAbs _ | FHalf _ | FSqr _ | LdF _ | IToF _ | Floor _ as exp) ->
       g' oc (NonTail(fregs.(0)), exp);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
   | Tail, (Restore(x) as exp) ->
