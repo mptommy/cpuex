@@ -28,28 +28,13 @@ module core_tb();
         sending = 0;
         send_count = 0;
         #55 rst = 0;
-        #2000000 $finish();
+        #200000000 $finish();
     end
 
     reg wait_busy;
     always @(posedge clk) begin
-        if (received == 8'b10101010) begin
-            start_sending <= 1;
-            sending <= 3;
-            received <= 0;
-            send_count <= 3;
-            wait_busy <= 1;
-        end else if ((send_count > 0) && uart_busy) begin
-            start_sending <= 0;
-        end else if ((send_count > 0) && ~uart_busy && ~wait_busy) begin
-            start_sending <= 1;
-            sending <= send_count - 1;
-            send_count <= send_count - 1;
-            wait_busy  <= 1;
-        end else if ((send_count > 0) && ~uart_busy && wait_busy) begin
-            wait_busy  <= 0;
-        end else if(rdata_ready_uart) begin
-            $display("Received: %d\n", rdata_uart);
+        if(rdata_ready_uart) begin
+            $display("%b\n", rdata_uart);
             received <= rdata_uart;
         end
     end
