@@ -1,5 +1,3 @@
-// load_tableをノンブロッキング代入すべきかは要調査。
-
 `default_nettype none
 module sqrt_load_const_table (
     input wire [9:0] addr,
@@ -8,9 +6,10 @@ module sqrt_load_const_table (
 	input wire rstn);
 
 (* RAM_STYLE="BLOCK" *) reg [81:0] ram [1023:0];
-//always @(posedge clk)
-//    cst <= ram[addr];
-assign cst = ram[addr];
+always @(posedge clk) begin
+    cst <= ram[addr];
+end
+
 initial begin
 	ram[0] = 82'b1011010100000100111100100010010011011101001001111110111011000001101000110000000000;
 	ram[1] = 82'b1011010011101110010101011100010001100010011000100100111010001111010001001001101011;
@@ -1046,9 +1045,10 @@ module sqrt_load_grad_table (
 	input wire rstn);
 
 (* RAM_STYLE="BLOCK" *) reg [70:0] ram [1023:0];
-//always @(posedge clk)
-//    grd <= ram[addr];
-assign grd = ram[addr];
+always @(posedge clk) begin
+    grd <= ram[addr];
+end
+
 initial begin
 	ram[0] = 71'b10110100111000110000101010110110010001011011000000100010011111001011101;
 	ram[1] = 71'b10110100100111110101001110100010010100101010011010111001001100110010101;

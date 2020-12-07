@@ -1,5 +1,3 @@
-// load_tableをノンブロッキング代入すべきかは要調査。
-
 `default_nettype none
 module finv_load_const_table (
     input wire [9:0] addr,
@@ -8,9 +6,11 @@ module finv_load_const_table (
 	input wire rstn);
 
 (* RAM_STYLE="BLOCK" *) reg [57:0] ram [1023:0];
-//always @(posedge clk)
-//    cst <= ram[addr];
-assign cst = ram[addr];
+always @(posedge clk) begin
+    cst <= ram[addr];
+end
+//assign cst = ram[addr];
+
 initial begin
 	ram[0] = 58'b1111111111111111111111000000000111111111110000000000000000;
 	ram[1] = 58'b1111111111000000000011000000000100000001001111100111000000;
@@ -1046,9 +1046,11 @@ module finv_load_grad_table (
 	input wire rstn);
 
 (* RAM_STYLE="BLOCK" *) reg [34:0] ram [1023:0];
-//always @(posedge clk)
-//    grd <= ram[addr];
-assign grd = ram[addr];
+always @(posedge clk) begin
+    grd <= ram[addr];
+end
+//assign grd = ram[addr];
+
 initial begin
 	ram[0] = 35'b11111111110000000001001111111110000;
 	ram[1] = 35'b11111111010000000111001111100010000;

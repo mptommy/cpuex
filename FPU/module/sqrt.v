@@ -6,7 +6,7 @@ module sqrt #(parameter NSTAGE = 5)(
     input wire clk,
     input wire rstn); 
 
-// stage = 0 (x -> csr, grd) 
+// stage = 0 (x -> ram[a0]) 
 
 reg[31:0] xr[4:0];
 
@@ -18,19 +18,17 @@ wire [70:0] grd;
 sqrt_load_const_table u1 (a0, cst, clk, rstn);
 sqrt_load_grad_table u2 (a0, grd, clk, rstn);
 
-// stage = 1 (cstr[0], grdr -> a1grd)
-
-reg [81:0] cstr[1:0];
-reg [70:0] grdr;
+// stage = 1 (xr[0], cst, grd -> a1grd)
 
 wire [12:0] a1 = xr[0][12:0];
-wire [83:0] a1grd = a1 * grdr;
+wire [83:0] a1grd = a1 * grd;
 
-// stage = 2 (cstr[1], a1grdr -> mtmp)  //ここ軽いから分けなくていいかも
+// stage = 2 (cstr, a1grdr -> mtmp)  //ここ軽いから分けなくていいかも
 
+reg [81:0] cstr;
 reg [83:0] a1grdr;
 
-wire [94:0] mtmp = {cstr[1], 13'b0} - a1grdr;
+wire [94:0] mtmp = {cstr, 13'b0} - a1grdr;
 
 // stage = 3 (xr[2], mtmpr -> tsqmulm)
 
@@ -63,26 +61,24 @@ wire [22:0] ym = tsqmcoer[69:47] + tsqmcoer[46];
 always @(posedge clk) begin
     if(~rstn) begin
         xr[0] <= 'b0;
-        cstr[0] <= 'b0;
-        grdr <= 'b0;
+        xr[1] <= 'b0;
+        xr[2] <= 'b0;
+        xr[3] <= 'b0;
+        xr[4] <= 'b0;
+        cstr <= 'b0;
         a1grdr <= 'b0;
         mtmpr <= 'b0;
         tsqmulmr <= 'b0;
         tsqmcoer <= 'b0;
     end else begin
         xr[0] <= x;
-        cstr[0] <= cst;
-        grdr <= grd;
+        xr[4:1] <= xr[3:0];
+        cstr <= cst;
         a1grdr <= a1grd;
         mtmpr <= mtmp;
         tsqmulmr <= tsqmulm;
         tsqmcoer <= tsqmcoe;
     end
-end
-
-always @(posedge clk) begin
-    xr[4:1] <= xr[3:0];
-    cstr[1] <= cstr[0];
 end
 
 assign y = (iszero) ? 32'b0 : {ys, ye, ym};
