@@ -1,3 +1,5 @@
+use std::fs::File;
+use std::io::{Write,BufRead,BufReader,BufWriter};
 use std::num::Wrapping;
 use crate::riscv_csr::RiscvCsr;
 use crate::riscv_csr::RiscvCsrBase;
@@ -2800,6 +2802,10 @@ impl Riscv64Core for EnvBase{
     }
     fn output_outs(&mut self){
         println!("OUTS");
+        let file2 = File::create("out.txt").unwrap();
+        let mut filebuf2 = BufWriter::new (file2);
+
+            
         let mut floatbufs=[0;4];
         let mut count = 0;
         let mut buf:u32 = 0;
@@ -2810,10 +2816,12 @@ impl Riscv64Core for EnvBase{
                 buf |= ((i as u8)as u32) << 8*count;
                 count += 1;
                 count %= 4;
-                println!("{:0>8b}",i);
+               println!("{:0>8b}",i);
+               writeln!(filebuf2,"{}", format!("{:0>8b}",i));
                 if count == 0{
+                //    writeln!(filebuf2,"{}", format!("{}",buf));
                     println!("i:{}",buf);
-                    println!("f:{}",f32::from_le_bytes(floatbufs));
+                   // println!("f:{}",f32::from_le_bytes(floatbufs));
                     buf = 0;
                 }
             }
