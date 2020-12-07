@@ -22,7 +22,6 @@ let put_tab () =
   
 let rec print_syntax_t s = match (s:Syntax.t) with
   | Syntax.Unit -> Printf.printf "UNIT\n"
-  | Syntax.Bool(b) -> Printf.printf "BOOL %B\n" b
   | Syntax.Int(i) -> Printf.printf "INT %i\n" i
   | Syntax.Float(f) -> Printf.printf "FLOAT %f\n" f
   | Syntax.Not(e) -> Printf.printf "NOT\n"; count_LR := !count_LR + 1; put_tab (); print_syntax_t e; count_LR := !count_LR - 1

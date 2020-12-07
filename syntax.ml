@@ -1,6 +1,5 @@
 type t = (* MinCamlの構文を表現するデータ型 (caml2html: syntax_t) *)
   | Unit
-  | Bool of bool
   | Int of int
   | Float of float
   | Not of t

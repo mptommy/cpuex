@@ -53,10 +53,9 @@ let insert_let (e, t) k = (* letを挿入する。式eを受け取り、新し�
 
 let rec g env = function (* K正規化ルーチン本体 (caml2html: knormal_g) *)
   | Syntax.Unit -> Unit, Type.Unit
-  | Syntax.Bool(b) -> Int(if b then 1 else 0), Type.Int (* 論理値true, falseを整数1, 0に変換 (caml2html: knormal_bool) *)
   | Syntax.Int(i) -> Int(i), Type.Int
   | Syntax.Float(d) -> Float(d), Type.Float
-  | Syntax.Not(e) -> g env (Syntax.If(e, Syntax.Bool(false), Syntax.Bool(true)))
+  | Syntax.Not(e) -> g env (Syntax.If(e, Syntax.Int(0), Syntax.Int(1)))
   | Syntax.Neg(e) ->
       insert_let (g env e)
         (fun x -> Neg(x), Type.Int)
@@ -96,7 +95,7 @@ let rec g env = function (* K正規化ルーチン本体 (caml2html: knormal_g) 
         (fun x -> insert_let (g env e2)
             (fun y -> FDiv(x, y), Type.Float))
   | Syntax.Eq _ | Syntax.LE _ as cmp -> (* 比較と分岐を一体化＝比較をIf文の条件判断に変えちゃう *)
-      g env (Syntax.If(cmp, Syntax.Bool(true), Syntax.Bool(false)))
+      g env (Syntax.If(cmp, Syntax.Int(1), Syntax.Int(0)))
   | Syntax.If(Syntax.Not(e1), e2, e3) -> g env (Syntax.If(e1, e3, e2)) (* notによる分岐を変換 (caml2html: knormal_not) *)
   | Syntax.If(Syntax.Eq(e1, e2), e3, e4) -> (* Ifの本質。let x = (g env e1) in let y = (g env e2) in IfEq(x, y, (g env e3), (g env e4))みたいな *)
       insert_let (g env e1)
@@ -112,7 +111,7 @@ let rec g env = function (* K正規化ルーチン本体 (caml2html: knormal_g) 
               let e3', t3 = g env e3 in
               let e4', t4 = g env e4 in
               IfLE(x, y, e3', e4'), t3))
-  | Syntax.If(e1, e2, e3) -> g env (Syntax.If(Syntax.Eq(e1, Syntax.Bool(false)), e3, e2)) (* 比較のない分岐を変換。条件部分がfalseならe3, trueならe2ってする (caml2html: knormal_if) *)
+  | Syntax.If(e1, e2, e3) -> g env (Syntax.If(Syntax.Eq(e1, Syntax.Int(0)), e3, e2)) (* 比較のない分岐を変換。条件部分がfalseならe3, trueならe2ってする (caml2html: knormal_if) *)
   | Syntax.Let((x, t), e1, e2) ->
       let e1', t1 = g env e1 in
       let e2', t2 = g (M.add x t env) e2 in

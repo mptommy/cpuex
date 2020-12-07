@@ -13,7 +13,6 @@ let genid s =
 
 let rec id_of_typ = function (* 引数がType.tのどれかを文字列として返す。 *)
   | Type.Unit -> "u"
-  | Type.Bool -> "b"
   | Type.Int -> "i"
   | Type.Float -> "d"
   | Type.Fun _ -> "f"

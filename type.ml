@@ -1,6 +1,5 @@
 type t = (* MinCamlの型を表現するデータ型 (caml2html: type_t) *)
   | Unit
-  | Bool
   | Int
   | Float
   | Fun of t list * t (* arguments are uncurried *) (* 引数の型リストと処理の型の組 *)

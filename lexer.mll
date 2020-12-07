@@ -20,10 +20,6 @@ rule token = parse
     { LPAREN }
 | ')'
     { RPAREN }
-| "true"
-    { BOOL(true) }
-| "false"
-    { BOOL(false) }
 | "not"
     { NOT }
 | digit+ (* �����������Ϥ���롼�� (caml2html: lexer_int) *)

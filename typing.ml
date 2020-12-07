@@ -62,7 +62,7 @@ let rec occur r1 = function (* occur check (caml2html: typing_occur) *) (* occur
 
 let rec unify t1 t2 = (* 型が合うように、型変数への代入をする (caml2html: typing_unify) *) (* 型が合わなければ例外が発生。型が合うようなら、合うように型操作をしたうえで、最終的にはunitを返す *)
   match t1, t2 with
-  | Type.Unit, Type.Unit | Type.Bool, Type.Bool | Type.Int, Type.Int | Type.Float, Type.Float -> ()
+  | Type.Unit, Type.Unit | Type.Int, Type.Int | Type.Float, Type.Float -> ()
   | Type.Fun(t1s, t1'), Type.Fun(t2s, t2') ->
       (try List.iter2 unify t1s t2s (* List.iter2 f [a1; ...; an] [b1; ...; bn] は f a1 b1; ...; f an bn の順に関数を評価します。2つのリストの長さが異なる場合、例外 Invalid_argument を発生します。 *)
       with Invalid_argument(_) -> raise (Unify(t1, t2)));
@@ -86,12 +86,11 @@ let rec g env e = (* 型推論ルーチン (caml2html: typing_g) *) (* 構文木
   try
     match e with
     | Unit -> Type.Unit
-    | Bool(_) -> Type.Bool
     | Int(_) -> Type.Int
     | Float(_) -> Type.Float
     | Not(e) ->
-        unify Type.Bool (g env e);
-        Type.Bool
+        unify Type.Int (g env e);
+        Type.Int
     | Neg(e) ->
         unify Type.Int (g env e);
         Type.Int
@@ -108,9 +107,9 @@ let rec g env e = (* 型推論ルーチン (caml2html: typing_g) *) (* 構文木
         Type.Float
     | Eq(e1, e2) | LE(e1, e2) ->
         unify (g env e1) (g env e2);
-        Type.Bool
+        Type.Int
     | If(e1, e2, e3) ->
-        unify (g env e1) Type.Bool;
+        unify (g env e1) Type.Int;
         let t2 = g env e2 in
         let t3 = g env e3 in
         unify t2 t3;
