@@ -21,6 +21,9 @@ impl FPUCore{
                     self.const_table[i]=result.parse::<u64>().unwrap();
                 }
             }
+            println!("LOAD const_table");
+        }else{
+            println!("NO const_table:FDIV not works");
         }
         let file = File::open("grad_table.txt");
         if let Ok(file)=file{
@@ -30,6 +33,9 @@ impl FPUCore{
                     self.grad_table[i]=result.parse::<u64>().unwrap();
                 }
             }
+            println!("LOAD grad_table");
+        }else{
+            println!("NO grad_table:FDIV not works");
         }
         return self;
     }

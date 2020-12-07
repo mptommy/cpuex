@@ -27,13 +27,14 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
 
     let mut riscv64_core = EnvBase::new();
     //riscv64_core.m_pc = 66398+riscv64_core.m_pc;
-
+    riscv64_core.writing = false;
     for result in filebuf.bytes(){
         let l:u8 = result?;
         riscv64_core.write_memory_byte(hex_addr + DRAM_BASE,l as XlenType);
         hex_addr=hex_addr+1;
     }
-    riscv64_core.write_reg(2,riscv_core::STACK_BASE);
+    riscv64_core.writing = true;
+    riscv64_core.write_reg(2,riscv_core::STACK_BASE-8);
     riscv64_core.write_reg(3,riscv_core::HEAP_BASE);
     let file = File::open("contest.sld");
     if let Ok(file) = file {
@@ -57,6 +58,9 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                 riscv64_core.read_maotme(results.to_string());
             }
         }
+        println!("LOAD contest.sld");
+    }else{
+        println!("NO contest.sld");
     }
     let mut count:u64 = 0;
     let finish = false;
@@ -113,6 +117,10 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                         let num:i32 = coms.next().unwrap().parse().unwrap();
                         riscv64_core.output_fregi(num);
                     }
+                    "mem"=>{
+                        let num:i32 = coms.next().unwrap().parse().unwrap();
+                        riscv64_core.output_mem(num);
+                    }
                     "go"=>{
                         let num:i32 = coms.next().unwrap().parse().unwrap();
                         renzoku = -num;
@@ -121,7 +129,14 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                     "pc"=>{
                         let num:i32 = coms.next().unwrap().parse().unwrap();
                         togo = num;
+                        riscv64_core.writing = true;
                         looping = false;step=false;
+                    }
+                    "npc"=>{
+                        let num:i32 = coms.next().unwrap().parse().unwrap();
+                        togo = num;
+                        looping = false;step=false;
+                        riscv64_core.writing = false;
                     }
                     "inst"=>{
                         riscv64_core.output_toukei();
@@ -129,7 +144,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                     "all"=>{
                         riscv64_core.output_reg();
                     }
-                    _ =>{looping =false;}
+                    _ =>{looping =false;riscv64_core.writing = true;}
                 }
             }
             

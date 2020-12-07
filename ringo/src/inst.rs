@@ -275,7 +275,7 @@ impl Instruction{
                 )
             },
             Insts::AUIPC(r,i)=>{
-                let i = if i == -1 {0}else{i};
+             //   let i = if i == -1 {0}else{i};
                 Instruction::set_imm20(
                     Instruction{
                         op0_6:0b0010111,
@@ -1490,10 +1490,10 @@ impl Machine{
                 }
             },
             Insts::CALLL(s)=>{
-                vecs.push(Insts::AUIPCL(6,(&s).to_string()));
-			vecs2.push(Insts::AUIPCL(6,(&s).to_string()));
-                vecs.push(Insts::JALRL(1,6,(&s).to_string()));
-			vecs2.push(Insts::JALRL(1,6,(&s).to_string()));
+                vecs.push(Insts::AUIPCL(31,(&s).to_string()));
+			vecs2.push(Insts::AUIPCL(31,(&s).to_string()));
+                vecs.push(Insts::JALRL(1,31,(&s).to_string()));
+			vecs2.push(Insts::JALRL(1,31,(&s).to_string()));
             },
             Insts::TAIL(i)=>{
                 vecs.push(Insts::AUIPC(6,i >> 12));
@@ -1564,13 +1564,8 @@ impl Machine{
                         },
                         Insts::JALR(r1,r2,_l)=>{
                             
-                            let buf = 
-                            if sa < 0{
-                                Insts::JALR(*r1,*r2,((sa+4)&0xfff)|((0xfffff000 as u32)as i32))
-                            }
-                            else{
-                                Insts::JALR(*r1,*r2,(sa+4)&0xfff)
-                            };
+                            let buf = Insts::JALR(*r1,*r2,(sa+4)&0xfff);
+                            
                             self.insts[i].optype = buf.clone();
                             self.insts[i] = Instruction::code(buf);
                             //auipcとの整合を保つために+4しておく

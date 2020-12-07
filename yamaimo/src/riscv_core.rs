@@ -1,3 +1,5 @@
+use std::fs::File;
+use std::io::{Write,BufRead,BufReader,BufWriter};
 use std::num::Wrapping;
 use crate::riscv_csr::RiscvCsr;
 use crate::riscv_csr::RiscvCsrBase;
@@ -257,7 +259,7 @@ impl EnvBase{
     }
     pub fn read_int(&mut self,result:String){
         let is = result.parse::<i32>().unwrap();
-        println!("{}",is);
+        //println!("{}",is);
         self.inqueue.push_back((is & 0xff)as i8);
         self.inqueue.push_back(((is>>8) & 0xff)as i8);
         self.inqueue.push_back(((is>>16) & 0xff)as i8);
@@ -265,7 +267,7 @@ impl EnvBase{
     }
     pub fn read_float(&mut self,result:String){
         let fs = result.parse::<f32>().unwrap();
-        println!("{}f",fs);
+        //println!("{}f",fs);
         let beints = fs.to_le_bytes();
         self.inqueue.push_back(beints[0]as i8);
         self.inqueue.push_back(beints[1]as i8);
@@ -427,6 +429,7 @@ pub trait Riscv64Core{
     fn output_toukei(&mut self);
     fn output_regtoukei(&mut self);
     fn output_outs(&mut self);
+    fn output_mem(&mut self,i:i32);
 }
 
 impl Riscv64Core for EnvBase{
@@ -2054,13 +2057,23 @@ impl Riscv64Core for EnvBase{
                 self.write_reg(rd,reg_data);
                 if self.writing {println!("ADDI {},{} {}\n",rd,rs1,imm_data);}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            
             }
             RiscvInst::BEQ | RiscvInst::BNE | RiscvInst::BLT | RiscvInst::BGE | RiscvInst::BLTU | RiscvInst::BGEU => {
-                if self.writing {println!("HIKAKU\n");}
+                let addr:AddrType = Self::extract_sb_field(inst) as AddrType;
+                if self.writing {
+                    match dec_inst{
+                        RiscvInst::BEQ  => println!("BEQ {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BNE  => println!("BNE {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BLT  =>println!("BLT {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BGE  => println!("BGE {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BLTU => println!("BLTU {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BGEU => println!("BGEU {},{} {}\n",rs1,rs2,addr),
+                        _               => panic!("Unknown value Branch"),
+                    }
+                }
                 let rs1_data = self.read_reg(rs1);
                 let rs2_data = self.read_reg(rs2);
-                let addr:AddrType = Self::extract_sb_field(inst) as AddrType;
+                
                 let jump_en: bool;
                 jump_en = 
                     match dec_inst {
@@ -2395,6 +2408,23 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FCVTWS=>{
                 if self.writing {println!("FCVTWS {}\n",rs1);}
                 let rs1_data = self.fread_reg(rs1);
+                match rm{
+                    0b000 =>{
+                        let reg_data = fpu::float_to_int(rs1_data);
+                        self.write_reg(rd,reg_data);
+                        (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:0.0,isint:true,issigned:false})
+                    },
+                    0b010 =>{
+                        let reg_data = rs1_data.floor();
+                        self.fwrite_reg(rd,reg_data);
+                        (ForMem{fdata:reg_data,isint:false,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:0,rd:rd,fdata:reg_data,isint:false,issigned:false})
+                    },
+                    _ =>{println!("{} is",rm);panic!("INVALID RM")}
+                }
+            }
+           /* RiscvInst::FCVTWS=>{
+                if self.writing {println!("FCVTWS {}\n",rs1);}
+                let rs1_data = self.fread_reg(rs1);
                 let res =
                     if rs1_data == f32::NAN||rs1_data==f32::INFINITY{i32::MAX}
                     else if rs1_data == f32::NEG_INFINITY{i32::MIN}
@@ -2430,7 +2460,7 @@ impl Riscv64Core for EnvBase{
                     };
                     self.write_reg(rd,res);
                     (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:res,rd:rd,fdata:0.0,isint:true,issigned:false})
-            }
+            }*/
             RiscvInst::FCVTWUS=>{
                 if self.writing {println!("FCVTWUS {}\n",rs1);}
                 let rs1_data = self.fread_reg(rs1);
@@ -2487,7 +2517,7 @@ impl Riscv64Core for EnvBase{
             RiscvInst::FCVTSW=>{
                 if self.writing {println!("FCVTSW {}\n",rs1);}
                 let rs1_data = self.read_reg(rs1);
-                let reg_data = rs1_data as f32;
+                let reg_data = fpu::int_to_float(rs1_data);
                 self.fwrite_reg(rd,reg_data);
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
             }
@@ -2735,6 +2765,15 @@ impl Riscv64Core for EnvBase{
         let i = i as usize;
         println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.m_regs[i].to_string());
     }
+    fn output_mem(&mut self,i:i32){
+        let i = i as u32;
+        let base_addr:AddrType = i-DRAM_BASE;
+        let fetch_data = ((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
+        ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
+        ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
+        ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        println!("{},({:08x})",fetch_data,fetch_data);
+    }
     fn output_fregi(&mut self,i:i32){
         let i = i as usize;
        println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
@@ -2763,6 +2802,10 @@ impl Riscv64Core for EnvBase{
     }
     fn output_outs(&mut self){
         println!("OUTS");
+        let file2 = File::create("out.txt").unwrap();
+        let mut filebuf2 = BufWriter::new (file2);
+
+            
         let mut floatbufs=[0;4];
         let mut count = 0;
         let mut buf:u32 = 0;
@@ -2773,10 +2816,12 @@ impl Riscv64Core for EnvBase{
                 buf |= ((i as u8)as u32) << 8*count;
                 count += 1;
                 count %= 4;
-                println!("{:0>8b}",i);
+               println!("{:0>8b}",i);
+               writeln!(filebuf2,"{}", format!("{:0>8b}",i));
                 if count == 0{
+                //    writeln!(filebuf2,"{}", format!("{}",buf));
                     println!("i:{}",buf);
-                    println!("f:{}",f32::from_le_bytes(floatbufs));
+                   // println!("f:{}",f32::from_le_bytes(floatbufs));
                     buf = 0;
                 }
             }
