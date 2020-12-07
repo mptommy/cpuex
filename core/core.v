@@ -7,6 +7,7 @@ module core (clk, rst, test, uart_output, uart_input);
     localparam state_out = 5;
     localparam state_in = 6;
 
+    reg [31:0] steps;
     reg [31:0] pc;
     reg [2:0] state_reg;
     wire [2:0] state;
@@ -89,6 +90,7 @@ module core (clk, rst, test, uart_output, uart_input);
             pc <= 0;
             state_reg <= 0;
             in_data_write <= 0;
+            steps <= 0;
         end else begin
             if (state == 0) begin
                 state_reg <= 1;
@@ -108,6 +110,7 @@ module core (clk, rst, test, uart_output, uart_input);
             end else if (state == 4) begin
                 pc <= branch_ ? branch_addr : pc + 4;
                 state_reg <= 0;
+                steps <= steps + 1;
             end else if (state == state_out) begin
                 if (~tx_busy)
                     state_reg <= 3;
