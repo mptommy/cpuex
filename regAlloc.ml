@@ -44,10 +44,10 @@ let rec alloc dest cont regenv x t =
   assert (not (M.mem x regenv));
   let all =
     match t with
-    | Type.Unit -> ["%g0"] (* dummy *)
+    | Type.Unit -> ["%a0"] (* dummy *)
     | Type.Float -> allfregs
     | _ -> allregs in
-  if all = ["%g0"] then Alloc("%g0") else (* [XX] ad hoc optimization *)
+  if all = ["%a0"] then Alloc("%a0") else (* [XX] ad hoc optimization *)
   if is_reg x then Alloc(x) else
   let free = fv cont in
   try
@@ -119,7 +119,7 @@ and g'_and_restore dest cont regenv exp = (* 使用される変数をスタッ�
     ((* Format.eprintf "restoring %s@." x; *)
      g dest cont regenv (Let((x, t), Restore(x), Ans(exp))))
 and g' dest cont regenv = function (* 各命令のレジスタ割り当て (caml2html: regalloc_gprime) *)
-  | Nop | Set _ | SetL _ | Comment _ | Restore _ | In _ as exp -> (Ans(exp), regenv) (* 割り当てに変更なし *)
+  | Nop | Set _ | SetL _ | Comment _ | Restore _ | In | InF as exp -> (Ans(exp), regenv) (* 割り当てに変更なし *)
   | Mov(x) -> (Ans(Mov(find x Type.Int regenv)), regenv) (* xがレジスタならMov(x)、そうでなければ変数からレジスタへの写像regenvを適用させる *)
   | Neg(x) -> (Ans(Neg(find x Type.Int regenv)), regenv)
   | Add(x, y') -> (Ans(Add(find x Type.Int regenv, find' y' regenv)), regenv)

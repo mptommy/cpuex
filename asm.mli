@@ -30,7 +30,8 @@ and exp =
   | FToI of Id.t
   | IToF of Id.t
   | Floor of Id.t
-  | In of string
+  | In
+  | InF
   | Out of Id.t * string
   | LdF of Id.t * id_or_imm
   | StF of Id.t * Id.t * id_or_imm

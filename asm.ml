@@ -32,7 +32,8 @@ and exp = (* 一つ一つの命令に対応する式 (caml2html: sparcasm_exp) *
   | FToI of Id.t
   | IToF of Id.t
   | Floor of Id.t
-  | In of string
+  | In
+  | InF
   | Out of Id.t * string
   | LdF of Id.t * id_or_imm
   | StF of Id.t * Id.t * id_or_imm
@@ -105,7 +106,7 @@ let rec remove_and_uniq xs = function
 (* free variables in the order of use (for spilling) (caml2html: sparcasm_fv) *)
 let fv_id_or_imm = function V(x) -> [x] | _ -> []
 let rec fv_exp = function
-  | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) | In _ -> []
+  | Nop | Set(_) | SetL(_) | Comment(_) | Restore(_) | In | InF -> []
   | Mov(x) | Neg(x) | FMov(x) | FNeg(x) | Save(x, _) | Out(x, _) | FSqrt(x) | FAbs(x) | FHalf(x) | FSqr(x) | FInv(x) | FToI(x) | IToF(x) | Floor(x) -> [x]
   | Add(x, y') | Sub(x, y') | Mul(x, y') | Div(x, y') | SLL(x, y') | Ld(x, y') | LdF(x, y') -> x :: fv_id_or_imm y'
   | St(x, y, z') | StF(x, y, z') -> x :: y :: fv_id_or_imm z'
