@@ -2508,7 +2508,7 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FMVWX=>{
                 if self.writing {println!("FMVWX {},{}\n",rd,rs1);}
-                let rs1_data = self.fread_reg(rs1);
+                let rs1_data = self.read_reg(rs1);
                 let reg_data = EnvBase::int_to_float(rs1_data as u32);
                 self.fwrite_reg(rd, EnvBase::int_to_float(rs1_data as u32));
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
