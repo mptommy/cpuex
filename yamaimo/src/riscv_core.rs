@@ -2797,15 +2797,19 @@ impl Riscv64Core for EnvBase{
         }
         for i in 0..32{
             if self.fregtoukei[i] == 0 {continue;}
-            println!("fr{}:{}",i,self.fregtoukei[i]);
+             println!("fr{}:{}",i,self.fregtoukei[i]);
         }
     }
     fn output_outs(&mut self){
+        let mut ppms:VecDeque<u32> = VecDeque::new();
+        let mut atais:VecDeque<u8> = VecDeque::new();
         println!("OUTS");
-        let file2 = File::create("out.txt").unwrap();
+        let file2 = File::create("out.ppm").unwrap();
         let mut filebuf2 = BufWriter::new (file2);
-
-            
+        let file = File::create("rt.ans").unwrap();
+        let mut filebuf = BufWriter::new (file);
+        let fileb = File::create("bin.ppm").unwrap();
+        let mut filebbuf = BufWriter::new(fileb);
         let mut floatbufs=[0;4];
         let mut count = 0;
         let mut buf:u32 = 0;
@@ -2816,17 +2820,31 @@ impl Riscv64Core for EnvBase{
                 buf |= ((i as u8)as u32) << 8*count;
                 count += 1;
                 count %= 4;
-               println!("{:0>8b}",i);
-               writeln!(filebuf2,"{}", format!("{:0>8b}",i));
+           //    filebuf.write_all(&[i as u8]);
+              // println!("{:0>8b}",i);
+              atais.push_back(i as u8);
+              writeln!(filebuf,"{}", format!("{:0>8b}",i));
                 if count == 0{
                 //    writeln!(filebuf2,"{}", format!("{}",buf));
-                    println!("i:{}",buf);
+                    ppms.push_back(buf);
+                    //println!("i:{}",buf);
                    // println!("f:{}",f32::from_le_bytes(floatbufs));
                     buf = 0;
                 }
             }
            
         }
+        while !atais.is_empty(){
+            filebbuf.write_all(&[atais.pop_front().unwrap()]).unwrap();
+        }
+       /* writeln!(filebuf2,"P3");
+        writeln!(filebuf2,"{} {} 255",ppms.pop_front().unwrap(),ppms.pop_front().unwrap());
+        while !ppms.is_empty(){
+            writeln!(filebuf2,"{} {} {}",ppms.pop_front().unwrap(),ppms.pop_front().unwrap(),ppms.pop_front().unwrap());
+        }*/
+
+
+
     }
 
 }
