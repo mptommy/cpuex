@@ -85,12 +85,12 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(x), SLL(y, V(z)) -> Printf.fprintf oc "\tsll\t%s, %s, %s\n" x y z
   | NonTail(x), SLL(y, C(z)) -> Printf.fprintf oc "\tslli\t%s, %s, %d\n" x y z
   | NonTail(x), Ld(y, V(z)) -> 
-      Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;
-      Printf.fprintf oc "\tlw\t%s, 0(%s)\n" x reg_sw
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" "%t6" y z;
+      Printf.fprintf oc "\tlw\t%s, 0(%s)\n" x "%t6"
   | NonTail(x), Ld(y, C(z)) -> Printf.fprintf oc "\tlw\t%s, %d(%s)\n" x z y
   | NonTail(_), St(x, y, V(z)) -> 
-      Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;
-      Printf.fprintf oc "\tsw\t%s, 0(%s)\n" x reg_sw
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" "%t6" y z;
+      Printf.fprintf oc "\tsw\t%s, 0(%s)\n" x "%t6"
   | NonTail(_), St(x, y, C(z)) -> Printf.fprintf oc "\tsw\t%s, %d(%s)\n" x z y
   | NonTail(x), FMov(y) when x = y -> ()
   | NonTail(x), FMov(y) -> Printf.fprintf oc "\tfmv\t%s, %s\n" x y;
@@ -134,20 +134,20 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | NonTail(_), Out(x, "print_char") -> Printf.fprintf oc "\tout\t%s\n" x
   | NonTail(_), Out(x, "print_int") -> 
       Printf.fprintf oc "\tout\t%s\n" x;
-      Printf.fprintf oc "\tsrli\t%s, %s, 8\n" reg_sw x;
-      Printf.fprintf oc "\tout\t%s\n" reg_sw;
-      Printf.fprintf oc "\tsrli\t%s, %s, 16\n" reg_sw x;
-      Printf.fprintf oc "\tout\t%s\n" reg_sw;
-      Printf.fprintf oc "\tsrli\t%s, %s, 24\n" reg_sw x;
-      Printf.fprintf oc "\tout\t%s\n" reg_sw
+      Printf.fprintf oc "\tsrli\t%s, %s, 8\n" "%t6" x;
+      Printf.fprintf oc "\tout\t%s\n" "%t6";
+      Printf.fprintf oc "\tsrli\t%s, %s, 16\n" "%t6" x;
+      Printf.fprintf oc "\tout\t%s\n" "%t6";
+      Printf.fprintf oc "\tsrli\t%s, %s, 24\n" "%t6" x;
+      Printf.fprintf oc "\tout\t%s\n" "%t6"
   (* 浮動小数点のロードストア *)
   | NonTail(x), LdF(y, V(z)) ->
-      Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;
-      Printf.fprintf oc "\tflw\t%s, 0(%s)\n" x reg_sw
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" "%t6" y z;
+      Printf.fprintf oc "\tflw\t%s, 0(%s)\n" x "%t6"
   | NonTail(x), LdF(y, C(z)) -> Printf.fprintf oc "\tflw\t%s, %d(%s)\n" x z y
   | NonTail(_), StF(x, y, V(z)) -> 
-      Printf.fprintf oc "\tadd\t%s, %s, %s\n" reg_sw y z;
-      Printf.fprintf oc "\tfsw\t%s, 0(%s)\n" x reg_sw   
+      Printf.fprintf oc "\tadd\t%s, %s, %s\n" "%t6" y z;
+      Printf.fprintf oc "\tfsw\t%s, 0(%s)\n" x "%t6"   
   | NonTail(_), StF(x, y, C(z)) -> Printf.fprintf oc "\tfsw\t%s, %d(%s)\n" x z y  
   (* 浮動小数点のロードストア *)
   | NonTail(_), Comment(s) -> Printf.fprintf oc "\t! %s\n" s
@@ -182,47 +182,47 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       | _ -> assert false);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
   | Tail, IfEq(x, C(y), e1, e2) ->
-      Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_tail_if oc e1 e2 "beq" "bne" reg_sw reg_zero 
+      Printf.fprintf oc "\taddi\t%s, %s, %d\n" "%t6" x (-y);
+      g'_tail_if oc e1 e2 "beq" "bne" "%t6" reg_zero 
   | Tail, IfEq(x, V(y), e1, e2) ->
       g'_tail_if oc e1 e2 "beq" "bne" x y
   | Tail, IfLE(x, C(y), e1, e2) ->
-      Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_tail_if oc e1 e2 "ble" "bgt" reg_sw reg_zero
+      Printf.fprintf oc "\taddi\t%s, %s, %d\n" "%t6" x (-y);
+      g'_tail_if oc e1 e2 "ble" "bgt" "%t6" reg_zero
   | Tail, IfLE(x, V(y), e1, e2) ->
       g'_tail_if oc e1 e2 "ble" "bgt" x y
   | Tail, IfGE(x, C(y), e1, e2) ->
-      Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_tail_if oc e1 e2 "bge" "blt" reg_sw reg_zero
+      Printf.fprintf oc "\taddi\t%s, %s, %d\n" "%t6" x (-y);
+      g'_tail_if oc e1 e2 "bge" "blt" "%t6" reg_zero
   | Tail, IfGE(x, V(y), e1, e2) ->
       g'_tail_if oc e1 e2 "bge" "blt" x y
   | Tail, IfFEq(x, y, e1, e2) ->
-      Printf.fprintf oc "\tfeq\t%s, %s, %s\n" reg_sw x y;
-      g'_tail_if oc e1 e2 "bne" "beq" reg_sw reg_zero
+      Printf.fprintf oc "\tfeq\t%s, %s, %s\n" "%t6" x y;
+      g'_tail_if oc e1 e2 "bne" "beq" "%t6" reg_zero
   | Tail, IfFLE(x, y, e1, e2) ->
-      Printf.fprintf oc "\tfle\t%s, %s, %s\n" reg_sw x y; 
-      g'_tail_if oc e1 e2 "bne" "beq" reg_sw reg_zero
+      Printf.fprintf oc "\tfle\t%s, %s, %s\n" "%t6" x y; 
+      g'_tail_if oc e1 e2 "bne" "beq" "%t6" reg_zero
   | NonTail(z), IfEq(x, C(y), e1, e2) ->
-      Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "beq" "bne" reg_sw reg_zero 
+      Printf.fprintf oc "\taddi\t%s, %s, %d\n" "%t6" x (-y);
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "beq" "bne" "%t6" reg_zero 
   | NonTail(z), IfEq(x, V(y), e1, e2) ->
       g'_non_tail_if oc (NonTail(z)) e1 e2 "beq" "bne" x y
   | NonTail(z), IfLE(x, C(y), e1, e2) ->
-      Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "ble" "bgt" reg_sw reg_zero 
+      Printf.fprintf oc "\taddi\t%s, %s, %d\n" "%t6" x (-y);
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "ble" "bgt" "%t6" reg_zero 
   | NonTail(z), IfLE(x, V(y), e1, e2) ->
       g'_non_tail_if oc (NonTail(z)) e1 e2 "ble" "bgt" x y 
   | NonTail(z), IfGE(x, C(y), e1, e2) ->
-      Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sw x (-y);
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "bge" "blt" reg_sw reg_zero
+      Printf.fprintf oc "\taddi\t%s, %s, %d\n" "%t6" x (-y);
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "bge" "blt" "%t6" reg_zero
   | NonTail(z), IfGE(x, V(y), e1, e2) ->
       g'_non_tail_if oc (NonTail(z)) e1 e2 "bge" "blt" x y
   | NonTail(z), IfFEq(x, y, e1, e2) ->
-      Printf.fprintf oc "\tfeq\t%s, %s, %s\n" reg_sw x y;
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "beq" reg_sw reg_zero
+      Printf.fprintf oc "\tfeq\t%s, %s, %s\n" "%t6" x y;
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "beq" "%t6" reg_zero
   | NonTail(z), IfFLE(x, y, e1, e2) ->
-      Printf.fprintf oc "\tfle\t%s, %s, %s\n" reg_sw x y; 
-      g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "beq" reg_sw reg_zero
+      Printf.fprintf oc "\tfle\t%s, %s, %s\n" "%t6" x y; 
+      g'_non_tail_if oc (NonTail(z)) e1 e2 "bne" "beq" "%t6" reg_zero
   (* 関数呼び出しの仮想命令の実装 (caml2html: emit_call) *)
   | Tail, CallCls(x, ys, zs) -> (* 末尾呼び出し (caml2html: emit_tailcall) *)
       g'_args oc [(x, reg_cl)] ys zs;
