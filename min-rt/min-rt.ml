@@ -2,68 +2,87 @@ let rec fispos x = x > 0.0 in
 let rec fisneg x = x < 0.0 in
 let rec fiszero x = (x = 0.0) in
 
-(* let rec print_ten x =
-    let (ans,tosub) = (  
-        if x < 50 then
-        (if x < 20 then
-            (if x < 10 then (0,0) else (1,10))
-                else
-            (if x < 30 then (2,20)
-                    else (
-                    if x < 40 then (3,30) else (4,40))))
-        else 
-            (if x < 70 then 
-            (if x < 60 then (5,50) else (6,60))
-            else (if x < 80 then (7,70) 
-                    else(if x < 90 then (8,80) else (9,90))))) in
-    print_char (48+ans); print_char (48+x-tosub) 
+let rec print_ten_ans x =
+  if x < 50 then
+  (if x < 20 then
+      (if x < 10 then 0 else 1)
+          else
+      (if x < 30 then 2
+              else (
+              if x < 40 then 3 else 4)))
+  else 
+      (if x < 70 then 
+      (if x < 60 then 5 else 6)
+      else (if x < 80 then 7 
+              else(if x < 90 then 8 else 9)))
+in
+
+let rec print_ten_tosub x =
+      if x < 50 then
+      (if x < 20 then
+          (if x < 10 then 0 else 10)
+              else
+          (if x < 30 then 20
+                  else (
+                  if x < 40 then 30 else 40)))
+      else 
+          (if x < 70 then 
+          (if x < 60 then 50 else 60)
+          else (if x < 80 then 70 
+                  else(if x < 90 then 80 else 90)))
+in
+
+let rec print_ten x = 
+  print_char (48 + (print_ten_ans x)); print_char (48 + x - (print_ten_tosub x)) 
+in
+
+let rec print_int_ans x =
+  if x < 500 then
+  (if x < 200 then
+      (if x < 100 then 0 else 1)
+          else
+      (if x < 300 then 2
+              else (
+              if x < 400 then 3 else 4)))
+  else 
+      (if x < 700 then 
+      (if x < 600 then 5 else 6)
+      else (if x < 800 then 7 
+              else(if x < 900 then 8 else 9)))
+in
+
+let rec print_int_tosub x =
+      if x < 500 then
+      (if x < 200 then
+          (if x < 100 then 0 else 100)
+              else
+          (if x < 300 then 200
+                  else (
+                  if x < 400 then 300 else 400)))
+      else 
+          (if x < 700 then 
+          (if x < 600 then 500 else 600)
+          else (if x < 800 then 700 
+                  else(if x < 900 then 800 else 900)))
 in
 
 let rec print_int x =
-    let (ans,tosub) = (  
-        if x < 500 then
-        (if x < 200 then
-            (if x < 100 then (0,0) else (1,100))
-                else
-            (if x < 300 then (2,200)
-                    else (
-                    if x < 400 then (3,300) else (4,400))))
-        else 
-            ( if x < 700 then 
-            (if x < 600 then (5,500) else (6,600))
-            else (if x < 800 then (7,700) 
-                    else(
-                        if x < 900 then (8,800) else (9,900))))) in
-    print_char (48+ans); print_ten (x-tosub) 
-in *)
-
-let rec mod10 a b =
-    if a < 10 then (a, b) else mod10 (a - 10) (b + 1)
-in
-
-let rec mod100 a b =
-    if a < 100 then (a, b) else mod100 (a - 100) (b + 1)
-in
-
-let rec print_int i = 
-    let (a1, b1) = mod100 i 0 in
-    let (a2, b2) = mod10 a1 0 in
-    print_char (48 + b1); print_char (48 + b2); print_char (48 + a2)
+  print_char (48 + (print_int_ans x)); print_ten (x - (print_int_tosub x)) 
 in
 
 let rec kernel_sin a =
-    let a2 = a *. a in
-    let a3 = a2 *. a in 
-    let a5 = a3 *. a2 in
-    let a7 = a5 *. a2 in
-    a -. 0.16666668 *. a3 +. 0.008332824 *. a5 -. 0.00019587841 *. a7
+  let a2 = a *. a in
+  let a3 = a2 *. a in 
+  let a5 = a3 *. a2 in
+  let a7 = a5 *. a2 in
+  a -. 0.16666668 *. a3 +. 0.008332824 *. a5 -. 0.00019587841 *. a7
 in
 
 let rec kernel_cos a =
-    let a2 = a *. a in
-    let a4 = a2 *. a2 in
-    let a6 = a4 *. a2 in
-    1.0 -. 0.5 *. a2 +. 0.04166368 *. a4 -. 0.0013695068 *. a6
+  let a2 = a *. a in
+  let a4 = a2 *. a2 in
+  let a6 = a4 *. a2 in
+  1.0 -. 0.5 *. a2 +. 0.04166368 *. a4 -. 0.0013695068 *. a6
 in
 
 let pi = 3.14159265358979323846
@@ -73,43 +92,43 @@ let rec normal_0_2pi x = if (x > 2.0 *. pi) then normal_0_2pi (x -. 2.0 *. pi) e
 in
 
 let rec sin a =
-    let flag = if a > 0.0 then 1.0 else -.1.0 in
-    let abs_a = fabs a in
-    let x1 = normal_0_2pi abs_a in
-    let x2 = if x1 >= pi then x1 -. pi else x1 in
-    let flag1 = if x1 >= pi then flag *. (-.1.0) else flag in
-    let x3 = if x2 >= pi /. 2.0 then pi -. x2 else x2 in 
-    if x3 <= pi /. 4.0 then flag1 *. kernel_sin x3 else flag1 *. kernel_cos (pi /. 2.0 -. x3)
+  let flag = if a > 0.0 then 1.0 else -.1.0 in
+  let abs_a = fabs a in
+  let x1 = normal_0_2pi abs_a in
+  let x2 = if x1 >= pi then x1 -. pi else x1 in
+  let flag1 = if x1 >= pi then flag *. (-.1.0) else flag in
+  let x3 = if x2 >= pi /. 2.0 then pi -. x2 else x2 in 
+  if x3 <= pi /. 4.0 then flag1 *. kernel_sin x3 else flag1 *. kernel_cos (pi /. 2.0 -. x3)
 in
 
 
 let rec cos a = 
-    let flag = 1.0 in 
-    let abs_a = fabs a in
-    let x1 = normal_0_2pi abs_a in
-    let x2 = if x1 >= pi then x1 -. pi else x1 in
-    let flag1 = if x1 >= pi then flag *. (-.1.0) else flag in
-    let x3 = if x2 >= pi /. 2.0 then pi -. x2 else x2 in 
-    let flag2 = if x2 >= pi /. 2.0 then flag1 *. (-.1.0) else flag1 in
-    if x3 <= pi /. 4.0 then flag2 *. kernel_cos x3 else flag2 *. kernel_sin (pi /. 2.0 -. x3)
+  let flag = 1.0 in 
+  let abs_a = fabs a in
+  let x1 = normal_0_2pi abs_a in
+  let x2 = if x1 >= pi then x1 -. pi else x1 in
+  let flag1 = if x1 >= pi then flag *. (-.1.0) else flag in
+  let x3 = if x2 >= pi /. 2.0 then pi -. x2 else x2 in 
+  let flag2 = if x2 >= pi /. 2.0 then flag1 *. (-.1.0) else flag1 in
+  if x3 <= pi /. 4.0 then flag2 *. kernel_cos x3 else flag2 *. kernel_sin (pi /. 2.0 -. x3)
 in
 
 let rec kernel_atan a =
-    let a2 = a *. a in
-    let a3 = a *. a2 in
-    let a5 = a3 *. a2 in
-    let a7 = a5 *. a2 in
-    let a9 = a7 *. a2 in
-    let a11 = a9 *. a2 in
-    let a13 = a11 *. a2 in
-    a -. 0.3333333 *. a3 +. 0.2 *. a5 -. 0.142857142 *. a7 +. 0.111111104 *. a9 -. 0.08976446 *. a11 +. 0.060035485 *. a13 
+  let a2 = a *. a in
+  let a3 = a *. a2 in
+  let a5 = a3 *. a2 in
+  let a7 = a5 *. a2 in
+  let a9 = a7 *. a2 in
+  let a11 = a9 *. a2 in
+  let a13 = a11 *. a2 in
+  a -. 0.3333333 *. a3 +. 0.2 *. a5 -. 0.142857142 *. a7 +. 0.111111104 *. a9 -. 0.08976446 *. a11 +. 0.060035485 *. a13 
 in
 
 let rec atan a = 
-    let abs_a = fabs a in
-    if abs_a < 0.4375 then kernel_atan a 
-    else if abs_a < 2.4375 then pi /. 4.0 +. kernel_atan ((abs_a -. 1.0) /. (abs_a +. 1.0)) 
-    else pi /. 2.0 -. kernel_atan (1.0 /. abs_a)
+  let abs_a = fabs a in
+  if abs_a < 0.4375 then kernel_atan a 
+  else if abs_a < 2.4375 then pi /. 4.0 +. kernel_atan ((abs_a -. 1.0) /. (abs_a +. 1.0)) 
+  else pi /. 2.0 -. kernel_atan (1.0 /. abs_a)
 in 
 
 (**************** グローバル変数の宣言 ****************)

@@ -161,39 +161,72 @@ let rec print_int i =
     let (a2, b2) = mod10 a1 0 in
     print_char (48 + b1); print_char (48 + b2); print_char (48 + a2) *)
 
-let rec print_ten x =
-    let (ans,tosub) = (  
+let rec print_ten_ans x =
+    if x < 50 then
+    (if x < 20 then
+        (if x < 10 then 0 else 1)
+            else
+        (if x < 30 then 2
+                else (
+                if x < 40 then 3 else 4)))
+    else 
+        (if x < 70 then 
+        (if x < 60 then 5 else 6)
+        else (if x < 80 then 7 
+                else(if x < 90 then 8 else 9)))
+in
+
+let rec print_ten_tosub x =
         if x < 50 then
         (if x < 20 then
-            (if x < 10 then (0,0) else (1,10))
+            (if x < 10 then 0 else 10)
                 else
-            (if x < 30 then (2,20)
+            (if x < 30 then 20
                     else (
-                    if x < 40 then (3,30) else (4,40))))
+                    if x < 40 then 30 else 40)))
         else 
             (if x < 70 then 
-            (if x < 60 then (5,50) else (6,60))
-            else (if x < 80 then (7,70) 
-                    else(if x < 90 then (8,80) else (9,90))))) in
-    print_char (48+ans); print_char (48+x-tosub) 
+            (if x < 60 then 50 else 60)
+            else (if x < 80 then 70 
+                    else(if x < 90 then 80 else 90)))
+in
+
+let rec print_ten x = 
+    print_char (48 + (print_ten_ans x)); print_char (48 + x - (print_ten_tosub x)) 
+in
+
+let rec print_int_ans x =
+    if x < 500 then
+    (if x < 200 then
+        (if x < 100 then 0 else 1)
+            else
+        (if x < 300 then 2
+                else (
+                if x < 400 then 3 else 4)))
+    else 
+        (if x < 700 then 
+        (if x < 600 then 5 else 6)
+        else (if x < 800 then 7 
+                else(if x < 900 then 8 else 9)))
+in
+
+let rec print_int_tosub x =
+        if x < 500 then
+        (if x < 200 then
+            (if x < 100 then 0 else 100)
+                else
+            (if x < 300 then 200
+                    else (
+                    if x < 400 then 300 else 400)))
+        else 
+            (if x < 700 then 
+            (if x < 600 then 500 else 600)
+            else (if x < 800 then 700 
+                    else(if x < 900 then 800 else 900)))
 in
 
 let rec print_int x =
-    let (ans,tosub) = (  
-        if x < 500 then
-        (if x < 200 then
-            (if x < 100 then (0,0) else (1,100))
-                else
-            (if x < 300 then (2,200)
-                    else (
-                    if x < 400 then (3,300) else (4,400))))
-        else 
-            ( if x < 700 then 
-            (if x < 600 then (5,500) else (6,600))
-            else (if x < 800 then (7,700) 
-                    else(
-                        if x < 900 then (8,800) else (9,900))))) in
-    print_char (48+ans); print_ten (x-tosub) 
+    print_char (48 + (print_int_ans x)); print_ten (x - (print_int_tosub x)) 
 in
 
 let rec kernel_sin a =
