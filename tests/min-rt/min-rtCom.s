@@ -1,4 +1,6 @@
 main:
+	addi	t6,t6,170
+	out	t6
 	addi	%t0, %zero, 1
 	addi	%t1, %zero, 0
 	la	%t2, l.7214
