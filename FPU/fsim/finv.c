@@ -67,9 +67,21 @@ float InvFloat(float f){
     //PrintULLBin((A1 * xm * xm) >> 13);
     //printf("mantissa(uint)\n");
     //PrintUIntBin((unsigned int)mantissa);
-    ans.s = a.s;
-    ans.e = (253 << 23) - a.e;
-    ans.f = (unsigned int)(mantissa & fmask);
+    if(a.e == 0){
+      ans.s = a.s;
+      ans.e = (255 << 23);
+      ans.f = 0;
+    }
+    else if(a.e == emask){
+      ans.s = a.s;
+      ans.e = 0;
+      ans.f = 0;
+    }
+    else{
+      ans.s = a.s;
+      ans.e = (253 << 23) - a.e;
+      ans.f = (unsigned int)(mantissa & fmask);
+    }
     CatSEF(&ans);
     //printf("\n");
     return ans.raw;

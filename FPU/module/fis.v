@@ -6,7 +6,7 @@ module fiszero (
     input wire clk,
     input wire rstn);
 
-assign y = ~(|x);
+assign y = ~(|x[30:0]);
 endmodule
 
 module fispos (
@@ -15,7 +15,7 @@ module fispos (
     input wire clk,
     input wire rstn);
 
-assign y = (~x[31] & |x);
+assign y = (~x[31] && |x);
 endmodule
 
 module fisneg (
@@ -24,7 +24,7 @@ module fisneg (
     input wire clk,
     input wire rstn);
 
-assign y = (x[31] & |x[30:0]);
+assign y = (x[31] && |x[30:0]);
 endmodule
 
 `default_nettype wire
