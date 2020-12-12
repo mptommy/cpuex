@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::{Read, BufReader,BufRead};
 use std::env;
-use std::collections::VecDeque;
+use std::time::{Duration, Instant};
 mod riscv_csr;
 mod riscv_core;
 use crate::riscv_core::Riscv64Core;
@@ -18,13 +18,10 @@ use crate::riscv_core::XlenType;
 
 fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let args:Vec<String>=env::args().collect::<Vec<String>>();
-    if args.len() != 2{
-        std::process::exit(1);
-    }
     let file = File::open(&args[1]).unwrap();
     let filebuf = BufReader::new(file);
     let mut hex_addr = 0;
-
+    let mut start = Instant::now();
     let mut riscv64_core = EnvBase::new();
     //riscv64_core.m_pc = 66398+riscv64_core.m_pc;
     riscv64_core.writing = false;
@@ -36,7 +33,8 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     riscv64_core.writing = true;
     riscv64_core.write_reg(2,riscv_core::STACK_BASE-8);
     riscv64_core.write_reg(3,riscv_core::HEAP_BASE);
-    let file = File::open("contest.sld");
+    let sldname = if args.len() >= 3 {&args[2]}else{"contest.sld"};
+    let file = File::open(sldname);
     if let Ok(file) = file {
         let filebuf = BufReader::new(file);
       
@@ -58,9 +56,9 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                 riscv64_core.read_maotme(results.to_string());
             }
         }
-        println!("LOAD contest.sld");
+        println!("LOAD {}",sldname);
     }else{
-        println!("NO contest.sld");
+        println!("NO {}",sldname);
     }
     let mut count:u64 = 0;
     let finish = false;
@@ -82,6 +80,10 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         "y"=> true,"n"=>false,_=>false
     };
     while !finish&& finishcount < 4{
+       // let yoyu = i32::abs(riscv64_core.read_reg(2) as i32 - riscv64_core.read_reg(3) as i32);
+        if  riscv64_core.read_reg(2)  < riscv64_core.read_reg(3){
+            panic!("HP/GP衝突");
+        } 
         if !riscv64_core.get_is_finish_cpu(){
             finishcount = 0;
         }else{
@@ -101,6 +103,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                 let mut coms = word.split_whitespace();
                 match coms.next().unwrap(){
                     "nend"=>{
+                        start = Instant::now();
                         step=false;
                         looping = false;
                         riscv64_core.writing = false;
@@ -212,7 +215,8 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         }
         count+=1;
     }
-    
+    let end = start.elapsed();
+    println!("nendしてから{}.{:03}秒経過しました。", end.as_secs(), end.subsec_nanos() / 1_000_000);
     riscv64_core.set_finish_cpu();
     riscv64_core.output_reg();
     
