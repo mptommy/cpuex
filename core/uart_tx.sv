@@ -40,7 +40,7 @@ module uart_tx (
       end else begin
          if (counter == e_clk_bit || rst_ctr) begin
             counter <= 0;
-         end else begin
+         end else if (status != s_idle) begin
             counter <= counter + 1;
          end
          if (~rst_ctr && counter == e_clk_bit) begin
