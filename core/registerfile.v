@@ -34,7 +34,7 @@ module registerfile(Read1, Read2, WriteReg, WriteData, RegWrite, Data1, Data2, c
         if (rst) begin
             RF[0] <= 0;
             RF[2] <= 1048572;
-            RF[3] <= 131070;
+            RF[3] <= 131072;
         end else begin
             if (RegWrite) begin
                 if(writef)
