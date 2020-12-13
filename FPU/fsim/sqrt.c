@@ -45,7 +45,8 @@ float SqrtFloat(float f){
   uint128_t tsqmcoe = (uint128_t)tsq * m * coe;
   ans.s = 0;
   ans.e = (aet % 2 == 1) ? ((127 + (aet-127) / 2) << 23) : ((127 + (aet-128) / 2) << 23);
-  ans.f = (tsqmcoe >> 47) + ((tsqmcoe >> 46) & 1);
+  unsigned int f2 = (tsqmcoe >> 47) + ((tsqmcoe >> 46) & 1);
+  ans.f = (aet % 2 == 1 && (a.f >> 1) == 0) ? 0 : f2;
   CatSEF(&ans);
   return ans.raw;
   /*sef a, ans, tsq, am;
