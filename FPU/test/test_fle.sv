@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_fle
-    #(parameter REPEATNUM = 5000000,
+    #(parameter REPEATNUM = 1000000000,
       parameter RANDSEED = 2) ();
 
 wire [31:0] x1,x2;
@@ -36,8 +36,8 @@ initial begin
     $display("difference message format");
     $display("x1 = [input 1(bit)], [exponent 1(decimal)]");
     $display("x2 = [input 2(bit)], [exponent 2(decimal)]");
-    $display("ref. : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
-    $display("fle : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
+    $display("ref. : result(bit)");
+    $display("fle : result(bit)");
     
     repeat(RANDSEED) begin
         i = $urandom();

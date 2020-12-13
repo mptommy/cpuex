@@ -1,8 +1,8 @@
 `timescale 1ns / 100ps
 `default_nettype none
 
-module test_fle
-    #(parameter REPEATNUM = 5000000,
+module test_fless
+    #(parameter REPEATNUM = 1000000000,
       parameter RANDSEED = 2) ();
 
 wire [31:0] x1,x2;
@@ -26,18 +26,18 @@ logic [31:0] diff;
 assign x1 = x1i;
 assign x2 = x2i;
    
-fle u1(x1,x2,y,clk,rstn);
+fless u1(x1,x2,y,clk,rstn);
 
 initial begin
 	// $dumpfile("test_fmul.vcd");
 	// $dumpvars(0);
 
-    $display("start of checking module fle");
+    $display("start of checking module fless");
     $display("difference message format");
     $display("x1 = [input 1(bit)], [exponent 1(decimal)]");
     $display("x2 = [input 2(bit)], [exponent 2(decimal)]");
-    $display("ref. : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
-    $display("fle : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
+    $display("ref. : result(bit)");
+    $display("fless : result(bit)");
     
     repeat(RANDSEED) begin
         i = $urandom();
@@ -75,7 +75,7 @@ initial begin
         end
     end
 
-    $display("end of checking module fle");
+    $display("end of checking module fless");
     $finish;
    end
 endmodule
