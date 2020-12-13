@@ -311,7 +311,7 @@ let f oc (Prog(data, fundefs, e)) =
   (* Printf.fprintf oc ".section\t\".text\"\n"; *)
   (* Printf.fprintf oc ".globl\tmain\n"; *)
   Printf.fprintf oc "main:\n";
-  (* Printf.fprintf oc "\tout\t0xAA\n" *)
+  Printf.fprintf oc "\tout\t0xAA\n"
   (* Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n"; (* from gcc; why 112? *) *)
   stackset := S.empty;
   stackmap := [];
