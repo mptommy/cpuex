@@ -56,7 +56,8 @@ wire iszero = ~(|xr[4][30:23]);
 wire ys = 0;
 wire [8:0] ye2 = (xr[4][23]) ? xr[4][30:23] + 127 : xr[4][30:23] + 126;
 wire [7:0] ye = ye2[8:1];
-wire [22:0] ym = tsqmcoer[69:47] + tsqmcoer[46];
+wire [23:0] ym2 = tsqmcoer[69:47] + tsqmcoer[46];
+wire [22:0] ym = (xr[4][23] && ~(|xr[4][22:1])) ? 23'b0 : ym2[22:0];
 
 always @(posedge clk) begin
     if(~rstn) begin
