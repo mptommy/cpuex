@@ -202,12 +202,15 @@ pub struct EnvBase{
 
     pub heapmax:i32,
     pub stackmin:i32,
+    pub infile:std::io::BufWriter<std::fs::File>,
+    
 }
 impl EnvBase{
     pub fn new() -> EnvBase{
         let fpucore = FPUCore::new();
         let fpucore = fpucore.load_table();
         EnvBase {
+            infile: BufWriter::new (File::create("in.txt").unwrap()),
             heapmax:HEAP_BASE,
             stackmin:STACK_BASE,
             fpucore:fpucore,
@@ -264,11 +267,19 @@ impl EnvBase{
         self.inqueue.push_back(((is>>8) & 0xff)as i8);
         self.inqueue.push_back(((is>>16) & 0xff)as i8);
         self.inqueue.push_back(((is>>24) & 0xff)as i8);
+        writeln!(self.infile,"{}", format!("{:0>8b}",(is & 0xff)));
+        writeln!(self.infile,"{}", format!("{:0>8b}",((is>>8) & 0xff)));
+        writeln!(self.infile,"{}", format!("{:0>8b}",((is>>16) & 0xff)));
+        writeln!(self.infile,"{}", format!("{:0>8b}",((is>>24) & 0xff)));
     }
     pub fn read_float(&mut self,result:String){
         let fs = result.parse::<f32>().unwrap();
         //println!("{}f",fs);
         let beints = fs.to_le_bytes();
+        writeln!(self.infile,"{}", format!("{:0>8b}",beints[0]));
+        writeln!(self.infile,"{}", format!("{:0>8b}",beints[1]));
+        writeln!(self.infile,"{}", format!("{:0>8b}",beints[2]));
+        writeln!(self.infile,"{}", format!("{:0>8b}",beints[3]));
         self.inqueue.push_back(beints[0]as i8);
         self.inqueue.push_back(beints[1]as i8);
         self.inqueue.push_back(beints[2]as i8);
