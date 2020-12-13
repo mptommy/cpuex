@@ -17,9 +17,9 @@ pub type InstType = u32;
 pub type RegAddrType = u8;
 
 pub const DRAM_BASE:AddrType = 0;
-pub const STACK_BASE:i32 = 0x0300000;
-pub const HEAP_BASE:i32 = 0x0100000;
-pub const DRAM_SIZE:usize = 0x0300000;
+pub const STACK_BASE:i32 = 1048572;
+pub const HEAP_BASE:i32 = 131072;
+pub const DRAM_SIZE:usize = 1048576;
 union FloatInt {
     i: u32,
     f: f32,
