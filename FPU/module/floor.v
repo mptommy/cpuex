@@ -35,7 +35,8 @@ wire [23:0] mni =   (e <= 8'b01111111) ? 24'b0 :
                     (e == 8'b10010100) ? {1'b0, m[22:2], 2'b0} :
                     (e == 8'b10010101) ? {1'b0, m[22:1], 1'b0} : {1'b0, m};
 
-wire [23:0] restbit =   (e <= 8'b01111111) ? {|(m[22:0]), 23'b0} :
+wire [23:0] restbit =   (e < 8'b01111111) ? {|(x[30:0]), 23'b0} :
+                        (e == 8'b01111111) ? {|(m[22:0]), 23'b0} :
                         (e == 8'b10000000) ? {1'b0, |(m[21:0]), 22'b0} :
                         (e == 8'b10000001) ? {2'b0, |(m[20:0]), 21'b0} :
                         (e == 8'b10000010) ? {3'b0, |(m[19:0]), 20'b0} :
@@ -63,12 +64,12 @@ wire [7:0] xep = (e < 8'b01111111) ? 8'b0 : e;
 
 // stage = 1 (mnir, restbitr, xepr -> y)
 
-reg [31:0] sr;
+reg [31:0] xr;
 reg [31:0] mnir;
 reg [23:0] restbitr;
 reg [7:0] xepr;
 
-wire ys = sr;
+wire ys = xr[31];
 
 wire [23:0] mp = (ys) ? mnir + restbitr : mnir;
 
@@ -79,12 +80,12 @@ wire [22:0] ym = (mp[23]) ? {1'b0, mp[22:1]} : mp[22:0];
 
 always @(posedge clk) begin
     if(~rstn) begin
-        sr <= 'b0;
+        xr <= 'b0;
         mnir <= 'b0;
         restbitr <= 'b0;
         xepr <= 'b0;
     end else begin
-        sr <= s;
+        xr <= x;
         mnir <= mni;
         restbitr <= restbit;
         xepr <= xep;

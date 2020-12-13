@@ -3,8 +3,8 @@
 
 module test_fmul
     #(parameter NSTAGE = 2,
-      parameter REPEATNUM = 50,
-      parameter RANDSEED = 2) ();
+      parameter REPEATNUM = 1000000000,
+      parameter RANDSEED = 1) ();
 
 wire [31:0] x1,x2,y;
 wire        ovf;
@@ -17,6 +17,8 @@ int i;
 
 logic clk, rstn;
 int diff;
+logic checknormal, checkninf;
+int miss;
 
 logic [31:0]	x1_reg[NSTAGE:0];
 logic [31:0]	x2_reg[NSTAGE:0];
@@ -45,6 +47,7 @@ initial begin
     x1_reg[0] = 0;
     x2_reg[0] = 0;
     i=0;
+    miss = 0;
 
     #1;			//t = 2ns
     clk = 0;
@@ -52,7 +55,7 @@ initial begin
     clk = 1;
     rstn = 1;
 
-    repeat(RANDSEED) begin
+    repeat(RANDSEED * REPEATNUM) begin
         i = $urandom();
     end
 
@@ -81,6 +84,7 @@ initial begin
 	    #1;
 	    clk = 1;
     end
+    $display("miss = %d", miss);
     $display("end of checking module fmul");
     $finish;
 end
@@ -105,8 +109,11 @@ always @(posedge clk) begin
 	    end
         
         diff = (fybit >= y) ? fybit - y : y - fybit;
-        $display("diff = %d", diff);
-        //if (y !== fybit || ovf !== fovf) begin
+        checknormal = (((|x1_reg[NSTAGE][30:23]) || ~(|x1_reg[NSTAGE][22:0])) && ((|x2_reg[NSTAGE][30:23]) || ~(|x2_reg[NSTAGE][22:0])) && ((|fybit[30:23]) || ~(|fybit[22:0])));
+        checkninf = ~((&x1_reg[NSTAGE][30:23]) || (&x2_reg[NSTAGE][30:23]) || (&fybit[30:23]));
+        if (diff >= 2 && checknormal && checkninf) begin
+            miss++;
+            $display("diff = %d", diff);
    	        $display("\nx1 = %b %b %b, %3d",
 	        x1_reg[NSTAGE][31], x1_reg[NSTAGE][30:23], x1_reg[NSTAGE][22:0], x1_reg[NSTAGE][30:23]);
    	        $display("x2 = %b %b %b, %3d",
@@ -115,9 +122,8 @@ always @(posedge clk) begin
 	        fybit[31], fybit[30:23], fybit[22:0], fovf);
    	        $display("%e %b,%3d,%b %b\n", $bitstoshortreal(y),
 	        y[31], y[30:23], y[22:0], ovf);
-        //end
+        end
     end
-    //$display("val = %b, %b, %b", val[0], val[1], val[2]);
     //$display("%e %b,%3d,%b %b\n", $bitstoshortreal(y),y[31], y[30:23], y[22:0], ovf);
 end
 endmodule
