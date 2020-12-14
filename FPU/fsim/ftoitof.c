@@ -28,7 +28,7 @@ float IntToFloat(int i){
       break;
     }
   }
-  ans.s = (i < 0);
+  ans.s = ((i < 0) << 31);
   ans.e = ((127 + top) << 23);
   if(top >= 23){
     ans.f = (((u >> (top-23)) + ((u >> (top-24)) & 1)) & fmask);
