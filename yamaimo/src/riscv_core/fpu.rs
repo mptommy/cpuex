@@ -5,37 +5,67 @@ pub const F24LOW:u32=(1<<11)-1;
 pub const FMASK:u32 = (1<<23)-1;
 pub const EMASK:u32 = ((1<<8)-1)<<23;
 pub struct FPUCore{
-    pub const_table:[u64;1024],
-    pub grad_table:[u64;1024],
+    pub finv_const_table:[u64;1024],
+    pub finv_grad_table:[u64;1024],
+    pub fsqrt_const_table:[u128;1024],
+    pub fsqrt_grad_table:[u128;1024],
 }
 impl FPUCore{
     pub fn new()->Self{
-        FPUCore{const_table:[0;1024],grad_table:[0;1024]}
+        FPUCore{finv_const_table:[0;1024],finv_grad_table:[0;1024],fsqrt_const_table:[0;1024],fsqrt_grad_table:[0;1024]}
     }
     pub fn load_table(mut self)->Self{
-        let file = File::open("const_table.txt");
+        let file = File::open("finv_const_table.txt");
         if let Ok(file)=file{
             let filebuf = BufReader::new(file);
             for (i,result) in filebuf.lines().enumerate(){
                 if let Ok(result)=result{
-                    self.const_table[i]=result.parse::<u64>().unwrap();
+                    self.finv_const_table[i]=result.parse::<u64>().unwrap();
                 }
             }
-            println!("LOAD const_table");
+            println!("LOAD inv_const_table");
         }else{
-            println!("NO const_table:FDIV not works");
+            println!("NO inv_const_table:FDIV not works");
         }
-        let file = File::open("grad_table.txt");
+        let file = File::open("finv_grad_table.txt");
         if let Ok(file)=file{
             let filebuf = BufReader::new(file);
             for (i,result)in filebuf.lines().enumerate(){
                 if let Ok(result)=result{
-                    self.grad_table[i]=result.parse::<u64>().unwrap();
+                    self.finv_grad_table[i]=result.parse::<u64>().unwrap();
                 }
             }
-            println!("LOAD grad_table");
+            println!("LOAD inv_grad_table");
         }else{
-            println!("NO grad_table:FDIV not works");
+            println!("NO inv_grad_table:FDIV not works");
+        }
+
+        let file = File::open("sqrt_const_table.txt");
+        if let Ok(file)=file{
+            let filebuf = BufReader::new(file);
+            for (i,result) in filebuf.lines().enumerate(){
+                if let Ok(result)=result{
+                    let mut spilts = result.split_whitespace();
+                    self.fsqrt_const_table[i]=(spilts.next().unwrap().parse::<u128>().unwrap() << 64) + spilts.next().unwrap().parse::<u128>().unwrap();
+                   
+                }
+            }
+            println!("LOAD sqrt_const_table");
+        }else{
+            println!("NO sqrt_const_table:FSQRT not works");
+        }
+        let file = File::open("sqrt_grad_table.txt");
+        if let Ok(file)=file{
+            let filebuf = BufReader::new(file);
+            for (i,result) in filebuf.lines().enumerate(){
+                if let Ok(result)=result{
+                    let mut spilts = result.split_whitespace();
+                    self.fsqrt_grad_table[i]=(spilts.next().unwrap().parse::<u128>().unwrap() << 64) + spilts.next().unwrap().parse::<u128>().unwrap();
+                }
+            }
+            println!("LOAD sqrt_grad_table");
+        }else{
+            println!("NO sqrt_grad_table:FSQRT not works");
         }
         return self;
     }
@@ -81,7 +111,7 @@ pub fn gete(u1:u32)->u32{
 pub fn getf(u1:u32)->u32{
     return u1&FMASK;
 }
-pub fn Fmul(f1:f32,f2:f32)->f32{
+pub fn fmul(f1:f32,f2:f32)->f32{
     let a = FandU::new(f1);
     let b = FandU::new(f2);
     let mut ans = FandU::default();
@@ -202,7 +232,7 @@ pub fn Addsef(l:&FandU,s:&FandU,ans:&FandU)->FandU{
     return ans;
 }
 
-pub fn Fadd(f1:f32,f2:f32)->f32{
+pub fn fadd(f1:f32,f2:f32)->f32{
     let a = FandU::new(f1);
     let b = FandU::new(f2);
     let mut ans=FandU::default();
@@ -214,13 +244,13 @@ pub fn Fadd(f1:f32,f2:f32)->f32{
     ans = ans.makeflo();
     return ans.flo;
 }
-pub fn Fsub(f1:f32,f2:f32)->f32{
+pub fn fsub(f1:f32,f2:f32)->f32{
     let u2 = f2.to_bits();
     let u2 = u2 ^ (1<<31);
-    return Fadd(f1, f32::from_bits(u2));
+    return fadd(f1, f32::from_bits(u2));
 }
 pub const M_LOW13_MASK:u32 = (1 << 13)-1;
-pub fn Finv(f1:f32,fpu:&FPUCore)->f32{
+pub fn finv(f1:f32,fpu:&FPUCore)->f32{
     let a = FandU::new(f1);
     let mut ans = FandU::default();
     if a.f == 0{
@@ -232,32 +262,103 @@ pub fn Finv(f1:f32,fpu:&FPUCore)->f32{
     }else{
         let a0 = a.f >> 13;
         let a1 = a.f & M_LOW13_MASK;
-        let mtmp:u64 = fpu.const_table[a0 as usize]-(a1 as u64)*fpu.grad_table[a0 as usize];
+        let mtmp:u64 = fpu.finv_const_table[a0 as usize]-(a1 as u64)*fpu.finv_grad_table[a0 as usize];
         let mantissa:u64 = (mtmp >> 34)+((mtmp >> 33)&1);
-        ans.s = a.s;
-        ans.e = (253 << 23)-a.e;
-        ans.f = (mantissa & (FMASK as u64))as u32;
+        
+        if a.e == 0{
+            ans.s = a.s;
+            ans.e = 255 << 23;
+            ans.f = 0;
+        }else if a.e == EMASK{
+            ans.s = a.s;
+            ans.e = 0;
+            ans.f = 0;
+        }else{
+            ans.s = a.s;
+            ans.e = (253 << 23)-a.e;
+            ans.f = (mantissa & (FMASK as u64))as u32;
+        }
         ans = ans.makeflo();
         return ans.flo;
     }
 }
-pub fn Fdiv(f1:f32,f2:f32,fpu:&FPUCore)->f32{
-    let f2inv = Finv(f2, fpu);
-    return Fmul(f1, f2inv);
+pub fn fhalf(f:f32)->f32{
+    return f/2.0;
+}
+pub fn fsqr(f:f32)->f32{
+    return fmul(f,f);
+}
+pub fn fabs(f:f32)->f32{
+    let mut a = FandU::new(f);
+    a.s = 0;
+    let ans = a.makeflo();
+    return ans.flo;
+}
+pub fn fneg(f:f32)->f32{
+    return -f;
+}
+pub fn feq(f1:f32,f2:f32)->i32{
+    return if f1 == f2{1}else{0};
+}
+pub fn fless(f1:f32,f2:f32)->i32{
+    return if f1 < f2{1}else{0};
+}
+pub fn fle(f1:f32,f2:f32)->i32{
+    return if f1 <= f2{1}else{0};
+}
+pub fn fiszero(f:f32)->i32{
+    return if f == 0.0{1}else{0};
+}
+pub fn fispos(f:f32)->i32{
+    return if f > 0.0{1} else{0};
+}
+pub fn fisneg(f:f32)->i32{
+    return if f < 0.0{1}else{0};
+}
+pub fn fmin(f1:f32,f2:f32)->f32{
+    if f1 <= f2 {f1}else{f2}
+}
+pub fn fmax(f1:f32,f2:f32)->f32{
+    if f1 <= f2 {f2}else{f1}
+}
+pub fn sqrt(f:f32,fpu:&FPUCore)->f32{
+    let  a = FandU::new(f);
+    let mut ans = FandU::default();
+    let aet = a.e >> 23;
+    let a0 = a.f >> 13;
+    let a1 = a.f & M_LOW13_MASK;
+    let mtmp = (fpu.fsqrt_const_table[a0 as usize] << 13) - a1 as u128 * fpu.fsqrt_grad_table[a0 as usize];
+    let mantissa = (mtmp >> 71) + ((mtmp >> 70)&1);
+    let tsq = (1 << 23) + (mantissa & FMASK as u128) as u32;
+    let m = (1<<23)+a.f;
+    let coe = if aet % 2 == 1 { (1<<23)+3474675}else{1 << 24};
+    let tsqmcoe = tsq as u128 * m as u128 * coe as u128;
+    ans.s = 0;
+    ans.e  = if aet%2 == 1{(127 + (aet-127)/2)<<23}else{(127 + (aet-128)/2)<< 23};
+    let f2  = (((tsqmcoe >> 47) + ((tsqmcoe >> 46)&1)) & 0xffffffff) as u32;
+    ans.f = if aet % 2 == 1 && (a.f >> 1) == 0{0}else{f2};
+    ans = ans.makeflo();
+    return ans.flo;
+}
+pub fn fdiv(f1:f32,f2:f32,fpu:&FPUCore)->f32{
+    let f2inv = finv(f2, fpu);
+    return fmul(f1, f2inv);
 }
 pub fn float_to_int(f1:f32)->i32{
-    let a = FandU::new(f1);
-    if a.e < (0b01111111 <<  23){
-        return 0;
-    }else{
-        let rman:u32 = (1<< 23)+a.f;
-        let exp:u32 = (a.e >> 23)-0b01111111;
-        let i = if exp <= 23 {rman >> (23-exp)}else{rman << (exp -23)};
-        let i = i as i32;
-        let i = if a.s > 0 {-i}else{i};
+   let i = f1 as i32;
+   if i == (1 << 31){
         return i;
-    }
+   }else if f1 - (i as f32) >= 0.5{
+       return i + 1;
+   }else if f1 - (i as f32) <= -0.5{
+    return i -1;
+   }else{
+       return i;
+   }
 }
+
+
+
 pub fn int_to_float(i:i32)->f32{
     let mut ans = FandU::default();
     let u:u32 =if i < 0 {
@@ -267,22 +368,20 @@ pub fn int_to_float(i:i32)->f32{
         ans.s = 0;
         i as u32
     };
-    let mut top:i32 = -1;
+    let mut top:u32 = 0;
     for j in (0..31).rev(){
-        if (u & (1<<j)) > 0{
+        if ((u >> j)&1)==1{
             top = j;
             break;
         }
     }
-    if top == -1{return 0.0;}
-    let top = top as u32;
-    ans.e = (0b01111111+top)<<23;
-    
+    ans.e = ((127 + top)) << 23;
     if top >= 23{
-        ans.f = ((u<< (top-23))+((u >> (top-24))&1))&FMASK;
+        ans.f = ((u >> (top-23))+((u >> (top-24))&1))&FMASK;
     }else{
         ans.f = (u << (23-top))& FMASK;
     }
     ans = ans.makeflo();
     return ans.flo;
 }
+
