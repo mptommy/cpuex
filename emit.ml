@@ -251,7 +251,7 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
       Printf.fprintf oc "\tsw\t%s, %d(%s)\n" reg_ra (4 - ss) reg_sp;
       save reg_ra;
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sp reg_sp (-ss);
-      Printf.fprintf oc "\tcall\t%s\n" x;
+      Printf.fprintf oc "\tjal\t%s\n" x;
       Printf.fprintf oc "\taddi\t%s, %s, %d\n" reg_sp reg_sp ss;
       Printf.fprintf oc "\tlw\t%s, %d(%s)\n" reg_ra (4 - ss) reg_sp;
       if List.mem a allregs && a <> regs.(0) then
@@ -311,7 +311,8 @@ let f oc (Prog(data, fundefs, e)) =
   (* Printf.fprintf oc ".section\t\".text\"\n"; *)
   (* Printf.fprintf oc ".globl\tmain\n"; *)
   Printf.fprintf oc "main:\n";
-  Printf.fprintf oc "\tout\t0xAA\n"
+  Printf.fprintf oc "\taddi\t%s, %s, 170\n" "%t0" "%zero";
+  Printf.fprintf oc "\tout\t%s\n" "%t0";
   (* Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n"; (* from gcc; why 112? *) *)
   stackset := S.empty;
   stackmap := [];
