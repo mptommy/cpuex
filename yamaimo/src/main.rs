@@ -228,5 +228,6 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     println!("HP-HEAP_BASE:{}",riscv64_core.heapmax-riscv_core::HEAP_BASE);
     println!("SP:{}",riscv64_core.stackmin);
     println!("SP_BASE-SP:{}",riscv_core::STACK_BASE-riscv64_core.stackmin);
+    riscv64_core.output_jumped();
     Ok(())
 }

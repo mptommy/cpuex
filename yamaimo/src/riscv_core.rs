@@ -225,6 +225,7 @@ impl EnvBase{
             nowformem:ForMem{addr:0,data:0,fdata:0.0,isint:true,memsize:MemSize::WORD,memtype:MemType::NOP},
             nowforwrite:Default::default(),
             toukei:HashMap::new(),
+            jumped:HashMap::new(),
             m_pc:DRAM_BASE as AddrType,
             m_memory :[0;DRAM_SIZE],
             m_regs: [0; 32],
@@ -2645,6 +2646,13 @@ impl Riscv64Core for EnvBase{
         };
         if update_pc == false {
             self.fetch_pc += 4;
+        }else{
+            if self.jumped.contains_key(&self.fetch_pc){
+                //self.toukei[&dec_inst] =self.toukei[&dec_inst]+1;
+                self.jumped.insert(self.fetch_pc, self.jumped[&self.fetch_pc]+1);
+            }else{
+                self.jumped.insert(self.fetch_pc,1);
+            }
         }
         return (formem,forwrite);
     }
@@ -2803,6 +2811,17 @@ impl Riscv64Core for EnvBase{
         for _k in 0..heap.len(){
             let i = heap.pop().unwrap();
             println!("{:?}:{}",i.1,i.0);
+        }
+    }
+    fn output_jumped(&mut self){
+        println!("飛び先");
+        let mut heap:BinaryHeap<(&u64,&u32)>=BinaryHeap::new();
+        for i in (&self.jumped).into_iter() {
+            heap.push((i.1,i.0));
+        }
+        for _k in 0..heap.len(){
+            let i = heap.pop().unwrap();
+            println!("{:}:{}",i.1,i.0);
         }
     }
     fn output_regtoukei(&mut self){
