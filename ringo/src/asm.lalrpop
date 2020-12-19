@@ -181,6 +181,14 @@ pub Main:Insts={
     "in"<rd:Reg> =>Insts::IN(rd),
     "out"<rs1:Reg> => Insts::OUT(rs1),
     <imm:Imm>=>Insts::IMM(imm),
+    "bfeq" <r:FReg>","<r2:FReg>","<i:Imm> => Insts::BFEQ(r,r2,i),
+    "bfne" <r:FReg>","<r2:FReg>","<i:Imm> => Insts::BFNE(r,r2,i),
+    "bflt" <r:FReg>","<r2:FReg>","<i:Imm> => Insts::BFLT(r,r2,i),
+    "bfge" <r:FReg>","<r2:FReg>","<i:Imm> => Insts::BFGE(r,r2,i),
+    "bfeq" <r:FReg>","<r2:FReg>","<l:Label> => Insts::BFEQL(r,r2,l),
+    "bfne" <r:FReg>","<r2:FReg>","<l:Label> => Insts::BFNEL(r,r2,l),
+    "bflt" <r:FReg>","<r2:FReg>","<l:Label> => Insts::BFLTL(r,r2,l),
+    "bfge" <r:FReg>","<r2:FReg>","<l:Label> => Insts::BFGEL(r,r2,l),
 };
 Imm :i32 ={
     <s:r"-*[0-9]+"> => s.parse().unwrap(),

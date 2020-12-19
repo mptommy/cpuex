@@ -120,6 +120,14 @@ pub enum Insts{
     IN(u8),
     OUT(u8),
     IMM(i32),
+    BFEQ(u8,u8,i32),
+    BFNE(u8,u8,i32),
+    BFLT(u8,u8,i32),
+    BFGE(u8,u8,i32),
+    BFEQL(u8,u8,String),
+    BFNEL(u8,u8,String),
+    BFLTL(u8,u8,String),
+    BFGEL(u8,u8,String),
 }
 
 pub struct Instruction{
@@ -211,6 +219,22 @@ impl Instruction{
             op15_19:((imm >> 3)&0x1f)as u8,
             op20_24:((imm >> 8)&0x1f)as u8,
             op25_31:((imm>>13)&0x7f)as u8,
+            optype:moto.optype,
+            haslabel:moto.haslabel,
+            label:moto.label,
+            iti:moto.iti,
+            buf:moto.buf,
+        }
+    }
+    pub fn set_immflw(moto:Instruction,imm:i32)->Instruction{
+        let imm = imm as u32;
+        Instruction{
+            op0_6:moto.op0_6,
+            op7_11:moto.op7_11,
+            op12_14:((imm>>12)&0x7)as u8,
+            op15_19:moto.op15_19,
+            op20_24:(imm&0x1f)as u8,
+            op25_31:((imm>>5)&0x7f)as u8,
             optype:moto.optype,
             haslabel:moto.haslabel,
             label:moto.label,
@@ -1274,11 +1298,10 @@ impl Instruction{
                 }
             },
             Insts::FLW(r,i,r1)=>{
-                Instruction::set_imm12(
+                Instruction::set_immflw(
                     Instruction{
                         op0_6:0b0000111,
                         op7_11:r,
-                        op12_14:0b010,
                         op15_19:r1,
                         optype:inst,
                         ..Default::default()
@@ -1393,6 +1416,74 @@ impl Instruction{
                     ..Default::default()
                 }
             },
+            Insts::BFEQ(r1,r2,i)=>{
+                Instruction::set_imm12_j(
+                    Instruction{
+                        op0_6:0b1100100,
+                        op12_14:0b000,
+                        op15_19:r1,
+                        op20_24:r2,
+                        optype:inst,
+                        ..Default::default()
+                    },i
+                )
+            },
+            Insts::BFNE(r1,r2,i)=>{
+                Instruction::set_imm12_j(
+                    Instruction{
+                        op0_6:0b1100100,
+                        op12_14:0b001,
+                        op15_19:r1,
+                        op20_24:r2,
+                        optype:inst,
+                        ..Default::default()
+                    },i
+                )
+            },
+            Insts::BFLT(r1,r2,i)=>{
+                Instruction::set_imm12_j(
+                    Instruction{
+                        op0_6:0b1100100,
+                        op12_14:0b100,
+                        op15_19:r1,
+                        op20_24:r2,
+                        optype:inst,
+                        ..Default::default()
+                    },i
+                )
+            },
+            Insts::BFGE(r1,r2,i)=>{
+                Instruction::set_imm12_j(
+                    Instruction{
+                        op0_6:0b1100100,
+                        op12_14:0b101,
+                        op15_19:r1,
+                        op20_24:r2,
+                        optype:inst,
+                        ..Default::default()
+                    },i
+                )
+            },
+            Insts::BFEQL(r1,r2,s)=>{
+                Instruction::labeling(
+                    Instruction::code(Insts::BFEQ(r1,r2,0)),s
+                )
+            },
+            Insts::BFNEL(r1,r2,s)=>{
+                Instruction::labeling(
+                    Instruction::code(Insts::BFNE(r1,r2,0)),s
+                )
+            },
+            Insts::BFLTL(r1,r2,s)=>{
+                Instruction::labeling(
+                    Instruction::code(Insts::BFLT(r1,r2,0)),s
+                )
+            },
+            Insts::BFGEL(r1,r2,s)=>{
+                Instruction::labeling(
+                    Instruction::code(Insts::BFGE(r1,r2,0)),s
+                )
+            },
             _ => {
                 panic!("WHATS HAPPENING!");}
         }
@@ -1448,8 +1539,8 @@ impl Machine{
 			vecs2.push(Insts::LWL(r1,(&s).to_string()));
             },
             Insts::FLWL(r1,s)=>{
-                vecs.push(Insts::AUIPCL(31,(&s).to_string()));
-			vecs2.push(Insts::AUIPCL(31,(&s).to_string()));
+           //     vecs.push(Insts::AUIPCL(31,(&s).to_string()));
+			//vecs2.push(Insts::AUIPCL(31,(&s).to_string()));
                 vecs.push(Insts::FLWL(r1,(&s).to_string()));
 			vecs2.push(Insts::FLWL(r1,(&s).to_string()));
             },
@@ -1599,8 +1690,8 @@ impl Machine{
                             self.insts[i] = Instruction::code(Insts::LW(*r1,(sa+4)&0xfff,*r1));
                         },
                         Insts::FLW(r1,_r2,_l)=>{
-                            self.insts[i].optype = Insts::FLW(*r1,(sa+4)&0xfff,31);
-                            self.insts[i] = Instruction::code(Insts::FLW(*r1,(sa+4)&0xfff,31));
+                            self.insts[i].optype = Insts::FLW(*r1,(sa+4)&0x7fff,31);
+                            self.insts[i] = Instruction::code(Insts::FLW(*r1,(sa+4)&0x7fff,31));
                         },
                         Insts::SB(r1,_l,_r2)=>{
                             self.insts[i].optype = Insts::SB(*r1,(sa+4)&0xfff,31);
@@ -1617,6 +1708,22 @@ impl Machine{
                         Insts::FSW(r1,_l,_r2)=>{
                             self.insts[i].optype = Insts::FSW(*r1,(sa+4)&0xfff,31);
                             self.insts[i] = Instruction::code(Insts::FSW(*r1,(sa+4)&0xfff,31));
+                        },
+                        Insts::BFEQ(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BFEQ(*r1,*r2,sa);
+                            self.insts[i]=  Instruction::code(Insts::BFEQ(*r1,*r2,sa))
+                        },
+                        Insts::BFNE(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BFNE(*r1,*r2,sa);
+                            self.insts[i]=  Instruction::code(Insts::BFNE(*r1,*r2,sa))
+                        },
+                        Insts::BFLT(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BFLT(*r1,*r2,sa);
+                            self.insts[i]=  Instruction::code(Insts::BFLT(*r1,*r2,sa))
+                        },
+                        Insts::BFGE(r1,r2,_l)=>{
+                            self.insts[i].optype = Insts::BFGE(*r1,*r2,sa);
+                            self.insts[i]=  Instruction::code(Insts::BFGE(*r1,*r2,sa))
                         },
                         _ =>  {
 

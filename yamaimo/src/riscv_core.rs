@@ -35,6 +35,7 @@ pub enum RiscvInst{
     LB, LH, LW, LBU, LHU, SW, SH, SB,
     JAL, JALR,
     BEQ, BNE, BLT, BGE, BLTU, BGEU,
+    BFEQ, BFNE, BFLT, BFGE,
     FENCE, FENCEI,
     ECALL, EBREAK,
     MRET, SRET, URET,
@@ -43,7 +44,103 @@ pub enum RiscvInst{
     FMADDS,FMSUBS,FNMSUBS,FNMADDS,FADDS,FSUBS,FMULS,FDIVS,FSQRTS,FSGNJS,FSGNJNS,FSGNJXS,FMINS,FMAXS,FCVTWS,FCVTWUS,FMVXW,FEQS,FLTS,FLES,FCLASSS,FCVTSW,FCVTSWU,
     FMVWX,FLW,FSW,FHALF,
     MUL,MULH,MULHSU,MULHU,DIV,DIVU,REM,REMU,IN,OUT
-}
+}/*
+#[derive(Copy,Clone)]
+#[derive(Debug)]
+pub enum ForRiscvInst{
+    FIRST,
+    LUI(u8,i32,u8),
+    AUIPC(u8,i32,u8),
+    ADDI(u8,i32,i32,u8),
+    SLTI(u8,i32,i32,u8),
+    SLTIU(u8,i32,i32,u8),
+    XORI(u8,i32,i32,u8),
+    ORI(u8,i32,i32,u8),
+    ANDI(u8,i32,i32,u8),
+    SLLI(u8,i32,i32,u8),
+    SRAI(u8,i32,i32,u8),
+    SRLI(u8,i32,i32,u8),
+    ADD(u8,i32,i32,u8,u8),
+    SUB(u8,i32,i32,u8,u8),
+    SLL(u8,i32,i32,u8,u8),
+    SLT(u8,i32,i32,u8,u8),
+    SLTU(u8,i32,i32,u8),
+    XOR(u8,i32,i32,u8,u8),
+    SRL(u8,i32,i32,u8,u8),
+    SRA(u8,i32,i32,u8,u8),
+    OR(u8,i32,i32,u8,u8),
+    AND(u8,i32,i32,u8,u8),
+    FENCE(i32,i32),
+    FENCEI,
+    CSRRW(u8,i32,u8),
+    CSRRS(u8,i32,u8),
+    CSRRC(u8,i32,u8),
+    CSRRWI(u8,i32,i32),
+    CSRRSI(u8,i32,i32),
+    CSRRCI(u8,i32,i32),
+    ECALL,
+    EBREAK,
+    URET,
+    SRET,
+    MRET,
+    WFI,
+    SFVMA(u8,u8),
+    LB(u8,i32,i32,u8),
+    LH(u8,i32,i32,u8),
+    LW(u8,i32,i32,u8),
+    LBU(u8,i32,i32,u8),
+    LHU(u8,i32,i32,u8),
+    SB(i32,i32,i32,u8),
+    SH(i32,i32,i32,u8),
+    SW(i32,i32,i32,u8),
+    JAL(u8,i32,u8),
+    JALR(u8,i32,i32,u8),
+    BEQ(i32,i32,i32,u8,u8),
+    BNE(i32,i32,i32,u8,u8),
+    BLT(i32,i32,i32,u8,u8),
+    BGE(i32,i32,i32,u8,u8),
+    BLTU(i32,i32,i32,u8,u8),
+    BGEU(i32,i32,i32,u8,u8),
+    LA(u8,i32),
+    FMADDS(u8,f32,f32,f32,u8,u8,u8),
+    FMSUBS(u8,f32,f32,f32,u8,u8,u8),
+    FNMADDS(u8,f32,f32,f32,u8,u8,u8),
+    FNMSUBS(u8,f32,f32,f32,u8,u8,u8),
+    FADDS(u8,f32,f32,u8,u8),
+    FSUBS(u8,f32,f32,u8,u8),
+    FMULS(u8,f32,f32,u8,u8),
+    FDIVS(u8,f32,f32,u8,u8),
+    FSQRTS(u8,f32,u8),
+    FSGNJS(u8,f32,f32,u8),
+    FSGNJNS(u8,f32,f32,u8),
+    FSGNJXS(u8,f32,f32,u8),
+    FMINS(u8,f32,f32,u8),
+    FMAXS(u8,f32,f32,u8),
+    FCVTWS(u8,f32,u8,u8),
+    FCVTWUS(u8,f32,u8,u8),
+    FMVXW(u8,f32,u8),
+    FEQS(u8,f32,f32,u8,u8),
+    FLTS(u8,f32,f32,u8,u8),
+    FLES(u8,f32,f32,u8,u8),
+    FCLASSS(u8,f32,u8),
+    FCVTSW(u8,f32,u8),
+    FCVTSWU(u8,f32,u8),
+    FMVWX(u8,i32,u8),
+    FLW(u8,i32,i32,u8),
+    FSW(i32,f32,i32,u8),
+    MUL(u8,i32,i32,u8,u8),
+    MULH(u8,i32,i32,u8,u8),
+    MULHSU(u8,i32,i32,u8,u8),
+    MULHU(u8,i32,i32,u8,u8),
+    DIV(u8,i32,i32,u8,u8),
+    DIVU(u8,i32,i32,u8,u8),
+    REM(u8,i32,i32,u8,u8),
+    REMU(u8,i32,i32,u8),
+    FHALF(u8,f32,u8),
+    STALL,
+    IN(u8),
+    OUT(i8),
+}*/
 #[derive(Copy,Clone)]
 #[derive(Debug)]
 pub enum NRiscvInst{
@@ -199,9 +296,9 @@ pub struct EnvBase{
     pub inqueue:VecDeque<i8>,
     pub outqueue:VecDeque<i8>,
     pub fpucore:FPUCore,
-
     pub heapmax:i32,
     pub stackmin:i32,
+    pub jumped:HashMap<u32,u64>,
     pub infile:std::io::BufWriter<std::fs::File>,
     
 }
@@ -336,6 +433,13 @@ impl EnvBase{
         let mask : XlenType = (1<<(left-right+1))-1;
         return ((hex >> right)&(mask as UXlenType))as XlenType;
     }
+    fn extract_flw (hex: InstType) -> XlenType
+    {
+        let uimm32:XlenType = Self::extract_bit_field (hex, 31, 20);
+        let tuika = Self::extract_bit_field(hex, 14,12);
+        let uimm32 = (tuika << 12)|uimm32;
+        return Self::extend_sign (uimm32, 14);
+    }
     fn extract_ifield (hex: InstType) -> XlenType
     {
         let uimm32:XlenType = Self::extract_bit_field (hex, 31, 20);
@@ -349,7 +453,7 @@ impl EnvBase{
     fn extract_ufield (hex: InstType) -> XlenType
     {
         let uimm32:XlenType = Self::extract_bit_field (hex, 31, 12);
-        return Self::extend_sign (uimm32, 20);
+        return Self::extend_sign (uimm32, 19);
     }
 
     #[allow(dead_code)]
@@ -439,6 +543,7 @@ pub trait Riscv64Core{
     fn output_regi(&mut self,i:i32);
     fn output_fregi(&mut self,i:i32);
     fn output_toukei(&mut self);
+    fn output_jumped(&mut self);
     fn output_regtoukei(&mut self);
     fn output_outs(&mut self);
     fn output_mem(&mut self,i:i32);
@@ -806,10 +911,8 @@ impl Riscv64Core for EnvBase{
                 if stall{
                     return NRiscvInst::STALL;
                 }
-                match funct3{
-                    0b010 =>{if self.writing {println!("FLW {},{}({})\n",rd,imm,rs1);}NRiscvInst::FLW(rd,rs1_data,imm)},
-                    _ => panic!("見落とし"),
-                    }
+                let imm = Self::extract_flw(instu);
+                if self.writing {println!("FLW {},{}({})\n",rd,imm,rs1);}NRiscvInst::FLW(rd,rs1_data,imm)
             },
             0x27 =>{
                 let (rs1_data,stall1)  = self.read_regfor(rs1,forwarding,forwarding2);
@@ -1109,6 +1212,15 @@ impl Riscv64Core for EnvBase{
                     _     => RiscvInst::NOP,
                 }
             }
+            0x64=>{
+                match funct3 {
+                    0b000 => RiscvInst::BFEQ,
+                    0b001 => RiscvInst::BFNE,
+                    0b100 => RiscvInst::BFLT,
+                    0b101 => RiscvInst::BFGE,
+                    _     => RiscvInst::NOP,
+                }
+            }
             0x13 => {
                 match funct3 {
                     0b000 => RiscvInst::ADDI,
@@ -1152,10 +1264,7 @@ impl Riscv64Core for EnvBase{
                 }
             },
             0x07 =>{
-                match funct3{
-                    0b010 =>RiscvInst::FLW,
-                    _ => panic!("見落とし"),
-                    }
+                RiscvInst::FLW
             },
             0x27 =>{
                 match funct3{
@@ -2104,6 +2213,36 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
             
             }
+            RiscvInst::BFEQ | RiscvInst::BFNE | RiscvInst::BFLT | RiscvInst::BFGE=> {
+                let addr:AddrType = Self::extract_sb_field(inst) as AddrType;
+                if self.writing {
+                    match dec_inst{
+                        RiscvInst::BFEQ  => println!("BFEQ {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BFNE  => println!("BFNE {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BFLT  =>println!("BFLT {},{} {}\n",rs1,rs2,addr),
+                        RiscvInst::BFGE  => println!("BFGE {},{} {}\n",rs1,rs2,addr),
+                        _               => panic!("Unknown value Branch"),
+                    }
+                }
+                let rs1_data = self.fread_reg(rs1);
+                let rs2_data = self.fread_reg(rs2);
+                
+                let jump_en: bool;
+                jump_en = 
+                    match dec_inst {
+                        RiscvInst::BFEQ  => rs1_data == rs2_data,
+                        RiscvInst::BFNE  => rs1_data != rs2_data,
+                        RiscvInst::BFLT  => rs1_data <  rs2_data,
+                        RiscvInst::BFGE  => rs1_data >= rs2_data,
+                        _               => panic!("Unknown value Branch"),
+                };
+                if jump_en {
+                    self.fetch_pc = (Wrapping(self.fetch_pc) + Wrapping(addr)).0;
+                    update_pc = true;
+                }
+                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
+            
+            }
            /* RiscvInst::AUIPC => {
                 if self.writing {println!("AUIPC\n");}
                 let mut imm: XlenType = Self::extend_sign (Self::extract_bit_field (inst, 31, 12), 19);
@@ -2196,7 +2335,7 @@ impl Riscv64Core for EnvBase{
             }
             RiscvInst::FLW  => {
                 let rs1_data = self.read_reg(rs1);
-                let imm =  Self::extract_ifield(inst);
+                let imm =  Self::extract_flw(inst);
                 let addr = (rs1_data +imm) as AddrType;
                 let reg_data:f32 = self.fmem_access(MemType::LOAD, MemSize::WORD, 0.0, addr);
                 self.fwrite_reg(rd, reg_data);
