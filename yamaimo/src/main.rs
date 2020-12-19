@@ -7,6 +7,7 @@ mod riscv_core;
 use crate::riscv_core::Riscv64Core;
 use crate::riscv_core::EnvBase;
 use crate::riscv_core::NRiscvInst;
+use crate::riscv_core::PipeRiscvInst;
 use crate::riscv_core::ForMem;
 use crate::riscv_core::MemSize;
 use crate::riscv_core::MemType;
@@ -71,6 +72,15 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let mut formembuf1=ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
     let mut forwardingbuf1=ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
     let mut finishcount = 0;
+
+    let mut pipe_write_back = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+    let mut pipe_inst_data = 0;
+    let mut pipe_decoded = PipeRiscvInst::FIRST;
+    let mut pipe_forwarding1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+    let mut pipe_forwarding2 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+    let mut pipe_formem = ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
+    let mut pipe_forwrite1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+
     let mut togo:i32 = -1;
     println!("PIPELINE?[y/n]");
     let mut read = String::new();
@@ -160,6 +170,32 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             continue;
         }*/
         if ispipe{
+            riscv64_core.write_back(pipe_write_back);//write_backだけは最初にしないとダメ
+            let inst_data = riscv64_core.fetch_memory ();
+            let decoded = riscv64_core.pipedecode(pipe_inst_data);
+            let execres = riscv64_core.pipeexecute(pipe_decoded,pipe_forwarding1,pipe_forwarding2);
+            let forwrite = riscv64_core.mem_access_unit(pipe_formem, pipe_forwrite1);
+            
+            pipe_forwarding2 = forwrite;
+            pipe_write_back = forwrite;
+            match execres{
+                None =>{
+                    //stall
+                    pipe_forwarding1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+                    pipe_formem = ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
+                    pipe_forwrite1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+                },
+                Some((exformem,exforwrite))=>{
+                    pipe_formem = exformem;
+                    pipe_forwrite1 = exforwrite;
+                    pipe_decoded = decoded;
+                    pipe_inst_data = inst_data;
+                    pipe_forwarding1 = exforwrite;
+                }
+            }
+            
+            }
+       /* if ispipe{
         let inst_data = riscv64_core.fetch_memory ();
         let (formembuf,forwardingbuf) = riscv64_core.execute(decoded, inst_data2 as InstType);
         riscv64_core.write_back(forwrite1);
@@ -184,7 +220,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         formembuf1 = formembuf;
         forwrite1  = forwrite;
         forwardingbuf1 = forwardingbuf;
-        }else{
+        }*/else{
             if riscv64_core.get_is_finish_cpu(){
                 break;
             }
