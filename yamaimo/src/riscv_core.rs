@@ -139,7 +139,7 @@ pub enum PipeRiscvInst{
     FHALF(u8,f32,u8),
     STALL,
     IN(u8),
-    OUT(i8),
+    OUT(i32,u8),
     BFEQ(f32,f32,i32,u8,u8),
     BFNE(f32,f32,i32,u8,u8),
     BFLT(f32,f32,i32,u8,u8),
@@ -771,8 +771,7 @@ impl Riscv64Core for EnvBase{
             0x01=>{
                 if self.writing {println!("OUT {}\n",rs1);}
                 let rs1_data = self.read_reg(rs1);
-                let data = (rs1_data & 0xff) as i8;
-                PipeRiscvInst::OUT(data)
+                PipeRiscvInst::OUT(rs1_data,rs1)
             }
             0x0f => {
                 match funct3 {
@@ -912,7 +911,7 @@ impl Riscv64Core for EnvBase{
                 let rs1_data = self.read_reg(rs1);
                 let rs2_data = self.fread_reg(rs2);
                 match funct3{
-                    0b010 => {if self.writing {println!("FSW {},{}({})\n",rs2,simm,rs1);}PipeRiscvInst::FSW(rs1_data,rs2_data,imm,rs1,rs2)},
+                    0b010 => {if self.writing {println!("FSW {},{}({})\n",rs2,simm,rs1);}PipeRiscvInst::FSW(rs1_data,rs2_data,simm,rs1,rs2)},
                     _ => panic!("見落とし"),
                 }
             },
@@ -1130,10 +1129,15 @@ impl Riscv64Core for EnvBase{
                 let ans = ((ans as u8)as u32) as i32;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
-            PipeRiscvInst::OUT(data)=>{
+            PipeRiscvInst::OUT(rs1_data,rs1)=>{
                 if self.writing{ println!("OUT");}
-                 self.outqueue.push_back(data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:0,rd:0,fdata:-1.0,isint:true,issigned:true})
+                if let Some(rs1_data) = Self::check_forwarding(rs1, rs1_data, forwarding1, forwarding2){
+                    let data = (rs1_data & 0xff) as i8;
+                    self.outqueue.push_back(data);
+                    (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:0,rd:0,fdata:-1.0,isint:true,issigned:true})
+                }else{
+                    return None;
+                }
             }
             PipeRiscvInst::FIRST=>{
                 if self.writing{println!("FIRST");}
@@ -3049,13 +3053,14 @@ impl Riscv64Core for EnvBase{
             return write2;
     }
     fn write_back(&mut self,write:ForWrite){
-        if write.rd != 0 {
+        
             if write.isint{
+                if write.rd != 0 {
                 self.write_reg(write.rd,write.data);
+                }
             }else{
                 self.fwrite_reg(write.rd,write.fdata);
             }
-        }
     }
     fn get_is_finish_cpu (&mut self) -> bool { return self.m_finish_cpu; }
     fn set_finish_cpu (&mut self)  { self.m_finish_cpu=true; }

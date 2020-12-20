@@ -176,14 +176,15 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             let execres = riscv64_core.pipeexecute(pipe_decoded,pipe_forwarding1,pipe_forwarding2);
             let forwrite = riscv64_core.mem_access_unit(pipe_formem, pipe_forwrite1);
             
-            pipe_forwarding2 = forwrite;
-            pipe_write_back = forwrite;
+            
             match execres{
                 None =>{
                     //stall
-                    pipe_forwarding1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+                    pipe_forwarding1 = forwrite;
                     pipe_formem = ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
                     pipe_forwrite1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+                    //pipe_forwarding2 = forwrite;
+                    pipe_write_back = forwrite;
                 },
                 Some((exformem,exforwrite))=>{
                     pipe_formem = exformem;
@@ -191,6 +192,8 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
                     pipe_decoded = decoded;
                     pipe_inst_data = inst_data;
                     pipe_forwarding1 = exforwrite;
+                    pipe_forwarding2 = forwrite;
+                    pipe_write_back = forwrite;
                 }
             }
             

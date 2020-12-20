@@ -1690,8 +1690,8 @@ impl Machine{
                             self.insts[i] = Instruction::code(Insts::LW(*r1,(sa+4)&0xfff,*r1));
                         },
                         Insts::FLW(r1,_r2,_l)=>{
-                            self.insts[i].optype = Insts::FLW(*r1,(sa+4)&0x7fff,31);
-                            self.insts[i] = Instruction::code(Insts::FLW(*r1,(sa+4)&0x7fff,31));
+                            self.insts[i].optype = Insts::FLW(*r1,self.insts[i].buf&0x7fff,0);
+                            self.insts[i] = Instruction::code(Insts::FLW(*r1,self.insts[i].buf&0x7fff,0));
                         },
                         Insts::SB(r1,_l,_r2)=>{
                             self.insts[i].optype = Insts::SB(*r1,(sa+4)&0xfff,31);
