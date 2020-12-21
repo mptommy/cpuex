@@ -28,6 +28,8 @@ module core(
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
     wire [4:0] write_reg_exec;
+    wire [31:0] reg_write_data_mem;
+    wire [4:0] write_reg_mem;
 
     wire [31:0] reg_write_data_exec;
     exec exec_instance(
@@ -36,15 +38,16 @@ module core(
         .imm (imm),
         .ctl (ctl),
         .src_imm (src_imm),
+        .reg1_addr (read_reg1),
+        .reg2_addr (read_reg2),
         .reg1_data (reg1_data_wire),
         .reg2_data (reg2_data_wire),
         .write_reg_in (write_reg_decode),
         .write_reg_out (write_reg_exec),
-        .reg_write_data (reg_write_data_exec)
+        .reg_write_data (reg_write_data_exec),
+        .write_reg_mem (write_reg_mem),
+        .reg_write_mem (reg_write_data_mem)
         );
-
-    wire [31:0] reg_write_data_mem;
-    wire [4:0] write_reg_mem;
 
     wire mem_en = 1;
     wire mem_write_en = 0;
