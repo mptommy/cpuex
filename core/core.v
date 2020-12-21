@@ -1,127 +1,99 @@
-module core (clk, rst, test, uart_output, uart_input);
-
-    input clk, rst, uart_input;
-    output wire [31:0] test;
-    output wire uart_output;
-
-    localparam state_out = 5;
-    localparam state_in = 6;
+module core(
+    input clk,
+    input rst,
+    output [31:0] test
+    );
 
     reg [31:0] steps;
     reg [31:0] pc;
-    reg [2:0] state_reg;
-    wire [2:0] state;
 
-    wire [31:0] mem_data_read;
-    wire rstn;
-    assign rstn = ~rst;
+    wire [31:0] instr_raw;
 
     wire [31:0] imm;
-    wire [4:0] alu_ctl;
-    wire branch_relative, branch_uc, branch_c, mem_read, mem_write,
-        alu_pc, alu_src, reg_write, data_out, data_in, readf1, readf2, writef, use_fpu;
-    wire [4:0] read_reg1, read_reg2, write_reg;
+    wire [4:0] ctl;
+    wire src_imm;
+    wire [4:0] read_reg1, read_reg2, write_reg_decode;
 
-    decode decode_instance(clk, rst, state, mem_data_read,
-        imm, alu_ctl, branch_uc, branch_c, branch_relative,
-        mem_read, mem_write, alu_pc, alu_src, reg_write,
-        read_reg1, read_reg2, write_reg, data_out, data_in, readf1, readf2, writef, use_fpu);
+    decode decode_instance(
+        .clk (clk),
+        .rst (rst),
+        .instr_raw (instr_raw),
+        .imm (imm),
+        .ctl (ctl),
+        .src_imm (src_imm),
+        .read_reg1 (read_reg1),
+        .read_reg2 (read_reg2),
+        .write_reg (write_reg_decode)
+    );
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
-    wire mem_read_, mem_write_, reg_write_;
-    wire [4:0] write_reg_;
+    wire [4:0] write_reg_exec;
 
-    wire [31:0] branch_addr;
-    wire branch;
-    wire [31:0] mem_addr, mem_write_data, reg_write_data;
-    wire writef_;
-    wire data_ready;
+    wire [31:0] reg_write_data_exec;
+    exec exec_instance(
+        .clk (clk),
+        .rst (rst),
+        .imm (imm),
+        .ctl (ctl),
+        .src_imm (src_imm),
+        .reg1_data (reg1_data_wire),
+        .reg2_data (reg2_data_wire),
+        .write_reg_in (write_reg_decode),
+        .write_reg_out (write_reg_exec),
+        .reg_write_data (reg_write_data_exec)
+        );
 
-    assign state = (~data_ready && (state_reg == 3)) ? 2 : state_reg;
+    wire [31:0] reg_write_data_mem;
+    wire [4:0] write_reg_mem;
 
-    exec exec_instance(clk, rst, pc, state, imm, alu_ctl, branch_uc, branch_c, branch_relative,
-        mem_read, mem_write, alu_pc, alu_src, reg_write, reg1_data_wire, reg2_data_wire,
-        write_reg,
-        mem_read_, mem_write_, reg_write_, write_reg_,
-        branch_addr, branch, mem_addr, mem_write_data, reg_write_data, writef, writef_, use_fpu, data_ready);
+    wire mem_en = 1;
+    wire mem_write_en = 0;
+    wire [31:0] mem_dummy_data = 0;
+    wire [31:0] mem_data_read;
 
-    wire [7:0] out_data_wire;
-    assign out_data_wire = reg1_data_wire[7:0];
-    wire tx_busy;
-    uart_tx uart_tx_instance(out_data_wire, data_out, tx_busy, uart_output, clk, rstn);
-    wire [7:0] in_data_wire;
-    wire rx_ready;
-    wire ferr;
-    uart_rx uart_rx_instance(in_data_wire, rx_ready, ferr, uart_input, clk, rstn);
-
-    reg [31:0] in_data_write;
-    reg use_in_data;
-    wire [31:0] branch_addr_;
-    wire branch_, reg_write__, writef__;
-    wire [31:0] reg_write_data_;
-    wire [4:0] write_reg__;
-
-    wire reg_write_selected;
-    assign reg_write_selected = use_in_data ? 1 : reg_write_;
-    wire [31:0] reg_write_data_selected;
-    assign reg_write_data_selected = use_in_data ? in_data_write : reg_write_data;
-
-    wire mem_en, mem_write_en;
-    wire [31:0] mem_addr_selected;
-    assign mem_en = (state == 0) || (state == 3);
-    assign mem_write_en = (state == 3) && mem_write_;
-    assign mem_addr_selected = (state == 3) ? mem_addr : pc;
-    block_ram block_ram_instance(clk, mem_en, mem_write_en, rst, mem_addr_selected, mem_write_data, mem_data_read);
+    block_ram block_ram_instance(
+        .clk (clk),
+        .en (mem_en),
+        .we (mem_write_en),
+        .rst (rst),
+        .addr(pc),
+        .di (mem_dummy_data),
+        .dout (instr_raw));
 
 
-    mem_pipe mem_instance(clk, rst, state, mem_read_, mem_data_read,
-        branch, reg_write_selected, write_reg_, branch_addr, reg_write_data_selected,
-        branch_, reg_write__, write_reg__, branch_addr_, reg_write_data_, writef_, writef__);
+    mem_pipe mem_instance(
+        .clk (clk),
+        .rst(rst),
+        .reg_write_in (reg_write_data_exec),
+        .write_reg_in (write_reg_exec),
+        .reg_write_out (reg_write_data_mem),
+        .write_reg_out (write_reg_mem)
+    );
 
-    wire reg_write_state;
+    wire reg_write_yes = 1;
+    wire earth = 0;
 
-    assign reg_write_state = (state == 4) && reg_write__;
-
-    registerfile registerfile_instance(read_reg1, read_reg2, write_reg__, reg_write_data_, reg_write_state,
-        reg1_data_wire, reg2_data_wire, clk, rst, test, readf1, readf2, writef__);
+    registerfile registerfile_instance(
+        .Read1 (read_reg1),
+        .Read2 (read_reg2),
+        .WriteReg (write_reg_mem),
+        .WriteData (reg_write_data_mem),
+        .RegWrite (reg_write_yes),
+        .Data1 (reg1_data_wire),
+        .Data2 (reg2_data_wire),
+        .clk (clk),
+        .rst (rst),
+        .x1_test (test),
+        .readf1 (earth),
+        .readf2 (earth),
+        .writef (earth));
 
     always @(posedge clk) begin
         if (rst) begin
             pc <= 0;
-            state_reg <= 0;
-            in_data_write <= 0;
             steps <= 0;
         end else begin
-            if (state == 0) begin
-                state_reg <= 1;
-            end else if (state == 1) begin
-                state_reg <= 2;
-            end else if (state == 2) begin
-                use_in_data <= 0;
-                in_data_write <= 0;
-                if (data_out)
-                    state_reg <= state_out;
-                else if (data_in)
-                    state_reg <= state_in;
-                else if (data_ready)
-                    state_reg <= 3;
-            end else if (state == 3) begin
-                state_reg <= 4;
-            end else if (state == 4) begin
-                pc <= branch_ ? branch_addr : pc + 4;
-                state_reg <= 0;
-                steps <= steps + 1;
-            end else if (state == state_out) begin
-                if (~tx_busy)
-                    state_reg <= 3;
-            end else if (state == state_in) begin
-                if (rx_ready) begin
-                    use_in_data <= 1;
-                    in_data_write <= {24'b0, in_data_wire};
-                    state_reg <= 3;
-                end
-            end
+            pc <= pc + 4;
         end
     end
-
 endmodule

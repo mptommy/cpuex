@@ -10,7 +10,7 @@ module block_ram(clk, en, we, rst, addr, di, dout);
     (* ram_style = "BLOCK" *) reg [31:0] ram [262143:0];
 
     initial begin
-        $readmemb("./tests/min-rt/min-rtCom.mem", ram);
+        $readmemb("./tests/arith_nohazard.mem", ram);
     end
 
     always @ (posedge clk)

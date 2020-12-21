@@ -10,7 +10,7 @@ module core_tb();
     wire uart_busy;
     assign rstn = ~rst;
 
-    core core_instance(clk, rst, test, uart_out, uart_in);
+    core core_instance(clk, rst, test);
     wire [7:0] rdata_uart;
     wire rdata_ready_uart;
     wire ferr;
@@ -35,7 +35,7 @@ module core_tb();
         send_idx = 0;
         $readmemb("./tests/min-rt/sldcontestbits.txt", sld_data);
         #55 rst = 0;
-        #80000000 $finish();
+        #200000 $finish();
     end
 
     reg wait_busy;
