@@ -1,1 +1,2 @@
-emit.cmi : asm.cmi
+emit.cmi : \
+    asm.cmi
