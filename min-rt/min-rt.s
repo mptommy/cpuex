@@ -1,8 +1,7 @@
 main:
 	addi	%t0, %zero, 170
 	out	%t0
-	la	%t0, l.29616
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.29616
 	addi	%t0, %zero, 1
 	addi	%t1, %zero, 0
 	fsw	%ft0, 0(%sp)
@@ -12,8 +11,7 @@ main:
 	addi	%sp, %sp, 16
 	lw	%ra, -12(%sp)
 	addi	%t1, %zero, 0
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -12(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -20(%sp)
@@ -50,8 +48,7 @@ main:
 	addi	%sp, %sp, 24
 	lw	%ra, -20(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -16(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -20(%sp)
@@ -60,8 +57,7 @@ main:
 	addi	%sp, %sp, 24
 	lw	%ra, -20(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -20(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -28(%sp)
@@ -70,8 +66,7 @@ main:
 	addi	%sp, %sp, 32
 	lw	%ra, -28(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -24(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -28(%sp)
@@ -80,8 +75,7 @@ main:
 	addi	%sp, %sp, 32
 	lw	%ra, -28(%sp)
 	addi	%t1, %zero, 1
-	la	%t2, l.27592
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.27592
 	sw	%t0, -28(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -36(%sp)
@@ -128,8 +122,7 @@ main:
 	addi	%sp, %sp, 56
 	lw	%ra, -52(%sp)
 	addi	%t1, %zero, 1
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -48(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -52(%sp)
@@ -148,8 +141,7 @@ main:
 	addi	%sp, %sp, 64
 	lw	%ra, -60(%sp)
 	addi	%t1, %zero, 1
-	la	%t2, l.27711
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.27711
 	sw	%t0, -56(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -60(%sp)
@@ -158,8 +150,7 @@ main:
 	addi	%sp, %sp, 64
 	lw	%ra, -60(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -60(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -68(%sp)
@@ -178,8 +169,7 @@ main:
 	addi	%sp, %sp, 72
 	lw	%ra, -68(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -68(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -76(%sp)
@@ -188,8 +178,7 @@ main:
 	addi	%sp, %sp, 80
 	lw	%ra, -76(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -72(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -76(%sp)
@@ -198,8 +187,7 @@ main:
 	addi	%sp, %sp, 80
 	lw	%ra, -76(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -76(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -84(%sp)
@@ -208,8 +196,7 @@ main:
 	addi	%sp, %sp, 88
 	lw	%ra, -84(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -80(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -84(%sp)
@@ -238,8 +225,7 @@ main:
 	addi	%sp, %sp, 96
 	lw	%ra, -92(%sp)
 	addi	%t1, %zero, 1
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -92(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -100(%sp)
@@ -248,8 +234,7 @@ main:
 	addi	%sp, %sp, 104
 	lw	%ra, -100(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -96(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -100(%sp)
@@ -258,8 +243,7 @@ main:
 	addi	%sp, %sp, 104
 	lw	%ra, -100(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -100(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -108(%sp)
@@ -268,8 +252,7 @@ main:
 	addi	%sp, %sp, 112
 	lw	%ra, -108(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -104(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -108(%sp)
@@ -278,8 +261,7 @@ main:
 	addi	%sp, %sp, 112
 	lw	%ra, -108(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -108(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -116(%sp)
@@ -288,8 +270,7 @@ main:
 	addi	%sp, %sp, 120
 	lw	%ra, -116(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -112(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -116(%sp)
@@ -298,8 +279,7 @@ main:
 	addi	%sp, %sp, 120
 	lw	%ra, -116(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -116(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -124(%sp)
@@ -308,8 +288,7 @@ main:
 	addi	%sp, %sp, 128
 	lw	%ra, -124(%sp)
 	addi	%t1, %zero, 0
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -120(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -124(%sp)
@@ -348,8 +327,7 @@ main:
 	addi	%sp, %sp, 136
 	lw	%ra, -132(%sp)
 	addi	%t1, %zero, 0
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -128(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -132(%sp)
@@ -358,8 +336,7 @@ main:
 	addi	%sp, %sp, 136
 	lw	%ra, -132(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -132(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -140(%sp)
@@ -383,8 +360,7 @@ main:
 	lw	%t2, -136(%sp)
 	sw	%t2, 0(%t1)
 	addi	%s0, %zero, 0
-	la	%s1, l.25927
-	flw	%ft0, 0(%s1)
+	flw	%ft0, l.25927
 	sw	%t0, -140(%sp)
 	sw	%t1, -144(%sp)
 	addi	%t0, %s0, 0
@@ -409,8 +385,7 @@ main:
 	add	%t0, %zero, %t1
 	addi	%t1, %zero, 180
 	addi	%t2, %zero, 0
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	add	%s0, %zero, %gp
 	addi	%gp, %gp, 16
 	fsw	%ft0, 8(%s0)
@@ -1038,15 +1013,13 @@ main:
 	sw	%s11, 0(%s5)
 	addi	%s11, %zero, 64
 	sw	%s11, 4(%s5)
-	la	%s5, l.29672
-	flw	%ft0, 0(%s5)
+	flw	%ft0, l.29672
 	itof	%ft1, %s9
 	fdiv	%ft0, %ft0, %ft1
 	fsw	%ft0, 0(%s7)
 	lw	%s5, 0(%a6)
 	addi	%s7, %zero, 3
-	la	%s9, l.25927
-	flw	%ft0, 0(%s9)
+	flw	%ft0, l.25927
 	sw	%a3, -188(%sp)
 	sw	%s10, -192(%sp)
 	sw	%s6, -196(%sp)
@@ -1067,8 +1040,7 @@ main:
 	addi	%sp, %sp, 248
 	lw	%ra, -244(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -244(%sp)
 	fsw	%ft0, -248(%sp)
 	addi	%t0, %t1, 0
@@ -1085,8 +1057,7 @@ main:
 	addi	%sp, %sp, 264
 	lw	%ra, -260(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -256(%sp)
 	sw	%t0, -264(%sp)
 	addi	%t0, %t1, 0
@@ -1098,8 +1069,7 @@ main:
 	lw	%t1, -264(%sp)
 	sw	%t0, 4(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -272(%sp)
 	sw	%ra, -284(%sp)
 	addi	%sp, %sp, -288
@@ -1109,8 +1079,7 @@ main:
 	lw	%t1, -264(%sp)
 	sw	%t0, 8(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -280(%sp)
 	sw	%ra, -292(%sp)
 	addi	%sp, %sp, -296
@@ -1120,8 +1089,7 @@ main:
 	lw	%t1, -264(%sp)
 	sw	%t0, 12(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -288(%sp)
 	sw	%ra, -300(%sp)
 	addi	%sp, %sp, -304
@@ -2473,8 +2441,7 @@ bge_cont.39275:
 	out	%t0
 	addi	%t0, %zero, 120
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -432(%sp)
 	sw	%t0, -440(%sp)
 	addi	%t0, %t1, 0
@@ -2634,11 +2601,9 @@ bge_cont.39275:
 	addi	%t1, %zero, 0
 	addi	%t2, %zero, 0
 	itof	%ft0, %t0
-	la	%t0, l.25853
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25853
 	fmul	%ft0, %ft0, %ft1
-	la	%t0, l.29288
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.29288
 	fsub	%ft0, %ft0, %ft1
 	addi	%t0, %zero, 4
 	lw	%t4, -212(%sp)
@@ -3029,23 +2994,19 @@ bge_cont.39354:
 	out	%t0
 	jr	%ra
 normal_0_2pi.2585:
-	la	%t0, l.25844
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25844
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.39372
 	jr	%ra
 bne_else.39372:
-	la	%t0, l.25844
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25844
 	fsub	%ft0, %ft0, %ft2
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.39373
 	jr	%ra
 bne_else.39373:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft0, %ft0, %ft4
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.39374
@@ -3200,18 +3161,14 @@ bne_else.39403:
 	j	normal_0_2pi.2585
 atan.2593:
 	fabs	%ft1, %ft0
-	la	%t0, l.25849
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25849
 	fle	%t6, %ft2, %ft1
 	beq	%t6, %zero, bne_else.39404
-	la	%t0, l.25863
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25863
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.39405
-	la	%t0, l.25876
-	flw	%ft0, 0(%t0)
-	la	%t0, l.25867
-	flw	%ft2, 0(%t0)
+	flw	%ft0, l.25876
+	flw	%ft2, l.25867
 	fdiv	%ft1, %ft2, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft1, %ft2
@@ -3220,40 +3177,31 @@ atan.2593:
 	fmul	%ft6, %ft5, %ft2
 	fmul	%ft7, %ft6, %ft2
 	fmul	%ft2, %ft7, %ft2
-	la	%t0, l.25851
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25851
 	fmul	%ft3, %fs0, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25853
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25853
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25855
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25855
 	fmul	%ft3, %ft3, %ft5
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25857
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25857
 	fmul	%ft3, %ft3, %ft6
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25859
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25859
 	fmul	%ft3, %ft3, %ft7
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25861
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25861
 	fmul	%ft2, %ft3, %ft2
 	fadd	%ft1, %ft1, %ft2
 	fsub	%ft0, %ft0, %ft1
 	jr	%ra
 bne_else.39405:
-	la	%t0, l.25865
-	flw	%ft0, 0(%t0)
-	la	%t0, l.25867
-	flw	%ft2, 0(%t0)
+	flw	%ft0, l.25865
+	flw	%ft2, l.25867
 	fsub	%ft2, %ft1, %ft2
-	la	%t0, l.25867
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25867
 	fadd	%ft1, %ft1, %ft3
 	fdiv	%ft1, %ft2, %ft1
 	fmul	%ft2, %ft1, %ft1
@@ -3263,28 +3211,22 @@ bne_else.39405:
 	fmul	%ft6, %ft5, %ft2
 	fmul	%ft7, %ft6, %ft2
 	fmul	%ft2, %ft7, %ft2
-	la	%t0, l.25851
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25851
 	fmul	%ft3, %fs0, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25853
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25853
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25855
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25855
 	fmul	%ft3, %ft3, %ft5
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25857
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25857
 	fmul	%ft3, %ft3, %ft6
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25859
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25859
 	fmul	%ft3, %ft3, %ft7
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25861
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25861
 	fmul	%ft2, %ft3, %ft2
 	fadd	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
@@ -3297,28 +3239,22 @@ bne_else.39404:
 	fmul	%ft5, %ft4, %ft1
 	fmul	%ft6, %ft5, %ft1
 	fmul	%ft1, %ft6, %ft1
-	la	%t0, l.25851
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25851
 	fmul	%ft2, %ft7, %ft2
 	fsub	%ft0, %ft0, %ft2
-	la	%t0, l.25853
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25853
 	fmul	%ft2, %ft2, %ft3
 	fadd	%ft0, %ft0, %ft2
-	la	%t0, l.25855
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25855
 	fmul	%ft2, %ft2, %ft4
 	fsub	%ft0, %ft0, %ft2
-	la	%t0, l.25857
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25857
 	fmul	%ft2, %ft2, %ft5
 	fadd	%ft0, %ft0, %ft2
-	la	%t0, l.25859
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25859
 	fmul	%ft2, %ft2, %ft6
 	fsub	%ft0, %ft0, %ft2
-	la	%t0, l.25861
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25861
 	fmul	%ft1, %ft2, %ft1
 	fadd	%ft0, %ft0, %ft1
 	jr	%ra
@@ -3376,14 +3312,11 @@ read_screen_settings.2757:
 	slli	%t6, %t6, 24
 	or	%t5, %t5, %t6
 	fmv.w.x	%ft1, %t5
-	la	%a0, l.25888
-	flw	%ft2, 0(%a0)
+	flw	%ft2, l.25888
 	fmul	%ft1, %ft1, %ft2
-	la	%a0, l.25867
-	flw	%ft3, 0(%a0)
+	flw	%ft3, l.25867
 	fabs	%ft4, %ft1
-	la	%a0, l.25844
-	flw	%ft5, 0(%a0)
+	flw	%ft5, l.25844
 	sw	%t0, 0(%sp)
 	sw	%s1, -4(%sp)
 	sw	%t2, -8(%sp)
@@ -3399,38 +3332,31 @@ read_screen_settings.2757:
 	fmv	%ft0, %ft4
 	j	bne_cont.39408
 bne_else.39407:
-	la	%a0, l.25844
-	flw	%ft6, 0(%a0)
+	flw	%ft6, l.25844
 	fsub	%ft4, %ft4, %ft6
-	la	%a0, l.25844
-	flw	%ft6, 0(%a0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.39409
 	fmv	%ft0, %ft4
 	j	bne_cont.39410
 bne_else.39409:
-	la	%a0, l.25844
-	flw	%ft6, 0(%a0)
+	flw	%ft6, l.25844
 	fsub	%ft4, %ft4, %ft6
-	la	%a0, l.25844
-	flw	%ft6, 0(%a0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.39411
 	fmv	%ft0, %ft4
 	j	bne_cont.39412
 bne_else.39411:
-	la	%a0, l.25844
-	flw	%ft7, 0(%a0)
+	flw	%ft7, l.25844
 	fsub	%ft4, %ft4, %ft7
-	la	%a0, l.25844
-	flw	%fs0, 0(%a0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft4, %fs0
 	beq	%t6, %zero, bne_else.39413
 	fmv	%ft0, %ft4
 	j	bne_cont.39414
 bne_else.39413:
-	la	%a0, l.25844
-	flw	%fs1, 0(%a0)
+	flw	%fs1, l.25844
 	fsub	%ft4, %ft4, %fs1
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.39415
@@ -3444,25 +3370,21 @@ bne_else.39415:
 	j	bne_cont.39418
 bne_else.39417:
 	fsub	%ft4, %ft4, %fs1
-	la	%a0, l.25844
-	flw	%ft6, 0(%a0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.39419
 	fmv	%ft0, %ft4
 	j	bne_cont.39420
 bne_else.39419:
-	la	%a0, l.25844
-	flw	%ft7, 0(%a0)
+	flw	%ft7, l.25844
 	fsub	%ft4, %ft4, %ft7
-	la	%a0, l.25844
-	flw	%fs0, 0(%a0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft4, %fs0
 	beq	%t6, %zero, bne_else.39421
 	fmv	%ft0, %ft4
 	j	bne_cont.39422
 bne_else.39421:
-	la	%a0, l.25844
-	flw	%fs1, 0(%a0)
+	flw	%fs1, l.25844
 	fsub	%ft4, %ft4, %fs1
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.39423
@@ -3500,25 +3422,21 @@ bne_else.39431:
 	j	bne_cont.39434
 bne_else.39433:
 	fsub	%ft4, %ft4, %fs1
-	la	%a0, l.25844
-	flw	%ft6, 0(%a0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.39435
 	fmv	%ft0, %ft4
 	j	bne_cont.39436
 bne_else.39435:
-	la	%a0, l.25844
-	flw	%ft7, 0(%a0)
+	flw	%ft7, l.25844
 	fsub	%ft4, %ft4, %ft7
-	la	%a0, l.25844
-	flw	%fs0, 0(%a0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft4, %fs0
 	beq	%t6, %zero, bne_else.39437
 	fmv	%ft0, %ft4
 	j	bne_cont.39438
 bne_else.39437:
-	la	%a0, l.25844
-	flw	%fs1, 0(%a0)
+	flw	%fs1, l.25844
 	fsub	%ft4, %ft4, %fs1
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.39439
@@ -3650,14 +3568,12 @@ bne_else.39467:
 bne_cont.39468:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.39469
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.39470
 bne_else.39469:
 	flw	%ft0, -48(%sp)
 bne_cont.39470:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39471
 	fsub	%ft3, %ft1, %ft2
@@ -3665,72 +3581,58 @@ bne_cont.39470:
 bne_else.39471:
 	fmv	%ft3, %ft2
 bne_cont.39472:
-	la	%t0, l.25876
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25876
 	fle	%t6, %ft4, %ft2
 	beq	%t6, %zero, bne_else.39473
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39474
 bne_else.39473:
 bne_cont.39474:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39475
 	fmul	%ft2, %ft3, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39476
 bne_else.39475:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 bne_cont.39476:
-	la	%t0, l.25927
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25927
 	flw	%ft3, -40(%sp)
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39477
-	la	%t0, l.25907
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25907
 	j	bne_cont.39478
 bne_else.39477:
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25867
 bne_cont.39478:
 	fabs	%ft3, %ft3
 	flw	%ft5, -32(%sp)
@@ -3742,38 +3644,31 @@ bne_cont.39478:
 	fmv	%ft0, %ft3
 	j	bne_cont.39481
 bne_else.39480:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft3, %ft3, %ft6
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39482
 	fmv	%ft0, %ft3
 	j	bne_cont.39483
 bne_else.39482:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft3, %ft3, %ft6
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39484
 	fmv	%ft0, %ft3
 	j	bne_cont.39485
 bne_else.39484:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft3, %ft3, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft3, %fs0
 	beq	%t6, %zero, bne_else.39486
 	fmv	%ft0, %ft3
 	j	bne_cont.39487
 bne_else.39486:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft3, %ft3, %fs1
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39488
@@ -3787,25 +3682,21 @@ bne_else.39488:
 	j	bne_cont.39491
 bne_else.39490:
 	fsub	%ft3, %ft3, %fs1
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39492
 	fmv	%ft0, %ft3
 	j	bne_cont.39493
 bne_else.39492:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft3, %ft3, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft3, %fs0
 	beq	%t6, %zero, bne_else.39494
 	fmv	%ft0, %ft3
 	j	bne_cont.39495
 bne_else.39494:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft3, %ft3, %fs1
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39496
@@ -3843,25 +3734,21 @@ bne_else.39504:
 	j	bne_cont.39507
 bne_else.39506:
 	fsub	%ft3, %ft3, %fs1
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39508
 	fmv	%ft0, %ft3
 	j	bne_cont.39509
 bne_else.39508:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft3, %ft3, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft3, %fs0
 	beq	%t6, %zero, bne_else.39510
 	fmv	%ft0, %ft3
 	j	bne_cont.39511
 bne_else.39510:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft3, %ft3, %fs1
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39512
@@ -3993,63 +3880,52 @@ bne_else.39540:
 bne_cont.39541:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.39542
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -88(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.39543
 bne_else.39542:
 	flw	%ft0, -88(%sp)
 bne_cont.39543:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39544
 	fsub	%ft2, %ft1, %ft2
 	j	bne_cont.39545
 bne_else.39544:
 bne_cont.39545:
-	la	%t0, l.25865
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25865
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.39546
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39547
 bne_else.39546:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fsub	%ft2, %ft3, %ft2
 	fmul	%ft2, %ft2, %ft2
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
@@ -4076,38 +3952,31 @@ bne_cont.39547:
 	fmv	%ft0, %ft3
 	j	bne_cont.39549
 bne_else.39548:
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fsub	%ft3, %ft3, %ft5
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft3, %ft5
 	beq	%t6, %zero, bne_else.39550
 	fmv	%ft0, %ft3
 	j	bne_cont.39551
 bne_else.39550:
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fsub	%ft3, %ft3, %ft5
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft3, %ft5
 	beq	%t6, %zero, bne_else.39552
 	fmv	%ft0, %ft3
 	j	bne_cont.39553
 bne_else.39552:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft3, %ft3, %ft6
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fle	%t6, %ft3, %ft7
 	beq	%t6, %zero, bne_else.39554
 	fmv	%ft0, %ft3
 	j	bne_cont.39555
 bne_else.39554:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft3, %ft3, %fs0
 	fle	%t6, %ft3, %ft5
 	beq	%t6, %zero, bne_else.39556
@@ -4121,25 +3990,21 @@ bne_else.39556:
 	j	bne_cont.39559
 bne_else.39558:
 	fsub	%ft3, %ft3, %fs0
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft3, %ft5
 	beq	%t6, %zero, bne_else.39560
 	fmv	%ft0, %ft3
 	j	bne_cont.39561
 bne_else.39560:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft3, %ft3, %ft6
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fle	%t6, %ft3, %ft7
 	beq	%t6, %zero, bne_else.39562
 	fmv	%ft0, %ft3
 	j	bne_cont.39563
 bne_else.39562:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft3, %ft3, %fs0
 	fle	%t6, %ft3, %ft5
 	beq	%t6, %zero, bne_else.39564
@@ -4177,25 +4042,21 @@ bne_else.39572:
 	j	bne_cont.39575
 bne_else.39574:
 	fsub	%ft3, %ft3, %fs0
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft3, %ft5
 	beq	%t6, %zero, bne_else.39576
 	fmv	%ft0, %ft3
 	j	bne_cont.39577
 bne_else.39576:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft3, %ft3, %ft6
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fle	%t6, %ft3, %ft7
 	beq	%t6, %zero, bne_else.39578
 	fmv	%ft0, %ft3
 	j	bne_cont.39579
 bne_else.39578:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft3, %ft3, %fs0
 	fle	%t6, %ft3, %ft5
 	beq	%t6, %zero, bne_else.39580
@@ -4327,14 +4188,12 @@ bne_else.39608:
 bne_cont.39609:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.39610
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.39611
 bne_else.39610:
 	flw	%ft0, -48(%sp)
 bne_cont.39611:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39612
 	fsub	%ft3, %ft1, %ft2
@@ -4342,57 +4201,46 @@ bne_cont.39611:
 bne_else.39612:
 	fmv	%ft3, %ft2
 bne_cont.39613:
-	la	%t0, l.25876
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25876
 	fle	%t6, %ft4, %ft2
 	beq	%t6, %zero, bne_else.39614
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39615
 bne_else.39614:
 bne_cont.39615:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39616
 	fmul	%ft2, %ft3, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39617
 bne_else.39616:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
@@ -4401,12 +4249,10 @@ bne_cont.39617:
 	flw	%ft3, -104(%sp)
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39618
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	j	bne_cont.39619
 bne_else.39618:
-	la	%t0, l.25867
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25867
 bne_cont.39619:
 	fabs	%ft3, %ft3
 	flw	%ft4, -32(%sp)
@@ -4417,38 +4263,31 @@ bne_cont.39619:
 	fmv	%ft0, %ft3
 	j	bne_cont.39621
 bne_else.39620:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft3, %ft3, %ft4
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.39622
 	fmv	%ft0, %ft3
 	j	bne_cont.39623
 bne_else.39622:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft3, %ft3, %ft4
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.39624
 	fmv	%ft0, %ft3
 	j	bne_cont.39625
 bne_else.39624:
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fsub	%ft3, %ft3, %ft5
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39626
 	fmv	%ft0, %ft3
 	j	bne_cont.39627
 bne_else.39626:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft3, %ft3, %ft7
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.39628
@@ -4462,25 +4301,21 @@ bne_else.39628:
 	j	bne_cont.39631
 bne_else.39630:
 	fsub	%ft3, %ft3, %ft7
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.39632
 	fmv	%ft0, %ft3
 	j	bne_cont.39633
 bne_else.39632:
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fsub	%ft3, %ft3, %ft5
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39634
 	fmv	%ft0, %ft3
 	j	bne_cont.39635
 bne_else.39634:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft3, %ft3, %ft7
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.39636
@@ -4518,25 +4353,21 @@ bne_else.39644:
 	j	bne_cont.39647
 bne_else.39646:
 	fsub	%ft3, %ft3, %ft7
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.39648
 	fmv	%ft0, %ft3
 	j	bne_cont.39649
 bne_else.39648:
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fsub	%ft3, %ft3, %ft5
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft3, %ft6
 	beq	%t6, %zero, bne_else.39650
 	fmv	%ft0, %ft3
 	j	bne_cont.39651
 bne_else.39650:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft3, %ft3, %ft7
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.39652
@@ -4668,16 +4499,14 @@ bne_else.39680:
 bne_cont.39681:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.39682
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -120(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.39683
 bne_else.39682:
 	flw	%ft0, -120(%sp)
 bne_cont.39683:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39684
 	fsub	%ft1, %ft1, %ft2
@@ -4685,73 +4514,60 @@ bne_cont.39683:
 bne_else.39684:
 	fmv	%ft1, %ft2
 bne_cont.39685:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.39686
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft2, %ft4, %ft2
-	la	%t0, l.25914
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25914
 	fmul	%ft3, %ft5, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25916
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25916
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25918
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25918
 	fmul	%ft2, %ft3, %ft2
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 	j	bne_cont.39687
 bne_else.39686:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft1, %ft2, %ft1
 	fmul	%ft1, %ft1, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft5, 0(%t0)
+	flw	%ft4, l.25867
+	flw	%ft5, l.25921
 	fmul	%ft1, %ft5, %ft1
 	fsub	%ft1, %ft4, %ft1
-	la	%t0, l.25923
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25923
 	fmul	%ft2, %ft4, %ft2
 	fadd	%ft1, %ft1, %ft2
-	la	%t0, l.25925
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25925
 	fmul	%ft2, %ft2, %ft3
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 bne_cont.39687:
 	flw	%ft1, -72(%sp)
 	fmul	%ft2, %ft1, %ft0
-	la	%t0, l.26013
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.26013
 	fmul	%ft2, %ft2, %ft3
 	lw	%t0, -16(%sp)
 	fsw	%ft2, 0(%t0)
-	la	%t1, l.26016
-	flw	%ft2, 0(%t1)
+	flw	%ft2, l.26016
 	flw	%ft3, -96(%sp)
 	fmul	%ft2, %ft3, %ft2
 	fsw	%ft2, 4(%t0)
 	flw	%ft2, -112(%sp)
 	fmul	%ft4, %ft1, %ft2
-	la	%t1, l.26013
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.26013
 	fmul	%ft4, %ft4, %ft5
 	fsw	%ft4, 8(%t0)
 	lw	%t1, -12(%sp)
 	fsw	%ft2, 0(%t1)
-	la	%t2, l.25927
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25927
 	fsw	%ft4, 4(%t1)
 	fneg	%ft4, %ft0
 	fsw	%ft4, 8(%t1)
@@ -4782,11 +4598,9 @@ bne_cont.39687:
 rotate_quadratic_matrix.2761:
 	flw	%ft0, 4(%t4)
 	flw	%ft1, 0(%t1)
-	la	%t2, l.25867
-	flw	%ft2, 0(%t2)
+	flw	%ft2, l.25867
 	fabs	%ft1, %ft1
-	la	%t2, l.25844
-	flw	%ft3, 0(%t2)
+	flw	%ft3, l.25844
 	sw	%t0, 0(%sp)
 	fsw	%ft3, -8(%sp)
 	sw	%t1, -16(%sp)
@@ -4797,38 +4611,31 @@ rotate_quadratic_matrix.2761:
 	fmv	%ft0, %ft1
 	j	bne_cont.39692
 bne_else.39691:
-	la	%t2, l.25844
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25844
 	fsub	%ft1, %ft1, %ft4
-	la	%t2, l.25844
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25844
 	fle	%t6, %ft1, %ft4
 	beq	%t6, %zero, bne_else.39693
 	fmv	%ft0, %ft1
 	j	bne_cont.39694
 bne_else.39693:
-	la	%t2, l.25844
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25844
 	fsub	%ft1, %ft1, %ft4
-	la	%t2, l.25844
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25844
 	fle	%t6, %ft1, %ft4
 	beq	%t6, %zero, bne_else.39695
 	fmv	%ft0, %ft1
 	j	bne_cont.39696
 bne_else.39695:
-	la	%t2, l.25844
-	flw	%ft5, 0(%t2)
+	flw	%ft5, l.25844
 	fsub	%ft1, %ft1, %ft5
-	la	%t2, l.25844
-	flw	%ft6, 0(%t2)
+	flw	%ft6, l.25844
 	fle	%t6, %ft1, %ft6
 	beq	%t6, %zero, bne_else.39697
 	fmv	%ft0, %ft1
 	j	bne_cont.39698
 bne_else.39697:
-	la	%t2, l.25844
-	flw	%ft7, 0(%t2)
+	flw	%ft7, l.25844
 	fsub	%ft1, %ft1, %ft7
 	fle	%t6, %ft1, %ft4
 	beq	%t6, %zero, bne_else.39699
@@ -4842,25 +4649,21 @@ bne_else.39699:
 	j	bne_cont.39702
 bne_else.39701:
 	fsub	%ft1, %ft1, %ft7
-	la	%t2, l.25844
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25844
 	fle	%t6, %ft1, %ft4
 	beq	%t6, %zero, bne_else.39703
 	fmv	%ft0, %ft1
 	j	bne_cont.39704
 bne_else.39703:
-	la	%t2, l.25844
-	flw	%ft5, 0(%t2)
+	flw	%ft5, l.25844
 	fsub	%ft1, %ft1, %ft5
-	la	%t2, l.25844
-	flw	%ft6, 0(%t2)
+	flw	%ft6, l.25844
 	fle	%t6, %ft1, %ft6
 	beq	%t6, %zero, bne_else.39705
 	fmv	%ft0, %ft1
 	j	bne_cont.39706
 bne_else.39705:
-	la	%t2, l.25844
-	flw	%ft7, 0(%t2)
+	flw	%ft7, l.25844
 	fsub	%ft1, %ft1, %ft7
 	fle	%t6, %ft1, %ft4
 	beq	%t6, %zero, bne_else.39707
@@ -4898,25 +4701,21 @@ bne_else.39715:
 	j	bne_cont.39718
 bne_else.39717:
 	fsub	%ft1, %ft1, %ft7
-	la	%t2, l.25844
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25844
 	fle	%t6, %ft1, %ft4
 	beq	%t6, %zero, bne_else.39719
 	fmv	%ft0, %ft1
 	j	bne_cont.39720
 bne_else.39719:
-	la	%t2, l.25844
-	flw	%ft5, 0(%t2)
+	flw	%ft5, l.25844
 	fsub	%ft1, %ft1, %ft5
-	la	%t2, l.25844
-	flw	%ft6, 0(%t2)
+	flw	%ft6, l.25844
 	fle	%t6, %ft1, %ft6
 	beq	%t6, %zero, bne_else.39721
 	fmv	%ft0, %ft1
 	j	bne_cont.39722
 bne_else.39721:
-	la	%t2, l.25844
-	flw	%ft7, 0(%t2)
+	flw	%ft7, l.25844
 	fsub	%ft1, %ft1, %ft7
 	fle	%t6, %ft1, %ft4
 	beq	%t6, %zero, bne_else.39723
@@ -5048,14 +4847,12 @@ bne_else.39751:
 bne_cont.39752:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.39753
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.39754
 bne_else.39753:
 	flw	%ft0, -24(%sp)
 bne_cont.39754:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39755
 	fsub	%ft3, %ft1, %ft2
@@ -5063,73 +4860,59 @@ bne_cont.39754:
 bne_else.39755:
 	fmv	%ft3, %ft2
 bne_cont.39756:
-	la	%t0, l.25876
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25876
 	fle	%t6, %ft4, %ft2
 	beq	%t6, %zero, bne_else.39757
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39758
 bne_else.39757:
 bne_cont.39758:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39759
 	fmul	%ft2, %ft3, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39760
 bne_else.39759:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 bne_cont.39760:
 	lw	%t0, -16(%sp)
 	flw	%ft2, 0(%t0)
-	la	%t1, l.25927
-	flw	%ft3, 0(%t1)
+	flw	%ft3, l.25927
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.39761
-	la	%t1, l.25907
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25907
 	j	bne_cont.39762
 bne_else.39761:
-	la	%t1, l.25867
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25867
 bne_cont.39762:
 	fabs	%ft2, %ft2
 	flw	%ft5, -8(%sp)
@@ -5141,38 +4924,31 @@ bne_cont.39762:
 	fmv	%ft0, %ft2
 	j	bne_cont.39765
 bne_else.39764:
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39766
 	fmv	%ft0, %ft2
 	j	bne_cont.39767
 bne_else.39766:
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39768
 	fmv	%ft0, %ft2
 	j	bne_cont.39769
 bne_else.39768:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fle	%t6, %ft2, %fs0
 	beq	%t6, %zero, bne_else.39770
 	fmv	%ft0, %ft2
 	j	bne_cont.39771
 bne_else.39770:
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fsub	%ft2, %ft2, %fs1
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39772
@@ -5186,25 +4962,21 @@ bne_else.39772:
 	j	bne_cont.39775
 bne_else.39774:
 	fsub	%ft2, %ft2, %fs1
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39776
 	fmv	%ft0, %ft2
 	j	bne_cont.39777
 bne_else.39776:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fle	%t6, %ft2, %fs0
 	beq	%t6, %zero, bne_else.39778
 	fmv	%ft0, %ft2
 	j	bne_cont.39779
 bne_else.39778:
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fsub	%ft2, %ft2, %fs1
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39780
@@ -5242,25 +5014,21 @@ bne_else.39788:
 	j	bne_cont.39791
 bne_else.39790:
 	fsub	%ft2, %ft2, %fs1
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39792
 	fmv	%ft0, %ft2
 	j	bne_cont.39793
 bne_else.39792:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fle	%t6, %ft2, %fs0
 	beq	%t6, %zero, bne_else.39794
 	fmv	%ft0, %ft2
 	j	bne_cont.39795
 bne_else.39794:
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fsub	%ft2, %ft2, %fs1
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39796
@@ -5392,63 +5160,52 @@ bne_else.39824:
 bne_cont.39825:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.39826
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -64(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.39827
 bne_else.39826:
 	flw	%ft0, -64(%sp)
 bne_cont.39827:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39828
 	fsub	%ft2, %ft1, %ft2
 	j	bne_cont.39829
 bne_else.39828:
 bne_cont.39829:
-	la	%t0, l.25865
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25865
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.39830
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39831
 bne_else.39830:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fsub	%ft2, %ft3, %ft2
 	fmul	%ft2, %ft2, %ft2
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
@@ -5463,38 +5220,31 @@ bne_cont.39831:
 	fmv	%ft0, %ft2
 	j	bne_cont.39833
 bne_else.39832:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39834
 	fmv	%ft0, %ft2
 	j	bne_cont.39835
 bne_else.39834:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39836
 	fmv	%ft0, %ft2
 	j	bne_cont.39837
 bne_else.39836:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39838
 	fmv	%ft0, %ft2
 	j	bne_cont.39839
 bne_else.39838:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39840
@@ -5508,25 +5258,21 @@ bne_else.39840:
 	j	bne_cont.39843
 bne_else.39842:
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39844
 	fmv	%ft0, %ft2
 	j	bne_cont.39845
 bne_else.39844:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39846
 	fmv	%ft0, %ft2
 	j	bne_cont.39847
 bne_else.39846:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39848
@@ -5564,25 +5310,21 @@ bne_else.39856:
 	j	bne_cont.39859
 bne_else.39858:
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39860
 	fmv	%ft0, %ft2
 	j	bne_cont.39861
 bne_else.39860:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39862
 	fmv	%ft0, %ft2
 	j	bne_cont.39863
 bne_else.39862:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39864
@@ -5714,14 +5456,12 @@ bne_else.39892:
 bne_cont.39893:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.39894
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.39895
 bne_else.39894:
 	flw	%ft0, -24(%sp)
 bne_cont.39895:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39896
 	fsub	%ft3, %ft1, %ft2
@@ -5729,57 +5469,46 @@ bne_cont.39895:
 bne_else.39896:
 	fmv	%ft3, %ft2
 bne_cont.39897:
-	la	%t0, l.25876
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25876
 	fle	%t6, %ft4, %ft2
 	beq	%t6, %zero, bne_else.39898
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39899
 bne_else.39898:
 bne_cont.39899:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39900
 	fmul	%ft2, %ft3, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39901
 bne_else.39900:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
@@ -5789,12 +5518,10 @@ bne_cont.39901:
 	flw	%ft3, -56(%sp)
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.39902
-	la	%t1, l.25907
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25907
 	j	bne_cont.39903
 bne_else.39902:
-	la	%t1, l.25867
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25867
 bne_cont.39903:
 	fabs	%ft2, %ft2
 	flw	%ft5, -8(%sp)
@@ -5805,38 +5532,31 @@ bne_cont.39903:
 	fmv	%ft0, %ft2
 	j	bne_cont.39905
 bne_else.39904:
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39906
 	fmv	%ft0, %ft2
 	j	bne_cont.39907
 bne_else.39906:
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39908
 	fmv	%ft0, %ft2
 	j	bne_cont.39909
 bne_else.39908:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fle	%t6, %ft2, %fs0
 	beq	%t6, %zero, bne_else.39910
 	fmv	%ft0, %ft2
 	j	bne_cont.39911
 bne_else.39910:
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fsub	%ft2, %ft2, %fs1
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39912
@@ -5850,25 +5570,21 @@ bne_else.39912:
 	j	bne_cont.39915
 bne_else.39914:
 	fsub	%ft2, %ft2, %fs1
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39916
 	fmv	%ft0, %ft2
 	j	bne_cont.39917
 bne_else.39916:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fle	%t6, %ft2, %fs0
 	beq	%t6, %zero, bne_else.39918
 	fmv	%ft0, %ft2
 	j	bne_cont.39919
 bne_else.39918:
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fsub	%ft2, %ft2, %fs1
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39920
@@ -5906,25 +5622,21 @@ bne_else.39928:
 	j	bne_cont.39931
 bne_else.39930:
 	fsub	%ft2, %ft2, %fs1
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39932
 	fmv	%ft0, %ft2
 	j	bne_cont.39933
 bne_else.39932:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fle	%t6, %ft2, %fs0
 	beq	%t6, %zero, bne_else.39934
 	fmv	%ft0, %ft2
 	j	bne_cont.39935
 bne_else.39934:
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fsub	%ft2, %ft2, %fs1
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39936
@@ -6056,63 +5768,52 @@ bne_else.39964:
 bne_cont.39965:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.39966
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -88(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.39967
 bne_else.39966:
 	flw	%ft0, -88(%sp)
 bne_cont.39967:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.39968
 	fsub	%ft2, %ft1, %ft2
 	j	bne_cont.39969
 bne_else.39968:
 bne_cont.39969:
-	la	%t0, l.25865
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25865
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.39970
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.39971
 bne_else.39970:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fsub	%ft2, %ft3, %ft2
 	fmul	%ft2, %ft2, %ft2
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
@@ -6127,38 +5828,31 @@ bne_cont.39971:
 	fmv	%ft0, %ft2
 	j	bne_cont.39973
 bne_else.39972:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39974
 	fmv	%ft0, %ft2
 	j	bne_cont.39975
 bne_else.39974:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39976
 	fmv	%ft0, %ft2
 	j	bne_cont.39977
 bne_else.39976:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39978
 	fmv	%ft0, %ft2
 	j	bne_cont.39979
 bne_else.39978:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39980
@@ -6172,25 +5866,21 @@ bne_else.39980:
 	j	bne_cont.39983
 bne_else.39982:
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39984
 	fmv	%ft0, %ft2
 	j	bne_cont.39985
 bne_else.39984:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.39986
 	fmv	%ft0, %ft2
 	j	bne_cont.39987
 bne_else.39986:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.39988
@@ -6228,25 +5918,21 @@ bne_else.39996:
 	j	bne_cont.39999
 bne_else.39998:
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40000
 	fmv	%ft0, %ft2
 	j	bne_cont.40001
 bne_else.40000:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.40002
 	fmv	%ft0, %ft2
 	j	bne_cont.40003
 bne_else.40002:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40004
@@ -6378,14 +6064,12 @@ bne_else.40032:
 bne_cont.40033:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40034
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.40035
 bne_else.40034:
 	flw	%ft0, -24(%sp)
 bne_cont.40035:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.40036
 	fsub	%ft3, %ft1, %ft2
@@ -6393,57 +6077,46 @@ bne_cont.40035:
 bne_else.40036:
 	fmv	%ft3, %ft2
 bne_cont.40037:
-	la	%t0, l.25876
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25876
 	fle	%t6, %ft4, %ft2
 	beq	%t6, %zero, bne_else.40038
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.40039
 bne_else.40038:
 bne_cont.40039:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.40040
 	fmul	%ft2, %ft3, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.40041
 bne_else.40040:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
@@ -6453,12 +6126,10 @@ bne_cont.40041:
 	flw	%ft3, -56(%sp)
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.40042
-	la	%t1, l.25907
-	flw	%ft3, 0(%t1)
+	flw	%ft3, l.25907
 	j	bne_cont.40043
 bne_else.40042:
-	la	%t1, l.25867
-	flw	%ft3, 0(%t1)
+	flw	%ft3, l.25867
 bne_cont.40043:
 	fabs	%ft2, %ft2
 	flw	%ft4, -8(%sp)
@@ -6469,38 +6140,31 @@ bne_cont.40043:
 	fmv	%ft0, %ft2
 	j	bne_cont.40045
 bne_else.40044:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40046
 	fmv	%ft0, %ft2
 	j	bne_cont.40047
 bne_else.40046:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40048
 	fmv	%ft0, %ft2
 	j	bne_cont.40049
 bne_else.40048:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.40050
 	fmv	%ft0, %ft2
 	j	bne_cont.40051
 bne_else.40050:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40052
@@ -6514,25 +6178,21 @@ bne_else.40052:
 	j	bne_cont.40055
 bne_else.40054:
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40056
 	fmv	%ft0, %ft2
 	j	bne_cont.40057
 bne_else.40056:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.40058
 	fmv	%ft0, %ft2
 	j	bne_cont.40059
 bne_else.40058:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40060
@@ -6570,25 +6230,21 @@ bne_else.40068:
 	j	bne_cont.40071
 bne_else.40070:
 	fsub	%ft2, %ft2, %ft7
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40072
 	fmv	%ft0, %ft2
 	j	bne_cont.40073
 bne_else.40072:
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.40074
 	fmv	%ft0, %ft2
 	j	bne_cont.40075
 bne_else.40074:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40076
@@ -6720,16 +6376,14 @@ bne_else.40104:
 bne_cont.40105:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40106
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -112(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.40107
 bne_else.40106:
 	flw	%ft0, -112(%sp)
 bne_cont.40107:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.40108
 	fsub	%ft1, %ft1, %ft2
@@ -6737,47 +6391,38 @@ bne_cont.40107:
 bne_else.40108:
 	fmv	%ft1, %ft2
 bne_cont.40109:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.40110
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft2, %ft4, %ft2
-	la	%t0, l.25914
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25914
 	fmul	%ft3, %ft5, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25916
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25916
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25918
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25918
 	fmul	%ft2, %ft3, %ft2
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 	j	bne_cont.40111
 bne_else.40110:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft1, %ft2, %ft1
 	fmul	%ft1, %ft1, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft5, 0(%t0)
+	flw	%ft4, l.25867
+	flw	%ft5, l.25921
 	fmul	%ft1, %ft5, %ft1
 	fsub	%ft1, %ft4, %ft1
-	la	%t0, l.25923
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25923
 	fmul	%ft2, %ft4, %ft2
 	fadd	%ft1, %ft1, %ft2
-	la	%t0, l.25925
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25925
 	fmul	%ft2, %ft2, %ft3
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
@@ -6837,8 +6482,7 @@ bne_cont.40111:
 	fmul	%fa3, %fs1, %fa3
 	fadd	%fa2, %fa2, %fa3
 	fsw	%fa2, 8(%t0)
-	la	%t0, l.26220
-	flw	%fa2, 0(%t0)
+	flw	%fa2, l.26220
 	fmul	%fa3, %ft5, %ft7
 	fmul	%fa3, %fa3, %fa0
 	fmul	%fa4, %fs0, %ft6
@@ -6850,8 +6494,7 @@ bne_cont.40111:
 	fmul	%fa2, %fa2, %fa3
 	lw	%t0, -16(%sp)
 	fsw	%fa2, 0(%t0)
-	la	%t1, l.26220
-	flw	%fa2, 0(%t1)
+	flw	%fa2, l.26220
 	fmul	%ft3, %ft5, %ft3
 	fmul	%ft5, %ft3, %fa0
 	fmul	%fs0, %fs0, %fa1
@@ -6862,8 +6505,7 @@ bne_cont.40111:
 	fadd	%ft0, %ft0, %ft2
 	fmul	%ft0, %fa2, %ft0
 	fsw	%ft0, 4(%t0)
-	la	%t1, l.26220
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.26220
 	fmul	%ft2, %ft3, %ft7
 	fmul	%ft3, %fs0, %ft6
 	fadd	%ft2, %ft2, %ft3
@@ -6921,8 +6563,7 @@ beq_else.40113:
 	slli	%t6, %t6, 24
 	or	%a1, %a1, %t6
 	addi	%a2, %zero, 3
-	la	%a3, l.25927
-	flw	%ft0, 0(%a3)
+	flw	%ft0, l.25927
 	sw	%t1, 0(%sp)
 	sw	%t2, -4(%sp)
 	sw	%t0, -8(%sp)
@@ -6973,8 +6614,7 @@ beq_else.40113:
 	fmv.w.x	%ft0, %t5
 	fsw	%ft0, 8(%t0)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -32(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -36(%sp)
@@ -7029,8 +6669,7 @@ beq_else.40113:
 	slli	%t6, %t6, 24
 	or	%t5, %t5, %t6
 	fmv.w.x	%ft0, %t5
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40114
 	addi	%t1, %zero, 0
@@ -7039,8 +6678,7 @@ bne_else.40114:
 	addi	%t1, %zero, 1
 bne_cont.40115:
 	addi	%t2, %zero, 2
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	sw	%t0, -36(%sp)
 	sw	%t1, -40(%sp)
 	addi	%t0, %t2, 0
@@ -7074,8 +6712,7 @@ bne_cont.40115:
 	fmv.w.x	%ft0, %t5
 	fsw	%ft0, 4(%t0)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -44(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -52(%sp)
@@ -7120,8 +6757,7 @@ bne_cont.40115:
 	fmv.w.x	%ft0, %t5
 	fsw	%ft0, 8(%t0)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -48(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -52(%sp)
@@ -7145,8 +6781,7 @@ beq_else.40116:
 	slli	%t6, %t6, 24
 	or	%t5, %t5, %t6
 	fmv.w.x	%ft0, %t5
-	la	%t2, l.25888
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.25888
 	fmul	%ft0, %ft0, %ft1
 	fsw	%ft0, 0(%t0)
 	in	%t5
@@ -7160,8 +6795,7 @@ beq_else.40116:
 	slli	%t6, %t6, 24
 	or	%t5, %t5, %t6
 	fmv.w.x	%ft0, %t5
-	la	%t2, l.25888
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.25888
 	fmul	%ft0, %ft0, %ft1
 	fsw	%ft0, 4(%t0)
 	in	%t5
@@ -7175,8 +6809,7 @@ beq_else.40116:
 	slli	%t6, %t6, 24
 	or	%t5, %t5, %t6
 	fmv.w.x	%ft0, %t5
-	la	%t2, l.25888
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.25888
 	fmul	%ft0, %ft0, %ft1
 	fsw	%ft0, 8(%t0)
 beq_cont.40117:
@@ -7189,8 +6822,7 @@ beq_else.40118:
 	lw	%s0, -40(%sp)
 beq_cont.40119:
 	addi	%s1, %zero, 4
-	la	%a0, l.25927
-	flw	%ft0, 0(%a0)
+	flw	%ft0, l.25927
 	sw	%s0, -52(%sp)
 	sw	%t0, -56(%sp)
 	addi	%t0, %s1, 0
@@ -7230,8 +6862,7 @@ beq_cont.40119:
 	addi	%t6, %s1, -3
 	bne	%t6, %zero, beq_else.40120
 	flw	%ft0, 0(%t2)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40122
 	addi	%t1, %zero, 1
@@ -7241,8 +6872,7 @@ bne_else.40122:
 bne_cont.40123:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40124
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40126
 	addi	%t1, %zero, 1
@@ -7252,8 +6882,7 @@ bne_else.40126:
 bne_cont.40127:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40128
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40130
 	addi	%t1, %zero, 0
@@ -7263,29 +6892,24 @@ bne_else.40130:
 bne_cont.40131:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40132
-	la	%t1, l.25907
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25907
 	j	beq_cont.40133
 beq_else.40132:
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 beq_cont.40133:
 	j	beq_cont.40129
 beq_else.40128:
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 beq_cont.40129:
 	fmul	%ft0, %ft0, %ft0
 	fdiv	%ft0, %ft1, %ft0
 	j	beq_cont.40125
 beq_else.40124:
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 beq_cont.40125:
 	fsw	%ft0, 0(%t2)
 	flw	%ft0, 4(%t2)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40134
 	addi	%t1, %zero, 1
@@ -7295,8 +6919,7 @@ bne_else.40134:
 bne_cont.40135:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40136
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40138
 	addi	%t1, %zero, 1
@@ -7306,8 +6929,7 @@ bne_else.40138:
 bne_cont.40139:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40140
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40142
 	addi	%t1, %zero, 0
@@ -7317,29 +6939,24 @@ bne_else.40142:
 bne_cont.40143:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40144
-	la	%t1, l.25907
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25907
 	j	beq_cont.40145
 beq_else.40144:
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 beq_cont.40145:
 	j	beq_cont.40141
 beq_else.40140:
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 beq_cont.40141:
 	fmul	%ft0, %ft0, %ft0
 	fdiv	%ft0, %ft1, %ft0
 	j	beq_cont.40137
 beq_else.40136:
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 beq_cont.40137:
 	fsw	%ft0, 4(%t2)
 	flw	%ft0, 8(%t2)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40146
 	addi	%t1, %zero, 1
@@ -7349,8 +6966,7 @@ bne_else.40146:
 bne_cont.40147:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40148
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40150
 	addi	%t1, %zero, 1
@@ -7360,8 +6976,7 @@ bne_else.40150:
 bne_cont.40151:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40152
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40154
 	addi	%t1, %zero, 0
@@ -7371,24 +6986,20 @@ bne_else.40154:
 bne_cont.40155:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40156
-	la	%t1, l.25907
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25907
 	j	beq_cont.40157
 beq_else.40156:
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 beq_cont.40157:
 	j	beq_cont.40153
 beq_else.40152:
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 beq_cont.40153:
 	fmul	%ft0, %ft0, %ft0
 	fdiv	%ft0, %ft1, %ft0
 	j	beq_cont.40149
 beq_else.40148:
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 beq_cont.40149:
 	fsw	%ft0, 8(%t2)
 	j	beq_cont.40121
@@ -7412,8 +7023,7 @@ beq_cont.40161:
 	fmul	%ft1, %ft1, %ft1
 	fadd	%ft0, %ft0, %ft1
 	fsqrt	%ft0, %ft0
-	la	%s1, l.25927
-	flw	%ft1, 0(%s1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40162
 	addi	%s1, %zero, 1
@@ -7425,19 +7035,16 @@ bne_cont.40163:
 	bne	%t6, %zero, beq_else.40164
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40166
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 	fdiv	%ft0, %ft1, %ft0
 	j	beq_cont.40167
 beq_else.40166:
-	la	%t1, l.25907
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25907
 	fdiv	%ft0, %ft1, %ft0
 beq_cont.40167:
 	j	beq_cont.40165
 beq_else.40164:
-	la	%t1, l.25867
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25867
 beq_cont.40165:
 	flw	%ft1, 0(%t2)
 	fmul	%ft1, %ft1, %ft0
@@ -9348,23 +8955,18 @@ read_parameter.2776:
 	slli	%t6, %t6, 24
 	or	%t5, %t5, %t6
 	fmv.w.x	%ft0, %t5
-	la	%t0, l.25888
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25888
 	fmul	%ft0, %ft0, %ft1
-	la	%t0, l.25927
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft0, %ft2
 	beq	%t6, %zero, bne_else.40320
-	la	%t0, l.25907
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25907
 	j	bne_cont.40321
 bne_else.40320:
-	la	%t0, l.25867
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25867
 bne_cont.40321:
 	fabs	%ft4, %ft0
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fsw	%ft5, -48(%sp)
 	fsw	%ft2, -56(%sp)
 	fsw	%ft0, -64(%sp)
@@ -9375,28 +8977,23 @@ bne_cont.40321:
 	fmv	%ft0, %ft4
 	j	bne_cont.40324
 bne_else.40323:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft4, %ft4, %ft6
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.40325
 	fmv	%ft0, %ft4
 	j	bne_cont.40326
 bne_else.40325:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft4, %ft4, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft4, %fs0
 	beq	%t6, %zero, bne_else.40327
 	fmv	%ft0, %ft4
 	j	bne_cont.40328
 bne_else.40327:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft4, %ft4, %fs1
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.40329
@@ -9410,25 +9007,21 @@ bne_else.40329:
 	j	bne_cont.40332
 bne_else.40331:
 	fsub	%ft4, %ft4, %fs1
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.40333
 	fmv	%ft0, %ft4
 	j	bne_cont.40334
 bne_else.40333:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft4, %ft4, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft4, %fs0
 	beq	%t6, %zero, bne_else.40335
 	fmv	%ft0, %ft4
 	j	bne_cont.40336
 bne_else.40335:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft4, %ft4, %fs1
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.40337
@@ -9466,25 +9059,21 @@ bne_else.40345:
 	j	bne_cont.40348
 bne_else.40347:
 	fsub	%ft4, %ft4, %fs1
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.40349
 	fmv	%ft0, %ft4
 	j	bne_cont.40350
 bne_else.40349:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft4, %ft4, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft4, %fs0
 	beq	%t6, %zero, bne_else.40351
 	fmv	%ft0, %ft4
 	j	bne_cont.40352
 bne_else.40351:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft4, %ft4, %fs1
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.40353
@@ -9615,63 +9204,52 @@ bne_else.40381:
 bne_cont.40382:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40383
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -80(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.40384
 bne_else.40383:
 	flw	%ft0, -80(%sp)
 bne_cont.40384:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.40385
 	fsub	%ft2, %ft1, %ft2
 	j	bne_cont.40386
 bne_else.40385:
 bne_cont.40386:
-	la	%t0, l.25865
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25865
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.40387
 	fmul	%ft5, %ft2, %ft2
 	fmul	%ft6, %ft5, %ft2
 	fmul	%ft7, %ft6, %ft5
 	fmul	%ft5, %ft7, %ft5
-	la	%t0, l.25914
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25914
 	fmul	%ft6, %fs0, %ft6
 	fsub	%ft2, %ft2, %ft6
-	la	%t0, l.25916
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25916
 	fmul	%ft6, %ft6, %ft7
 	fadd	%ft2, %ft2, %ft6
-	la	%t0, l.25918
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25918
 	fmul	%ft5, %ft6, %ft5
 	fsub	%ft2, %ft2, %ft5
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.40388
 bne_else.40387:
-	la	%t0, l.25876
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25876
 	fsub	%ft2, %ft5, %ft2
 	fmul	%ft2, %ft2, %ft2
 	fmul	%ft5, %ft2, %ft2
 	fmul	%ft6, %ft5, %ft2
-	la	%t0, l.25867
-	flw	%ft7, 0(%t0)
-	la	%t0, l.25921
-	flw	%fs0, 0(%t0)
+	flw	%ft7, l.25867
+	flw	%fs0, l.25921
 	fmul	%ft2, %fs0, %ft2
 	fsub	%ft2, %ft7, %ft2
-	la	%t0, l.25923
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25923
 	fmul	%ft5, %ft7, %ft5
 	fadd	%ft2, %ft2, %ft5
-	la	%t0, l.25925
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25925
 	fmul	%ft5, %ft5, %ft6
 	fsub	%ft2, %ft2, %ft5
 	fmul	%ft0, %ft0, %ft2
@@ -9692,12 +9270,10 @@ bne_cont.40388:
 	fmv.w.x	%ft0, %t5
 	flw	%ft2, -72(%sp)
 	fmul	%ft0, %ft0, %ft2
-	la	%t1, l.25867
-	flw	%ft2, 0(%t1)
+	flw	%ft2, l.25867
 	flw	%ft5, -64(%sp)
 	fabs	%ft5, %ft5
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fsw	%ft6, -88(%sp)
 	fsw	%ft4, -96(%sp)
 	fsw	%ft3, -104(%sp)
@@ -9708,28 +9284,23 @@ bne_cont.40388:
 	fmv	%ft0, %ft5
 	j	bne_cont.40390
 bne_else.40389:
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fsub	%ft5, %ft5, %ft7
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.40391
 	fmv	%ft0, %ft5
 	j	bne_cont.40392
 bne_else.40391:
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fsub	%ft5, %ft5, %fs0
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fle	%t6, %ft5, %fs1
 	beq	%t6, %zero, bne_else.40393
 	fmv	%ft0, %ft5
 	j	bne_cont.40394
 bne_else.40393:
-	la	%t1, l.25844
-	flw	%fa0, 0(%t1)
+	flw	%fa0, l.25844
 	fsub	%ft5, %ft5, %fa0
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.40395
@@ -9743,25 +9314,21 @@ bne_else.40395:
 	j	bne_cont.40398
 bne_else.40397:
 	fsub	%ft5, %ft5, %fa0
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.40399
 	fmv	%ft0, %ft5
 	j	bne_cont.40400
 bne_else.40399:
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fsub	%ft5, %ft5, %fs0
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fle	%t6, %ft5, %fs1
 	beq	%t6, %zero, bne_else.40401
 	fmv	%ft0, %ft5
 	j	bne_cont.40402
 bne_else.40401:
-	la	%t1, l.25844
-	flw	%fa0, 0(%t1)
+	flw	%fa0, l.25844
 	fsub	%ft5, %ft5, %fa0
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.40403
@@ -9799,25 +9366,21 @@ bne_else.40411:
 	j	bne_cont.40414
 bne_else.40413:
 	fsub	%ft5, %ft5, %fa0
-	la	%t1, l.25844
-	flw	%ft7, 0(%t1)
+	flw	%ft7, l.25844
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.40415
 	fmv	%ft0, %ft5
 	j	bne_cont.40416
 bne_else.40415:
-	la	%t1, l.25844
-	flw	%fs0, 0(%t1)
+	flw	%fs0, l.25844
 	fsub	%ft5, %ft5, %fs0
-	la	%t1, l.25844
-	flw	%fs1, 0(%t1)
+	flw	%fs1, l.25844
 	fle	%t6, %ft5, %fs1
 	beq	%t6, %zero, bne_else.40417
 	fmv	%ft0, %ft5
 	j	bne_cont.40418
 bne_else.40417:
-	la	%t1, l.25844
-	flw	%fa0, 0(%t1)
+	flw	%fa0, l.25844
 	fsub	%ft5, %ft5, %fa0
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.40419
@@ -9948,14 +9511,12 @@ bne_else.40447:
 bne_cont.40448:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40449
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.40450
 bne_else.40449:
 	flw	%ft0, -120(%sp)
 bne_cont.40450:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.40451
 	fsub	%ft4, %ft1, %ft2
@@ -9963,57 +9524,46 @@ bne_cont.40450:
 bne_else.40451:
 	fmv	%ft4, %ft2
 bne_cont.40452:
-	la	%t0, l.25876
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25876
 	fle	%t6, %ft5, %ft2
 	beq	%t6, %zero, bne_else.40453
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.40454
 bne_else.40453:
 bne_cont.40454:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft4, %ft2
 	beq	%t6, %zero, bne_else.40455
 	fmul	%ft4, %ft4, %ft4
 	fmul	%ft6, %ft4, %ft4
 	fmul	%ft7, %ft6, %ft4
-	la	%t0, l.25867
-	flw	%fs0, 0(%t0)
-	la	%t0, l.25921
-	flw	%fs1, 0(%t0)
+	flw	%fs0, l.25867
+	flw	%fs1, l.25921
 	fmul	%ft4, %fs1, %ft4
 	fsub	%ft4, %fs0, %ft4
-	la	%t0, l.25923
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25923
 	fmul	%ft6, %fs0, %ft6
 	fadd	%ft4, %ft4, %ft6
-	la	%t0, l.25925
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25925
 	fmul	%ft6, %ft6, %ft7
 	fsub	%ft4, %ft4, %ft6
 	fmul	%ft0, %ft0, %ft4
 	j	bne_cont.40456
 bne_else.40455:
-	la	%t0, l.25876
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25876
 	fsub	%ft4, %ft6, %ft4
 	fmul	%ft6, %ft4, %ft4
 	fmul	%ft7, %ft6, %ft4
 	fmul	%fs0, %ft7, %ft6
 	fmul	%ft6, %fs0, %ft6
-	la	%t0, l.25914
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25914
 	fmul	%ft7, %fs1, %ft7
 	fsub	%ft4, %ft4, %ft7
-	la	%t0, l.25916
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25916
 	fmul	%ft7, %ft7, %fs0
 	fadd	%ft4, %ft4, %ft7
-	la	%t0, l.25918
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25918
 	fmul	%ft6, %ft7, %ft6
 	fsub	%ft4, %ft4, %ft6
 	fmul	%ft0, %ft0, %ft4
@@ -10022,12 +9572,10 @@ bne_cont.40456:
 	flw	%ft6, -112(%sp)
 	fle	%t6, %ft6, %ft4
 	beq	%t6, %zero, bne_else.40457
-	la	%t0, l.25907
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25907
 	j	bne_cont.40458
 bne_else.40457:
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25867
 bne_cont.40458:
 	fabs	%ft7, %ft6
 	flw	%fs0, -48(%sp)
@@ -10041,28 +9589,23 @@ bne_cont.40458:
 	fmv	%ft0, %ft7
 	j	bne_cont.40460
 bne_else.40459:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft7, %ft7, %fs0
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft7, %fs0
 	beq	%t6, %zero, bne_else.40461
 	fmv	%ft0, %ft7
 	j	bne_cont.40462
 bne_else.40461:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft7, %ft7, %fs1
-	la	%t0, l.25844
-	flw	%fa0, 0(%t0)
+	flw	%fa0, l.25844
 	fle	%t6, %ft7, %fa0
 	beq	%t6, %zero, bne_else.40463
 	fmv	%ft0, %ft7
 	j	bne_cont.40464
 bne_else.40463:
-	la	%t0, l.25844
-	flw	%fa1, 0(%t0)
+	flw	%fa1, l.25844
 	fsub	%ft7, %ft7, %fa1
 	fle	%t6, %ft7, %fs0
 	beq	%t6, %zero, bne_else.40465
@@ -10076,25 +9619,21 @@ bne_else.40465:
 	j	bne_cont.40468
 bne_else.40467:
 	fsub	%ft7, %ft7, %fa1
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft7, %fs0
 	beq	%t6, %zero, bne_else.40469
 	fmv	%ft0, %ft7
 	j	bne_cont.40470
 bne_else.40469:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft7, %ft7, %fs1
-	la	%t0, l.25844
-	flw	%fa0, 0(%t0)
+	flw	%fa0, l.25844
 	fle	%t6, %ft7, %fa0
 	beq	%t6, %zero, bne_else.40471
 	fmv	%ft0, %ft7
 	j	bne_cont.40472
 bne_else.40471:
-	la	%t0, l.25844
-	flw	%fa1, 0(%t0)
+	flw	%fa1, l.25844
 	fsub	%ft7, %ft7, %fa1
 	fle	%t6, %ft7, %fs0
 	beq	%t6, %zero, bne_else.40473
@@ -10132,25 +9671,21 @@ bne_else.40481:
 	j	bne_cont.40484
 bne_else.40483:
 	fsub	%ft7, %ft7, %fa1
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft7, %fs0
 	beq	%t6, %zero, bne_else.40485
 	fmv	%ft0, %ft7
 	j	bne_cont.40486
 bne_else.40485:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft7, %ft7, %fs1
-	la	%t0, l.25844
-	flw	%fa0, 0(%t0)
+	flw	%fa0, l.25844
 	fle	%t6, %ft7, %fa0
 	beq	%t6, %zero, bne_else.40487
 	fmv	%ft0, %ft7
 	j	bne_cont.40488
 bne_else.40487:
-	la	%t0, l.25844
-	flw	%fa1, 0(%t0)
+	flw	%fa1, l.25844
 	fsub	%ft7, %ft7, %fa1
 	fle	%t6, %ft7, %fs0
 	beq	%t6, %zero, bne_else.40489
@@ -10281,8 +9816,7 @@ bne_else.40517:
 bne_cont.40518:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40519
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -160(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.40520
@@ -10303,39 +9837,31 @@ bne_cont.40522:
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.40524
 bne_else.40523:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fsub	%ft2, %ft3, %ft2
 	fmul	%ft2, %ft2, %ft2
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
@@ -10351,26 +9877,21 @@ bne_cont.40524:
 	beq	%t6, %zero, bne_else.40525
 	j	bne_cont.40526
 bne_else.40525:
-	la	%t1, l.25844
-	flw	%ft3, 0(%t1)
+	flw	%ft3, l.25844
 	fsub	%ft0, %ft0, %ft3
-	la	%t1, l.25844
-	flw	%ft3, 0(%t1)
+	flw	%ft3, l.25844
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.40527
 	j	bne_cont.40528
 bne_else.40527:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft0, %ft0, %ft4
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fle	%t6, %ft0, %ft5
 	beq	%t6, %zero, bne_else.40529
 	j	bne_cont.40530
 bne_else.40529:
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fsub	%ft0, %ft0, %ft6
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.40531
@@ -10382,23 +9903,19 @@ bne_else.40531:
 	j	bne_cont.40534
 bne_else.40533:
 	fsub	%ft0, %ft0, %ft6
-	la	%t1, l.25844
-	flw	%ft3, 0(%t1)
+	flw	%ft3, l.25844
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.40535
 	j	bne_cont.40536
 bne_else.40535:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft0, %ft0, %ft4
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fle	%t6, %ft0, %ft5
 	beq	%t6, %zero, bne_else.40537
 	j	bne_cont.40538
 bne_else.40537:
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fsub	%ft0, %ft0, %ft6
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.40539
@@ -10430,23 +9947,19 @@ bne_else.40547:
 	j	bne_cont.40550
 bne_else.40549:
 	fsub	%ft0, %ft0, %ft6
-	la	%t1, l.25844
-	flw	%ft3, 0(%t1)
+	flw	%ft3, l.25844
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.40551
 	j	bne_cont.40552
 bne_else.40551:
-	la	%t1, l.25844
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25844
 	fsub	%ft0, %ft0, %ft4
-	la	%t1, l.25844
-	flw	%ft5, 0(%t1)
+	flw	%ft5, l.25844
 	fle	%t6, %ft0, %ft5
 	beq	%t6, %zero, bne_else.40553
 	j	bne_cont.40554
 bne_else.40553:
-	la	%t1, l.25844
-	flw	%ft6, 0(%t1)
+	flw	%ft6, l.25844
 	fsub	%ft0, %ft0, %ft6
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.40555
@@ -10562,8 +10075,7 @@ bne_else.40583:
 bne_cont.40584:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40585
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.40586
 bne_else.40585:
 	flw	%ft0, -120(%sp)
@@ -10579,8 +10091,7 @@ bne_cont.40588:
 	flw	%ft3, -136(%sp)
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.40589
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.40590
 bne_else.40589:
@@ -10591,40 +10102,32 @@ bne_cont.40590:
 	fmul	%ft1, %ft1, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft5, 0(%t0)
+	flw	%ft4, l.25867
+	flw	%ft5, l.25921
 	fmul	%ft1, %ft5, %ft1
 	fsub	%ft1, %ft4, %ft1
-	la	%t0, l.25923
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25923
 	fmul	%ft2, %ft4, %ft2
 	fadd	%ft1, %ft1, %ft2
-	la	%t0, l.25925
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25925
 	fmul	%ft2, %ft2, %ft3
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 	j	bne_cont.40592
 bne_else.40591:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft1, %ft2, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft2, %ft4, %ft2
-	la	%t0, l.25914
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25914
 	fmul	%ft3, %ft5, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25916
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25916
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25918
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25918
 	fmul	%ft2, %ft3, %ft2
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
@@ -11697,8 +11200,7 @@ beq_cont.40654:
 solver_rect.2787:
 	lw	%t2, 4(%t4)
 	flw	%ft3, 0(%t1)
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.40678
 	addi	%s0, %zero, 1
@@ -11711,8 +11213,7 @@ bne_cont.40679:
 	lw	%s0, 16(%t0)
 	lw	%s1, 24(%t0)
 	flw	%ft3, 0(%t1)
-	la	%a0, l.25927
-	flw	%ft5, 0(%a0)
+	flw	%ft5, l.25927
 	fle	%t6, %ft5, %ft3
 	beq	%t6, %zero, bne_else.40682
 	addi	%a0, %zero, 0
@@ -11788,8 +11289,7 @@ bne_cont.40696:
 	lw	%s0, 16(%t0)
 	lw	%s1, 24(%t0)
 	flw	%ft3, 4(%t1)
-	la	%a0, l.25927
-	flw	%ft5, 0(%a0)
+	flw	%ft5, l.25927
 	fle	%t6, %ft5, %ft3
 	beq	%t6, %zero, bne_else.40699
 	addi	%a0, %zero, 0
@@ -11865,8 +11365,7 @@ bne_cont.40713:
 	lw	%s0, 16(%t0)
 	lw	%t0, 24(%t0)
 	flw	%ft3, 8(%t1)
-	la	%s1, l.25927
-	flw	%ft4, 0(%s1)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.40716
 	addi	%s1, %zero, 0
@@ -11981,8 +11480,7 @@ beq_else.40729:
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft3, %ft5, %ft3
 beq_cont.40730:
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.40731
 	addi	%s0, %zero, 1
@@ -12077,8 +11575,7 @@ beq_cont.40737:
 	lw	%t1, 4(%t0)
 	addi	%t6, %t1, -3
 	bne	%t6, %zero, beq_else.40738
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 	fsub	%ft0, %ft0, %ft1
 	j	beq_cont.40739
 beq_else.40738:
@@ -12086,8 +11583,7 @@ beq_cont.40739:
 	fmul	%ft1, %ft4, %ft4
 	fmul	%ft0, %ft3, %ft0
 	fsub	%ft0, %ft1, %ft0
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40740
 	addi	%t1, %zero, 0
@@ -12138,8 +11634,7 @@ solver.2818:
 	addi	%t6, %t2, -1
 	bne	%t6, %zero, beq_else.40745
 	flw	%ft3, 0(%t1)
-	la	%t2, l.25927
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.40746
 	addi	%t2, %zero, 1
@@ -12152,8 +11647,7 @@ bne_cont.40747:
 	lw	%t2, 16(%t0)
 	lw	%s1, 24(%t0)
 	flw	%ft3, 0(%t1)
-	la	%a0, l.25927
-	flw	%ft5, 0(%a0)
+	flw	%ft5, l.25927
 	fle	%t6, %ft5, %ft3
 	beq	%t6, %zero, bne_else.40750
 	addi	%a0, %zero, 0
@@ -12229,8 +11723,7 @@ bne_cont.40764:
 	lw	%t2, 16(%t0)
 	lw	%s1, 24(%t0)
 	flw	%ft3, 4(%t1)
-	la	%a0, l.25927
-	flw	%ft5, 0(%a0)
+	flw	%ft5, l.25927
 	fle	%t6, %ft5, %ft3
 	beq	%t6, %zero, bne_else.40767
 	addi	%a0, %zero, 0
@@ -12306,8 +11799,7 @@ bne_cont.40781:
 	lw	%t2, 16(%t0)
 	lw	%t0, 24(%t0)
 	flw	%ft3, 8(%t1)
-	la	%s1, l.25927
-	flw	%ft4, 0(%s1)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.40784
 	addi	%s1, %zero, 0
@@ -12396,8 +11888,7 @@ beq_else.40745:
 	flw	%ft5, 8(%t0)
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft3, %ft4
-	la	%t1, l.25927
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25927
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.40798
 	addi	%t1, %zero, 0
@@ -12463,8 +11954,7 @@ beq_else.40801:
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft3, %ft5, %ft3
 beq_cont.40802:
-	la	%t2, l.25927
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.40803
 	addi	%t2, %zero, 1
@@ -12559,8 +12049,7 @@ beq_cont.40809:
 	lw	%t1, 4(%t0)
 	addi	%t6, %t1, -3
 	bne	%t6, %zero, beq_else.40810
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 	fsub	%ft0, %ft0, %ft1
 	j	beq_cont.40811
 beq_else.40810:
@@ -12568,8 +12057,7 @@ beq_cont.40811:
 	fmul	%ft1, %ft4, %ft4
 	fmul	%ft0, %ft3, %ft0
 	fsub	%ft0, %ft1, %ft0
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40812
 	addi	%t1, %zero, 0
@@ -12629,8 +12117,7 @@ beq_else.40817:
 	j	beq_cont.40820
 beq_else.40819:
 	flw	%ft4, 4(%t2)
-	la	%s1, l.25927
-	flw	%ft5, 0(%s1)
+	flw	%ft5, l.25927
 	feq	%t6, %ft4, %ft5
 	beq	%t6, %zero, bne_else.40821
 	addi	%s1, %zero, 1
@@ -12678,8 +12165,7 @@ beq_else.40826:
 	j	beq_cont.40829
 beq_else.40828:
 	flw	%ft4, 12(%t2)
-	la	%s1, l.25927
-	flw	%ft5, 0(%s1)
+	flw	%ft5, l.25927
 	feq	%t6, %ft4, %ft5
 	beq	%t6, %zero, bne_else.40830
 	addi	%s1, %zero, 1
@@ -12727,8 +12213,7 @@ beq_else.40835:
 	j	beq_cont.40838
 beq_else.40837:
 	flw	%ft0, 20(%t2)
-	la	%t0, l.25927
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40839
 	addi	%t0, %zero, 1
@@ -12764,8 +12249,7 @@ beq_else.40825:
 solver_second_fast.2835:
 	lw	%t2, 4(%t4)
 	flw	%ft3, 0(%t1)
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.40844
 	addi	%s0, %zero, 1
@@ -12822,8 +12306,7 @@ beq_cont.40848:
 	lw	%s0, 4(%t0)
 	addi	%t6, %s0, -3
 	bne	%t6, %zero, beq_else.40849
-	la	%s0, l.25867
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.25867
 	fsub	%ft0, %ft0, %ft1
 	j	beq_cont.40850
 beq_else.40849:
@@ -12831,8 +12314,7 @@ beq_cont.40850:
 	fmul	%ft1, %ft4, %ft4
 	fmul	%ft0, %ft3, %ft0
 	fsub	%ft0, %ft1, %ft0
-	la	%s0, l.25927
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40851
 	addi	%s0, %zero, 0
@@ -12901,8 +12383,7 @@ beq_else.40856:
 	addi	%t6, %t0, -2
 	bne	%t6, %zero, beq_else.40857
 	flw	%ft3, 0(%t2)
-	la	%t0, l.25927
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.40858
 	addi	%t0, %zero, 0
@@ -12928,8 +12409,7 @@ beq_else.40860:
 	jr	%ra
 beq_else.40857:
 	flw	%ft3, 0(%t2)
-	la	%t0, l.25927
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.40861
 	addi	%t0, %zero, 1
@@ -12986,8 +12466,7 @@ beq_cont.40865:
 	lw	%t0, 4(%a0)
 	addi	%t6, %t0, -3
 	bne	%t6, %zero, beq_else.40866
-	la	%t0, l.25867
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25867
 	fsub	%ft0, %ft0, %ft1
 	j	beq_cont.40867
 beq_else.40866:
@@ -12995,8 +12474,7 @@ beq_cont.40867:
 	fmul	%ft1, %ft4, %ft4
 	fmul	%ft0, %ft3, %ft0
 	fsub	%ft0, %ft1, %ft0
-	la	%t0, l.25927
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40868
 	addi	%t0, %zero, 0
@@ -13058,8 +12536,7 @@ beq_else.40873:
 	addi	%t6, %a1, -2
 	bne	%t6, %zero, beq_else.40874
 	flw	%ft0, 0(%t0)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40875
 	addi	%t1, %zero, 0
@@ -13080,8 +12557,7 @@ beq_else.40877:
 	jr	%ra
 beq_else.40874:
 	flw	%ft3, 0(%t0)
-	la	%t1, l.25927
-	flw	%ft4, 0(%t1)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.40878
 	addi	%t1, %zero, 1
@@ -13103,8 +12579,7 @@ bne_cont.40879:
 	fmul	%ft2, %ft0, %ft0
 	fmul	%ft1, %ft3, %ft1
 	fsub	%ft1, %ft2, %ft1
-	la	%t1, l.25927
-	flw	%ft2, 0(%t1)
+	flw	%ft2, l.25927
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.40881
 	addi	%t1, %zero, 0
@@ -13140,8 +12615,7 @@ beq_else.40880:
 	jr	%ra
 setup_rect_table.2862:
 	addi	%t2, %zero, 6
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	sw	%t1, 0(%sp)
 	sw	%t0, -4(%sp)
 	addi	%t0, %t2, 0
@@ -13152,8 +12626,7 @@ setup_rect_table.2862:
 	lw	%ra, -12(%sp)
 	lw	%t1, -4(%sp)
 	flw	%ft0, 0(%t1)
-	la	%t2, l.25927
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40886
 	addi	%t2, %zero, 1
@@ -13166,8 +12639,7 @@ bne_cont.40887:
 	lw	%t2, 0(%sp)
 	lw	%s0, 24(%t2)
 	flw	%ft0, 0(%t1)
-	la	%s1, l.25927
-	flw	%ft2, 0(%s1)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.40890
 	addi	%s1, %zero, 0
@@ -13197,15 +12669,13 @@ beq_cont.40893:
 beq_else.40896:
 beq_cont.40897:
 	fsw	%ft0, 0(%t0)
-	la	%s0, l.25867
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25867
 	flw	%ft2, 0(%t1)
 	fdiv	%ft0, %ft0, %ft2
 	fsw	%ft0, 4(%t0)
 	j	beq_cont.40889
 beq_else.40888:
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, 4(%t0)
 beq_cont.40889:
 	flw	%ft0, 4(%t1)
@@ -13221,8 +12691,7 @@ bne_cont.40899:
 	lw	%t2, 0(%sp)
 	lw	%s0, 24(%t2)
 	flw	%ft0, 4(%t1)
-	la	%s1, l.25927
-	flw	%ft2, 0(%s1)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.40902
 	addi	%s1, %zero, 0
@@ -13252,15 +12721,13 @@ beq_cont.40905:
 beq_else.40908:
 beq_cont.40909:
 	fsw	%ft0, 8(%t0)
-	la	%s0, l.25867
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25867
 	flw	%ft2, 4(%t1)
 	fdiv	%ft0, %ft0, %ft2
 	fsw	%ft0, 12(%t0)
 	j	beq_cont.40901
 beq_else.40900:
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, 12(%t0)
 beq_cont.40901:
 	flw	%ft0, 8(%t1)
@@ -13276,8 +12743,7 @@ bne_cont.40911:
 	lw	%t2, 0(%sp)
 	lw	%s0, 24(%t2)
 	flw	%ft0, 8(%t1)
-	la	%s1, l.25927
-	flw	%ft1, 0(%s1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40914
 	addi	%s1, %zero, 0
@@ -13307,22 +12773,19 @@ beq_cont.40917:
 beq_else.40920:
 beq_cont.40921:
 	fsw	%ft0, 16(%t0)
-	la	%t2, l.25867
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25867
 	flw	%ft1, 8(%t1)
 	fdiv	%ft0, %ft0, %ft1
 	fsw	%ft0, 20(%t0)
 	j	beq_cont.40913
 beq_else.40912:
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 	fsw	%ft0, 20(%t0)
 beq_cont.40913:
 	jr	%ra
 setup_surface_table.2865:
 	addi	%t2, %zero, 4
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	sw	%t1, 0(%sp)
 	sw	%t0, -4(%sp)
 	addi	%t0, %t2, 0
@@ -13347,8 +12810,7 @@ setup_surface_table.2865:
 	flw	%ft2, 8(%t1)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40922
 	addi	%t1, %zero, 0
@@ -13358,13 +12820,11 @@ bne_else.40922:
 bne_cont.40923:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40924
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 	fsw	%ft0, 0(%t0)
 	j	beq_cont.40925
 beq_else.40924:
-	la	%t1, l.25907
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25907
 	fdiv	%ft1, %ft1, %ft0
 	fsw	%ft1, 0(%t0)
 	lw	%t1, 16(%t2)
@@ -13386,8 +12846,7 @@ beq_cont.40925:
 	jr	%ra
 setup_second_table.2868:
 	addi	%t2, %zero, 5
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	sw	%t1, 0(%sp)
 	sw	%t0, -4(%sp)
 	addi	%t0, %t2, 0
@@ -13498,8 +12957,7 @@ beq_else.40928:
 	fsub	%ft1, %ft3, %ft1
 	fsw	%ft1, 12(%t0)
 beq_cont.40929:
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40930
 	addi	%t1, %zero, 1
@@ -13509,8 +12967,7 @@ bne_else.40930:
 bne_cont.40931:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40932
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 	fdiv	%ft0, %ft1, %ft0
 	fsw	%ft0, 16(%t0)
 	j	beq_cont.40933
@@ -13551,8 +13008,7 @@ beq_else.40935:
 	addi	%t6, %a1, -2
 	bne	%t6, %zero, beq_else.40937
 	addi	%a1, %zero, 4
-	la	%a2, l.25927
-	flw	%ft0, 0(%a2)
+	flw	%ft0, l.25927
 	sw	%s1, -12(%sp)
 	sw	%t1, -16(%sp)
 	sw	%s0, -24(%sp)
@@ -13579,8 +13035,7 @@ beq_else.40935:
 	flw	%ft2, 8(%t1)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.40939
 	addi	%t1, %zero, 0
@@ -13590,13 +13045,11 @@ bne_else.40939:
 bne_cont.40940:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.40941
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 	fsw	%ft0, 0(%t0)
 	j	beq_cont.40942
 beq_else.40941:
-	la	%t1, l.25907
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25907
 	fdiv	%ft1, %ft1, %ft0
 	fsw	%ft1, 0(%t0)
 	lw	%t1, 16(%t2)
@@ -13793,8 +13246,7 @@ beq_else.40955:
 beq_cont.40956:
 	addi	%t6, %s1, -3
 	bne	%t6, %zero, beq_else.40957
-	la	%t2, l.25867
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.25867
 	fsub	%ft0, %ft0, %ft1
 	j	beq_cont.40958
 beq_else.40957:
@@ -13870,8 +13322,7 @@ beq_else.40960:
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
 	lw	%t0, 24(%t0)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40968
 	addi	%t1, %zero, 0
@@ -13939,15 +13390,13 @@ beq_cont.40976:
 	lw	%t1, 4(%t0)
 	addi	%t6, %t1, -3
 	bne	%t6, %zero, beq_else.40977
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 	fsub	%ft0, %ft0, %ft1
 	j	beq_cont.40978
 beq_else.40977:
 beq_cont.40978:
 	lw	%t0, 24(%t0)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.40979
 	addi	%t1, %zero, 0
@@ -14052,8 +13501,7 @@ beq_else.40987:
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft3, %ft4
 	lw	%s0, 24(%s0)
-	la	%s1, l.25927
-	flw	%ft4, 0(%s1)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.40999
 	addi	%s1, %zero, 0
@@ -14122,15 +13570,13 @@ beq_cont.41008:
 	lw	%s1, 4(%s0)
 	addi	%t6, %s1, -3
 	bne	%t6, %zero, beq_else.41009
-	la	%s1, l.25867
-	flw	%ft4, 0(%s1)
+	flw	%ft4, l.25867
 	fsub	%ft3, %ft3, %ft4
 	j	beq_cont.41010
 beq_else.41009:
 beq_cont.41010:
 	lw	%s0, 24(%s0)
-	la	%s1, l.25927
-	flw	%ft4, 0(%s1)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41011
 	addi	%s1, %zero, 0
@@ -14271,8 +13717,7 @@ beq_else.41024:
 	fmul	%ft2, %ft2, %ft4
 	fadd	%ft0, %ft0, %ft2
 	lw	%t1, 24(%t1)
-	la	%s1, l.25927
-	flw	%ft2, 0(%s1)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41036
 	addi	%s1, %zero, 0
@@ -14341,15 +13786,13 @@ beq_cont.41045:
 	lw	%s1, 4(%t1)
 	addi	%t6, %s1, -3
 	bne	%t6, %zero, beq_else.41046
-	la	%s1, l.25867
-	flw	%ft2, 0(%s1)
+	flw	%ft2, l.25867
 	fsub	%ft0, %ft0, %ft2
 	j	beq_cont.41047
 beq_else.41046:
 beq_cont.41047:
 	lw	%t1, 24(%t1)
-	la	%s1, l.25927
-	flw	%ft2, 0(%s1)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41048
 	addi	%s1, %zero, 0
@@ -14496,8 +13939,7 @@ beq_else.41060:
 	addi	%t6, %s4, -2
 	bne	%t6, %zero, beq_else.41062
 	flw	%ft3, 0(%a6)
-	la	%t2, l.25927
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41064
 	addi	%t2, %zero, 0
@@ -14541,8 +13983,7 @@ beq_cont.41061:
 	addi	%t0, %zero, 0
 	j	beq_cont.41069
 beq_else.41068:
-	la	%t0, l.26990
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.26990
 	fless	%t0, %ft0, %ft1
 beq_cont.41069:
 	addi	%t6, %t0, 0
@@ -14593,8 +14034,7 @@ beq_else.41072:
 	addi	%t0, %zero, 0
 	j	beq_cont.41074
 beq_else.41073:
-	la	%t0, l.26990
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.26990
 	fless	%t0, %ft0, %ft1
 beq_cont.41074:
 	addi	%t6, %t0, 0
@@ -14617,8 +14057,7 @@ beq_else.41076:
 	lw	%t3, 0(%t4)
 	jr	%t3
 beq_else.41075:
-	la	%t0, l.26992
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.26992
 	fadd	%ft0, %ft0, %ft1
 	lw	%t0, -4(%sp)
 	flw	%ft1, 0(%t0)
@@ -14709,8 +14148,7 @@ beq_else.41079:
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft3, %ft4
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41091
 	addi	%s0, %zero, 0
@@ -14779,15 +14217,13 @@ beq_cont.41100:
 	lw	%s0, 4(%t0)
 	addi	%t6, %s0, -3
 	bne	%t6, %zero, beq_else.41101
-	la	%s0, l.25867
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25867
 	fsub	%ft3, %ft3, %ft4
 	j	beq_cont.41102
 beq_else.41101:
 beq_cont.41102:
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41103
 	addi	%s0, %zero, 0
@@ -14876,8 +14312,7 @@ beq_else.41117:
 	addi	%t0, %zero, 1
 	jr	%ra
 beq_else.41070:
-	la	%t0, l.26992
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.26992
 	fadd	%ft0, %ft0, %ft1
 	lw	%t0, -4(%sp)
 	flw	%ft2, 0(%t0)
@@ -14998,8 +14433,7 @@ beq_else.41124:
 	fmul	%ft2, %ft2, %ft4
 	fadd	%ft0, %ft0, %ft2
 	lw	%t1, 24(%t1)
-	la	%s0, l.25927
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41136
 	addi	%s0, %zero, 0
@@ -15068,15 +14502,13 @@ beq_cont.41145:
 	lw	%s0, 4(%t1)
 	addi	%t6, %s0, -3
 	bne	%t6, %zero, beq_else.41146
-	la	%s0, l.25867
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25867
 	fsub	%ft0, %ft0, %ft2
 	j	beq_cont.41147
 beq_else.41146:
 beq_cont.41147:
 	lw	%t1, 24(%t1)
-	la	%s0, l.25927
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41148
 	addi	%s0, %zero, 0
@@ -15192,8 +14624,7 @@ beq_else.41163:
 	addi	%t0, %zero, 0
 	j	beq_cont.41165
 beq_else.41164:
-	la	%t0, l.26990
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.26990
 	fless	%t0, %ft0, %ft1
 beq_cont.41165:
 	addi	%t6, %t0, 0
@@ -15307,8 +14738,7 @@ beq_else.41170:
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft3, %ft4
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41182
 	addi	%s0, %zero, 0
@@ -15377,15 +14807,13 @@ beq_cont.41191:
 	lw	%s0, 4(%t0)
 	addi	%t6, %s0, -3
 	bne	%t6, %zero, beq_else.41192
-	la	%s0, l.25867
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25867
 	fsub	%ft3, %ft3, %ft4
 	j	beq_cont.41193
 beq_else.41192:
 beq_cont.41193:
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41194
 	addi	%s0, %zero, 0
@@ -15533,8 +14961,7 @@ beq_else.41210:
 	addi	%t0, %zero, 0
 	j	beq_cont.41213
 beq_else.41212:
-	la	%t0, l.26990
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.26990
 	fless	%t0, %ft0, %ft1
 beq_cont.41213:
 	addi	%t6, %t0, 0
@@ -15562,8 +14989,7 @@ beq_else.41216:
 beq_cont.41217:
 	j	beq_cont.41215
 beq_else.41214:
-	la	%t0, l.26992
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.26992
 	fadd	%ft0, %ft0, %ft1
 	lw	%t0, -28(%sp)
 	flw	%ft1, 0(%t0)
@@ -15654,8 +15080,7 @@ beq_else.41220:
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft3, %ft4
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41232
 	addi	%s0, %zero, 0
@@ -15724,15 +15149,13 @@ beq_cont.41241:
 	lw	%s0, 4(%t0)
 	addi	%t6, %s0, -3
 	bne	%t6, %zero, beq_else.41242
-	la	%s0, l.25867
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25867
 	fsub	%ft3, %ft3, %ft4
 	j	beq_cont.41243
 beq_else.41242:
 beq_cont.41243:
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41244
 	addi	%s0, %zero, 0
@@ -15941,8 +15364,7 @@ beq_else.41267:
 	addi	%t6, %s4, -2
 	bne	%t6, %zero, beq_else.41269
 	flw	%ft3, 0(%a7)
-	la	%t2, l.25927
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25927
 	fle	%t6, %ft4, %ft3
 	beq	%t6, %zero, bne_else.41271
 	addi	%t2, %zero, 0
@@ -15986,8 +15408,7 @@ beq_cont.41268:
 beq_else.41275:
 	lw	%t0, -20(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t1, l.27147
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27147
 	fless	%t1, %ft0, %ft1
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.41277
@@ -16081,8 +15502,7 @@ beq_else.41287:
 beq_else.41289:
 	lw	%t0, -20(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t0, l.27147
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27147
 	fless	%t0, %ft0, %ft1
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.41291
@@ -16214,8 +15634,7 @@ beq_else.41303:
 beq_else.41305:
 	lw	%t0, -20(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t0, l.27147
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27147
 	fless	%t0, %ft0, %ft1
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.41307
@@ -16347,8 +15766,7 @@ beq_else.41315:
 	flw	%ft5, 8(%a0)
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft3, %ft4
-	la	%a1, l.25927
-	flw	%ft4, 0(%a1)
+	flw	%ft4, l.25927
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.41319
 	addi	%a1, %zero, 0
@@ -16409,8 +15827,7 @@ beq_else.41324:
 beq_else.41323:
 	lw	%t1, -24(%sp)
 	flw	%ft0, 0(%t1)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fless	%t1, %ft1, %ft0
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.41326
@@ -16423,8 +15840,7 @@ beq_else.41326:
 	bne	%t6, %zero, beq_else.41328
 	j	beq_cont.41329
 beq_else.41328:
-	la	%t2, l.26992
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.26992
 	fadd	%ft0, %ft0, %ft1
 	lw	%t2, -28(%sp)
 	flw	%ft1, 0(%t2)
@@ -16545,8 +15961,7 @@ beq_else.41337:
 	fmul	%ft2, %ft2, %ft4
 	fadd	%ft0, %ft0, %ft2
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41349
 	addi	%s0, %zero, 0
@@ -16615,15 +16030,13 @@ beq_cont.41358:
 	lw	%s0, 4(%t0)
 	addi	%t6, %s0, -3
 	bne	%t6, %zero, beq_else.41359
-	la	%s0, l.25867
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25867
 	fsub	%ft0, %ft0, %ft2
 	j	beq_cont.41360
 beq_else.41359:
 beq_cont.41360:
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41361
 	addi	%s0, %zero, 0
@@ -17205,8 +16618,7 @@ beq_else.41411:
 	flw	%ft5, 8(%a0)
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft3, %ft4
-	la	%a1, l.25927
-	flw	%ft4, 0(%a1)
+	flw	%ft4, l.25927
 	fle	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.41415
 	addi	%a1, %zero, 0
@@ -17847,8 +17259,7 @@ beq_else.41471:
 	addi	%t6, %s6, -2
 	bne	%t6, %zero, beq_else.41473
 	flw	%ft0, 0(%s5)
-	la	%a0, l.25927
-	flw	%ft1, 0(%a0)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.41475
 	addi	%a0, %zero, 0
@@ -17870,8 +17281,7 @@ beq_cont.41478:
 	j	beq_cont.41474
 beq_else.41473:
 	flw	%ft3, 0(%s5)
-	la	%a0, l.25927
-	flw	%ft4, 0(%a0)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.41479
 	addi	%a0, %zero, 1
@@ -17893,8 +17303,7 @@ bne_cont.41480:
 	fmul	%ft2, %ft0, %ft0
 	fmul	%ft1, %ft3, %ft1
 	fsub	%ft1, %ft2, %ft1
-	la	%a0, l.25927
-	flw	%ft2, 0(%a0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.41483
 	addi	%a0, %zero, 0
@@ -17953,8 +17362,7 @@ beq_else.41490:
 beq_else.41489:
 	lw	%t1, -28(%sp)
 	flw	%ft0, 0(%t1)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fless	%t1, %ft1, %ft0
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.41492
@@ -17967,8 +17375,7 @@ beq_else.41492:
 	bne	%t6, %zero, beq_else.41494
 	j	beq_cont.41495
 beq_else.41494:
-	la	%t2, l.26992
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.26992
 	fadd	%ft0, %ft0, %ft1
 	lw	%t2, -20(%sp)
 	flw	%ft1, 0(%t2)
@@ -18089,8 +17496,7 @@ beq_else.41502:
 	fmul	%ft2, %ft2, %ft4
 	fadd	%ft0, %ft0, %ft2
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41514
 	addi	%s0, %zero, 0
@@ -18159,15 +17565,13 @@ beq_cont.41523:
 	lw	%s0, 4(%t0)
 	addi	%t6, %s0, -3
 	bne	%t6, %zero, beq_else.41524
-	la	%s0, l.25867
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25867
 	fsub	%ft0, %ft0, %ft2
 	j	beq_cont.41525
 beq_else.41524:
 beq_cont.41525:
 	lw	%t0, 24(%t0)
-	la	%s0, l.25927
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41526
 	addi	%s0, %zero, 0
@@ -18733,8 +18137,7 @@ beq_else.41576:
 	addi	%t6, %s3, -2
 	bne	%t6, %zero, beq_else.41578
 	flw	%ft0, 0(%a7)
-	la	%s1, l.25927
-	flw	%ft1, 0(%s1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.41580
 	addi	%s1, %zero, 0
@@ -18756,8 +18159,7 @@ beq_cont.41583:
 	j	beq_cont.41579
 beq_else.41578:
 	flw	%ft3, 0(%a7)
-	la	%s1, l.25927
-	flw	%ft4, 0(%s1)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.41584
 	addi	%s1, %zero, 1
@@ -18779,8 +18181,7 @@ bne_cont.41585:
 	fmul	%ft2, %ft0, %ft0
 	fmul	%ft1, %ft3, %ft1
 	fsub	%ft1, %ft2, %ft1
-	la	%s1, l.25927
-	flw	%ft2, 0(%s1)
+	flw	%ft2, l.25927
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.41588
 	addi	%s1, %zero, 0
@@ -19428,8 +18829,7 @@ beq_cont.41645:
 	fmul	%ft1, %ft1, %ft1
 	fadd	%ft0, %ft0, %ft1
 	fsqrt	%ft0, %ft0
-	la	%t2, l.25927
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.41646
 	addi	%t2, %zero, 1
@@ -19441,19 +18841,16 @@ bne_cont.41647:
 	bne	%t6, %zero, beq_else.41648
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.41650
-	la	%t0, l.25867
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25867
 	fdiv	%ft0, %ft1, %ft0
 	j	beq_cont.41651
 beq_else.41650:
-	la	%t0, l.25907
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25907
 	fdiv	%ft0, %ft1, %ft0
 beq_cont.41651:
 	j	beq_cont.41649
 beq_else.41648:
-	la	%t0, l.25867
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25867
 beq_cont.41649:
 	flw	%ft1, 0(%t1)
 	fmul	%ft1, %ft1, %ft0
@@ -19484,53 +18881,43 @@ utexture.2953:
 	lw	%s0, 20(%t0)
 	flw	%ft1, 0(%s0)
 	fsub	%ft0, %ft0, %ft1
-	la	%s0, l.27679
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.27679
 	fmul	%ft1, %ft0, %ft1
 	floor	%ft1, %ft1
-	la	%s0, l.27681
-	flw	%ft2, 0(%s0)
+	flw	%ft2, l.27681
 	fmul	%ft1, %ft1, %ft2
 	fsub	%ft0, %ft0, %ft1
-	la	%s0, l.27601
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.27601
 	fless	%s0, %ft0, %ft1
 	flw	%ft0, 8(%t1)
 	lw	%t0, 20(%t0)
 	flw	%ft1, 8(%t0)
 	fsub	%ft0, %ft0, %ft1
-	la	%t0, l.27679
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27679
 	fmul	%ft1, %ft0, %ft1
 	floor	%ft1, %ft1
-	la	%t0, l.27681
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.27681
 	fmul	%ft1, %ft1, %ft2
 	fsub	%ft0, %ft0, %ft1
-	la	%t0, l.27601
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27601
 	fless	%t0, %ft0, %ft1
 	addi	%t6, %s0, 0
 	bne	%t6, %zero, beq_else.41654
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.41656
-	la	%t0, l.27592
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.27592
 	j	beq_cont.41657
 beq_else.41656:
-	la	%t0, l.25927
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25927
 beq_cont.41657:
 	j	beq_cont.41655
 beq_else.41654:
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.41658
-	la	%t0, l.25927
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25927
 	j	beq_cont.41659
 beq_else.41658:
-	la	%t0, l.27592
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.27592
 beq_cont.41659:
 beq_cont.41655:
 	fsw	%ft0, 4(%t2)
@@ -19539,23 +18926,18 @@ beq_else.41653:
 	addi	%t6, %s0, -2
 	bne	%t6, %zero, beq_else.41661
 	flw	%ft1, 4(%t1)
-	la	%t0, l.27640
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.27640
 	fmul	%ft1, %ft1, %ft2
-	la	%t0, l.25927
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.41662
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	j	bne_cont.41663
 bne_else.41662:
-	la	%t0, l.25867
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25867
 bne_cont.41663:
 	fabs	%ft1, %ft1
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	sw	%t2, 0(%sp)
 	fsw	%ft2, -8(%sp)
 	fsw	%ft0, -16(%sp)
@@ -19564,38 +18946,31 @@ bne_cont.41663:
 	fmv	%ft0, %ft1
 	j	bne_cont.41666
 bne_else.41665:
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41667
 	fmv	%ft0, %ft1
 	j	bne_cont.41668
 bne_else.41667:
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41669
 	fmv	%ft0, %ft1
 	j	bne_cont.41670
 bne_else.41669:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft1, %ft1, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft1, %ft5
 	beq	%t6, %zero, bne_else.41671
 	fmv	%ft0, %ft1
 	j	bne_cont.41672
 bne_else.41671:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft1, %ft1, %ft6
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41673
@@ -19609,25 +18984,21 @@ bne_else.41673:
 	j	bne_cont.41676
 bne_else.41675:
 	fsub	%ft1, %ft1, %ft6
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41677
 	fmv	%ft0, %ft1
 	j	bne_cont.41678
 bne_else.41677:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft1, %ft1, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft1, %ft5
 	beq	%t6, %zero, bne_else.41679
 	fmv	%ft0, %ft1
 	j	bne_cont.41680
 bne_else.41679:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft1, %ft1, %ft6
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41681
@@ -19665,25 +19036,21 @@ bne_else.41689:
 	j	bne_cont.41692
 bne_else.41691:
 	fsub	%ft1, %ft1, %ft6
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41693
 	fmv	%ft0, %ft1
 	j	bne_cont.41694
 bne_else.41693:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft1, %ft1, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft1, %ft5
 	beq	%t6, %zero, bne_else.41695
 	fmv	%ft0, %ft1
 	j	bne_cont.41696
 bne_else.41695:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft1, %ft1, %ft6
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41697
@@ -19815,16 +19182,14 @@ bne_else.41725:
 bne_cont.41726:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.41727
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -8(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.41728
 bne_else.41727:
 	flw	%ft0, -8(%sp)
 bne_cont.41728:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.41729
 	fsub	%ft1, %ft1, %ft2
@@ -19832,61 +19197,49 @@ bne_cont.41728:
 bne_else.41729:
 	fmv	%ft1, %ft2
 bne_cont.41730:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.41731
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft2, %ft4, %ft2
-	la	%t0, l.25914
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25914
 	fmul	%ft3, %ft5, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25916
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25916
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25918
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25918
 	fmul	%ft2, %ft3, %ft2
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 	j	bne_cont.41732
 bne_else.41731:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft1, %ft2, %ft1
 	fmul	%ft1, %ft1, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft5, 0(%t0)
+	flw	%ft4, l.25867
+	flw	%ft5, l.25921
 	fmul	%ft1, %ft5, %ft1
 	fsub	%ft1, %ft4, %ft1
-	la	%t0, l.25923
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25923
 	fmul	%ft2, %ft4, %ft2
 	fadd	%ft1, %ft1, %ft2
-	la	%t0, l.25925
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25925
 	fmul	%ft2, %ft2, %ft3
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 bne_cont.41732:
 	fmul	%ft0, %ft0, %ft0
-	la	%t0, l.27592
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27592
 	fmul	%ft1, %ft1, %ft0
 	lw	%t0, 0(%sp)
 	fsw	%ft1, 0(%t0)
-	la	%t1, l.27592
-	flw	%ft1, 0(%t1)
-	la	%t1, l.25867
-	flw	%ft2, 0(%t1)
+	flw	%ft1, l.27592
+	flw	%ft2, l.25867
 	fsub	%ft0, %ft2, %ft0
 	fmul	%ft0, %ft1, %ft0
 	fsw	%ft0, 4(%t0)
@@ -19906,19 +19259,15 @@ beq_else.41661:
 	fmul	%ft2, %ft2, %ft2
 	fadd	%ft1, %ft1, %ft2
 	fsqrt	%ft1, %ft1
-	la	%t0, l.27601
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.27601
 	fdiv	%ft1, %ft1, %ft2
 	floor	%ft2, %ft1
 	fsub	%ft1, %ft1, %ft2
-	la	%t0, l.27552
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.27552
 	fmul	%ft1, %ft1, %ft2
-	la	%t0, l.25867
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25867
 	fabs	%ft1, %ft1
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	sw	%t2, 0(%sp)
 	fsw	%ft2, -32(%sp)
 	fsw	%ft0, -16(%sp)
@@ -19927,38 +19276,31 @@ beq_else.41661:
 	fmv	%ft0, %ft1
 	j	bne_cont.41737
 bne_else.41736:
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41738
 	fmv	%ft0, %ft1
 	j	bne_cont.41739
 bne_else.41738:
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41740
 	fmv	%ft0, %ft1
 	j	bne_cont.41741
 bne_else.41740:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft1, %ft1, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft1, %ft5
 	beq	%t6, %zero, bne_else.41742
 	fmv	%ft0, %ft1
 	j	bne_cont.41743
 bne_else.41742:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft1, %ft1, %ft6
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41744
@@ -19972,25 +19314,21 @@ bne_else.41744:
 	j	bne_cont.41747
 bne_else.41746:
 	fsub	%ft1, %ft1, %ft6
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41748
 	fmv	%ft0, %ft1
 	j	bne_cont.41749
 bne_else.41748:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft1, %ft1, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft1, %ft5
 	beq	%t6, %zero, bne_else.41750
 	fmv	%ft0, %ft1
 	j	bne_cont.41751
 bne_else.41750:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft1, %ft1, %ft6
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41752
@@ -20028,25 +19366,21 @@ bne_else.41760:
 	j	bne_cont.41763
 bne_else.41762:
 	fsub	%ft1, %ft1, %ft6
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41764
 	fmv	%ft0, %ft1
 	j	bne_cont.41765
 bne_else.41764:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft1, %ft1, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft1, %ft5
 	beq	%t6, %zero, bne_else.41766
 	fmv	%ft0, %ft1
 	j	bne_cont.41767
 bne_else.41766:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft1, %ft1, %ft6
 	fle	%t6, %ft1, %ft3
 	beq	%t6, %zero, bne_else.41768
@@ -20178,14 +19512,12 @@ bne_else.41796:
 bne_cont.41797:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.41798
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.41799
 bne_else.41798:
 	flw	%ft0, -32(%sp)
 bne_cont.41799:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.41800
 	fsub	%ft1, %ft1, %ft2
@@ -20193,72 +19525,58 @@ bne_cont.41799:
 bne_else.41800:
 	fmv	%ft1, %ft2
 bne_cont.41801:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.41802
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.41803
 bne_else.41802:
 bne_cont.41803:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.41804
 	fmul	%ft1, %ft1, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft5, 0(%t0)
+	flw	%ft4, l.25867
+	flw	%ft5, l.25921
 	fmul	%ft1, %ft5, %ft1
 	fsub	%ft1, %ft4, %ft1
-	la	%t0, l.25923
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25923
 	fmul	%ft2, %ft4, %ft2
 	fadd	%ft1, %ft1, %ft2
-	la	%t0, l.25925
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25925
 	fmul	%ft2, %ft2, %ft3
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 	j	bne_cont.41805
 bne_else.41804:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft1, %ft2, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft2, %ft4, %ft2
-	la	%t0, l.25914
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25914
 	fmul	%ft3, %ft5, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25916
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25916
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25918
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25918
 	fmul	%ft2, %ft3, %ft2
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 bne_cont.41805:
 	fmul	%ft0, %ft0, %ft0
-	la	%t0, l.27592
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27592
 	fmul	%ft1, %ft0, %ft1
 	lw	%t0, 0(%sp)
 	fsw	%ft1, 4(%t0)
-	la	%t1, l.25867
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25867
 	fsub	%ft0, %ft1, %ft0
-	la	%t1, l.27592
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27592
 	fmul	%ft0, %ft0, %ft1
 	fsw	%ft0, 8(%t0)
 	jr	%ra
@@ -20285,26 +19603,21 @@ beq_else.41734:
 	fmul	%ft3, %ft1, %ft1
 	fadd	%ft2, %ft2, %ft3
 	fabs	%ft3, %ft0
-	la	%s0, l.27521
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.27521
 	fless	%s0, %ft3, %ft4
 	addi	%t6, %s0, 0
 	bne	%t6, %zero, beq_else.41808
 	fdiv	%ft0, %ft1, %ft0
 	fabs	%ft0, %ft0
 	fabs	%ft1, %ft0
-	la	%s0, l.25849
-	flw	%ft3, 0(%s0)
+	flw	%ft3, l.25849
 	fle	%t6, %ft3, %ft1
 	beq	%t6, %zero, bne_else.41810
-	la	%s0, l.25863
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25863
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.41812
-	la	%s0, l.25876
-	flw	%ft0, 0(%s0)
-	la	%s0, l.25867
-	flw	%ft3, 0(%s0)
+	flw	%ft0, l.25876
+	flw	%ft3, l.25867
 	fdiv	%ft1, %ft3, %ft1
 	fmul	%ft3, %ft1, %ft1
 	fmul	%ft4, %ft1, %ft3
@@ -20313,40 +19626,31 @@ beq_else.41734:
 	fmul	%ft7, %ft6, %ft3
 	fmul	%fs0, %ft7, %ft3
 	fmul	%ft3, %fs0, %ft3
-	la	%s0, l.25851
-	flw	%fs1, 0(%s0)
+	flw	%fs1, l.25851
 	fmul	%ft4, %fs1, %ft4
 	fsub	%ft1, %ft1, %ft4
-	la	%s0, l.25853
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25853
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft1, %ft1, %ft4
-	la	%s0, l.25855
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25855
 	fmul	%ft4, %ft4, %ft6
 	fsub	%ft1, %ft1, %ft4
-	la	%s0, l.25857
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25857
 	fmul	%ft4, %ft4, %ft7
 	fadd	%ft1, %ft1, %ft4
-	la	%s0, l.25859
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25859
 	fmul	%ft4, %ft4, %fs0
 	fsub	%ft1, %ft1, %ft4
-	la	%s0, l.25861
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25861
 	fmul	%ft3, %ft4, %ft3
 	fadd	%ft1, %ft1, %ft3
 	fsub	%ft0, %ft0, %ft1
 	j	bne_cont.41813
 bne_else.41812:
-	la	%s0, l.25865
-	flw	%ft0, 0(%s0)
-	la	%s0, l.25867
-	flw	%ft3, 0(%s0)
+	flw	%ft0, l.25865
+	flw	%ft3, l.25867
 	fsub	%ft3, %ft1, %ft3
-	la	%s0, l.25867
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25867
 	fadd	%ft1, %ft1, %ft4
 	fdiv	%ft1, %ft3, %ft1
 	fmul	%ft3, %ft1, %ft1
@@ -20356,28 +19660,22 @@ bne_else.41812:
 	fmul	%ft7, %ft6, %ft3
 	fmul	%fs0, %ft7, %ft3
 	fmul	%ft3, %fs0, %ft3
-	la	%s0, l.25851
-	flw	%fs1, 0(%s0)
+	flw	%fs1, l.25851
 	fmul	%ft4, %fs1, %ft4
 	fsub	%ft1, %ft1, %ft4
-	la	%s0, l.25853
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25853
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft1, %ft1, %ft4
-	la	%s0, l.25855
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25855
 	fmul	%ft4, %ft4, %ft6
 	fsub	%ft1, %ft1, %ft4
-	la	%s0, l.25857
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25857
 	fmul	%ft4, %ft4, %ft7
 	fadd	%ft1, %ft1, %ft4
-	la	%s0, l.25859
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25859
 	fmul	%ft4, %ft4, %fs0
 	fsub	%ft1, %ft1, %ft4
-	la	%s0, l.25861
-	flw	%ft4, 0(%s0)
+	flw	%ft4, l.25861
 	fmul	%ft3, %ft4, %ft3
 	fadd	%ft1, %ft1, %ft3
 	fadd	%ft0, %ft0, %ft1
@@ -20391,41 +19689,32 @@ bne_else.41810:
 	fmul	%ft6, %ft5, %ft1
 	fmul	%ft7, %ft6, %ft1
 	fmul	%ft1, %ft7, %ft1
-	la	%s0, l.25851
-	flw	%fs0, 0(%s0)
+	flw	%fs0, l.25851
 	fmul	%ft3, %fs0, %ft3
 	fsub	%ft0, %ft0, %ft3
-	la	%s0, l.25853
-	flw	%ft3, 0(%s0)
+	flw	%ft3, l.25853
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft0, %ft0, %ft3
-	la	%s0, l.25855
-	flw	%ft3, 0(%s0)
+	flw	%ft3, l.25855
 	fmul	%ft3, %ft3, %ft5
 	fsub	%ft0, %ft0, %ft3
-	la	%s0, l.25857
-	flw	%ft3, 0(%s0)
+	flw	%ft3, l.25857
 	fmul	%ft3, %ft3, %ft6
 	fadd	%ft0, %ft0, %ft3
-	la	%s0, l.25859
-	flw	%ft3, 0(%s0)
+	flw	%ft3, l.25859
 	fmul	%ft3, %ft3, %ft7
 	fsub	%ft0, %ft0, %ft3
-	la	%s0, l.25861
-	flw	%ft3, 0(%s0)
+	flw	%ft3, l.25861
 	fmul	%ft1, %ft3, %ft1
 	fadd	%ft0, %ft0, %ft1
 bne_cont.41811:
-	la	%s0, l.27550
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.27550
 	fmul	%ft0, %ft0, %ft1
-	la	%s0, l.27552
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.27552
 	fdiv	%ft0, %ft0, %ft1
 	j	beq_cont.41809
 beq_else.41808:
-	la	%s0, l.27523
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.27523
 beq_cont.41809:
 	floor	%ft1, %ft0
 	fsub	%ft0, %ft0, %ft1
@@ -20438,26 +19727,21 @@ beq_cont.41809:
 	fsqrt	%ft3, %ft3
 	fmul	%ft1, %ft1, %ft3
 	fabs	%ft3, %ft2
-	la	%t0, l.27521
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.27521
 	fless	%t0, %ft3, %ft4
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.41814
 	fdiv	%ft1, %ft1, %ft2
 	fabs	%ft1, %ft1
 	fabs	%ft2, %ft1
-	la	%t0, l.25849
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25849
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.41816
-	la	%t0, l.25863
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25863
 	fle	%t6, %ft1, %ft2
 	beq	%t6, %zero, bne_else.41818
-	la	%t0, l.25876
-	flw	%ft1, 0(%t0)
-	la	%t0, l.25867
-	flw	%ft3, 0(%t0)
+	flw	%ft1, l.25876
+	flw	%ft3, l.25867
 	fdiv	%ft2, %ft3, %ft2
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft2, %ft3
@@ -20466,40 +19750,31 @@ beq_cont.41809:
 	fmul	%ft7, %ft6, %ft3
 	fmul	%fs0, %ft7, %ft3
 	fmul	%ft3, %fs0, %ft3
-	la	%t0, l.25851
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25851
 	fmul	%ft4, %fs1, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25853
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25853
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25855
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25855
 	fmul	%ft4, %ft4, %ft6
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25857
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25857
 	fmul	%ft4, %ft4, %ft7
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25859
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25859
 	fmul	%ft4, %ft4, %fs0
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25861
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25861
 	fmul	%ft3, %ft4, %ft3
 	fadd	%ft2, %ft2, %ft3
 	fsub	%ft1, %ft1, %ft2
 	j	bne_cont.41819
 bne_else.41818:
-	la	%t0, l.25865
-	flw	%ft1, 0(%t0)
-	la	%t0, l.25867
-	flw	%ft3, 0(%t0)
+	flw	%ft1, l.25865
+	flw	%ft3, l.25867
 	fsub	%ft3, %ft2, %ft3
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25867
 	fadd	%ft2, %ft2, %ft4
 	fdiv	%ft2, %ft3, %ft2
 	fmul	%ft3, %ft2, %ft2
@@ -20509,28 +19784,22 @@ bne_else.41818:
 	fmul	%ft7, %ft6, %ft3
 	fmul	%fs0, %ft7, %ft3
 	fmul	%ft3, %fs0, %ft3
-	la	%t0, l.25851
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25851
 	fmul	%ft4, %fs1, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25853
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25853
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25855
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25855
 	fmul	%ft4, %ft4, %ft6
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25857
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25857
 	fmul	%ft4, %ft4, %ft7
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25859
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25859
 	fmul	%ft4, %ft4, %fs0
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25861
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25861
 	fmul	%ft3, %ft4, %ft3
 	fadd	%ft2, %ft2, %ft3
 	fadd	%ft1, %ft1, %ft2
@@ -20544,58 +19813,45 @@ bne_else.41816:
 	fmul	%ft6, %ft5, %ft2
 	fmul	%ft7, %ft6, %ft2
 	fmul	%ft2, %ft7, %ft2
-	la	%t0, l.25851
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25851
 	fmul	%ft3, %fs0, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25853
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25853
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25855
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25855
 	fmul	%ft3, %ft3, %ft5
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25857
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25857
 	fmul	%ft3, %ft3, %ft6
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25859
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25859
 	fmul	%ft3, %ft3, %ft7
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25861
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25861
 	fmul	%ft2, %ft3, %ft2
 	fadd	%ft1, %ft1, %ft2
 bne_cont.41817:
-	la	%t0, l.27550
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.27550
 	fmul	%ft1, %ft1, %ft2
-	la	%t0, l.27552
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.27552
 	fdiv	%ft1, %ft1, %ft2
 	j	beq_cont.41815
 beq_else.41814:
-	la	%t0, l.27523
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27523
 beq_cont.41815:
 	floor	%ft2, %ft1
 	fsub	%ft1, %ft1, %ft2
-	la	%t0, l.27586
-	flw	%ft2, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft3, 0(%t0)
+	flw	%ft2, l.27586
+	flw	%ft3, l.25921
 	fsub	%ft0, %ft3, %ft0
 	fmul	%ft0, %ft0, %ft0
 	fsub	%ft0, %ft2, %ft0
-	la	%t0, l.25921
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25921
 	fsub	%ft1, %ft2, %ft1
 	fmul	%ft1, %ft1, %ft1
 	fsub	%ft0, %ft0, %ft1
-	la	%t0, l.25927
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.41820
 	addi	%t0, %zero, 0
@@ -20607,14 +19863,11 @@ bne_cont.41821:
 	bne	%t6, %zero, beq_else.41822
 	j	beq_cont.41823
 beq_else.41822:
-	la	%t0, l.25927
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25927
 beq_cont.41823:
-	la	%t0, l.27592
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27592
 	fmul	%ft0, %ft1, %ft0
-	la	%t0, l.27594
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27594
 	fdiv	%ft0, %ft0, %ft1
 	fsw	%ft0, 8(%t2)
 	jr	%ra
@@ -20623,8 +19876,7 @@ beq_else.41807:
 add_light.2956:
 	lw	%t0, 8(%t4)
 	lw	%t1, 4(%t4)
-	la	%t2, l.25927
-	flw	%ft3, 0(%t2)
+	flw	%ft3, l.25927
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.41826
 	addi	%t2, %zero, 0
@@ -20703,10 +19955,9 @@ trace_reflections.2960:
 	add	%t6, %s2, %s11
 	lw	%s11, 0(%t6)
 	lw	%t3, 4(%s11)
-	sw	%t4, 0(%sp)
-	la	%t4, l.27711
-	flw	%ft2, 0(%t4)
+	flw	%ft2, l.27711
 	fsw	%ft2, 0(%s0)
+	sw	%t4, 0(%sp)
 	addi	%t4, %zero, 0
 	sw	%s10, -4(%sp)
 	lw	%s10, 0(%s3)
@@ -20749,16 +20000,14 @@ trace_reflections.2960:
 	addi	%a0, %t0, 0
 	lw	%t0, -128(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t1, l.27147
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27147
 	fless	%t1, %ft1, %ft0
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.41838
 	addi	%t1, %zero, 0
 	j	beq_cont.41839
 beq_else.41838:
-	la	%t1, l.27717
-	flw	%ft2, 0(%t1)
+	flw	%ft2, l.27717
 	fless	%t1, %ft0, %ft2
 beq_cont.41839:
 	fsw	%ft1, -136(%sp)
@@ -20810,8 +20059,7 @@ beq_else.41846:
 beq_else.41848:
 	lw	%t0, -96(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t1, l.27147
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27147
 	fless	%t1, %ft0, %ft1
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.41850
@@ -20913,8 +20161,7 @@ beq_cont.41845:
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft3, %ft3, %ft4
 	fmul	%ft1, %ft1, %ft3
-	la	%t0, l.25927
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25927
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.41860
 	addi	%t0, %zero, 0
@@ -20944,8 +20191,7 @@ beq_else.41862:
 	fadd	%ft0, %ft3, %ft0
 	fsw	%ft0, 8(%t0)
 beq_cont.41863:
-	la	%t0, l.25927
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.41864
 	addi	%t0, %zero, 0
@@ -21260,8 +20506,7 @@ beq_cont.41870:
 	addi	%t0, %zero, 0
 	j	beq_cont.41894
 beq_else.41893:
-	la	%t0, l.27717
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27717
 	fless	%t0, %ft0, %ft1
 beq_cont.41894:
 	addi	%t6, %t0, 0
@@ -21404,10 +20649,9 @@ trace_ray.2965:
 	bgt	%t6, %zero, ble_else.41903
 	sw	%t4, -52(%sp)
 	lw	%t4, 8(%t2)
-	sw	%s7, -56(%sp)
-	la	%s7, l.27711
-	flw	%ft2, 0(%s7)
+	flw	%ft2, l.27711
 	fsw	%ft2, 0(%a3)
+	sw	%s7, -56(%sp)
 	addi	%s7, %zero, 0
 	sw	%s3, -60(%sp)
 	lw	%s3, 0(%s11)
@@ -21448,16 +20692,14 @@ trace_ray.2965:
 	addi	%a0, %t0, 0
 	lw	%t0, -168(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t1, l.27147
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27147
 	fless	%t1, %ft1, %ft0
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.41905
 	addi	%t1, %zero, 0
 	j	beq_cont.41906
 beq_else.41905:
-	la	%t1, l.27717
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27717
 	fless	%t1, %ft0, %ft1
 beq_cont.41906:
 	addi	%t6, %t1, 0
@@ -21486,8 +20728,7 @@ beq_else.41908:
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
 	fneg	%ft0, %ft0
-	la	%t0, l.25927
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.41910
 	addi	%t0, %zero, 0
@@ -21538,8 +20779,7 @@ beq_else.41907:
 	bne	%t6, %zero, beq_else.41916
 	lw	%a0, -120(%sp)
 	lw	%a1, 0(%a0)
-	la	%a2, l.25927
-	flw	%ft2, 0(%a2)
+	flw	%ft2, l.25927
 	lw	%a2, -116(%sp)
 	fsw	%ft2, 0(%a2)
 	fsw	%ft2, 4(%a2)
@@ -21550,8 +20790,7 @@ beq_else.41907:
 	lw	%a4, -156(%sp)
 	add	%t6, %a4, %a1
 	flw	%ft2, 0(%t6)
-	la	%a1, l.25927
-	flw	%ft3, 0(%a1)
+	flw	%ft3, l.25927
 	feq	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.41918
 	addi	%a1, %zero, 1
@@ -21561,8 +20800,7 @@ bne_else.41918:
 bne_cont.41919:
 	addi	%t6, %a1, 0
 	bne	%t6, %zero, beq_else.41920
-	la	%a1, l.25927
-	flw	%ft3, 0(%a1)
+	flw	%ft3, l.25927
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.41922
 	addi	%a1, %zero, 0
@@ -21572,17 +20810,14 @@ bne_else.41922:
 bne_cont.41923:
 	addi	%t6, %a1, 0
 	bne	%t6, %zero, beq_else.41924
-	la	%a1, l.25907
-	flw	%ft2, 0(%a1)
+	flw	%ft2, l.25907
 	j	beq_cont.41925
 beq_else.41924:
-	la	%a1, l.25867
-	flw	%ft2, 0(%a1)
+	flw	%ft2, l.25867
 beq_cont.41925:
 	j	beq_cont.41921
 beq_else.41920:
-	la	%a1, l.25927
-	flw	%ft2, 0(%a1)
+	flw	%ft2, l.25927
 beq_cont.41921:
 	fneg	%ft2, %ft2
 	slli	%a1, %a3, 2
@@ -21661,8 +20896,7 @@ beq_cont.41917:
 	lw	%a1, -196(%sp)
 	lw	%a2, 28(%a1)
 	flw	%ft0, 0(%a2)
-	la	%a2, l.25921
-	flw	%ft1, 0(%a2)
+	flw	%ft1, l.25921
 	fless	%a2, %ft0, %ft1
 	addi	%t6, %a2, 0
 	bne	%t6, %zero, beq_else.41928
@@ -21684,8 +20918,7 @@ beq_cont.41917:
 	slli	%a2, %t2, 2
 	add	%t6, %s0, %a2
 	lw	%s0, 0(%t6)
-	la	%a2, l.27849
-	flw	%ft0, 0(%a2)
+	flw	%ft0, l.27849
 	flw	%ft1, -184(%sp)
 	fmul	%ft0, %ft0, %ft1
 	flw	%ft2, 0(%s0)
@@ -21715,8 +20948,7 @@ beq_else.41928:
 	add	%t6, %s0, %a2
 	sw	%a3, 0(%t6)
 beq_cont.41929:
-	la	%s0, l.27864
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.27864
 	lw	%s0, -156(%sp)
 	flw	%ft1, 0(%s0)
 	lw	%a2, -116(%sp)
@@ -21785,8 +21017,7 @@ beq_else.41932:
 beq_else.41934:
 	lw	%t0, -60(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t1, l.27147
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27147
 	fless	%t1, %ft0, %ft1
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.41936
@@ -21884,8 +21115,7 @@ beq_cont.41931:
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft2, %ft2, %ft3
 	fneg	%ft2, %ft2
-	la	%t1, l.25927
-	flw	%ft3, 0(%t1)
+	flw	%ft3, l.25927
 	fle	%t6, %ft0, %ft3
 	beq	%t6, %zero, bne_else.41946
 	addi	%t1, %zero, 0
@@ -21915,8 +21145,7 @@ beq_else.41948:
 	fadd	%ft0, %ft3, %ft0
 	fsw	%ft0, 8(%t1)
 beq_cont.41949:
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 	fle	%t6, %ft2, %ft0
 	beq	%t6, %zero, bne_else.41950
 	addi	%t1, %zero, 0
@@ -21975,8 +21204,7 @@ beq_cont.41945:
 	add	%t6, %t2, %t1
 	lw	%t1, 0(%t6)
 	lw	%t2, 4(%t1)
-	la	%s0, l.27711
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.27711
 	lw	%s0, -168(%sp)
 	fsw	%ft0, 0(%s0)
 	lw	%s1, -80(%sp)
@@ -22241,16 +21469,14 @@ beq_cont.41959:
 beq_cont.41957:
 	lw	%t0, -168(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t1, l.27147
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27147
 	fless	%t1, %ft1, %ft0
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.41980
 	addi	%t1, %zero, 0
 	j	beq_cont.41981
 beq_else.41980:
-	la	%t1, l.27717
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.27717
 	fless	%t1, %ft0, %ft1
 beq_cont.41981:
 	addi	%t6, %t1, 0
@@ -22346,8 +21572,7 @@ beq_cont.41983:
 	j	bge_cont.41955
 bge_else.41954:
 bge_cont.41955:
-	la	%t0, l.27966
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.27966
 	flw	%ft1, -144(%sp)
 	fless	%t0, %ft0, %ft1
 	addi	%t6, %t0, 0
@@ -22369,8 +21594,7 @@ bge_cont.41991:
 	lw	%t1, -176(%sp)
 	addi	%t6, %t1, -2
 	bne	%t6, %zero, beq_else.41992
-	la	%t1, l.25867
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25867
 	lw	%t1, -196(%sp)
 	lw	%t1, 28(%t1)
 	flw	%ft2, 0(%t1)
@@ -22409,8 +21633,7 @@ trace_diffuse_ray.2971:
 	lw	%s5, 12(%t4)
 	lw	%s6, 8(%t4)
 	lw	%s7, 4(%t4)
-	la	%s8, l.27711
-	flw	%ft1, 0(%s8)
+	flw	%ft1, l.27711
 	fsw	%ft1, 0(%s0)
 	addi	%s8, %zero, 0
 	lw	%s9, 0(%a4)
@@ -22446,16 +21669,14 @@ trace_diffuse_ray.2971:
 	addi	%a0, %t0, 0
 	lw	%t0, -76(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t0, l.27147
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27147
 	fless	%t0, %ft1, %ft0
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.41995
 	addi	%t0, %zero, 0
 	j	beq_cont.41996
 beq_else.41995:
-	la	%t0, l.27717
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27717
 	fless	%t0, %ft0, %ft1
 beq_cont.41996:
 	addi	%t6, %t0, 0
@@ -22476,8 +21697,7 @@ beq_else.41997:
 	bne	%t6, %zero, beq_else.41999
 	lw	%t2, -60(%sp)
 	lw	%t2, 0(%t2)
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	lw	%s0, -56(%sp)
 	fsw	%ft0, 0(%s0)
 	fsw	%ft0, 4(%s0)
@@ -22487,8 +21707,7 @@ beq_else.41997:
 	slli	%t2, %t2, 2
 	add	%t6, %t1, %t2
 	flw	%ft0, 0(%t6)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42001
 	addi	%t1, %zero, 1
@@ -22498,8 +21717,7 @@ bne_else.42001:
 bne_cont.42002:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42003
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42005
 	addi	%t1, %zero, 0
@@ -22509,17 +21727,14 @@ bne_else.42005:
 bne_cont.42006:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42007
-	la	%t1, l.25907
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25907
 	j	beq_cont.42008
 beq_else.42007:
-	la	%t1, l.25867
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25867
 beq_cont.42008:
 	j	beq_cont.42004
 beq_else.42003:
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 beq_cont.42004:
 	fneg	%ft0, %ft0
 	slli	%t1, %s1, 2
@@ -22599,8 +21814,7 @@ beq_else.42013:
 beq_else.42015:
 	lw	%t0, -28(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t0, l.27147
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27147
 	fless	%t0, %ft0, %ft1
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.42017
@@ -22681,8 +21895,7 @@ beq_cont.42012:
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
 	fneg	%ft0, %ft0
-	la	%t0, l.25927
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42026
 	addi	%t0, %zero, 0
@@ -22692,8 +21905,7 @@ bne_else.42026:
 bne_cont.42027:
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.42028
-	la	%t0, l.25927
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25927
 	j	beq_cont.42029
 beq_else.42028:
 beq_cont.42029:
@@ -22762,8 +21974,7 @@ iter_trace_diffuse_rays.2974:
 	flw	%ft2, 8(%t1)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t2, l.25927
-	flw	%ft1, 0(%t2)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42033
 	addi	%t2, %zero, 0
@@ -22782,11 +21993,9 @@ bne_cont.42034:
 	slli	%t2, %s0, 2
 	add	%t6, %t0, %t2
 	lw	%t2, 0(%t6)
-	la	%t4, l.28113
-	flw	%ft2, 0(%t4)
+	flw	%ft2, l.28113
 	fdiv	%ft0, %ft0, %ft2
-	la	%t4, l.27711
-	flw	%ft2, 0(%t4)
+	flw	%ft2, l.27711
 	fsw	%ft2, 0(%a2)
 	lw	%t4, 0(%s3)
 	lw	%a1, 0(%t4)
@@ -23067,16 +22276,14 @@ beq_cont.42042:
 beq_cont.42040:
 	lw	%t0, -100(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t0, l.27147
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27147
 	fless	%t0, %ft1, %ft0
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.42063
 	addi	%t0, %zero, 0
 	j	beq_cont.42064
 beq_else.42063:
-	la	%t0, l.27717
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27717
 	fless	%t0, %ft0, %ft1
 beq_cont.42064:
 	addi	%t6, %t0, 0
@@ -23097,8 +22304,7 @@ beq_else.42065:
 	bne	%t6, %zero, beq_else.42067
 	lw	%t2, -84(%sp)
 	lw	%t2, 0(%t2)
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	lw	%s0, -80(%sp)
 	fsw	%ft0, 0(%s0)
 	fsw	%ft0, 4(%s0)
@@ -23108,8 +22314,7 @@ beq_else.42065:
 	slli	%t2, %t2, 2
 	add	%t6, %t1, %t2
 	flw	%ft0, 0(%t6)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42069
 	addi	%t1, %zero, 1
@@ -23119,8 +22324,7 @@ bne_else.42069:
 bne_cont.42070:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42071
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42073
 	addi	%t1, %zero, 0
@@ -23130,17 +22334,14 @@ bne_else.42073:
 bne_cont.42074:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42075
-	la	%t1, l.25907
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25907
 	j	beq_cont.42076
 beq_else.42075:
-	la	%t1, l.25867
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25867
 beq_cont.42076:
 	j	beq_cont.42072
 beq_else.42071:
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 beq_cont.42072:
 	fneg	%ft0, %ft0
 	slli	%t1, %s1, 2
@@ -23211,8 +22412,7 @@ beq_cont.42068:
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
 	fneg	%ft0, %ft0
-	la	%t0, l.25927
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42081
 	addi	%t0, %zero, 0
@@ -23222,8 +22422,7 @@ bne_else.42081:
 bne_cont.42082:
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.42083
-	la	%t0, l.25927
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25927
 	j	beq_cont.42084
 beq_else.42083:
 beq_cont.42084:
@@ -23260,11 +22459,9 @@ beq_else.42036:
 	slli	%t2, %t2, 2
 	add	%t6, %t0, %t2
 	lw	%t2, 0(%t6)
-	la	%t4, l.28045
-	flw	%ft2, 0(%t4)
+	flw	%ft2, l.28045
 	fdiv	%ft0, %ft0, %ft2
-	la	%t4, l.27711
-	flw	%ft2, 0(%t4)
+	flw	%ft2, l.27711
 	fsw	%ft2, 0(%a2)
 	lw	%t4, 0(%s3)
 	lw	%a1, 0(%t4)
@@ -23545,16 +22742,14 @@ beq_cont.42089:
 beq_cont.42087:
 	lw	%t0, -100(%sp)
 	flw	%ft0, 0(%t0)
-	la	%t0, l.27147
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27147
 	fless	%t0, %ft1, %ft0
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.42110
 	addi	%t0, %zero, 0
 	j	beq_cont.42111
 beq_else.42110:
-	la	%t0, l.27717
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.27717
 	fless	%t0, %ft0, %ft1
 beq_cont.42111:
 	addi	%t6, %t0, 0
@@ -23575,8 +22770,7 @@ beq_else.42112:
 	bne	%t6, %zero, beq_else.42114
 	lw	%t2, -84(%sp)
 	lw	%t2, 0(%t2)
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	lw	%s0, -80(%sp)
 	fsw	%ft0, 0(%s0)
 	fsw	%ft0, 4(%s0)
@@ -23586,8 +22780,7 @@ beq_else.42112:
 	slli	%t2, %t2, 2
 	add	%t6, %t1, %t2
 	flw	%ft0, 0(%t6)
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	feq	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42116
 	addi	%t1, %zero, 1
@@ -23597,8 +22790,7 @@ bne_else.42116:
 bne_cont.42117:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42118
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42120
 	addi	%t1, %zero, 0
@@ -23608,17 +22800,14 @@ bne_else.42120:
 bne_cont.42121:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42122
-	la	%t1, l.25907
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25907
 	j	beq_cont.42123
 beq_else.42122:
-	la	%t1, l.25867
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25867
 beq_cont.42123:
 	j	beq_cont.42119
 beq_else.42118:
-	la	%t1, l.25927
-	flw	%ft0, 0(%t1)
+	flw	%ft0, l.25927
 beq_cont.42119:
 	fneg	%ft0, %ft0
 	slli	%t1, %s1, 2
@@ -23689,8 +22878,7 @@ beq_cont.42115:
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
 	fneg	%ft0, %ft0
-	la	%t0, l.25927
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25927
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42128
 	addi	%t0, %zero, 0
@@ -23700,8 +22888,7 @@ bne_else.42128:
 bne_cont.42129:
 	addi	%t6, %t0, 0
 	bne	%t6, %zero, beq_else.42130
-	la	%t0, l.25927
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25927
 	j	beq_cont.42131
 beq_else.42130:
 beq_cont.42131:
@@ -23768,8 +22955,7 @@ bne_cont.42134:
 	slli	%t1, %t0, 2
 	add	%t6, %t2, %t1
 	lw	%t1, 0(%t6)
-	la	%s1, l.28113
-	flw	%ft1, 0(%s1)
+	flw	%ft1, l.28113
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -8(%sp)
 	addi	%t0, %t1, 0
@@ -23786,8 +22972,7 @@ beq_else.42135:
 	slli	%t1, %t1, 2
 	add	%t6, %t2, %t1
 	lw	%t1, 0(%t6)
-	la	%s1, l.28045
-	flw	%ft1, 0(%s1)
+	flw	%ft1, l.28045
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -8(%sp)
 	addi	%t0, %t1, 0
@@ -24106,8 +23291,7 @@ beq_else.42149:
 	flw	%ft2, 8(%t2)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42151
 	addi	%t1, %zero, 0
@@ -24118,8 +23302,7 @@ bne_cont.42152:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42153
 	lw	%t1, 472(%t0)
-	la	%s0, l.28113
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28113
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24133,8 +23316,7 @@ bne_cont.42152:
 	j	beq_cont.42154
 beq_else.42153:
 	lw	%t1, 476(%t0)
-	la	%s0, l.28045
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28045
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24203,8 +23385,7 @@ beq_else.42155:
 	flw	%ft2, 8(%t2)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42157
 	addi	%t1, %zero, 0
@@ -24215,8 +23396,7 @@ bne_cont.42158:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42159
 	lw	%t1, 472(%t0)
-	la	%s0, l.28113
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28113
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24230,8 +23410,7 @@ bne_cont.42158:
 	j	beq_cont.42160
 beq_else.42159:
 	lw	%t1, 476(%t0)
-	la	%s0, l.28045
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28045
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24300,8 +23479,7 @@ beq_else.42161:
 	flw	%ft2, 8(%t2)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42163
 	addi	%t1, %zero, 0
@@ -24312,8 +23490,7 @@ bne_cont.42164:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42165
 	lw	%t1, 472(%t0)
-	la	%s0, l.28113
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28113
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24327,8 +23504,7 @@ bne_cont.42164:
 	j	beq_cont.42166
 beq_else.42165:
 	lw	%t1, 476(%t0)
-	la	%s0, l.28045
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28045
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24397,8 +23573,7 @@ beq_else.42167:
 	flw	%ft2, 8(%t2)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42169
 	addi	%t1, %zero, 0
@@ -24409,8 +23584,7 @@ bne_cont.42170:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42171
 	lw	%t1, 472(%t0)
-	la	%s0, l.28113
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28113
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24424,8 +23598,7 @@ bne_cont.42170:
 	j	beq_cont.42172
 beq_else.42171:
 	lw	%t1, 476(%t0)
-	la	%s0, l.28045
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28045
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24494,8 +23667,7 @@ beq_else.42173:
 	flw	%ft2, 8(%t2)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42175
 	addi	%t1, %zero, 0
@@ -24506,8 +23678,7 @@ bne_cont.42176:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42177
 	lw	%t1, 472(%t0)
-	la	%s0, l.28113
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28113
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -24521,8 +23692,7 @@ bne_cont.42176:
 	j	beq_cont.42178
 beq_else.42177:
 	lw	%t1, 476(%t0)
-	la	%s0, l.28045
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28045
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -20(%sp)
 	addi	%t0, %t1, 0
@@ -25793,8 +24963,7 @@ pretrace_diffuse_rays.3025:
 beq_else.42277:
 	lw	%a4, 24(%t0)
 	lw	%a4, 0(%a4)
-	la	%a5, l.25927
-	flw	%ft0, 0(%a5)
+	flw	%ft0, l.25927
 	fsw	%ft0, 0(%a3)
 	fsw	%ft0, 4(%a3)
 	fsw	%ft0, 8(%a3)
@@ -25878,8 +25047,7 @@ beq_cont.42278:
 beq_else.42281:
 	lw	%t2, 24(%t0)
 	lw	%t2, 0(%t2)
-	la	%s0, l.25927
-	flw	%ft0, 0(%s0)
+	flw	%ft0, l.25927
 	lw	%s0, -28(%sp)
 	fsw	%ft0, 0(%s0)
 	fsw	%ft0, 4(%s0)
@@ -25935,8 +25103,7 @@ beq_else.42281:
 	flw	%ft2, 8(%t2)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42283
 	addi	%t1, %zero, 0
@@ -25947,8 +25114,7 @@ bne_cont.42284:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42285
 	lw	%t1, 472(%t0)
-	la	%s0, l.28113
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28113
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -8(%sp)
 	addi	%t0, %t1, 0
@@ -25962,8 +25128,7 @@ bne_cont.42284:
 	j	beq_cont.42286
 beq_else.42285:
 	lw	%t1, 476(%t0)
-	la	%s0, l.28045
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28045
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -8(%sp)
 	addi	%t0, %t1, 0
@@ -26059,8 +25224,7 @@ pretrace_pixels.3028:
 	fmul	%ft4, %ft4, %ft4
 	fadd	%ft3, %ft3, %ft4
 	fsqrt	%ft3, %ft3
-	la	%s8, l.25927
-	flw	%ft4, 0(%s8)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.42292
 	addi	%s8, %zero, 1
@@ -26070,13 +25234,11 @@ bne_else.42292:
 bne_cont.42293:
 	addi	%t6, %s8, 0
 	bne	%t6, %zero, beq_else.42294
-	la	%s8, l.25867
-	flw	%ft5, 0(%s8)
+	flw	%ft5, l.25867
 	fdiv	%ft3, %ft5, %ft3
 	j	beq_cont.42295
 beq_else.42294:
-	la	%s8, l.25867
-	flw	%ft3, 0(%s8)
+	flw	%ft3, l.25867
 beq_cont.42295:
 	flw	%ft5, 0(%a7)
 	fmul	%ft5, %ft5, %ft3
@@ -26087,8 +25249,7 @@ beq_cont.42295:
 	flw	%ft5, 8(%a7)
 	fmul	%ft3, %ft5, %ft3
 	fsw	%ft3, 8(%a7)
-	la	%s8, l.25927
-	flw	%ft3, 0(%s8)
+	flw	%ft3, l.25927
 	fsw	%ft3, 0(%a6)
 	fsw	%ft3, 4(%a6)
 	fsw	%ft3, 8(%a6)
@@ -26099,13 +25260,11 @@ beq_cont.42295:
 	flw	%ft5, 8(%s0)
 	fsw	%ft5, 8(%a2)
 	addi	%s8, %zero, 0
-	la	%s9, l.25867
-	flw	%ft5, 0(%s9)
+	flw	%ft5, l.25867
 	slli	%s9, %t1, 2
 	add	%t6, %t0, %s9
 	lw	%s9, 0(%t6)
-	la	%s10, l.25927
-	flw	%ft6, 0(%s10)
+	flw	%ft6, l.25927
 	sw	%t4, 0(%sp)
 	fsw	%ft6, -8(%sp)
 	fsw	%ft5, -16(%sp)
@@ -26181,8 +25340,7 @@ beq_cont.42295:
 beq_else.42301:
 	lw	%a0, 24(%t1)
 	lw	%a0, 0(%a0)
-	la	%a1, l.25927
-	flw	%ft0, 0(%a1)
+	flw	%ft0, l.25927
 	lw	%a1, -128(%sp)
 	fsw	%ft0, 0(%a1)
 	fsw	%ft0, 4(%a1)
@@ -26233,8 +25391,7 @@ beq_else.42301:
 	flw	%ft2, 8(%t2)
 	fmul	%ft1, %ft1, %ft2
 	fadd	%ft0, %ft0, %ft1
-	la	%t1, l.25927
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25927
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42303
 	addi	%t1, %zero, 0
@@ -26245,8 +25402,7 @@ bne_cont.42304:
 	addi	%t6, %t1, 0
 	bne	%t6, %zero, beq_else.42305
 	lw	%t1, 472(%t0)
-	la	%s0, l.28113
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28113
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -108(%sp)
 	addi	%t0, %t1, 0
@@ -26260,8 +25416,7 @@ bne_cont.42304:
 	j	beq_cont.42306
 beq_else.42305:
 	lw	%t1, 476(%t0)
-	la	%s0, l.28045
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.28045
 	fdiv	%ft0, %ft0, %ft1
 	lw	%t4, -108(%sp)
 	addi	%t0, %t1, 0
@@ -26364,13 +25519,11 @@ bne_else.42310:
 bne_cont.42311:
 	addi	%t6, %t2, 0
 	bne	%t6, %zero, beq_else.42312
-	la	%t2, l.25867
-	flw	%ft4, 0(%t2)
+	flw	%ft4, l.25867
 	fdiv	%ft0, %ft4, %ft0
 	j	beq_cont.42313
 beq_else.42312:
-	la	%t2, l.25867
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25867
 beq_cont.42313:
 	flw	%ft4, 0(%s0)
 	fmul	%ft4, %ft4, %ft0
@@ -26531,8 +25684,7 @@ pretrace_line.3035:
 	fmul	%ft4, %ft4, %ft4
 	fadd	%ft3, %ft3, %ft4
 	fsqrt	%ft3, %ft3
-	la	%a1, l.25927
-	flw	%ft4, 0(%a1)
+	flw	%ft4, l.25927
 	feq	%t6, %ft3, %ft4
 	beq	%t6, %zero, bne_else.42319
 	addi	%a1, %zero, 1
@@ -26542,13 +25694,11 @@ bne_else.42319:
 bne_cont.42320:
 	addi	%t6, %a1, 0
 	bne	%t6, %zero, beq_else.42321
-	la	%a1, l.25867
-	flw	%ft4, 0(%a1)
+	flw	%ft4, l.25867
 	fdiv	%ft3, %ft4, %ft3
 	j	beq_cont.42322
 beq_else.42321:
-	la	%a1, l.25867
-	flw	%ft3, 0(%a1)
+	flw	%ft3, l.25867
 beq_cont.42322:
 	flw	%ft4, 0(%a6)
 	fmul	%ft4, %ft4, %ft3
@@ -26559,8 +25709,7 @@ beq_cont.42322:
 	flw	%ft4, 8(%a6)
 	fmul	%ft3, %ft4, %ft3
 	fsw	%ft3, 8(%a6)
-	la	%a1, l.25927
-	flw	%ft3, 0(%a1)
+	flw	%ft3, l.25927
 	fsw	%ft3, 0(%a5)
 	fsw	%ft3, 4(%a5)
 	fsw	%ft3, 8(%a5)
@@ -26571,13 +25720,11 @@ beq_cont.42322:
 	flw	%ft3, 8(%s0)
 	fsw	%ft3, 8(%a0)
 	addi	%s0, %zero, 0
-	la	%a0, l.25867
-	flw	%ft3, 0(%a0)
+	flw	%ft3, l.25867
 	slli	%a0, %t1, 2
 	add	%t6, %t0, %a0
 	lw	%a0, 0(%t6)
-	la	%a1, l.25927
-	flw	%ft4, 0(%a1)
+	flw	%ft4, l.25927
 	fsw	%ft0, 0(%sp)
 	fsw	%ft2, -8(%sp)
 	fsw	%ft1, -16(%sp)
@@ -28419,8 +27566,7 @@ bge_cont.42673:
 create_pixel.3053:
 	lw	%t0, 4(%t4)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, 0(%sp)
 	addi	%t0, %t1, 0
 	sw	%ra, -4(%sp)
@@ -28429,8 +27575,7 @@ create_pixel.3053:
 	addi	%sp, %sp, 8
 	lw	%ra, -4(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -8(%sp)
 	fsw	%ft0, -16(%sp)
 	addi	%t0, %t1, 0
@@ -28447,8 +27592,7 @@ create_pixel.3053:
 	addi	%sp, %sp, 32
 	lw	%ra, -28(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -24(%sp)
 	sw	%t0, -32(%sp)
 	addi	%t0, %t1, 0
@@ -28460,8 +27604,7 @@ create_pixel.3053:
 	lw	%t1, -32(%sp)
 	sw	%t0, 4(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -40(%sp)
 	sw	%ra, -52(%sp)
 	addi	%sp, %sp, -56
@@ -28471,8 +27614,7 @@ create_pixel.3053:
 	lw	%t1, -32(%sp)
 	sw	%t0, 8(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -48(%sp)
 	sw	%ra, -60(%sp)
 	addi	%sp, %sp, -64
@@ -28482,8 +27624,7 @@ create_pixel.3053:
 	lw	%t1, -32(%sp)
 	sw	%t0, 12(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -56(%sp)
 	sw	%ra, -68(%sp)
 	addi	%sp, %sp, -72
@@ -28702,8 +27843,7 @@ init_line_elements.3055:
 	addi	%t6, %t1, 0
 	blt	%t6, %zero, bge_else.42676
 	addi	%s1, %zero, 3
-	la	%a0, l.25927
-	flw	%ft0, 0(%a0)
+	flw	%ft0, l.25927
 	sw	%t4, 0(%sp)
 	fsw	%ft0, -8(%sp)
 	sw	%s0, -16(%sp)
@@ -28717,8 +27857,7 @@ init_line_elements.3055:
 	addi	%sp, %sp, 40
 	lw	%ra, -36(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	sw	%t0, -36(%sp)
 	fsw	%ft0, -40(%sp)
 	addi	%t0, %t1, 0
@@ -28735,8 +27874,7 @@ init_line_elements.3055:
 	addi	%sp, %sp, 56
 	lw	%ra, -52(%sp)
 	addi	%t1, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -48(%sp)
 	sw	%t0, -56(%sp)
 	addi	%t0, %t1, 0
@@ -28748,8 +27886,7 @@ init_line_elements.3055:
 	lw	%t1, -56(%sp)
 	sw	%t0, 4(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -64(%sp)
 	sw	%ra, -76(%sp)
 	addi	%sp, %sp, -80
@@ -28759,8 +27896,7 @@ init_line_elements.3055:
 	lw	%t1, -56(%sp)
 	sw	%t0, 8(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -72(%sp)
 	sw	%ra, -84(%sp)
 	addi	%sp, %sp, -88
@@ -28770,8 +27906,7 @@ init_line_elements.3055:
 	lw	%t1, -56(%sp)
 	sw	%t0, 12(%t1)
 	addi	%t0, %zero, 3
-	la	%t2, l.25927
-	flw	%ft0, 0(%t2)
+	flw	%ft0, l.25927
 	fsw	%ft0, -80(%sp)
 	sw	%ra, -92(%sp)
 	addi	%sp, %sp, -96
@@ -29318,14 +28453,12 @@ calc_dirvec.3065:
 	fmul	%ft2, %ft0, %ft0
 	fmul	%ft3, %ft1, %ft1
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25867
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25867
 	fadd	%ft2, %ft2, %ft3
 	fsqrt	%ft2, %ft2
 	fdiv	%ft0, %ft0, %ft2
 	fdiv	%ft1, %ft1, %ft2
-	la	%t0, l.25867
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25867
 	fdiv	%ft2, %ft3, %ft2
 	slli	%t0, %t1, 2
 	add	%t6, %s0, %t0
@@ -29389,12 +28522,10 @@ calc_dirvec.3065:
 	jr	%ra
 bge_else.42682:
 	fmul	%ft0, %ft1, %ft1
-	la	%s0, l.27966
-	flw	%ft1, 0(%s0)
+	flw	%ft1, l.27966
 	fadd	%ft0, %ft0, %ft1
 	fsqrt	%ft0, %ft0
-	la	%s0, l.25867
-	flw	%ft5, 0(%s0)
+	flw	%ft5, l.25867
 	fdiv	%ft6, %ft5, %ft0
 	sw	%t2, 0(%sp)
 	sw	%t1, -4(%sp)
@@ -29414,20 +28545,16 @@ bge_else.42682:
 	lw	%ra, -76(%sp)
 	flw	%ft1, -64(%sp)
 	fmul	%ft0, %ft0, %ft1
-	la	%t0, l.25927
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25927
 	fle	%t6, %ft0, %ft2
 	beq	%t6, %zero, bne_else.42686
-	la	%t0, l.25907
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25907
 	j	bne_cont.42687
 bne_else.42686:
-	la	%t0, l.25867
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25867
 bne_cont.42687:
 	fabs	%ft4, %ft0
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fsw	%ft2, -80(%sp)
 	fsw	%ft5, -88(%sp)
 	fsw	%ft0, -96(%sp)
@@ -29437,18 +28564,15 @@ bne_cont.42687:
 	fmv	%ft0, %ft4
 	j	bne_cont.42690
 bne_else.42689:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft4, %ft4, %ft6
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fle	%t6, %ft4, %ft7
 	beq	%t6, %zero, bne_else.42691
 	fmv	%ft0, %ft4
 	j	bne_cont.42692
 bne_else.42691:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft4, %ft4, %fs0
 	fle	%t6, %ft4, %ft5
 	beq	%t6, %zero, bne_else.42693
@@ -29462,25 +28586,21 @@ bne_else.42693:
 	j	bne_cont.42696
 bne_else.42695:
 	fsub	%ft4, %ft4, %fs0
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.42697
 	fmv	%ft0, %ft4
 	j	bne_cont.42698
 bne_else.42697:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft4, %ft4, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft4, %fs0
 	beq	%t6, %zero, bne_else.42699
 	fmv	%ft0, %ft4
 	j	bne_cont.42700
 bne_else.42699:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft4, %ft4, %fs1
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.42701
@@ -29518,25 +28638,21 @@ bne_else.42709:
 	j	bne_cont.42712
 bne_else.42711:
 	fsub	%ft4, %ft4, %fs1
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.42713
 	fmv	%ft0, %ft4
 	j	bne_cont.42714
 bne_else.42713:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft4, %ft4, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft4, %fs0
 	beq	%t6, %zero, bne_else.42715
 	fmv	%ft0, %ft4
 	j	bne_cont.42716
 bne_else.42715:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft4, %ft4, %fs1
 	fle	%t6, %ft4, %ft6
 	beq	%t6, %zero, bne_else.42717
@@ -29666,69 +28782,57 @@ bne_else.42745:
 bne_cont.42746:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42747
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -104(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.42748
 bne_else.42747:
 	flw	%ft0, -104(%sp)
 bne_cont.42748:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.42749
 	fsub	%ft2, %ft1, %ft2
 	j	bne_cont.42750
 bne_else.42749:
 bne_cont.42750:
-	la	%t0, l.25865
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25865
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.42751
 	fmul	%ft5, %ft2, %ft2
 	fmul	%ft6, %ft5, %ft2
 	fmul	%ft7, %ft6, %ft5
 	fmul	%ft5, %ft7, %ft5
-	la	%t0, l.25914
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25914
 	fmul	%ft6, %fs0, %ft6
 	fsub	%ft2, %ft2, %ft6
-	la	%t0, l.25916
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25916
 	fmul	%ft6, %ft6, %ft7
 	fadd	%ft2, %ft2, %ft6
-	la	%t0, l.25918
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25918
 	fmul	%ft5, %ft6, %ft5
 	fsub	%ft2, %ft2, %ft5
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.42752
 bne_else.42751:
-	la	%t0, l.25876
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25876
 	fsub	%ft2, %ft5, %ft2
 	fmul	%ft2, %ft2, %ft2
 	fmul	%ft5, %ft2, %ft2
 	fmul	%ft6, %ft5, %ft2
-	la	%t0, l.25867
-	flw	%ft7, 0(%t0)
-	la	%t0, l.25921
-	flw	%fs0, 0(%t0)
+	flw	%ft7, l.25867
+	flw	%fs0, l.25921
 	fmul	%ft2, %fs0, %ft2
 	fsub	%ft2, %ft7, %ft2
-	la	%t0, l.25923
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25923
 	fmul	%ft5, %ft7, %ft5
 	fadd	%ft2, %ft2, %ft5
-	la	%t0, l.25925
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25925
 	fmul	%ft5, %ft5, %ft6
 	fsub	%ft2, %ft2, %ft5
 	fmul	%ft0, %ft0, %ft2
 bne_cont.42752:
-	la	%t0, l.25867
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25867
 	flw	%ft5, -96(%sp)
 	fabs	%ft5, %ft5
 	flw	%ft6, -88(%sp)
@@ -29741,18 +28845,15 @@ bne_cont.42752:
 	fmv	%ft0, %ft5
 	j	bne_cont.42754
 bne_else.42753:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft5, %ft5, %ft7
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fle	%t6, %ft5, %fs0
 	beq	%t6, %zero, bne_else.42755
 	fmv	%ft0, %ft5
 	j	bne_cont.42756
 bne_else.42755:
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fsub	%ft5, %ft5, %fs1
 	fle	%t6, %ft5, %ft6
 	beq	%t6, %zero, bne_else.42757
@@ -29766,25 +28867,21 @@ bne_else.42757:
 	j	bne_cont.42760
 bne_else.42759:
 	fsub	%ft5, %ft5, %fs1
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.42761
 	fmv	%ft0, %ft5
 	j	bne_cont.42762
 bne_else.42761:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft5, %ft5, %fs0
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fle	%t6, %ft5, %fs1
 	beq	%t6, %zero, bne_else.42763
 	fmv	%ft0, %ft5
 	j	bne_cont.42764
 bne_else.42763:
-	la	%t0, l.25844
-	flw	%fa0, 0(%t0)
+	flw	%fa0, l.25844
 	fsub	%ft5, %ft5, %fa0
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.42765
@@ -29822,25 +28919,21 @@ bne_else.42773:
 	j	bne_cont.42776
 bne_else.42775:
 	fsub	%ft5, %ft5, %fa0
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.42777
 	fmv	%ft0, %ft5
 	j	bne_cont.42778
 bne_else.42777:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft5, %ft5, %fs0
-	la	%t0, l.25844
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25844
 	fle	%t6, %ft5, %fs1
 	beq	%t6, %zero, bne_else.42779
 	fmv	%ft0, %ft5
 	j	bne_cont.42780
 bne_else.42779:
-	la	%t0, l.25844
-	flw	%fa0, 0(%t0)
+	flw	%fa0, l.25844
 	fsub	%ft5, %ft5, %fa0
 	fle	%t6, %ft5, %ft7
 	beq	%t6, %zero, bne_else.42781
@@ -29970,14 +29063,12 @@ bne_else.42809:
 bne_cont.42810:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42811
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.42812
 bne_else.42811:
 	flw	%ft0, -136(%sp)
 bne_cont.42812:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.42813
 	fsub	%ft4, %ft1, %ft2
@@ -29985,57 +29076,46 @@ bne_cont.42812:
 bne_else.42813:
 	fmv	%ft4, %ft2
 bne_cont.42814:
-	la	%t0, l.25876
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25876
 	fle	%t6, %ft5, %ft2
 	beq	%t6, %zero, bne_else.42815
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.42816
 bne_else.42815:
 bne_cont.42816:
-	la	%t0, l.25865
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25865
 	fle	%t6, %ft4, %ft2
 	beq	%t6, %zero, bne_else.42817
 	fmul	%ft4, %ft4, %ft4
 	fmul	%ft6, %ft4, %ft4
 	fmul	%ft7, %ft6, %ft4
-	la	%t0, l.25867
-	flw	%fs0, 0(%t0)
-	la	%t0, l.25921
-	flw	%fs1, 0(%t0)
+	flw	%fs0, l.25867
+	flw	%fs1, l.25921
 	fmul	%ft4, %fs1, %ft4
 	fsub	%ft4, %fs0, %ft4
-	la	%t0, l.25923
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25923
 	fmul	%ft6, %fs0, %ft6
 	fadd	%ft4, %ft4, %ft6
-	la	%t0, l.25925
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25925
 	fmul	%ft6, %ft6, %ft7
 	fsub	%ft4, %ft4, %ft6
 	fmul	%ft0, %ft0, %ft4
 	j	bne_cont.42818
 bne_else.42817:
-	la	%t0, l.25876
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25876
 	fsub	%ft4, %ft6, %ft4
 	fmul	%ft6, %ft4, %ft4
 	fmul	%ft7, %ft6, %ft4
 	fmul	%fs0, %ft7, %ft6
 	fmul	%ft6, %fs0, %ft6
-	la	%t0, l.25914
-	flw	%fs1, 0(%t0)
+	flw	%fs1, l.25914
 	fmul	%ft7, %fs1, %ft7
 	fsub	%ft4, %ft4, %ft7
-	la	%t0, l.25916
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25916
 	fmul	%ft7, %ft7, %fs0
 	fadd	%ft4, %ft4, %ft7
-	la	%t0, l.25918
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25918
 	fmul	%ft6, %ft7, %ft6
 	fsub	%ft4, %ft4, %ft6
 	fmul	%ft0, %ft0, %ft4
@@ -30069,12 +29149,10 @@ bne_cont.42818:
 	flw	%ft1, -80(%sp)
 	fle	%t6, %ft0, %ft1
 	beq	%t6, %zero, bne_else.42820
-	la	%t0, l.25907
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25907
 	j	bne_cont.42821
 bne_else.42820:
-	la	%t0, l.25867
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25867
 bne_cont.42821:
 	fabs	%ft2, %ft0
 	flw	%ft4, -88(%sp)
@@ -30085,18 +29163,15 @@ bne_cont.42821:
 	fmv	%ft0, %ft2
 	j	bne_cont.42823
 bne_else.42822:
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fsub	%ft2, %ft2, %ft5
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fle	%t6, %ft2, %ft6
 	beq	%t6, %zero, bne_else.42824
 	fmv	%ft0, %ft2
 	j	bne_cont.42825
 bne_else.42824:
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fsub	%ft2, %ft2, %ft7
 	fle	%t6, %ft2, %ft4
 	beq	%t6, %zero, bne_else.42826
@@ -30110,25 +29185,21 @@ bne_else.42826:
 	j	bne_cont.42829
 bne_else.42828:
 	fsub	%ft2, %ft2, %ft7
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft2, %ft5
 	beq	%t6, %zero, bne_else.42830
 	fmv	%ft0, %ft2
 	j	bne_cont.42831
 bne_else.42830:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fle	%t6, %ft2, %ft7
 	beq	%t6, %zero, bne_else.42832
 	fmv	%ft0, %ft2
 	j	bne_cont.42833
 bne_else.42832:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft2, %ft2, %fs0
 	fle	%t6, %ft2, %ft5
 	beq	%t6, %zero, bne_else.42834
@@ -30166,25 +29237,21 @@ bne_else.42842:
 	j	bne_cont.42845
 bne_else.42844:
 	fsub	%ft2, %ft2, %fs0
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft2, %ft5
 	beq	%t6, %zero, bne_else.42846
 	fmv	%ft0, %ft2
 	j	bne_cont.42847
 bne_else.42846:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
-	la	%t0, l.25844
-	flw	%ft7, 0(%t0)
+	flw	%ft7, l.25844
 	fle	%t6, %ft2, %ft7
 	beq	%t6, %zero, bne_else.42848
 	fmv	%ft0, %ft2
 	j	bne_cont.42849
 bne_else.42848:
-	la	%t0, l.25844
-	flw	%fs0, 0(%t0)
+	flw	%fs0, l.25844
 	fsub	%ft2, %ft2, %fs0
 	fle	%t6, %ft2, %ft5
 	beq	%t6, %zero, bne_else.42850
@@ -30314,8 +29381,7 @@ bne_else.42878:
 bne_cont.42879:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42880
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	flw	%ft3, -200(%sp)
 	fmul	%ft0, %ft3, %ft0
 	j	bne_cont.42881
@@ -30336,39 +29402,31 @@ bne_cont.42883:
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft5, %ft4, %ft3
 	fmul	%ft3, %ft5, %ft3
-	la	%t0, l.25914
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25914
 	fmul	%ft4, %ft6, %ft4
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25916
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25916
 	fmul	%ft4, %ft4, %ft5
 	fadd	%ft2, %ft2, %ft4
-	la	%t0, l.25918
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25918
 	fmul	%ft3, %ft4, %ft3
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.42885
 bne_else.42884:
-	la	%t0, l.25876
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25876
 	fsub	%ft2, %ft3, %ft2
 	fmul	%ft2, %ft2, %ft2
 	fmul	%ft3, %ft2, %ft2
 	fmul	%ft4, %ft3, %ft2
-	la	%t0, l.25867
-	flw	%ft5, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft6, 0(%t0)
+	flw	%ft5, l.25867
+	flw	%ft6, l.25921
 	fmul	%ft2, %ft6, %ft2
 	fsub	%ft2, %ft5, %ft2
-	la	%t0, l.25923
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25923
 	fmul	%ft3, %ft5, %ft3
 	fadd	%ft2, %ft2, %ft3
-	la	%t0, l.25925
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25925
 	fmul	%ft3, %ft3, %ft4
 	fsub	%ft2, %ft2, %ft3
 	fmul	%ft0, %ft0, %ft2
@@ -30382,18 +29440,15 @@ bne_cont.42885:
 	fmv	%ft0, %ft2
 	j	bne_cont.42887
 bne_else.42886:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft2, %ft5
 	beq	%t6, %zero, bne_else.42888
 	fmv	%ft0, %ft2
 	j	bne_cont.42889
 bne_else.42888:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.42890
@@ -30407,25 +29462,21 @@ bne_else.42890:
 	j	bne_cont.42893
 bne_else.42892:
 	fsub	%ft2, %ft2, %ft6
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.42894
 	fmv	%ft0, %ft2
 	j	bne_cont.42895
 bne_else.42894:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft2, %ft5
 	beq	%t6, %zero, bne_else.42896
 	fmv	%ft0, %ft2
 	j	bne_cont.42897
 bne_else.42896:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.42898
@@ -30463,25 +29514,21 @@ bne_else.42906:
 	j	bne_cont.42909
 bne_else.42908:
 	fsub	%ft2, %ft2, %ft6
-	la	%t0, l.25844
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25844
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.42910
 	fmv	%ft0, %ft2
 	j	bne_cont.42911
 bne_else.42910:
-	la	%t0, l.25844
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25844
 	fsub	%ft2, %ft2, %ft4
-	la	%t0, l.25844
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25844
 	fle	%t6, %ft2, %ft5
 	beq	%t6, %zero, bne_else.42912
 	fmv	%ft0, %ft2
 	j	bne_cont.42913
 bne_else.42912:
-	la	%t0, l.25844
-	flw	%ft6, 0(%t0)
+	flw	%ft6, l.25844
 	fsub	%ft2, %ft2, %ft6
 	fle	%t6, %ft2, %ft3
 	beq	%t6, %zero, bne_else.42914
@@ -30611,8 +29658,7 @@ bne_else.42942:
 bne_cont.42943:
 	fle	%t6, %ft1, %ft0
 	beq	%t6, %zero, bne_else.42944
-	la	%t0, l.25907
-	flw	%ft0, 0(%t0)
+	flw	%ft0, l.25907
 	j	bne_cont.42945
 bne_else.42944:
 	flw	%ft0, -136(%sp)
@@ -30628,8 +29674,7 @@ bne_cont.42947:
 	flw	%ft3, -176(%sp)
 	fle	%t6, %ft3, %ft2
 	beq	%t6, %zero, bne_else.42948
-	la	%t0, l.25907
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25907
 	fmul	%ft0, %ft0, %ft2
 	j	bne_cont.42949
 bne_else.42948:
@@ -30640,40 +29685,32 @@ bne_cont.42949:
 	fmul	%ft1, %ft1, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
-	la	%t0, l.25867
-	flw	%ft4, 0(%t0)
-	la	%t0, l.25921
-	flw	%ft5, 0(%t0)
+	flw	%ft4, l.25867
+	flw	%ft5, l.25921
 	fmul	%ft1, %ft5, %ft1
 	fsub	%ft1, %ft4, %ft1
-	la	%t0, l.25923
-	flw	%ft4, 0(%t0)
+	flw	%ft4, l.25923
 	fmul	%ft2, %ft4, %ft2
 	fadd	%ft1, %ft1, %ft2
-	la	%t0, l.25925
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25925
 	fmul	%ft2, %ft2, %ft3
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
 	j	bne_cont.42951
 bne_else.42950:
-	la	%t0, l.25876
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.25876
 	fsub	%ft1, %ft2, %ft1
 	fmul	%ft2, %ft1, %ft1
 	fmul	%ft3, %ft2, %ft1
 	fmul	%ft4, %ft3, %ft2
 	fmul	%ft2, %ft4, %ft2
-	la	%t0, l.25914
-	flw	%ft5, 0(%t0)
+	flw	%ft5, l.25914
 	fmul	%ft3, %ft5, %ft3
 	fsub	%ft1, %ft1, %ft3
-	la	%t0, l.25916
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25916
 	fmul	%ft3, %ft3, %ft4
 	fadd	%ft1, %ft1, %ft3
-	la	%t0, l.25918
-	flw	%ft3, 0(%t0)
+	flw	%ft3, l.25918
 	fmul	%ft2, %ft3, %ft2
 	fsub	%ft1, %ft1, %ft2
 	fmul	%ft0, %ft0, %ft1
@@ -30696,17 +29733,13 @@ calc_dirvecs.3073:
 	addi	%t6, %t0, 0
 	blt	%t6, %zero, bge_else.42952
 	itof	%ft1, %t0
-	la	%s1, l.25853
-	flw	%ft2, 0(%s1)
+	flw	%ft2, l.25853
 	fmul	%ft1, %ft1, %ft2
-	la	%s1, l.29288
-	flw	%ft3, 0(%s1)
+	flw	%ft3, l.29288
 	fsub	%ft1, %ft1, %ft3
 	addi	%s1, %zero, 0
-	la	%a0, l.25927
-	flw	%ft4, 0(%a0)
-	la	%a0, l.25927
-	flw	%ft5, 0(%a0)
+	flw	%ft4, l.25927
+	flw	%ft5, l.25927
 	sw	%t4, 0(%sp)
 	fsw	%ft5, -8(%sp)
 	fsw	%ft4, -16(%sp)
@@ -30732,17 +29765,13 @@ calc_dirvecs.3073:
 	addi	%a0, %t0, 0
 	lw	%t0, -60(%sp)
 	itof	%ft0, %t0
-	la	%t1, l.25853
-	flw	%ft1, 0(%t1)
+	flw	%ft1, l.25853
 	fmul	%ft0, %ft0, %ft1
-	la	%t1, l.27966
-	flw	%ft2, 0(%t1)
+	flw	%ft2, l.27966
 	fadd	%ft0, %ft0, %ft2
 	addi	%t1, %zero, 0
-	la	%t2, l.25927
-	flw	%ft3, 0(%t2)
-	la	%t2, l.25927
-	flw	%ft4, 0(%t2)
+	flw	%ft3, l.25927
+	flw	%ft4, l.25927
 	lw	%t2, -56(%sp)
 	addi	%s0, %t2, 2
 	flw	%ft5, -40(%sp)
@@ -30985,25 +30014,19 @@ calc_dirvec_rows.3078:
 	addi	%t6, %t0, 0
 	blt	%t6, %zero, bge_else.42970
 	itof	%ft0, %t0
-	la	%a0, l.25853
-	flw	%ft1, 0(%a0)
+	flw	%ft1, l.25853
 	fmul	%ft0, %ft0, %ft1
-	la	%a0, l.29288
-	flw	%ft2, 0(%a0)
+	flw	%ft2, l.29288
 	fsub	%ft3, %ft0, %ft2
 	addi	%a0, %zero, 4
 	itof	%ft0, %a0
-	la	%a1, l.25853
-	flw	%ft4, 0(%a1)
+	flw	%ft4, l.25853
 	fmul	%ft0, %ft0, %ft4
-	la	%a1, l.29288
-	flw	%ft5, 0(%a1)
+	flw	%ft5, l.29288
 	fsub	%ft0, %ft0, %ft5
 	addi	%a1, %zero, 0
-	la	%a2, l.25927
-	flw	%ft6, 0(%a2)
-	la	%a2, l.25927
-	flw	%ft7, 0(%a2)
+	flw	%ft6, l.25927
+	flw	%ft7, l.25927
 	sw	%t4, 0(%sp)
 	fsw	%ft2, -8(%sp)
 	fsw	%ft1, -16(%sp)
@@ -31032,17 +30055,13 @@ calc_dirvec_rows.3078:
 	addi	%a0, %t0, 0
 	lw	%t0, -84(%sp)
 	itof	%ft0, %t0
-	la	%t0, l.25853
-	flw	%ft1, 0(%t0)
+	flw	%ft1, l.25853
 	fmul	%ft0, %ft0, %ft1
-	la	%t0, l.27966
-	flw	%ft2, 0(%t0)
+	flw	%ft2, l.27966
 	fadd	%ft0, %ft0, %ft2
 	addi	%t0, %zero, 0
-	la	%t1, l.25927
-	flw	%ft3, 0(%t1)
-	la	%t1, l.25927
-	flw	%ft4, 0(%t1)
+	flw	%ft3, l.25927
+	flw	%ft4, l.25927
 	lw	%t1, -80(%sp)
 	addi	%t2, %t1, 2
 	flw	%ft5, -64(%sp)
@@ -31374,8 +30393,7 @@ create_dirvec_elements.3084:
 	addi	%t6, %t1, 0
 	blt	%t6, %zero, bge_else.42991
 	addi	%s0, %zero, 3
-	la	%s1, l.25927
-	flw	%ft0, 0(%s1)
+	flw	%ft0, l.25927
 	sw	%t4, 0(%sp)
 	fsw	%ft0, -8(%sp)
 	sw	%t0, -16(%sp)
@@ -31667,8 +30685,7 @@ create_dirvecs.3087:
 	blt	%t6, %zero, bge_else.43008
 	addi	%s1, %zero, 120
 	addi	%a0, %zero, 3
-	la	%a1, l.25927
-	flw	%ft0, 0(%a1)
+	flw	%ft0, l.25927
 	sw	%t4, 0(%sp)
 	sw	%s0, -4(%sp)
 	fsw	%ft0, -8(%sp)
@@ -33162,8 +32179,7 @@ setup_reflections.3109:
 	bne	%t6, %zero, beq_else.43069
 	lw	%a2, 28(%t2)
 	flw	%ft0, 0(%a2)
-	la	%a2, l.25867
-	flw	%ft1, 0(%a2)
+	flw	%ft1, l.25867
 	fless	%a2, %ft0, %ft1
 	addi	%t6, %a2, 0
 	bne	%t6, %zero, beq_else.43070
@@ -33174,8 +32190,7 @@ beq_else.43070:
 	bne	%t6, %zero, beq_else.43072
 	slli	%t0, %t0, 2
 	lw	%a2, 0(%s0)
-	la	%a3, l.25867
-	flw	%ft0, 0(%a3)
+	flw	%ft0, l.25867
 	lw	%t2, 28(%t2)
 	flw	%ft1, 0(%t2)
 	fsub	%ft0, %ft0, %ft1
@@ -33188,8 +32203,7 @@ beq_else.43070:
 	addi	%t2, %t0, 1
 	flw	%ft4, 0(%a0)
 	addi	%a3, %zero, 3
-	la	%a4, l.25927
-	flw	%ft5, 0(%a4)
+	flw	%ft5, l.25927
 	sw	%s0, 0(%sp)
 	fsw	%ft1, -8(%sp)
 	fsw	%ft5, -16(%sp)
@@ -33402,8 +32416,7 @@ beq_else.43072:
 	slli	%t0, %t0, 2
 	addi	%t0, %t0, 1
 	lw	%a2, 0(%s0)
-	la	%a3, l.25867
-	flw	%ft0, 0(%a3)
+	flw	%ft0, l.25867
 	lw	%a3, 28(%t2)
 	flw	%ft1, 0(%a3)
 	fsub	%ft0, %ft0, %ft1
@@ -33419,24 +32432,21 @@ beq_else.43072:
 	flw	%ft3, 8(%a3)
 	fmul	%ft2, %ft2, %ft3
 	fadd	%ft1, %ft1, %ft2
-	la	%a3, l.26220
-	flw	%ft2, 0(%a3)
+	flw	%ft2, l.26220
 	lw	%a3, 16(%t2)
 	flw	%ft3, 0(%a3)
 	fmul	%ft2, %ft2, %ft3
 	fmul	%ft2, %ft2, %ft1
 	flw	%ft3, 0(%a0)
 	fsub	%ft2, %ft2, %ft3
-	la	%a3, l.26220
-	flw	%ft3, 0(%a3)
+	flw	%ft3, l.26220
 	lw	%a3, 16(%t2)
 	flw	%ft4, 4(%a3)
 	fmul	%ft3, %ft3, %ft4
 	fmul	%ft3, %ft3, %ft1
 	flw	%ft4, 4(%a0)
 	fsub	%ft3, %ft3, %ft4
-	la	%a3, l.26220
-	flw	%ft4, 0(%a3)
+	flw	%ft4, l.26220
 	lw	%t2, 16(%t2)
 	flw	%ft5, 8(%t2)
 	fmul	%ft4, %ft4, %ft5
@@ -33444,8 +32454,7 @@ beq_else.43072:
 	flw	%ft4, 8(%a0)
 	fsub	%ft1, %ft1, %ft4
 	addi	%t2, %zero, 3
-	la	%a0, l.25927
-	flw	%ft4, 0(%a0)
+	flw	%ft4, l.25927
 	sw	%s0, 0(%sp)
 	sw	%t1, -32(%sp)
 	sw	%a2, -152(%sp)

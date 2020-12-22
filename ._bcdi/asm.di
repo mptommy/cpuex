@@ -1,3 +1,1 @@
-asm.cmi : \
-    type.cmo \
-    id.cmo
+asm.cmi : type.cmo id.cmo
