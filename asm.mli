@@ -34,6 +34,7 @@ and exp =
   | InF
   | Out of Id.t * string
   | LdF of Id.t * id_or_imm
+  | LdFL of Id.l
   | StF of Id.t * Id.t * id_or_imm
   | Comment of string
   (* virtual instructions *)
