@@ -146,102 +146,6 @@ pub enum PipeRiscvInst{
     BFGE(f32,f32,i32,u8,u8),
 }
 #[derive(Copy,Clone)]
-#[derive(Debug)]
-pub enum NRiscvInst{
-    FIRST,
-    LUI(u8,i32),
-    AUIPC(u8,i32),
-    ADDI(u8,i32,i32),
-    SLTI(u8,i32,i32),
-    SLTIU(u8,i32,i32),
-    XORI(u8,i32,i32),
-    ORI(u8,i32,i32),
-    ANDI(u8,i32,i32),
-    SLLI(u8,i32,i32),
-    SRAI(u8,i32,i32),
-    SRLI(u8,i32,i32),
-    ADD(u8,i32,i32),
-    SUB(u8,i32,i32),
-    SLL(u8,i32,i32),
-    SLT(u8,i32,i32),
-    SLTU(u8,i32,i32),
-    XOR(u8,i32,i32),
-    SRL(u8,i32,i32),
-    SRA(u8,i32,i32),
-    OR(u8,i32,i32),
-    AND(u8,i32,i32),
-    FENCE(i32,i32),
-    FENCEI,
-    CSRRW(u8,i32,u8),
-    CSRRS(u8,i32,u8),
-    CSRRC(u8,i32,u8),
-    CSRRWI(u8,i32,i32),
-    CSRRSI(u8,i32,i32),
-    CSRRCI(u8,i32,i32),
-    ECALL,
-    EBREAK,
-    URET,
-    SRET,
-    MRET,
-    WFI,
-    SFVMA(u8,u8),
-    LB(u8,i32,i32),
-    LH(u8,i32,i32),
-    LW(u8,i32,i32),
-    LBU(u8,i32,i32),
-    LHU(u8,i32,i32),
-    SB(i32,i32,i32),
-    SH(i32,i32,i32),
-    SW(i32,i32,i32),
-    JAL(u8,i32),
-    JALR(u8,i32,i32),
-    BEQ(i32,i32,i32),
-    BNE(i32,i32,i32),
-    BLT(i32,i32,i32),
-    BGE(i32,i32,i32),
-    BLTU(i32,i32,i32),
-    BGEU(i32,i32,i32),
-    LA(u8,i32),
-    FMADDS(u8,f32,f32,f32),
-    FMSUBS(u8,f32,f32,f32),
-    FNMADDS(u8,f32,f32,f32),
-    FNMSUBS(u8,f32,f32,f32),
-    FADDS(u8,f32,f32),
-    FSUBS(u8,f32,f32),
-    FMULS(u8,f32,f32),
-    FDIVS(u8,f32,f32),
-    FSQRTS(u8,f32),
-    FSGNJS(u8,f32,f32),
-    FSGNJNS(u8,f32,f32),
-    FSGNJXS(u8,f32,f32),
-    FMINS(u8,f32,f32),
-    FMAXS(u8,f32,f32),
-    FCVTWS(u8,f32,u8),
-    FCVTWUS(u8,f32,u8),
-    FMVXW(u8,f32),
-    FEQS(u8,f32,f32),
-    FLTS(u8,f32,f32),
-    FLES(u8,f32,f32),
-    FCLASSS(u8,f32),
-    FCVTSW(u8,f32),
-    FCVTSWU(u8,f32),
-    FMVWX(u8,i32),
-    FLW(u8,i32,i32),
-    FSW(i32,f32,i32),
-    MUL(u8,i32,i32),
-    MULH(u8,i32,i32),
-    MULHSU(u8,i32,i32),
-    MULHU(u8,i32,i32),
-    DIV(u8,i32,i32),
-    DIVU(u8,i32,i32),
-    REM(u8,i32,i32),
-    REMU(u8,i32,i32),
-    FHALF(u8,f32),
-    STALL,
-    IN(u8),
-    OUT(i8),
-}
-#[derive(Copy,Clone)]
 pub enum MemType {
     LOAD  = 0,
     STORE = 1,
@@ -252,6 +156,11 @@ pub enum MemType {
     BYTE  = 0,
     HWORD = 1,
     WORD  = 2,
+}
+#[derive(Copy,Clone)]
+pub struct Predicate{
+    pub fetched_addr:u32,//フェッチしたときのPC
+    pub togo:u32,//ジャンプ先
 }
 //   let reg_data:XlenType = self.mem_access(MemType::LOAD, MemSize::WORD, rs1_data, addr as AddrType);
 //self.write_reg(rd, reg_data);
@@ -273,6 +182,8 @@ pub struct ForWrite{
     pub issigned:bool,
     pub typ:u8,//0:forwarding,1:stall,2:not_access
 }
+pub const PREC_SIZE:u8 = 8;//2^PREC_SIZEの大きさ
+pub const PREC_MASK:u32 = (1 << PREC_SIZE)-1;
 pub struct EnvBase{
     pub fetch_pc:AddrType,
     pub nowinst:u32,
@@ -304,13 +215,16 @@ pub struct EnvBase{
     pub stackmin:i32,
     pub jumped:HashMap<u32,u64>,
     pub infile:std::io::BufWriter<std::fs::File>,
-    
+    pub predicator:[(u32,u8);1<<PREC_SIZE],
+    pub do_predicate:bool,
 }
 impl EnvBase{
     pub fn new() -> EnvBase{
         let fpucore = FPUCore::new();
         let fpucore = fpucore.load_table();
         EnvBase {
+            do_predicate:false,
+            predicator:[(0,1);1<<PREC_SIZE],
             infile: BufWriter::new (File::create("in.txt").unwrap()),
             heapmax:HEAP_BASE,
             stackmin:STACK_BASE,
@@ -512,6 +426,7 @@ pub trait Riscv64Core{
     fn get_rd_addr  (inst:InstType) -> RegAddrType;
     fn get_rm_addr  (inst:InstType) -> RegAddrType;
     fn fetch_memory(&mut self)->XlenType;//プログラムカウンタの値から。命令フェッチ
+    fn pred_fetch_memory(&mut self)->(Predicate,XlenType);
     fn read_memory_word(&mut self,addr:AddrType)->XlenType;//word単位で
     fn read_memory_hword(&mut self,addr:AddrType)->XlenType;//halfword単位で
     fn read_memory_byte(&mut self,addr:AddrType)->XlenType;
@@ -533,8 +448,8 @@ pub trait Riscv64Core{
     fn fread_regfor(&mut self,reg_addr:RegAddrType,forwarding:ForWrite,forwarding2:ForWrite)->(f32,bool);
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst;
     fn execute_inst(&mut self,dec_inst:RiscvInst,inst:InstType,forwarding:ForWrite,forwarding2:ForWrite)->(ForMem,ForWrite);
-    fn pipeexecute(&mut self,dec_inst:PipeRiscvInst,forwarding:ForWrite,forwarding2:ForWrite)->Option<(ForMem,ForWrite)>;
-    fn pipedecode(&mut self,inst:XlenType)->PipeRiscvInst;
+    fn pipeexecute(&mut self,dec_inst:PipeRiscvInst,forwarding:ForWrite,forwarding2:ForWrite,predicate:Predicate)->Option<(ForMem,ForWrite)>;
+    fn pipedecode(&mut self,inst:XlenType,predicate:Predicate)->(Predicate,PipeRiscvInst);
     fn mem_access(&mut self,op:MemType,size:MemSize,data:XlenType,addr:AddrType)->XlenType;
     fn fmem_access(&mut self,op:MemType,size:MemSize,data:f32,addr:AddrType)->f32;
     fn mem_access_unit(&mut self,mem:ForMem,write:ForWrite)->ForWrite;
@@ -676,7 +591,27 @@ impl Riscv64Core for EnvBase{
         ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
         ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
         ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+
         return fetch_data;
+    }
+    fn pred_fetch_memory(&mut self)->(Predicate,XlenType){
+        let base_addr:AddrType = self.fetch_pc-DRAM_BASE;
+        let fetch_data = ((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
+        ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
+        ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
+        ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        let is_branch = (fetch_data & 0x40) > 0;
+        let buf = self.fetch_pc;
+        if is_branch && self.do_predicate{
+            let tag = base_addr & PREC_MASK;
+            let (togo,number) = self.predicator[tag as usize];
+            if number >= 2{
+                self.fetch_pc = togo;
+                return (Predicate{fetched_addr:buf,togo:togo},fetch_data);
+            }
+        }
+        self.fetch_pc += 4;
+        return (Predicate{fetched_addr:buf,togo:self.fetch_pc},fetch_data);
     }
     fn fread_memory_word(&mut self,addr:AddrType)->f32{
         let data = EnvBase::int_to_float(self.read_memory_word(addr)as u32);
@@ -740,8 +675,8 @@ impl Riscv64Core for EnvBase{
         self.m_memory[base_addr as usize] = (data & 0xff) as u8;
         return 0;
     }
-    fn pipedecode(&mut self,inst:XlenType)->PipeRiscvInst{
-        if inst == 0{return PipeRiscvInst::FIRST;}
+    fn pipedecode(&mut self,inst:XlenType,predicate:Predicate)->(Predicate,PipeRiscvInst){
+        if inst == 0{return (predicate,PipeRiscvInst::FIRST);}
         let instu = inst as InstType;
         let rs1 = Self::get_rs1_addr(instu);
         let rs2 = Self::get_rs2_addr(instu);
@@ -763,6 +698,7 @@ impl Riscv64Core for EnvBase{
         let simm =  Self::extract_sfield(instu);
         let ujimm = Self::extract_uj_field(instu);
         if self.writing{println!("Decode:");}
+        let op =
         match opcode {
             0x00=>{
                 if self.writing {println!("IN {}\n",rd);}
@@ -1071,7 +1007,8 @@ impl Riscv64Core for EnvBase{
                 }
             }
             _    => PipeRiscvInst::WFI,
-        }
+        };
+        return (predicate,op);
     }
     fn check_forwarding(r:u8,r_data:i32,forwarding1:ForWrite,forwarding2:ForWrite)->Option<i32>{
         if forwarding1.rd == r && forwarding1.isint&&forwarding1.typ!=2{
@@ -1108,14 +1045,13 @@ impl Riscv64Core for EnvBase{
         }
     }
     //Noneを返すのはストールした証
-    fn pipeexecute(&mut self,dec_inst:PipeRiscvInst,forwarding1:ForWrite,forwarding2:ForWrite)->Option<(ForMem,ForWrite)>{
+    fn pipeexecute(&mut self,dec_inst:PipeRiscvInst,forwarding1:ForWrite,forwarding2:ForWrite,predicate:Predicate)->Option<(ForMem,ForWrite)>{
         if self.is_branch > 0{
             self.is_branch -=1;
-            self.fetch_pc += 4;
             if self.writing{println!("FLASH");}
             return  Some((ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true})); 
         }
-        if self.writing{println!("EXEC:");}
+        if self.writing{println!("EXEC({}->{}):",predicate.fetched_addr,predicate.togo);}
         let mut update_pc = false;
         let (formem,forwrite)=
         match dec_inst{
@@ -1141,12 +1077,9 @@ impl Riscv64Core for EnvBase{
             }
             PipeRiscvInst::FIRST=>{
                 if self.writing{println!("FIRST");}
-                self.fetch_pc += 4;
                 return Some((ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true}))
               }
             PipeRiscvInst::STALL=>{
-                
-                self.fetch_pc += 4;
               return Some((ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true})) 
                     
             }
@@ -1158,7 +1091,7 @@ impl Riscv64Core for EnvBase{
             PipeRiscvInst::AUIPC(rd,imm)=>{
                 if self.writing{println!("AUIPC {},{}",rd,imm);}
                 let imm = imm as u32;
-                let ans = self.m_pc + (imm << 12) as u32 -DRAM_BASE;
+                let ans = predicate.fetched_addr + (imm << 12) as u32 -DRAM_BASE;
                 //update_pc = true;
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0},ForWrite{typ:0,data:ans as i32,rd:rd,fdata:-1.0,isint:true,issigned:true})
             }
@@ -1406,11 +1339,22 @@ impl Riscv64Core for EnvBase{
                                 PipeRiscvInst::BGEU(_,_,_,_,_) => {if self.writing{println!("BGEU {},{},{}",rs1,rs2,imm);}(rs1_data as UXlenType) >= (rs2_data as UXlenType)},
                         _               => panic!("Unknown value Branch"),
                         };
+                        let tag = predicate.fetched_addr & PREC_MASK;
+                        let (togo,num) = self.predicator[tag as usize];
                         if jump_en {
-                            self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
-                            self.fetch_pc = self.m_pc;
-                            update_pc = true;
-
+                            self.m_pc = (Wrapping(predicate.fetched_addr) + Wrapping(addr)).0;
+                            let num = if num != 3 {num + 1}else{num};
+                            self.predicator[tag as usize] = (self.m_pc,num);
+                        }else{
+                            self.m_pc = (Wrapping(predicate.fetched_addr) + Wrapping(4)).0;
+                            
+                            let num = if num != 0 {num - 1}else{num};
+                            self.predicator[tag as usize] = (togo,num);
+                        }
+                        if predicate.togo != self.m_pc{
+                            self.is_branch = 2;//罰金
+                            self.fetch_pc =  self.m_pc;
+                          //  println!("PRE:{},ANS:{}",predicate.togo,self.m_pc);
                         }
                         (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
                     }else{return None}
@@ -1437,11 +1381,19 @@ impl Riscv64Core for EnvBase{
             PipeRiscvInst::JAL(rd,imm)=>{
                 if self.writing{println!("JAL {},{}",rd,imm);}
                 let addr = imm as AddrType;
-                let pc_bak = self.m_pc;
-                self.m_pc = (Wrapping(self.m_pc) + Wrapping(addr)).0;
-                self.fetch_pc = self.m_pc;
+                let pc_bak = predicate.fetched_addr;
+                self.m_pc = (Wrapping(predicate.fetched_addr) + Wrapping(addr)).0;
+                
                 self.m_finish_cpu = addr == 0;
-                update_pc = true;
+                let tag = predicate.fetched_addr & PREC_MASK;
+                let (togo,num) = self.predicator[tag as usize];
+                let num = if num != 3 {num + 1 }else{num};
+                self.predicator[tag as usize] = (self.m_pc,num);
+                if predicate.togo != self.m_pc{
+                    self.is_branch = 2;
+                   // println!("PRE:{},ANS:{}",predicate.togo,self.m_pc);
+                    self.fetch_pc = self.m_pc;
+                }
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:(pc_bak-DRAM_BASE + 4) as XlenType,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             PipeRiscvInst::JALR(rd,rs1_data,imm,rs1)=>{
@@ -1451,11 +1403,17 @@ impl Riscv64Core for EnvBase{
                     let rs1_data = rs1_data as AddrType;
                     addr = (Wrapping(rs1_data) + Wrapping(addr)).0;
                     addr = addr & (!0x01);
-                    let reg_data = (self.m_pc-DRAM_BASE + 4) as XlenType;
-                    self.m_finish_cpu =(Wrapping(DRAM_BASE) + Wrapping(addr)).0== self.m_pc;
-                    self.m_pc = (Wrapping(DRAM_BASE) + Wrapping(addr)).0;
-                    self.fetch_pc = self.m_pc;
-                    update_pc = true;
+                    let reg_data = (predicate.fetched_addr-DRAM_BASE + 4) as XlenType;
+                    self.m_finish_cpu =(Wrapping(DRAM_BASE) + Wrapping(addr)).0== predicate.fetched_addr;
+                     self.m_pc = (Wrapping(DRAM_BASE) + Wrapping(addr)).0;
+                    let tag = predicate.fetched_addr & PREC_MASK;
+                    let (togo,num) = self.predicator[tag as usize];
+                    let num = if num != 3 {num + 1 }else{num};
+                    self.predicator[tag as usize] = (self.m_pc,num);
+                    if predicate.togo != self.m_pc{
+                    //    println!("PRE:{},ANS:{}",predicate.togo,self.m_pc);
+                        self.is_branch = 2; self.fetch_pc =  self.m_pc;
+                    }
                     (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
                 }else{return None}
             }
@@ -1776,14 +1734,7 @@ impl Riscv64Core for EnvBase{
             
             }
         };
-        //println!("pc:{}", if self.m_pc >= DRAM_BASE {self.m_pc-DRAM_BASE}else{0});
-        if update_pc == false {
-            self.m_pc += 4;
-            self.fetch_pc += 4;
-        }else{
-            self.is_branch = 2;
-          
-        }
+        //println!("pc:{}", if predicate.fetched_addr >= DRAM_BASE {predicate.fetched_addr-DRAM_BASE}else{0});
         return Some((formem,forwrite));
     }
     fn decode_inst(&mut self,inst:XlenType)->RiscvInst{
