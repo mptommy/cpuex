@@ -85,6 +85,17 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let ispipe =match reads.next().unwrap(){
         "y"=> true,"n"=>false,_=>false
     };
+    if ispipe{
+        println!("PREDICATE?[y/n]");
+        let mut read = String::new();
+        std::io::stdin().read_line(&mut read).ok();
+        let mut reads = read.split_whitespace();
+        let ispred =match reads.next().unwrap(){
+            "y"=> true,"n"=>false,_=>false
+        };
+        riscv64_core.do_predicate = ispred;
+    }
+    
     while !finish&& finishcount < 4{
        // let yoyu = i32::abs(riscv64_core.read_reg(2) as i32 - riscv64_core.read_reg(3) as i32);
         if  riscv64_core.read_reg(2)  < riscv64_core.read_reg(3){
@@ -259,7 +270,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     
     riscv64_core.output_outs();
     println!("STEPSUM:{}",count);
-    riscv64_core.output_toukei();
+    if ispipe{riscv64_core.output_bunkires();}else{ riscv64_core.output_toukei();};
     riscv64_core.output_regtoukei();
     println!("HP:{}",riscv64_core.heapmax);
     println!("HP-HEAP_BASE:{}",riscv64_core.heapmax-riscv_core::HEAP_BASE);

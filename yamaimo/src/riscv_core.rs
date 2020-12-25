@@ -182,8 +182,10 @@ pub struct ForWrite{
     pub issigned:bool,
     pub typ:u8,//0:forwarding,1:stall,2:not_access
 }
-pub const PREC_SIZE:u8 = 8;//2^PREC_SIZEの大きさ
+pub const PREC_SIZE:u8 = 15;//2^PREC_SIZEの大きさ
 pub const PREC_MASK:u32 = (1 << PREC_SIZE)-1;
+pub const GPREC_SIZE:u8 = 8;//GLOBAL HISTORYのビット数
+pub const GPREC_MASK:u32 = (1 << GPREC_SIZE)-1;
 pub struct EnvBase{
     pub fetch_pc:AddrType,
     pub nowinst:u32,
@@ -217,13 +219,21 @@ pub struct EnvBase{
     pub infile:std::io::BufWriter<std::fs::File>,
     pub predicator:[(u32,u8);1<<PREC_SIZE],
     pub do_predicate:bool,
+    pub bunkisum:u32,
+    pub bunkicor:u32,
+    pub jumpsum:u32,
+    pub jumpcor:u32,
 }
 impl EnvBase{
     pub fn new() -> EnvBase{
         let fpucore = FPUCore::new();
         let fpucore = fpucore.load_table();
         EnvBase {
-            do_predicate:false,
+            bunkisum:0,
+            bunkicor:0,
+            jumpsum:0,
+            jumpcor:0,
+            do_predicate:true,
             predicator:[(0,1);1<<PREC_SIZE],
             infile: BufWriter::new (File::create("in.txt").unwrap()),
             heapmax:HEAP_BASE,
@@ -462,6 +472,7 @@ pub trait Riscv64Core{
     fn output_regi(&mut self,i:i32);
     fn output_fregi(&mut self,i:i32);
     fn output_toukei(&mut self);
+    fn output_bunkires(&mut self);
     fn output_jumped(&mut self);
     fn output_regtoukei(&mut self);
     fn output_outs(&mut self);
@@ -600,7 +611,8 @@ impl Riscv64Core for EnvBase{
         ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
         ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
         ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
-        let is_branch = (fetch_data & 0x40) > 0;
+        let opcode = fetch_data & 0x7f;
+        let is_branch = (fetch_data & 0x40) > 0 && opcode != 0b1010011;
         let buf = self.fetch_pc;
         if is_branch && self.do_predicate{
             let tag = base_addr & PREC_MASK;
@@ -1011,6 +1023,7 @@ impl Riscv64Core for EnvBase{
         return (predicate,op);
     }
     fn check_forwarding(r:u8,r_data:i32,forwarding1:ForWrite,forwarding2:ForWrite)->Option<i32>{
+        if r == 0{return Some(0);};
         if forwarding1.rd == r && forwarding1.isint&&forwarding1.typ!=2{
             match forwarding1.typ{
                 0 => Some(forwarding1.data),
@@ -1351,11 +1364,12 @@ impl Riscv64Core for EnvBase{
                             let num = if num != 0 {num - 1}else{num};
                             self.predicator[tag as usize] = (togo,num);
                         }
+                        self.bunkisum += 1;
                         if predicate.togo != self.m_pc{
                             self.is_branch = 2;//罰金
                             self.fetch_pc =  self.m_pc;
                           //  println!("PRE:{},ANS:{}",predicate.togo,self.m_pc);
-                        }
+                        }else{self.bunkicor+=1;}
                         (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:2,data:-1,rd:0,fdata:-1.0,isint:true,issigned:false})
                     }else{return None}
                 }else{return None}
@@ -1389,11 +1403,12 @@ impl Riscv64Core for EnvBase{
                 let (togo,num) = self.predicator[tag as usize];
                 let num = if num != 3 {num + 1 }else{num};
                 self.predicator[tag as usize] = (self.m_pc,num);
+                self.jumpsum += 1;
                 if predicate.togo != self.m_pc{
                     self.is_branch = 2;
                    // println!("PRE:{},ANS:{}",predicate.togo,self.m_pc);
                     self.fetch_pc = self.m_pc;
-                }
+                }else{self.jumpcor += 1;}
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:(pc_bak-DRAM_BASE + 4) as XlenType,rd:rd,fdata:-1.0,isint:true,issigned:false})
             }
             PipeRiscvInst::JALR(rd,rs1_data,imm,rs1)=>{
@@ -1410,10 +1425,11 @@ impl Riscv64Core for EnvBase{
                     let (togo,num) = self.predicator[tag as usize];
                     let num = if num != 3 {num + 1 }else{num};
                     self.predicator[tag as usize] = (self.m_pc,num);
+                    self.jumpsum += 1;
                     if predicate.togo != self.m_pc{
                     //    println!("PRE:{},ANS:{}",predicate.togo,self.m_pc);
                         self.is_branch = 2; self.fetch_pc =  self.m_pc;
-                    }
+                    }else{self.jumpcor += 1;}
                     (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
                 }else{return None}
             }
@@ -3046,7 +3062,7 @@ impl Riscv64Core for EnvBase{
        println!("{}", "REG".to_owned()+&i.to_string()+":"+&self.f_regs[i].to_string());
     }
     fn output_toukei(&mut self){
-        println!("命令統計");
+       println!("命令統計");
         let mut heap:BinaryHeap<(&u64,&RiscvInst)>=BinaryHeap::new();
         for i in (&self.toukei).into_iter() {
             heap.push((i.1,i.0));
@@ -3055,6 +3071,13 @@ impl Riscv64Core for EnvBase{
             let i = heap.pop().unwrap();
             println!("{:?}:{}",i.1,i.0);
         }
+    }
+    fn output_bunkires(&mut self){
+        println!("分岐予測結果");
+        let jumpres = if self.jumpsum == 0 {1.0}else{self.jumpcor as f32 / self.jumpsum as f32};
+        let bunkires = if self.bunkisum == 0 {1.0}else{self.bunkicor as f32 / self.bunkisum as f32};
+        println!("分岐:{}中{}個正解({}%)",self.bunkisum,self.bunkicor,bunkires * 100.0);
+        println!("ジャンプ:{}中{}個正解({}%)",self.jumpsum,self.jumpcor,jumpres * 100.0);
     }
     fn output_jumped(&mut self){
         println!("飛び先");
