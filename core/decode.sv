@@ -7,7 +7,10 @@ module decode(
     output reg src_imm,
     output reg [4:0] read_reg1,
     output reg [4:0] read_reg2,
-    output reg [4:0] write_reg
+    output reg [4:0] write_reg,
+    output reg reg_write,
+    output reg mem_read,
+    output reg mem_write
     );
 
     wire [6:0] opcode;
@@ -38,11 +41,12 @@ module decode(
     wire sra = ((opcode == 7'b0110011) && (funct3 == 3'b101) && (funct7 == 7'b0100000));
     wire or_ = ((opcode == 7'b0110011) && (funct3 == 3'b110) && (funct7 == 7'b0000000));
     wire and_ = ((opcode == 7'b0110011) && (funct3 == 3'b111) && (funct7 == 7'b0000000));
+    wire sw = (opcode == 7'b0100011) && (funct3 == 3'b010);
+    wire lw = (opcode == 7'b0000011) && (funct3 == 3'b010);
 
-    wire r_type, i_type;
-
-    assign r_type = (opcode == 7'b0110011);
-    assign i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
+    wire r_type = (opcode == 7'b0110011);
+    wire i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
+    wire s_type = (opcode == 7'b0100011);
 
     always @ (posedge clk) begin
         //DECODE
@@ -53,11 +57,15 @@ module decode(
             read_reg1 <= 0;
             read_reg2 <= 0;
             write_reg <= 0;
+            reg_write <= 0;
+            mem_read <= 0;
+            mem_write <= 0;
         end else begin
             read_reg1 <= instr_raw[19:15];
             read_reg2 <= instr_raw[24:20];
             write_reg <= instr_raw[11:7];
             imm <=  i_type ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
+                    s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
                     32'b0;
             // 1: imm, 0: reg2
             src_imm <= r_type ? 0 : 1;
@@ -82,8 +90,14 @@ module decode(
                    sra ? 15 :
                    or_ ? 1 :
                    and_ ? 0 :
+                   lw ? 2 :
+                   sw ? 2 :
             // default => zero (31)
                    31;
+
+            mem_read <= lw;
+            mem_write <= sw;
+            reg_write <= sw ? 0 : 1;
         end
     end
 endmodule

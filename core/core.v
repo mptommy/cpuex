@@ -9,10 +9,21 @@ module core(
 
     wire [31:0] instr_raw;
 
+    wire instr_en = 1;
+
+    instr_mem instr_mem_instance(
+        .clk (clk),
+        .en (instr_en),
+        .rst (rst),
+        .addr(pc),
+        .dout (instr_raw));
+
+
     wire [31:0] imm;
     wire [4:0] ctl;
     wire src_imm;
     wire [4:0] read_reg1, read_reg2, write_reg_decode;
+    wire reg_write_decode, mem_write_decode, mem_read_decode;
 
     decode decode_instance(
         .clk (clk),
@@ -23,15 +34,19 @@ module core(
         .src_imm (src_imm),
         .read_reg1 (read_reg1),
         .read_reg2 (read_reg2),
-        .write_reg (write_reg_decode)
+        .write_reg (write_reg_decode),
+        .reg_write (reg_write_decode),
+        .mem_write (mem_write_decode),
+        .mem_read (mem_read_decode)
     );
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
     wire [4:0] write_reg_exec;
-    wire [31:0] reg_write_data_mem;
+    wire [31:0] result_mem;
     wire [4:0] write_reg_mem;
+    wire reg_write_mem, reg_write_exec, mem_write_exec, mem_read_exec;
 
-    wire [31:0] reg_write_data_exec;
+    wire [31:0] result_exec, mem_write_data;
     exec exec_instance(
         .clk (clk),
         .rst (rst),
@@ -44,44 +59,56 @@ module core(
         .reg2_data (reg2_data_wire),
         .write_reg_in (write_reg_decode),
         .write_reg_out (write_reg_exec),
-        .reg_write_data (reg_write_data_exec),
+        .result (result_exec),
+        .mem_write_data (mem_write_data),
+        .reg_write_in (reg_write_decode),
+        .reg_write_out (reg_write_exec),
+        .mem_write_in (mem_write_decode),
+        .mem_write_out (mem_write_exec),
+        .mem_read_in (mem_read_decode),
+        .mem_read_out (mem_read_exec),
         .write_reg_mem (write_reg_mem),
-        .reg_write_mem (reg_write_data_mem)
+        .result_mem (result_mem),
+        .reg_write_mem (reg_write_mem)
         );
 
-    wire mem_en = 1;
-    wire mem_write_en = 0;
-    wire [31:0] mem_dummy_data = 0;
+    wire mem_en = mem_read_exec || mem_write_exec;
+
     wire [31:0] mem_data_read;
-
     block_ram block_ram_instance(
-        .clk (clk),
-        .en (mem_en),
-        .we (mem_write_en),
-        .rst (rst),
-        .addr(pc),
-        .di (mem_dummy_data),
-        .dout (instr_raw));
+        .clk(clk),
+        .en(mem_en),
+        .we(mem_write_exec),
+        .rst(rst),
+        .addr(result_exec),
+        .di (mem_write_data),
+        .dout (mem_data_read)
+    );
 
 
+    wire mem_read_mem;
     mem_pipe mem_instance(
         .clk (clk),
         .rst(rst),
-        .reg_write_in (reg_write_data_exec),
+        .reg_data_in (result_exec),
         .write_reg_in (write_reg_exec),
-        .reg_write_out (reg_write_data_mem),
-        .write_reg_out (write_reg_mem)
+        .reg_data_out (result_mem),
+        .write_reg_out (write_reg_mem),
+        .reg_write_in (reg_write_exec),
+        .reg_write_out (reg_write_mem),
+        .mem_read_in (mem_read_exec),
+        .mem_read_out (mem_read_mem)
     );
 
-    wire reg_write_yes = 1;
     wire earth = 0;
+    wire [31:0] reg_write_data = mem_read_mem ? mem_data_read : result_mem;
 
     registerfile registerfile_instance(
         .Read1 (read_reg1),
         .Read2 (read_reg2),
         .WriteReg (write_reg_mem),
-        .WriteData (reg_write_data_mem),
-        .RegWrite (reg_write_yes),
+        .WriteData (reg_write_data),
+        .RegWrite (reg_write_mem),
         .Data1 (reg1_data_wire),
         .Data2 (reg2_data_wire),
         .clk (clk),
