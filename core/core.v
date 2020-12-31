@@ -23,11 +23,11 @@ module core(
         .dout (instr_raw));
 
 
-    wire [31:0] imm;
+    wire [31:0] imm, pc_decode;
     wire [4:0] ctl;
     wire src_imm;
     wire [4:0] reg1_addr_decode, reg2_addr_decode, write_reg_decode;
-    wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode;
+    wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc;
 
     decode decode_instance(
         .clk (clk),
@@ -44,7 +44,10 @@ module core(
         .reg_write (reg_write_decode),
         .mem_write (mem_write_decode),
         .mem_read (mem_read_decode),
-        .stall (stall_mem)
+        .stall (stall_mem),
+        .pc_in (pc_cache),
+        .pc_out (pc_decode),
+        .src_pc (src_pc)
     );
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
@@ -53,7 +56,7 @@ module core(
     wire [4:0] write_reg_mem;
     wire reg_write_mem, reg_write_exec, mem_write_exec, mem_read_exec;
 
-    wire [31:0] result_exec, mem_write_data, mem_write_data_exec, reg_write_data;
+    wire [31:0] result_exec, mem_write_data, mem_write_data_exec, reg_write_data, pc_exec;
     exec exec_instance(
         .clk (clk),
         .rst (rst),
@@ -79,7 +82,10 @@ module core(
         .write_reg_mem (write_reg_mem),
         .result_mem (reg_write_data),
         .reg_write_mem (reg_write_mem),
-        .stall (stall_mem)
+        .stall (stall_mem),
+        .pc_in (pc_decode),
+        .pc_out (pc_exec),
+        .src_pc (src_pc)
         );
 
     wire mem_en = mem_read_exec || mem_write_exec;

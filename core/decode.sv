@@ -3,6 +3,7 @@ module decode(
     input rst,
     input [31:0] instr_raw,
     input stall,
+    input [31:0] pc_in,
     output reg [31:0] imm,
     output reg [4:0] ctl,
     output reg src_imm,
@@ -13,7 +14,9 @@ module decode(
     output reg [4:0] write_reg,
     output reg reg_write,
     output reg mem_read,
-    output reg mem_write
+    output reg mem_write,
+    output reg [31:0] pc_out,
+    output reg src_pc
     );
 
     wire [6:0] opcode;
@@ -46,10 +49,13 @@ module decode(
     wire and_ = ((opcode == 7'b0110011) && (funct3 == 3'b111) && (funct7 == 7'b0000000));
     wire sw = (opcode == 7'b0100011) && (funct3 == 3'b010);
     wire lw = (opcode == 7'b0000011) && (funct3 == 3'b010);
+    wire auipc = (opcode == 7'b0010111);
+    wire lui = (opcode == 7'b0110111);
 
     wire r_type = (opcode == 7'b0110011);
     wire i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
     wire s_type = (opcode == 7'b0100011);
+    wire u_type = lui || auipc;
 
     always @ (posedge clk) begin
         //DECODE
@@ -65,6 +71,8 @@ module decode(
             mem_write <= 0;
             read_reg1 <= 0;
             read_reg2 <= 0;
+            pc_out <= 0;
+            src_pc <= 0;
         end else begin
             if (stall) begin
                 imm <= imm;
@@ -78,6 +86,8 @@ module decode(
                 mem_write <= mem_write;
                 read_reg1 <= read_reg1;
                 read_reg2 <= read_reg2;
+                pc_out <= pc_out;
+                src_pc <= src_pc;
             end else begin
                 read_reg1 <= 1;
                 read_reg2 <= lw || ~i_type;
@@ -86,6 +96,7 @@ module decode(
                 write_reg <= instr_raw[11:7];
                 imm <=  i_type ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
                         s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
+                        u_type ? { instr_raw[31:12], 12'd0} :
                         32'b0;
                 // 1: imm, 0: reg2
                 src_imm <= r_type ? 0 : 1;
@@ -112,12 +123,16 @@ module decode(
                     and_ ? 0 :
                     lw ? 2 :
                     sw ? 2 :
+                    auipc ? 2 :
+                    lui ? 10 :
                 // default => zero (31)
                     31;
 
                 mem_read <= lw;
                 mem_write <= sw;
                 reg_write <= sw ? 0 : 1;
+                pc_out <= pc_in;
+                src_pc <= auipc ? 1 : 0;
             end
         end
     end
