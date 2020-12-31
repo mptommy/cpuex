@@ -51,10 +51,12 @@ module decode(
     wire lw = (opcode == 7'b0000011) && (funct3 == 3'b010);
     wire auipc = (opcode == 7'b0010111);
     wire lui = (opcode == 7'b0110111);
+    wire jal = (opcode == 7'b1101111);
 
     wire r_type = (opcode == 7'b0110011);
     wire i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
     wire s_type = (opcode == 7'b0100011);
+    wire uj_type = jal;
     wire u_type = lui || auipc;
 
     always @ (posedge clk) begin
@@ -97,6 +99,7 @@ module decode(
                 imm <=  i_type ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
                         s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
                         u_type ? { instr_raw[31:12], 12'd0} :
+                        uj_type ? 4 :
                         32'b0;
                 // 1: imm, 0: reg2
                 src_imm <= r_type ? 0 : 1;
@@ -125,6 +128,7 @@ module decode(
                     sw ? 2 :
                     auipc ? 2 :
                     lui ? 10 :
+                    jal ? 2 :
                 // default => zero (31)
                     31;
 
@@ -132,7 +136,7 @@ module decode(
                 mem_write <= sw;
                 reg_write <= sw ? 0 : 1;
                 pc_out <= pc_in;
-                src_pc <= auipc ? 1 : 0;
+                src_pc <= (auipc || jal) ? 1 : 0;
             end
         end
     end

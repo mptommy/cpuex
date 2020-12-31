@@ -13,13 +13,18 @@ module core(
     wire instr_en = 1;
     wire stall_mem;
 
-    wire [31:0] pc_used = stall_mem ? pc_cache : pc;
+    wire [31:0] jal_imm = { {12{instr_raw[31]}}, instr_raw[19:12], instr_raw[20], instr_raw[30:21], 1'b0 };
+    wire jal = (instr_raw[6:0] == 7'b1101111);
+
+    wire [31:0] pc_used =
+        stall_mem ? pc_cache :
+        jal ? pc_cache + jal_imm : pc;
 
     instr_mem instr_mem_instance(
         .clk (clk),
         .en (instr_en),
         .rst (rst),
-        .addr(pc),
+        .addr(pc_used),
         .dout (instr_raw));
 
 
@@ -147,6 +152,8 @@ module core(
         end else begin
             if (stall_mem)
                 pc <= pc;
+            else if (jal)
+                pc <= pc_cache + jal_imm + 4;
             else
                 pc <= pc + 4;
             pc_cache <= pc;
