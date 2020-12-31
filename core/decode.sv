@@ -2,11 +2,14 @@ module decode(
     input clk,
     input rst,
     input [31:0] instr_raw,
+    input stall,
     output reg [31:0] imm,
     output reg [4:0] ctl,
     output reg src_imm,
-    output reg [4:0] read_reg1,
-    output reg [4:0] read_reg2,
+    output reg read_reg1,
+    output reg read_reg2,
+    output reg [4:0] reg1_addr,
+    output reg [4:0] reg2_addr,
     output reg [4:0] write_reg,
     output reg reg_write,
     output reg mem_read,
@@ -54,50 +57,68 @@ module decode(
             imm <= 0;
             ctl <= 0;
             src_imm <= 0;
-            read_reg1 <= 0;
-            read_reg2 <= 0;
+            reg1_addr <= 0;
+            reg2_addr <= 0;
             write_reg <= 0;
             reg_write <= 0;
             mem_read <= 0;
             mem_write <= 0;
+            read_reg1 <= 0;
+            read_reg2 <= 0;
         end else begin
-            read_reg1 <= instr_raw[19:15];
-            read_reg2 <= instr_raw[24:20];
-            write_reg <= instr_raw[11:7];
-            imm <=  i_type ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
-                    s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
-                    32'b0;
-            // 1: imm, 0: reg2
-            src_imm <= r_type ? 0 : 1;
-            // only s_type and sb_type and out_type do not write
+            if (stall) begin
+                imm <= imm;
+                ctl <= ctl;
+                src_imm <= src_imm;
+                reg1_addr <= reg1_addr;
+                reg2_addr <= reg2_addr;
+                write_reg <= write_reg;
+                reg_write <= reg_write;
+                mem_read <= mem_read;
+                mem_write <= mem_write;
+                read_reg1 <= read_reg1;
+                read_reg2 <= read_reg2;
+            end else begin
+                read_reg1 <= 1;
+                read_reg2 <= lw || ~i_type;
+                reg1_addr <= instr_raw[19:15];
+                reg2_addr <= instr_raw[24:20];
+                write_reg <= instr_raw[11:7];
+                imm <=  i_type ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
+                        s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
+                        32'b0;
+                // 1: imm, 0: reg2
+                src_imm <= r_type ? 0 : 1;
+                // only s_type and sb_type and out_type do not write
 
-            ctl <= addi ? 2 :
-                   slti ? 7 :
-                   sltu ? 13 :
-                   xori ? 3 :
-                   ori ? 1 :
-                   andi ? 0 :
-                   slli ? 4 :
-                   srli ? 5 :
-                   srai ? 15 :
-                   add ? 2 :
-                   sub ? 6 :
-                   sll ? 4 :
-                   slt ? 7 :
-                   sltu ? 13 :
-                   xor_ ? 3 :
-                   srl ? 5 :
-                   sra ? 15 :
-                   or_ ? 1 :
-                   and_ ? 0 :
-                   lw ? 2 :
-                   sw ? 2 :
-            // default => zero (31)
-                   31;
+                ctl <= addi ? 2 :
+                    slti ? 7 :
+                    sltu ? 13 :
+                    xori ? 3 :
+                    ori ? 1 :
+                    andi ? 0 :
+                    slli ? 4 :
+                    srli ? 5 :
+                    srai ? 15 :
+                    add ? 2 :
+                    sub ? 6 :
+                    sll ? 4 :
+                    slt ? 7 :
+                    sltu ? 13 :
+                    xor_ ? 3 :
+                    srl ? 5 :
+                    sra ? 15 :
+                    or_ ? 1 :
+                    and_ ? 0 :
+                    lw ? 2 :
+                    sw ? 2 :
+                // default => zero (31)
+                    31;
 
-            mem_read <= lw;
-            mem_write <= sw;
-            reg_write <= sw ? 0 : 1;
+                mem_read <= lw;
+                mem_write <= sw;
+                reg_write <= sw ? 0 : 1;
+            end
         end
     end
 endmodule

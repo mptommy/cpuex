@@ -21,6 +21,7 @@ module exec(
     //forwarding
     input reg_write_mem,
     input [4:0] write_reg_mem,
+    input stall,
     input [31:0] result_mem
     );
 
@@ -55,12 +56,21 @@ module exec(
             mem_read_out <= 0;
             mem_write_data <= 0;
         end else begin
-            write_reg_out <= write_reg_in;
-            reg_write_out <= reg_write_in;
-            mem_write_out <= mem_write_in;
-            mem_read_out <= mem_read_in;
-            result <= alu_out;
-            mem_write_data <= reg2_current;
+            if (stall) begin
+                write_reg_out <= 0;
+                reg_write_out <= 0;
+                mem_write_out <= 0;
+                mem_read_out <= 0;
+                result <= 0;
+                mem_write_data <= 0;
+            end else begin
+                write_reg_out <= write_reg_in;
+                reg_write_out <= reg_write_in;
+                mem_write_out <= mem_write_in;
+                mem_read_out <= mem_read_in;
+                result <= alu_out;
+                mem_write_data <= reg2_current;
+            end
         end
     end
 endmodule

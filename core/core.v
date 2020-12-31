@@ -6,10 +6,14 @@ module core(
 
     reg [31:0] steps;
     reg [31:0] pc;
+    reg [31:0] pc_cache;
 
     wire [31:0] instr_raw;
 
     wire instr_en = 1;
+    wire stall_mem;
+
+    wire [31:0] pc_used = stall_mem ? pc_cache : pc;
 
     instr_mem instr_mem_instance(
         .clk (clk),
@@ -22,8 +26,8 @@ module core(
     wire [31:0] imm;
     wire [4:0] ctl;
     wire src_imm;
-    wire [4:0] read_reg1, read_reg2, write_reg_decode;
-    wire reg_write_decode, mem_write_decode, mem_read_decode;
+    wire [4:0] reg1_addr, reg2_addr, write_reg_decode;
+    wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode;
 
     decode decode_instance(
         .clk (clk),
@@ -32,12 +36,15 @@ module core(
         .imm (imm),
         .ctl (ctl),
         .src_imm (src_imm),
+        .reg1_addr (reg1_addr),
+        .reg2_addr (reg2_addr),
         .read_reg1 (read_reg1),
         .read_reg2 (read_reg2),
         .write_reg (write_reg_decode),
         .reg_write (reg_write_decode),
         .mem_write (mem_write_decode),
-        .mem_read (mem_read_decode)
+        .mem_read (mem_read_decode),
+        .stall (stall_mem)
     );
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
@@ -46,15 +53,15 @@ module core(
     wire [4:0] write_reg_mem;
     wire reg_write_mem, reg_write_exec, mem_write_exec, mem_read_exec;
 
-    wire [31:0] result_exec, mem_write_data;
+    wire [31:0] result_exec, mem_write_data, reg_write_data;
     exec exec_instance(
         .clk (clk),
         .rst (rst),
         .imm (imm),
         .ctl (ctl),
         .src_imm (src_imm),
-        .reg1_addr (read_reg1),
-        .reg2_addr (read_reg2),
+        .reg1_addr (reg1_addr),
+        .reg2_addr (reg2_addr),
         .reg1_data (reg1_data_wire),
         .reg2_data (reg2_data_wire),
         .write_reg_in (write_reg_decode),
@@ -68,8 +75,9 @@ module core(
         .mem_read_in (mem_read_decode),
         .mem_read_out (mem_read_exec),
         .write_reg_mem (write_reg_mem),
-        .result_mem (result_mem),
-        .reg_write_mem (reg_write_mem)
+        .result_mem (reg_write_data),
+        .reg_write_mem (reg_write_mem),
+        .stall (stall_mem)
         );
 
     wire mem_en = mem_read_exec || mem_write_exec;
@@ -101,11 +109,14 @@ module core(
     );
 
     wire earth = 0;
-    wire [31:0] reg_write_data = mem_read_mem ? mem_data_read : result_mem;
+    assign reg_write_data = mem_read_mem ? mem_data_read : result_mem;
+    wire stall_reg1 = read_reg1  && (reg1_addr != 0) && (reg1_addr == write_reg_exec);
+    wire stall_reg2 = read_reg2 && (reg2_addr != 0) && (reg2_addr == write_reg_exec);
+    assign stall_mem = mem_read_exec && (stall_reg1 || stall_reg2);
 
     registerfile registerfile_instance(
-        .Read1 (read_reg1),
-        .Read2 (read_reg2),
+        .Read1 (reg1_addr),
+        .Read2 (reg2_addr),
         .WriteReg (write_reg_mem),
         .WriteData (reg_write_data),
         .RegWrite (reg_write_mem),
@@ -122,8 +133,13 @@ module core(
         if (rst) begin
             pc <= 0;
             steps <= 0;
+            pc_cache <= 0;
         end else begin
-            pc <= pc + 4;
+            if (stall_mem)
+                pc <= pc;
+            else
+                pc <= pc + 4;
+            pc_cache <= pc;
         end
     end
 endmodule
