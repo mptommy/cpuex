@@ -26,7 +26,7 @@ module core(
     wire [31:0] imm;
     wire [4:0] ctl;
     wire src_imm;
-    wire [4:0] reg1_addr, reg2_addr, write_reg_decode;
+    wire [4:0] reg1_addr_decode, reg2_addr_decode, write_reg_decode;
     wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode;
 
     decode decode_instance(
@@ -36,8 +36,8 @@ module core(
         .imm (imm),
         .ctl (ctl),
         .src_imm (src_imm),
-        .reg1_addr (reg1_addr),
-        .reg2_addr (reg2_addr),
+        .reg1_addr (reg1_addr_decode),
+        .reg2_addr (reg2_addr_decode),
         .read_reg1 (read_reg1),
         .read_reg2 (read_reg2),
         .write_reg (write_reg_decode),
@@ -48,26 +48,28 @@ module core(
     );
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
-    wire [4:0] write_reg_exec;
+    wire [4:0] write_reg_exec, reg1_addr_exec, reg2_addr_exec;
     wire [31:0] result_mem;
     wire [4:0] write_reg_mem;
     wire reg_write_mem, reg_write_exec, mem_write_exec, mem_read_exec;
 
-    wire [31:0] result_exec, mem_write_data, reg_write_data;
+    wire [31:0] result_exec, mem_write_data, mem_write_data_exec, reg_write_data;
     exec exec_instance(
         .clk (clk),
         .rst (rst),
         .imm (imm),
         .ctl (ctl),
         .src_imm (src_imm),
-        .reg1_addr (reg1_addr),
-        .reg2_addr (reg2_addr),
+        .reg1_addr_in (reg1_addr_decode),
+        .reg2_addr_in (reg2_addr_decode),
+        .reg1_addr_out (reg1_addr_exec),
+        .reg2_addr_out (reg2_addr_exec),
         .reg1_data (reg1_data_wire),
         .reg2_data (reg2_data_wire),
         .write_reg_in (write_reg_decode),
         .write_reg_out (write_reg_exec),
         .result (result_exec),
-        .mem_write_data (mem_write_data),
+        .mem_write_data (mem_write_data_exec),
         .reg_write_in (reg_write_decode),
         .reg_write_out (reg_write_exec),
         .mem_write_in (mem_write_decode),
@@ -83,6 +85,8 @@ module core(
     wire mem_en = mem_read_exec || mem_write_exec;
 
     wire [31:0] mem_data_read;
+
+    assign mem_write_data = (mem_read_mem && mem_write_exec && (write_reg_mem == reg2_addr_exec)) ? mem_data_read : mem_write_data_exec;
     block_ram block_ram_instance(
         .clk(clk),
         .en(mem_en),
@@ -110,13 +114,13 @@ module core(
 
     wire earth = 0;
     assign reg_write_data = mem_read_mem ? mem_data_read : result_mem;
-    wire stall_reg1 = read_reg1  && (reg1_addr != 0) && (reg1_addr == write_reg_exec);
-    wire stall_reg2 = read_reg2 && (reg2_addr != 0) && (reg2_addr == write_reg_exec);
+    wire stall_reg1 = read_reg1  && (reg1_addr_decode != 0) && (reg1_addr_decode == write_reg_exec);
+    wire stall_reg2 = (~mem_read_exec || ~mem_write_decode) && read_reg2 && (reg2_addr_decode != 0) && (reg2_addr_decode == write_reg_exec);
     assign stall_mem = mem_read_exec && (stall_reg1 || stall_reg2);
 
     registerfile registerfile_instance(
-        .Read1 (reg1_addr),
-        .Read2 (reg2_addr),
+        .Read1 (reg1_addr_decode),
+        .Read2 (reg2_addr_decode),
         .WriteReg (write_reg_mem),
         .WriteData (reg_write_data),
         .RegWrite (reg_write_mem),
