@@ -18,6 +18,7 @@ module core(
 
     wire [31:0] pc_used =
         stall_mem ? pc_cache :
+        jalr ? jalr_imm + jalr_reg1 :
         jal ? pc_cache + jal_imm : pc;
 
     instr_mem instr_mem_instance(
@@ -28,11 +29,11 @@ module core(
         .dout (instr_raw));
 
 
-    wire [31:0] imm, pc_decode;
+    wire [31:0] imm, pc_decode, jalr_imm;
     wire [4:0] ctl;
     wire src_imm;
     wire [4:0] reg1_addr_decode, reg2_addr_decode, write_reg_decode;
-    wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc;
+    wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc, jalr;
 
     decode decode_instance(
         .clk (clk),
@@ -52,8 +53,16 @@ module core(
         .stall (stall_mem),
         .pc_in (pc_cache),
         .pc_out (pc_decode),
-        .src_pc (src_pc)
+        .src_pc (src_pc),
+        .stall_jalr (jalr),
+        .jalr_imm (jalr_imm)
     );
+
+    wire [31:0] jalr_reg1 =
+        (reg1_addr_decode == 0) ? 0 :
+        ((reg1_addr_decode == write_reg_exec) && reg_write_exec) ? result_exec :
+        ((reg1_addr_decode == write_reg_mem) && reg_write_mem) ? result_mem :
+        reg1_data_wire;
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
     wire [4:0] write_reg_exec, reg1_addr_exec, reg2_addr_exec;
@@ -154,9 +163,11 @@ module core(
                 pc <= pc;
             else if (jal)
                 pc <= pc_cache + jal_imm + 4;
+            else if (jalr)
+                pc <= jalr_reg1 + jalr_imm + 4;
             else
                 pc <= pc + 4;
-            pc_cache <= pc;
+            pc_cache <= pc_used;
         end
     end
 endmodule

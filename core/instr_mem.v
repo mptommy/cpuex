@@ -8,7 +8,7 @@ module instr_mem(clk, en, rst, addr, dout);
     (* ram_style = "BLOCK" *) reg [31:0] ram [32767:0];
 
     initial begin
-        $readmemb("./tests/sw_lw_stall.mem", ram);
+        $readmemb("./tests/jalr_addr.mem", ram);
     end
 
     always @ (posedge clk)
