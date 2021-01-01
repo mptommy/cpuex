@@ -4,6 +4,7 @@ module decode(
     input [31:0] instr_raw,
     input stall,
     input [31:0] pc_in,
+    input branch_wrong,
     output reg [31:0] imm,
     output reg [4:0] ctl,
     output reg src_imm,
@@ -18,7 +19,13 @@ module decode(
     output reg [31:0] pc_out,
     output reg src_pc,
     output reg stall_jalr,
-    output reg [31:0] jalr_imm
+    output reg [31:0] jalr_imm,
+    output reg beq_out,
+    output reg bne_out,
+    output reg blt_out,
+    output reg bge_out,
+    output reg bltu_out,
+    output reg bgeu_out
     );
 
     wire [6:0] opcode;
@@ -55,10 +62,17 @@ module decode(
     wire lui = (opcode == 7'b0110111);
     wire jal = (opcode == 7'b1101111);
     wire jalr = (opcode == 7'b1100111) && (funct3 == 3'b000);
+    wire beq = (opcode == 7'b1100011) && (funct3 == 3'b000);
+    wire bne = (opcode == 7'b1100011) && (funct3 == 3'b001);
+    wire blt = (opcode == 7'b1100011) && (funct3 == 3'b100);
+    wire bge = (opcode == 7'b1100011) && (funct3 == 3'b101);
+    wire bltu = (opcode == 7'b1100011) && (funct3 == 3'b110);
+    wire bgeu = (opcode == 7'b1100011) && (funct3 == 3'b111);
 
     wire r_type = (opcode == 7'b0110011);
     wire i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
     wire s_type = (opcode == 7'b0100011);
+    wire sb_type = (opcode == 7'b1100011);
     wire uj_type = jal;
     wire u_type = lui || auipc;
 
@@ -79,6 +93,12 @@ module decode(
             pc_out <= 0;
             src_pc <= 0;
             stall_jalr <= 0;
+            beq_out <= 0;
+            bne_out <= 0;
+            blt_out <= 0;
+            bge_out <= 0;
+            bltu_out <= 0;
+            bgeu_out <= 0;
         end else begin
             if (stall) begin
                 imm <= imm;
@@ -96,7 +116,13 @@ module decode(
                 src_pc <= src_pc;
                 stall_jalr <= stall_jalr;
                 jalr_imm <= jalr_imm;
-            end else if (stall_jalr) begin
+                beq_out <= beq_out;
+                bne_out <= bne_out;
+                blt_out <= blt_out;
+                bge_out <= bge_out;
+                bltu_out <= bltu_out;
+                bgeu_out <= bgeu_out;
+            end else if (branch_wrong || stall_jalr) begin
                 imm <= 0;
                 ctl <= 0;
                 src_imm <= 0;
@@ -112,9 +138,15 @@ module decode(
                 src_pc <= 0;
                 stall_jalr <= 0;
                 jalr_imm <= 0;
+                beq_out <= 0;
+                bne_out <= 0;
+                blt_out <= 0;
+                bge_out <= 0;
+                bltu_out <= 0;
+                bgeu_out <= 0;
             end else begin
-                read_reg1 <= 1;
-                read_reg2 <= lw || ~i_type;
+                read_reg1 <= ~(auipc || lui || jal);
+                read_reg2 <= sw || r_type || sb_type;
                 reg1_addr <= instr_raw[19:15];
                 reg2_addr <= instr_raw[24:20];
                 write_reg <= instr_raw[11:7];
@@ -160,10 +192,17 @@ module decode(
 
                 mem_read <= lw;
                 mem_write <= sw;
-                reg_write <= sw ? 0 : 1;
+                reg_write <= (sb_type || sw) ? 0 : 1;
                 pc_out <= pc_in;
                 src_pc <= (auipc || jal || jalr) ? 1 : 0;
                 stall_jalr <= jalr;
+
+                beq_out <= beq;
+                bne_out <= bne;
+                blt_out <= blt;
+                bge_out <= bge;
+                bltu_out <= bltu;
+                bgeu_out <= bgeu;
             end
         end
     end

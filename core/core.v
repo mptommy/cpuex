@@ -7,6 +7,7 @@ module core(
     reg [31:0] steps;
     reg [31:0] pc;
     reg [31:0] pc_cache;
+    reg [31:0] branch_back;
 
     wire [31:0] instr_raw;
 
@@ -15,10 +16,14 @@ module core(
 
     wire [31:0] jal_imm = { {12{instr_raw[31]}}, instr_raw[19:12], instr_raw[20], instr_raw[30:21], 1'b0 };
     wire jal = (instr_raw[6:0] == 7'b1101111);
+    wire [31:0] branch_imm = { {20{instr_raw[31]}}, instr_raw[7], instr_raw[30:25], instr_raw[11:8], 1'b0 };
+    wire branch = (instr_raw[6:0] == 7'b1100011);
 
     wire [31:0] pc_used =
         stall_mem ? pc_cache :
-        jalr ? jalr_imm + jalr_reg1 :
+        branch_wrong ? branch_back :
+        branch ? pc_cache + branch_imm :
+        jalr ? jalr_imm + branch_reg1 :
         jal ? pc_cache + jal_imm : pc;
 
     instr_mem instr_mem_instance(
@@ -34,7 +39,9 @@ module core(
     wire src_imm;
     wire [4:0] reg1_addr_decode, reg2_addr_decode, write_reg_decode;
     wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc, jalr;
+    wire beq, bne, blt, bge, bltu, bgeu;
 
+    wire branch_wrong;
     decode decode_instance(
         .clk (clk),
         .rst (rst),
@@ -55,14 +62,45 @@ module core(
         .pc_out (pc_decode),
         .src_pc (src_pc),
         .stall_jalr (jalr),
-        .jalr_imm (jalr_imm)
+        .jalr_imm (jalr_imm),
+        .beq_out (beq),
+        .bne_out (bne),
+        .blt_out (blt),
+        .bge_out (bge),
+        .bltu_out (bltu),
+        .bgeu_out (bgeu),
+        .branch_wrong (branch_wrong)
     );
 
-    wire [31:0] jalr_reg1 =
+    wire [31:0] branch_reg1 =
         (reg1_addr_decode == 0) ? 0 :
         ((reg1_addr_decode == write_reg_exec) && reg_write_exec) ? result_exec :
         ((reg1_addr_decode == write_reg_mem) && reg_write_mem) ? result_mem :
         reg1_data_wire;
+
+    wire [31:0] branch_reg2 =
+        (reg2_addr_decode == 0) ? 0 :
+        ((reg2_addr_decode == write_reg_exec) && reg_write_exec) ? result_exec :
+        ((reg2_addr_decode == write_reg_mem) && reg_write_mem) ? result_mem :
+        reg2_data_wire;
+
+    assign branch_wrong =
+        (beq || bne || blt || bge || bltu || bgeu) && !(
+            (beq && (branch_reg1 == branch_reg2)) ||
+            (bne && (branch_reg1 != branch_reg2)) ||
+            (blt && ($signed(branch_reg1) < $signed(branch_reg2))) ||
+            (bge && ($signed(branch_reg1) >= $signed(branch_reg2))) ||
+            (bltu && (branch_reg1 < branch_reg2)) ||
+            (bgeu && (branch_reg1 >= branch_reg2))
+        );
+
+
+    wire branch_reg_eq = (branch_reg1 == branch_reg2);
+    wire branch_reg_ne = (branch_reg1 != branch_reg2);
+    wire branch_reg_lt = ($signed(branch_reg1) < $signed(branch_reg2));
+    wire branch_reg_ge = ($signed(branch_reg1) >= $signed(branch_reg2));
+    wire branch_reg_ltu = (branch_reg1 < branch_reg2);
+    wire branch_reg_geu = (branch_reg1 >= branch_reg2);
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
     wire [4:0] write_reg_exec, reg1_addr_exec, reg2_addr_exec;
@@ -161,10 +199,17 @@ module core(
         end else begin
             if (stall_mem)
                 pc <= pc;
-            else if (jal)
+            else if (branch_wrong)
+                pc <= branch_back + 4;
+            else if (branch) begin
+                pc <= pc_cache + branch_imm + 4;
+                branch_back <= pc_cache + 4;
+            end else if (jal)
                 pc <= pc_cache + jal_imm + 4;
             else if (jalr)
-                pc <= jalr_reg1 + jalr_imm + 4;
+                pc <= branch_reg1 + jalr_imm + 4;
+            else if (branch)
+                pc <= pc + branch_imm;
             else
                 pc <= pc + 4;
             pc_cache <= pc_used;
