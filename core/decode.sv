@@ -25,7 +25,9 @@ module decode(
     output reg blt_out,
     output reg bge_out,
     output reg bltu_out,
-    output reg bgeu_out
+    output reg bgeu_out,
+    output reg data_in,
+    output reg data_out
     );
 
     wire [6:0] opcode;
@@ -68,6 +70,8 @@ module decode(
     wire bge = (opcode == 7'b1100011) && (funct3 == 3'b101);
     wire bltu = (opcode == 7'b1100011) && (funct3 == 3'b110);
     wire bgeu = (opcode == 7'b1100011) && (funct3 == 3'b111);
+    wire in = (opcode == 7'b0000000);
+    wire out = (opcode == 7'b0000001);
 
     wire r_type = (opcode == 7'b0110011);
     wire i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
@@ -99,6 +103,8 @@ module decode(
             bge_out <= 0;
             bltu_out <= 0;
             bgeu_out <= 0;
+            data_in <= 0;
+            data_out <= 0;
         end else begin
             if (stall) begin
                 imm <= imm;
@@ -122,6 +128,8 @@ module decode(
                 bge_out <= bge_out;
                 bltu_out <= bltu_out;
                 bgeu_out <= bgeu_out;
+                data_in <= data_in;
+                data_out <= data_out;
             end else if (branch_wrong || stall_jalr) begin
                 imm <= 0;
                 ctl <= 0;
@@ -144,6 +152,8 @@ module decode(
                 bge_out <= 0;
                 bltu_out <= 0;
                 bgeu_out <= 0;
+                data_in <= 0;
+                data_out <= 0;
             end else begin
                 read_reg1 <= ~(auipc || lui || jal);
                 read_reg2 <= sw || r_type || sb_type;
@@ -192,7 +202,7 @@ module decode(
 
                 mem_read <= lw;
                 mem_write <= sw;
-                reg_write <= (sb_type || sw) ? 0 : 1;
+                reg_write <= (sb_type || sw || out) ? 0 : 1;
                 pc_out <= pc_in;
                 src_pc <= (auipc || jal || jalr) ? 1 : 0;
                 stall_jalr <= jalr;
@@ -203,6 +213,9 @@ module decode(
                 bge_out <= bge;
                 bltu_out <= bltu;
                 bgeu_out <= bgeu;
+
+                data_in <= in;
+                data_out <= out;
             end
         end
     end

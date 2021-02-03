@@ -10,7 +10,7 @@ module core_tb();
     wire uart_busy;
     assign rstn = ~rst;
 
-    core core_instance(clk, rst, test);
+    core core_instance(clk, rst, uart_in, uart_out, test);
     wire [7:0] rdata_uart;
     wire rdata_ready_uart;
     wire ferr;

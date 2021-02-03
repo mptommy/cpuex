@@ -26,8 +26,14 @@ module exec(
     input [4:0] write_reg_mem,
     input stall,
     input [31:0] result_mem,
+    input data_in,
+    input data_out,
     input [31:0] pc_in,
-    output reg [31:0] pc_out
+    output reg [31:0] pc_out,
+    input uart_in,
+    output wire uart_out,
+    input wait_exec_in,
+    output wire wait_exec_out
     );
 
     wire [31:0] reg1_current, reg2_current;
@@ -53,6 +59,22 @@ module exec(
 
     ALU ALU_instance(ctl, src1, src2, alu_out, alu_zero);
 
+    wire [7:0] uart_in_wire;
+    wire uart_ready_wire;
+    wire [31:0] result_out = data_in ? {24'b0, uart_in_wire }: alu_out;
+    wire ferr;
+    wire rstn = ~rst;
+    uart_rx uart_rx_instance(uart_in_wire, uart_ready_wire, ferr, uart_in, clk, rstn);
+
+    wire [7:0] uart_out_wire = reg1_current[7:0];
+    wire uart_busy_wire;
+    uart_tx uart_tx_instance(uart_out_wire, data_out, uart_busy_wire, uart_out, clk, rstn);
+
+    assign wait_exec_out =
+        data_in ? ~uart_ready_wire :
+        data_out ? uart_busy_wire :
+        0;
+
     always @(posedge clk) begin
         if (rst) begin
             write_reg_out <= 0;
@@ -75,16 +97,26 @@ module exec(
                 reg1_addr_out <= 0;
                 reg2_addr_out <= 0;
                 pc_out <= 0;
+            end else if (wait_exec_in) begin
+                write_reg_out <= write_reg_out;
+                reg_write_out <= reg_write_out;
+                mem_write_out <= mem_write_out;
+                mem_read_out <= mem_read_out;
+                mem_write_data <= mem_write_data;
+                reg1_addr_out <= reg1_addr_out;
+                reg2_addr_out <= reg2_addr_out;
+                pc_out <= pc_out;
+                result <= result_out;
             end else begin
                 write_reg_out <= write_reg_in;
                 reg_write_out <= reg_write_in;
                 mem_write_out <= mem_write_in;
                 mem_read_out <= mem_read_in;
-                result <= alu_out;
                 mem_write_data <= reg2_current;
                 reg1_addr_out <= reg1_addr_in;
                 reg2_addr_out <= reg2_addr_in;
                 pc_out <= pc_in;
+                result <= result_out;
             end
         end
     end

@@ -15,7 +15,7 @@ module instr_mem(clk, en, rst, addr, dout);
     begin
         if(en) begin
             if (rst)
-                dout <= 0;
+                dout <= -1;
             else
                 dout <= ram[{2'b00, addr[31:2]}];
         end

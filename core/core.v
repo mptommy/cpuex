@@ -1,6 +1,8 @@
 module core(
     input clk,
     input rst,
+    input uart_input,
+    output uart_output,
     output [31:0] test
     );
 
@@ -13,6 +15,7 @@ module core(
 
     wire instr_en = 1;
     wire stall_mem;
+    wire stall;
 
     wire [31:0] jal_imm = { {12{instr_raw[31]}}, instr_raw[19:12], instr_raw[20], instr_raw[30:21], 1'b0 };
     wire jal = (instr_raw[6:0] == 7'b1101111);
@@ -20,7 +23,7 @@ module core(
     wire branch = (instr_raw[6:0] == 7'b1100011);
 
     wire [31:0] pc_used =
-        stall_mem ? pc_cache :
+        stall ? pc_cache :
         branch_wrong ? branch_back :
         branch ? pc_cache + branch_imm :
         jalr ? jalr_imm + branch_reg1 :
@@ -41,7 +44,7 @@ module core(
     wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc, jalr;
     wire beq, bne, blt, bge, bltu, bgeu;
 
-    wire branch_wrong;
+    wire branch_wrong, data_in, data_out, wait_exec;
     decode decode_instance(
         .clk (clk),
         .rst (rst),
@@ -57,7 +60,7 @@ module core(
         .reg_write (reg_write_decode),
         .mem_write (mem_write_decode),
         .mem_read (mem_read_decode),
-        .stall (stall_mem),
+        .stall (stall),
         .pc_in (pc_cache),
         .pc_out (pc_decode),
         .src_pc (src_pc),
@@ -69,7 +72,9 @@ module core(
         .bge_out (bge),
         .bltu_out (bltu),
         .bgeu_out (bgeu),
-        .branch_wrong (branch_wrong)
+        .branch_wrong (branch_wrong),
+        .data_in (data_in),
+        .data_out (data_out)
     );
 
     wire [31:0] branch_reg1 =
@@ -137,10 +142,16 @@ module core(
         .stall (stall_mem),
         .pc_in (pc_decode),
         .pc_out (pc_exec),
-        .src_pc (src_pc)
+        .src_pc (src_pc),
+        .data_in (data_in),
+        .data_out (data_out),
+        .uart_in (uart_input),
+        .uart_out (uart_output),
+        .wait_exec_in (wait_exec),
+        .wait_exec_out (wait_exec)
         );
 
-    wire mem_en = mem_read_exec || mem_write_exec;
+    wire mem_en = (mem_read_exec || mem_write_exec) && !wait_exec;
 
     wire [31:0] mem_data_read;
 
@@ -167,7 +178,8 @@ module core(
         .reg_write_in (reg_write_exec),
         .reg_write_out (reg_write_mem),
         .mem_read_in (mem_read_exec),
-        .mem_read_out (mem_read_mem)
+        .mem_read_out (mem_read_mem),
+        .wait_exec (wait_exec)
     );
 
     wire earth = 0;
@@ -175,6 +187,7 @@ module core(
     wire stall_reg1 = read_reg1  && (reg1_addr_decode != 0) && (reg1_addr_decode == write_reg_exec);
     wire stall_reg2 = (~mem_read_exec || ~mem_write_decode) && read_reg2 && (reg2_addr_decode != 0) && (reg2_addr_decode == write_reg_exec);
     assign stall_mem = mem_read_exec && (stall_reg1 || stall_reg2);
+    assign stall = stall_mem || wait_exec;
 
     registerfile registerfile_instance(
         .Read1 (reg1_addr_decode),
@@ -197,7 +210,7 @@ module core(
             steps <= 0;
             pc_cache <= 0;
         end else begin
-            if (stall_mem)
+            if (stall)
                 pc <= pc;
             else if (branch_wrong)
                 pc <= branch_back + 4;
