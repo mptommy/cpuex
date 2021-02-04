@@ -27,7 +27,10 @@ module decode(
     output reg bltu_out,
     output reg bgeu_out,
     output reg data_in,
-    output reg data_out
+    output reg data_out,
+    output reg readf1,
+    output reg readf2,
+    output reg writef
     );
 
     wire [6:0] opcode;
@@ -72,6 +75,8 @@ module decode(
     wire bgeu = (opcode == 7'b1100011) && (funct3 == 3'b111);
     wire in = (opcode == 7'b0000000);
     wire out = (opcode == 7'b0000001);
+    wire flw = (funct3 == 3'b010) && (opcode == 7'b0000111);
+    wire fsw = (funct3 == 3'b010) && (opcode == 7'b0100111);
 
     wire r_type = (opcode == 7'b0110011);
     wire i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
@@ -105,6 +110,9 @@ module decode(
             bgeu_out <= 0;
             data_in <= 0;
             data_out <= 0;
+            readf1 <= 0;
+            readf2 <= 0;
+            writef <= 0;
         end else begin
             if (stall) begin
                 imm <= imm;
@@ -130,6 +138,9 @@ module decode(
                 bgeu_out <= bgeu_out;
                 data_in <= data_in;
                 data_out <= data_out;
+                readf1 <= readf1;
+                readf2 <= readf2;
+                writef <= writef;
             end else if (branch_wrong || stall_jalr) begin
                 imm <= 0;
                 ctl <= 0;
@@ -154,9 +165,12 @@ module decode(
                 bgeu_out <= 0;
                 data_in <= 0;
                 data_out <= 0;
+                readf1 <= 0;
+                readf2 <= 0;
+                writef <= 0;
             end else begin
                 read_reg1 <= ~(auipc || lui || jal);
-                read_reg2 <= sw || r_type || sb_type;
+                read_reg2 <= sw || fsw || r_type || sb_type;
                 reg1_addr <= instr_raw[19:15];
                 reg2_addr <= instr_raw[24:20];
                 write_reg <= instr_raw[11:7];
@@ -165,6 +179,8 @@ module decode(
                         s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
                         u_type ? { instr_raw[31:12], 12'd0} :
                         uj_type ? 4 :
+                        flw ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
+                        fsw ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
                         32'b0;
 
                 jalr_imm <= { {20{instr_raw[31]}}, instr_raw[31:20] };
@@ -193,6 +209,8 @@ module decode(
                     and_ ? 0 :
                     lw ? 2 :
                     sw ? 2 :
+                    flw ? 2 :
+                    fsw ? 2 :
                     auipc ? 2 :
                     lui ? 10 :
                     jal ? 2 :
@@ -200,9 +218,9 @@ module decode(
                 // default => zero (31)
                     31;
 
-                mem_read <= lw;
-                mem_write <= sw;
-                reg_write <= (sb_type || sw || out) ? 0 : 1;
+                mem_read <= lw || flw;
+                mem_write <= sw || fsw;
+                reg_write <= (sb_type || sw || fsw || out) ? 0 : 1;
                 pc_out <= pc_in;
                 src_pc <= (auipc || jal || jalr) ? 1 : 0;
                 stall_jalr <= jalr;
@@ -216,6 +234,9 @@ module decode(
 
                 data_in <= in;
                 data_out <= out;
+                readf1 <= 0;
+                readf2 <= fsw;
+                writef <= flw;
             end
         end
     end

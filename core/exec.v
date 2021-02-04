@@ -33,21 +33,28 @@ module exec(
     input uart_in,
     output wire uart_out,
     input wait_exec_in,
-    output wire wait_exec_out
+    output wire wait_exec_out,
+    input readf1_in,
+    input readf2_in,
+    output reg readf1_out,
+    output reg readf2_out,
+    input writef_mem,
+    input writef_in,
+    output reg writef_out
     );
 
     wire [31:0] reg1_current, reg2_current;
 
     assign reg1_current =
         (reg1_addr_in == 0) ? 0 :
-        ((reg1_addr_in == write_reg_out) && reg_write_out) ? result :
-        ((reg1_addr_in == write_reg_mem) && reg_write_mem) ? result_mem :
+        ((reg1_addr_in == write_reg_out) && (readf1_in == writef_out) && reg_write_out) ? result :
+        ((reg1_addr_in == write_reg_mem) && (readf1_in == writef_mem) && reg_write_mem) ? result_mem :
         reg1_data;
 
     assign reg2_current =
         (reg2_addr_in == 0) ? 0 :
-        ((reg2_addr_in == write_reg_out) && reg_write_out) ? result :
-        ((reg2_addr_in == write_reg_mem) && reg_write_mem) ? result_mem :
+        ((reg2_addr_in == write_reg_out) && (readf2_in == writef_out) && reg_write_out) ? result :
+        ((reg2_addr_in == write_reg_mem) && (readf2_in == writef_mem) && reg_write_mem) ? result_mem :
         reg2_data;
 
     wire [31:0] src1, src2;
@@ -86,6 +93,9 @@ module exec(
             reg1_addr_out <= 0;
             reg2_addr_out <= 0;
             pc_out <= 0;
+            writef_out <= 0;
+            readf1_out <= 0;
+            readf2_out <= 0;
         end else begin
             if (stall) begin
                 write_reg_out <= 0;
@@ -97,6 +107,9 @@ module exec(
                 reg1_addr_out <= 0;
                 reg2_addr_out <= 0;
                 pc_out <= 0;
+                writef_out <= 0;
+                readf1_out <= 0;
+                readf2_out <= 0;
             end else if (wait_exec_in) begin
                 write_reg_out <= write_reg_out;
                 reg_write_out <= reg_write_out;
@@ -107,6 +120,9 @@ module exec(
                 reg2_addr_out <= reg2_addr_out;
                 pc_out <= pc_out;
                 result <= result_out;
+                writef_out <= writef_out;
+                readf1_out <= readf1_out;
+                readf2_out <= readf2_out;
             end else begin
                 write_reg_out <= write_reg_in;
                 reg_write_out <= reg_write_in;
@@ -117,6 +133,9 @@ module exec(
                 reg2_addr_out <= reg2_addr_in;
                 pc_out <= pc_in;
                 result <= result_out;
+                writef_out <= writef_in;
+                readf1_out <= readf1_in;
+                readf2_out <= readf2_in;
             end
         end
     end

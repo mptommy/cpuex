@@ -44,7 +44,7 @@ module core(
     wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc, jalr;
     wire beq, bne, blt, bge, bltu, bgeu;
 
-    wire branch_wrong, data_in, data_out, wait_exec;
+    wire branch_wrong, data_in, data_out, wait_exec, readf1_decode, readf2_decode, writef_decode;
     decode decode_instance(
         .clk (clk),
         .rst (rst),
@@ -74,7 +74,10 @@ module core(
         .bgeu_out (bgeu),
         .branch_wrong (branch_wrong),
         .data_in (data_in),
-        .data_out (data_out)
+        .data_out (data_out),
+        .readf1 (readf1_decode),
+        .readf2 (readf2_decode),
+        .writef (writef_decode)
     );
 
     wire [31:0] branch_reg1 =
@@ -111,7 +114,7 @@ module core(
     wire [4:0] write_reg_exec, reg1_addr_exec, reg2_addr_exec;
     wire [31:0] result_mem;
     wire [4:0] write_reg_mem;
-    wire reg_write_mem, reg_write_exec, mem_write_exec, mem_read_exec;
+    wire reg_write_mem, reg_write_exec, mem_write_exec, mem_read_exec, writef_mem, writef_exec, readf1_exec, readf2_exec;
 
     wire [31:0] result_exec, mem_write_data, mem_write_data_exec, reg_write_data, pc_exec;
     exec exec_instance(
@@ -148,14 +151,21 @@ module core(
         .uart_in (uart_input),
         .uart_out (uart_output),
         .wait_exec_in (wait_exec),
-        .wait_exec_out (wait_exec)
+        .wait_exec_out (wait_exec),
+        .readf1_in (readf1_decode),
+        .readf2_in (readf2_decode),
+        .writef_in (writef_decode),
+        .writef_out (writef_exec),
+        .readf1_out (readf1_exec),
+        .readf2_out (readf2_exec),
+        .writef_mem (writef_mem)
         );
 
     wire mem_en = (mem_read_exec || mem_write_exec) && !wait_exec;
 
     wire [31:0] mem_data_read;
 
-    assign mem_write_data = (mem_read_mem && mem_write_exec && (write_reg_mem == reg2_addr_exec)) ? mem_data_read : mem_write_data_exec;
+    assign mem_write_data = (mem_read_mem && mem_write_exec && (write_reg_mem == reg2_addr_exec) && (writef_mem == readf2_exec)) ? mem_data_read : mem_write_data_exec;
     block_ram block_ram_instance(
         .clk(clk),
         .en(mem_en),
@@ -179,13 +189,15 @@ module core(
         .reg_write_out (reg_write_mem),
         .mem_read_in (mem_read_exec),
         .mem_read_out (mem_read_mem),
-        .wait_exec (wait_exec)
+        .wait_exec (wait_exec),
+        .writef_in (writef_exec),
+        .writef_out (writef_mem)
     );
 
     wire earth = 0;
     assign reg_write_data = mem_read_mem ? mem_data_read : result_mem;
-    wire stall_reg1 = read_reg1  && (reg1_addr_decode != 0) && (reg1_addr_decode == write_reg_exec);
-    wire stall_reg2 = (~mem_read_exec || ~mem_write_decode) && read_reg2 && (reg2_addr_decode != 0) && (reg2_addr_decode == write_reg_exec);
+    wire stall_reg1 = read_reg1  && (readf1_decode || (reg1_addr_decode != 0)) && (readf1_decode == writef_exec) && (reg1_addr_decode == write_reg_exec);
+    wire stall_reg2 = (~mem_read_exec || ~mem_write_decode) && read_reg2 && (readf2_decode || (reg2_addr_decode != 0)) && (readf2_decode == writef_exec) && (reg2_addr_decode == write_reg_exec);
     assign stall_mem = mem_read_exec && (stall_reg1 || stall_reg2);
     assign stall = stall_mem || wait_exec;
 
@@ -200,9 +212,9 @@ module core(
         .clk (clk),
         .rst (rst),
         .x1_test (test),
-        .readf1 (earth),
-        .readf2 (earth),
-        .writef (earth));
+        .readf1 (readf1_decode),
+        .readf2 (readf2_decode),
+        .writef (writef_mem));
 
     always @(posedge clk) begin
         if (rst) begin
