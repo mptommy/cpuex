@@ -198,6 +198,7 @@ pub struct EnvBase{
     pub m_pc:AddrType,//Program Counter
     pub m_regs:[XlenType;32],
     pub f_regs:[f32;32],
+    pub inst_memory:[u8;DRAM_SIZE],
     pub m_memory:[u8;DRAM_SIZE],
     pub m_csr:RiscvCsr,
     m_tohost_addr:AddrType,
@@ -253,6 +254,7 @@ impl EnvBase{
             jumped:HashMap::new(),
             m_pc:DRAM_BASE as AddrType,
             m_memory :[0;DRAM_SIZE],
+            inst_memory:[0;DRAM_SIZE],
             m_regs: [0; 32],
             regtoukei:[0;32],
             fregtoukei:[0;32],
@@ -441,6 +443,7 @@ pub trait Riscv64Core{
     fn read_memory_hword(&mut self,addr:AddrType)->XlenType;//halfword単位で
     fn read_memory_byte(&mut self,addr:AddrType)->XlenType;
 
+    fn write_instmemory_byte(&mut self, addr:AddrType, data:XlenType)->XlenType;//word単位で
     fn write_memory_word(&mut self, addr:AddrType, data:XlenType)->XlenType;//word単位で
     fn write_memory_hword(&mut self, addr:AddrType, data:XlenType)->XlenType;//halfword単位で
     fn write_memory_byte(&mut self, addr:AddrType, data:XlenType)->XlenType;
@@ -598,19 +601,19 @@ impl Riscv64Core for EnvBase{
  
     fn fetch_memory(&mut self)->XlenType{
         let base_addr:AddrType = self.fetch_pc-DRAM_BASE;
-        let fetch_data = ((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
-        ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
-        ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
-        ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        let fetch_data = ((self.inst_memory[base_addr as usize + 3] as XlenType) << 24) |
+        ((self.inst_memory[base_addr as usize + 2] as XlenType) << 16) |
+        ((self.inst_memory[base_addr as usize + 1] as XlenType) <<  8) |
+        ((self.inst_memory[base_addr as usize + 0] as XlenType) <<  0);
 
         return fetch_data;
     }
     fn pred_fetch_memory(&mut self)->(Predicate,XlenType){
         let base_addr:AddrType = self.fetch_pc-DRAM_BASE;
-        let fetch_data = ((self.m_memory[base_addr as usize + 3] as XlenType) << 24) |
-        ((self.m_memory[base_addr as usize + 2] as XlenType) << 16) |
-        ((self.m_memory[base_addr as usize + 1] as XlenType) <<  8) |
-        ((self.m_memory[base_addr as usize + 0] as XlenType) <<  0);
+        let fetch_data = ((self.inst_memory[base_addr as usize + 3] as XlenType) << 24) |
+        ((self.inst_memory[base_addr as usize + 2] as XlenType) << 16) |
+        ((self.inst_memory[base_addr as usize + 1] as XlenType) <<  8) |
+        ((self.inst_memory[base_addr as usize + 0] as XlenType) <<  0);
         let opcode = fetch_data & 0x7f;
         let is_branch = (fetch_data & 0x40) > 0 && opcode != 0b1010011;
         let buf = self.fetch_pc;
@@ -662,6 +665,7 @@ impl Riscv64Core for EnvBase{
         self.write_memory_word(addr, data);
         return 0.0;
     }
+
     fn write_memory_word (&mut self, addr:AddrType, data:XlenType) -> XlenType {
         if self.writing {println!("Write Memory Word at {}, data:{}",addr,data);}
         let base_addr: AddrType = addr - DRAM_BASE;
@@ -685,6 +689,12 @@ impl Riscv64Core for EnvBase{
         if self.writing {println!("Write Memory Byte at {}, data:{}",addr,data);}
         let base_addr: AddrType = addr - DRAM_BASE;
         self.m_memory[base_addr as usize] = (data & 0xff) as u8;
+        return 0;
+    }
+    fn write_instmemory_byte (&mut self, addr:AddrType, data:XlenType) -> XlenType {
+        if self.writing {println!("Write Memory Byte at {}, data:{}",addr,data);}
+        let base_addr: AddrType = addr - DRAM_BASE;
+        self.inst_memory[base_addr as usize] = (data & 0xff) as u8;
         return 0;
     }
     fn pipedecode(&mut self,inst:XlenType,predicate:Predicate)->(Predicate,PipeRiscvInst){
@@ -1504,7 +1514,11 @@ impl Riscv64Core for EnvBase{
             PipeRiscvInst::FSQRTS(rd,rs1_data,rs1)=>{
                 if self.writing{println!("FSQRT {},{}",rd,rs1);}
                 if let Some(rs1_data) = Self::fcheck_forwarding(rs1, rs1_data, forwarding1, forwarding2) {
-                    let reg_data = fpu::sqrt(rs1_data,&self.fpucore);
+                    if(true){
+
+                        //let reg_data = fpu::sqrt(rs1_data,&self.fpucore);
+                    }
+                    let reg_data = f32::sqrt(rs1_data);
                     (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
                 }else{return None}
             }

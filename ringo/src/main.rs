@@ -36,6 +36,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
     let mut mac= Machine::new();
     let mut meireis:Vec<Insts>=Vec::new();
     let mut meireis2:Vec<Insts>=Vec::new();
+    let mut datas:Vec<Insts>=Vec::new();
     let file = File::open(&args[1]).unwrap();
     let filebuf = BufReader::new (file);
     println!("WRITE?[y/n]");
@@ -49,12 +50,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
         let l = result?;
       if write{  println!("{}",l);}
         let inst = asm::MainParser::new().parse(&l).unwrap();
-       let (bmeireis,bmeireis2) = mac.gijimeirei(inst,meireis,meireis2);
-       meireis = bmeireis;
-       meireis2 = bmeireis2;
+        if mac.isdata{
+            let (bdatas,bmeireis2) = mac.gijimeirei(inst,datas,meireis2);
+            datas = bdatas;
+            meireis2 = bmeireis2;
+        }else{
+            let (bmeireis,bmeireis2) = mac.gijimeirei(inst,meireis,meireis2);
+            meireis = bmeireis;
+            meireis2 = bmeireis2;
+        };
     }
 
     while true{
+        mac.isdata = false;
         println!("any library(.s)?");
         println!("[hoge.s/n]");
         let mut read = String::new();
@@ -70,18 +78,29 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
                     let l = result?;
                     if write{println!("{}",l);}
                     let inst = asm::MainParser::new().parse(&l).unwrap();
-                    let (bmeireis,bmeireis2) = mac.gijimeirei(inst,meireis,meireis2);
-                    meireis = bmeireis;
-                    meireis2 = bmeireis2;
+                    if mac.isdata{
+                        let (bdatas,bmeireis2) = mac.gijimeirei(inst,datas,meireis2);
+                        datas = bdatas;
+                        meireis2 = bmeireis2;
+                    }else{
+                        let (bmeireis,bmeireis2) = mac.gijimeirei(inst,meireis,meireis2);
+                        meireis = bmeireis;
+                        meireis2 = bmeireis2;
+                    };
+                    
                 }
             }
         }
     }
-    let file = File::create(moto.to_string()+".out").unwrap();
+    let file = File::create(moto.to_string()+".instout").unwrap();
     let mut filebuf = BufWriter::new (file);
     for inst in meireis{
         let check = Instruction::code(inst);
         mac.insts.push(check);
+    }
+    for data in datas{
+        let check = Instruction::code(data);
+        mac.datas.push(check);
     }
     mac.link();
     mac.output_assem();
@@ -89,15 +108,30 @@ fn main() -> Result<(), Box<dyn std::error::Error>>{
     //let path = env::current_dir().unwrap().join(path);
     let file = File::open(path).unwrap();
    let mut filebuf = BufWriter::new (file);*/
-   let file2 = File::create(moto.to_string()+".mem").unwrap();
+   let file2 = File::create(moto.to_string()+".inst").unwrap();
+   let file4 = File::create(moto.to_string()+".data").unwrap();
    let file3 = File::create(moto.to_string()+".ns").unwrap();
    let mut filebuf2 = BufWriter::new (file2);
    let mut filebuf3 = BufWriter::new (file3);
+   let mut filebuf4 = BufWriter::new (file4);
+
+   let file5 = File::create(moto.to_string()+".dataout").unwrap();
+   let mut filebuf5 = BufWriter::new (file5);
     for inst in mac.insts{
         filebuf.write_all(&Instruction::tohex4(&inst))?;
         let strs = format!("{:0>32b}",Instruction::tohex(&inst));  // "4.40"
        let check = &strs;
        writeln!(filebuf2,"{}", format!("{}",check));
+       
+        //filebuf2.writeln!(strs);
+       // println!("{:>08b}",Instruction::tohex(&inst));
+        //writeln!(filebuf,"{:>08x}\n",Instruction::tohex(inst)).unwrap();
+    }
+    for inst in mac.datas{
+        filebuf5.write_all(&Instruction::tohex4(&inst))?;
+        let strs = format!("{:0>32b}",Instruction::tohex(&inst));  // "4.40"
+       let check = &strs;
+       writeln!(filebuf4,"{}", format!("{}",check));
        
         //filebuf2.writeln!(strs);
        // println!("{:>08b}",Instruction::tohex(&inst));

@@ -28,13 +28,23 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     riscv64_core.writing = false;
     for result in filebuf.bytes(){
         let l:u8 = result?;
+        riscv64_core.write_instmemory_byte(hex_addr + DRAM_BASE,l as XlenType);
+        hex_addr=hex_addr+1;
+    }
+    let file = File::open(&args[2]).unwrap();
+    let filebuf = BufReader::new(file);
+    let mut hex_addr = 0;
+    for result in filebuf.bytes(){
+        let l:u8 = result?;
         riscv64_core.write_memory_byte(hex_addr + DRAM_BASE,l as XlenType);
         hex_addr=hex_addr+1;
     }
+    
+
     riscv64_core.writing = true;
     riscv64_core.write_reg(2,riscv_core::STACK_BASE-8);
     riscv64_core.write_reg(3,riscv_core::HEAP_BASE);
-    let sldname = if args.len() >= 3 {&args[2]}else{"contest.sld"};
+    let sldname = if args.len() >= 4 {&args[3]}else{"contest.sld"};
     let file = File::open(sldname);
     if let Ok(file) = file {
         let filebuf = BufReader::new(file);

@@ -3,6 +3,8 @@ use std::collections::HashMap;
 #[derive(Debug)]
 #[derive(PartialEq,Eq,Hash,Clone,PartialOrd,Ord)]
 pub enum Insts{
+    INST,
+    DATA,
     LABEL(String),
     LUI(u8,i32),
     AUIPC(u8,i32),
@@ -1490,23 +1492,37 @@ impl Instruction{
     }
 }
 pub struct Machine{
-    pub labels:HashMap<String,i32>,
+    pub datalabels:HashMap<String,i32>,
+    pub instlabels:HashMap<String,i32>,
     pub insts:Vec<Instruction>,
+    pub datas:Vec<Instruction>,
+    pub isdata:bool,
 }
 impl Machine{
     pub fn new() -> Machine{
         Machine{
-            labels:HashMap::new(),
+            datalabels:HashMap::new(),
+            instlabels:HashMap::new(),
             insts:Vec::new(),
+            datas:Vec::new(),
+            isdata:false,
         }
     }
     pub fn gijimeirei(&mut self,inst:Insts,mut vecs:Vec<Insts>,mut vecs2:Vec<Insts>)->(Vec<Insts>,Vec<Insts>){
         match inst{
             Insts::LABEL(s)=>{
-
+             //   println!("{}",s);
+                if s.contains(".data"){
+                    println!("DATA!!");
+                    self.isdata =true;
+                    return (vecs,vecs2);
+                };
                 vecs2.push(Insts::LABEL((&s).to_string()));
-                self.labels.insert(s,(vecs.len() as i32)*4);
-                
+                if self.isdata {
+                    self.datalabels.insert(s,(vecs.len() as i32)*4);
+                }else{
+                    self.instlabels.insert(s,(vecs.len() as i32)*4);
+                };
             },
             Insts::LA(r1,i)=>{
                 vecs.push(Insts::AUIPC(r1, i >> 12));
@@ -1622,7 +1638,9 @@ impl Machine{
     pub fn link(&mut self){
         for i in 0 .. self.insts.len(){
             if self.insts[i].haslabel{
-                self.insts[i].buf = self.labels[&self.insts[i].label];
+             //   self.insts[i].buf = self.labels[&self.insts[i].label];
+                self.insts[i].buf = if let Some(i) = self.datalabels.get(&self.insts[i].label){*i}
+                                    else {self.instlabels[&self.insts[i].label]};
                 let sa = self.insts[i].buf - (i as i32)*4;                
                     match &(self.insts[i].optype.clone()){
                         Insts::BEQ(r1,r2,_l)=>{
@@ -1666,16 +1684,28 @@ impl Machine{
                             if sa&0b100000000000 != 0{
                                 res = res + 1;
                             }
-                            self.insts[i].optype = Insts::AUIPC(*r1,res);
-                            self.insts[i] = Instruction::code(Insts::AUIPC(*r1,res));
+                            if self.instlabels.get(&self.insts[i].label) == None{
+                                self.insts[i].optype = Insts::ADDI(*r1,0,0);
+                                self.insts[i] = Instruction::code(Insts::ADDI(*r1,0,0));
+
+                            }else
+                            {
+                                self.insts[i].optype = Insts::AUIPC(*r1,res);
+                                self.insts[i] = Instruction::code(Insts::AUIPC(*r1,res));
+                            }
                         },
                         Insts::AUIPCLOAD(r1,_l)=>{
                             self.insts[i].optype = Insts::AUIPC(*r1,self.insts[i].buf >> 12);
                             self.insts[i] = Instruction::code(Insts::AUIPC(*r1,self.insts[i].buf >> 12));
                         },
                         Insts::ADDI(r1,r2,_l)=>{
-                            self.insts[i].optype = Insts::ADDI(*r1,*r2,(sa+4)&0xfff);
-                            self.insts[i] = Instruction::code(Insts::ADDI(*r1,*r2,(sa+4)&0xfff));
+                            if self.instlabels.get(&self.insts[i].label) == None{
+                                self.insts[i].optype = Insts::ADDI(*r1,*r2,self.insts[i].buf&0xfff);
+                                self.insts[i] = Instruction::code(Insts::ADDI(*r1,*r2,self.insts[i].buf&0xfff));
+                            }else{
+                                self.insts[i].optype = Insts::ADDI(*r1,*r2,(sa+4)&0xfff);
+                                self.insts[i] = Instruction::code(Insts::ADDI(*r1,*r2,(sa+4)&0xfff));
+                            }
                         },
                         Insts::LB(r1,_r2,_l)=>{
                             self.insts[i].optype = Insts::LB(*r1,(sa+4)&0xfff,*r1);
