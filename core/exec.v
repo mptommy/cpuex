@@ -13,7 +13,7 @@ module exec(
     output reg [4:0] write_reg_out,
     output reg [4:0] reg1_addr_out,
     output reg [4:0] reg2_addr_out,
-    output reg [31:0] result,
+    output wire [31:0] result,
     input reg_write_in,
     output reg reg_write_out,
     input mem_write_in,
@@ -34,6 +34,7 @@ module exec(
     output wire uart_out,
     input wait_exec_in,
     output wire wait_exec_out,
+    input use_fpu,
     input readf1_in,
     input readf2_in,
     output reg readf1_out,
@@ -44,6 +45,10 @@ module exec(
     );
 
     wire [31:0] reg1_current, reg2_current;
+
+    reg data_in_cache, data_out_cache, use_fpu_cache;
+    reg [31:0] alu_result;
+    reg [4:0] ctl_cache;
 
     assign reg1_current =
         (reg1_addr_in == 0) ? 0 :
@@ -68,7 +73,6 @@ module exec(
 
     wire [7:0] uart_in_wire;
     wire uart_ready_wire;
-    wire [31:0] result_out = data_in ? {24'b0, uart_in_wire }: alu_out;
     wire ferr;
     wire rstn = ~rst;
     uart_rx uart_rx_instance(uart_in_wire, uart_ready_wire, ferr, uart_in, clk, rstn);
@@ -77,15 +81,26 @@ module exec(
     wire uart_busy_wire;
     uart_tx uart_tx_instance(uart_out_wire, data_out, uart_busy_wire, uart_out, clk, rstn);
 
+    wire fdata_ready;
+    wire [31:0] fpu_out;
+    wire en = ~wait_exec_in && ~stall && use_fpu;
+    wire [4:0] fpu_ctl = wait_exec_in ? ctl_cache : ctl;
+    FPU FPU_instance(clk, rstn, fpu_ctl, reg1_current, reg2_current, fpu_out, fdata_ready, en);
+
     assign wait_exec_out =
-        data_in ? ~uart_ready_wire :
-        data_out ? uart_busy_wire :
+        data_in_cache ? ~uart_ready_wire :
+        data_out_cache ? uart_busy_wire :
+        use_fpu_cache ? ~fdata_ready :
         0;
+
+    assign result =
+        data_in_cache ? {24'b0, uart_in_wire } :
+        use_fpu_cache ? fpu_out :
+        alu_result;
 
     always @(posedge clk) begin
         if (rst) begin
             write_reg_out <= 0;
-            result <= 0;
             reg_write_out <= 0;
             mem_write_out <= 0;
             mem_read_out <= 0;
@@ -96,13 +111,17 @@ module exec(
             writef_out <= 0;
             readf1_out <= 0;
             readf2_out <= 0;
+            data_in_cache <= 0;
+            data_out_cache <= 0;
+            use_fpu_cache <= 0;
+            alu_result <= 0;
+            ctl_cache <= 0;
         end else begin
             if (stall) begin
                 write_reg_out <= 0;
                 reg_write_out <= 0;
                 mem_write_out <= 0;
                 mem_read_out <= 0;
-                result <= 0;
                 mem_write_data <= 0;
                 reg1_addr_out <= 0;
                 reg2_addr_out <= 0;
@@ -110,6 +129,11 @@ module exec(
                 writef_out <= 0;
                 readf1_out <= 0;
                 readf2_out <= 0;
+                data_in_cache <= 0;
+                data_out_cache <= 0;
+                use_fpu_cache <= 0;
+                alu_result <= 0;
+                ctl_cache <= 0;
             end else if (wait_exec_in) begin
                 write_reg_out <= write_reg_out;
                 reg_write_out <= reg_write_out;
@@ -119,10 +143,14 @@ module exec(
                 reg1_addr_out <= reg1_addr_out;
                 reg2_addr_out <= reg2_addr_out;
                 pc_out <= pc_out;
-                result <= result_out;
                 writef_out <= writef_out;
                 readf1_out <= readf1_out;
                 readf2_out <= readf2_out;
+                data_in_cache <= data_in_cache;
+                data_out_cache <= data_out_cache;
+                use_fpu_cache <= use_fpu_cache;
+                ctl_cache <= ctl_cache;
+                alu_result <= alu_result;
             end else begin
                 write_reg_out <= write_reg_in;
                 reg_write_out <= reg_write_in;
@@ -132,10 +160,14 @@ module exec(
                 reg1_addr_out <= reg1_addr_in;
                 reg2_addr_out <= reg2_addr_in;
                 pc_out <= pc_in;
-                result <= result_out;
                 writef_out <= writef_in;
                 readf1_out <= readf1_in;
                 readf2_out <= readf2_in;
+                data_in_cache <= data_in;
+                data_out_cache <= data_out;
+                use_fpu_cache <= use_fpu;
+                alu_result <= alu_out;
+                ctl_cache <= ctl;
             end
         end
     end

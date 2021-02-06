@@ -44,7 +44,7 @@ module core(
     wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc, jalr;
     wire beq, bne, blt, bge, bltu, bgeu;
 
-    wire branch_wrong, data_in, data_out, wait_exec, readf1_decode, readf2_decode, writef_decode;
+    wire branch_wrong, data_in, data_out, wait_exec, readf1_decode, readf2_decode, writef_decode, use_fpu;
     decode decode_instance(
         .clk (clk),
         .rst (rst),
@@ -77,7 +77,8 @@ module core(
         .data_out (data_out),
         .readf1 (readf1_decode),
         .readf2 (readf2_decode),
-        .writef (writef_decode)
+        .writef (writef_decode),
+        .use_fpu (use_fpu)
     );
 
     wire [31:0] branch_reg1 =
@@ -152,6 +153,7 @@ module core(
         .uart_out (uart_output),
         .wait_exec_in (wait_exec),
         .wait_exec_out (wait_exec),
+        .use_fpu (use_fpu),
         .readf1_in (readf1_decode),
         .readf2_in (readf2_decode),
         .writef_in (writef_decode),

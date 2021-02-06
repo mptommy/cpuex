@@ -30,7 +30,8 @@ module decode(
     output reg data_out,
     output reg readf1,
     output reg readf2,
-    output reg writef
+    output reg writef,
+    output reg use_fpu
     );
 
     wire [6:0] opcode;
@@ -75,8 +76,27 @@ module decode(
     wire bgeu = (opcode == 7'b1100011) && (funct3 == 3'b111);
     wire in = (opcode == 7'b0000000);
     wire out = (opcode == 7'b0000001);
-    wire flw = (funct3 == 3'b010) && (opcode == 7'b0000111);
+    wire flw = (opcode == 7'b0000111);
     wire fsw = (funct3 == 3'b010) && (opcode == 7'b0100111);
+    wire fadd = (funct7 == 7'b0000000) && (opcode == 7'b1010011);
+    wire fsub = (funct7 == 7'b0000100) && (opcode == 7'b1010011);
+    wire fmul = (funct7 == 7'b0001000) && (opcode == 7'b1010011);
+    wire fdiv = (funct7 == 7'b0001100) && (opcode == 7'b1010011);
+    wire fhalf = (funct7 == 7'b1111100) && (funct3 == 3'b000) && (opcode == 7'b1010011);
+    wire fneg = (funct7 == 7'b0010000) && (funct3 == 3'b001) && (opcode == 7'b1010011);
+    wire fmv_x_w = (funct7 == 7'b1110000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
+    wire fmv_w_x = (funct7 == 7'b1111000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
+    wire feq = (funct7 == 7'b1010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
+    wire fle = (funct7 == 7'b1010000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
+    wire fmv = (funct7 == 7'b0010000) && (funct3 == 3'b000) && (opcode == 7'b1010011);
+    wire fabs = (funct7 == 7'b0010000) && (funct3 == 3'b010) && (opcode == 7'b1010011);
+    wire fsqrt = (funct7 == 7'b0101100) && (opcode == 7'b1010011);
+    wire itof = (funct7 == 7'b1101000) && (opcode == 7'b1010011);
+    wire ftoi = (funct7 == 7'b1100000) && (opcode == 7'b1010011) && (funct3 == 3'b000);
+    wire floor = (funct7 == 7'b1100000) && (opcode == 7'b1010011) && (funct3 == 3'b010);
+    wire flt = (funct7 == 7'b1010000) && (funct3 == 3'b001) && (opcode == 7'b1010011);
+    wire fmax = (funct7 == 7'b0010100) && (funct3 == 3'b001) & (opcode == 7'b1010011);
+    wire fmin = (funct7 == 7'b0010100) && (funct3 == 3'b000) & (opcode == 7'b1010011);
 
     wire r_type = (opcode == 7'b0110011);
     wire i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
@@ -113,6 +133,7 @@ module decode(
             readf1 <= 0;
             readf2 <= 0;
             writef <= 0;
+            use_fpu <= 0;
         end else begin
             if (stall) begin
                 imm <= imm;
@@ -141,6 +162,7 @@ module decode(
                 readf1 <= readf1;
                 readf2 <= readf2;
                 writef <= writef;
+                use_fpu <= use_fpu;
             end else if (branch_wrong || stall_jalr) begin
                 imm <= 0;
                 ctl <= 0;
@@ -168,9 +190,12 @@ module decode(
                 readf1 <= 0;
                 readf2 <= 0;
                 writef <= 0;
+                use_fpu <= 0;
             end else begin
                 read_reg1 <= ~(auipc || lui || jal);
-                read_reg2 <= sw || fsw || r_type || sb_type;
+                read_reg2 <=
+                    sw || r_type || sb_type
+                 || (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fsw);
                 reg1_addr <= instr_raw[19:15];
                 reg2_addr <= instr_raw[24:20];
                 write_reg <= instr_raw[11:7];
@@ -179,7 +204,7 @@ module decode(
                         s_type ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
                         u_type ? { instr_raw[31:12], 12'd0} :
                         uj_type ? 4 :
-                        flw ? { {20{instr_raw[31]}}, instr_raw[31:20] } :
+                        flw ? { {17{instr_raw[14]}}, instr_raw[14:12], instr_raw[31:20] } :
                         fsw ? { {20{instr_raw[31]}}, instr_raw[31:25], instr_raw[11:7] } :
                         32'b0;
 
@@ -215,7 +240,25 @@ module decode(
                     lui ? 10 :
                     jal ? 2 :
                     jalr ? 2 :
-                // default => zero (31)
+                    fadd ? 0 :
+                    fsub ? 1 :
+                    fmul ? 2 :
+                    fdiv ? 4 :
+                    fhalf ? 5 :
+                    fneg ? 12 :
+                    fmv_w_x ? 9 :
+                    fmv_x_w ? 9 :
+                    feq ? 9 :
+                    fle ? 10 :
+                    fmv ? 9 :
+                    fabs ? 11 :
+                    fsqrt ? 19 :
+                    itof ? 7 :
+                    ftoi ? 6 :
+                    floor ? 8 :
+                    flt ? 13 :
+                    fmin ? 14 :
+                    fmax ? 15 :
                     31;
 
                 mem_read <= lw || flw;
@@ -234,9 +277,14 @@ module decode(
 
                 data_in <= in;
                 data_out <= out;
-                readf1 <= 0;
-                readf2 <= fsw;
-                writef <= flw;
+                readf1 <=
+                    (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fmv_x_w);
+                readf2 <=
+                    (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fsw);
+                writef <=
+                    (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmax || fmin || fmv || fhalf || floor || itof || flw || fmv_w_x);
+                use_fpu <=
+                    (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fhalf || feq || fle || itof || floor || ftoi);
             end
         end
     end
