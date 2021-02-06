@@ -10,7 +10,7 @@ module block_ram(clk, en, we, rst, addr, di, dout);
     (* ram_style = "BLOCK" *) reg [31:0] ram [262143:0];
 
     initial begin
-        $readmemb("./tests/itof.data", ram);
+        $readmemb("./tests/bflt.data", ram);
     end
 
     always @ (posedge clk)

@@ -19,7 +19,7 @@ module core(
     wire [31:0] jal_imm = { {12{instr_raw[31]}}, instr_raw[19:12], instr_raw[20], instr_raw[30:21], 1'b0 };
     wire jal = (instr_raw[6:0] == 7'b1101111);
     wire [31:0] branch_imm = { {20{instr_raw[31]}}, instr_raw[7], instr_raw[30:25], instr_raw[11:8], 1'b0 };
-    wire branch = (instr_raw[6:0] == 7'b1100011);
+    wire branch = (instr_raw[6:0] == 7'b1100011) || (instr_raw[6:0] == 7'b1100100);
 
     wire [31:0] pc_used =
         stall ? pc_cache :
@@ -42,6 +42,7 @@ module core(
     wire [4:0] reg1_addr_decode, reg2_addr_decode, write_reg_decode;
     wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc, jalr;
     wire beq, bne, blt, bge, bltu, bgeu;
+    wire bfeq, bfne, bfge, bflt;
 
     wire branch_wrong, data_in, data_out, wait_exec, readf1_decode, readf2_decode, writef_decode, use_fpu;
     decode decode_instance(
@@ -69,6 +70,10 @@ module core(
         .bne_out (bne),
         .blt_out (blt),
         .bge_out (bge),
+        .bfeq_out (bfeq),
+        .bfne_out (bfne),
+        .bflt_out (bflt),
+        .bfge_out (bfge),
         .bltu_out (bltu),
         .bgeu_out (bgeu),
         .branch_wrong (branch_wrong),
@@ -82,33 +87,53 @@ module core(
 
     wire [31:0] branch_reg1 =
         (reg1_addr_decode == 0) ? 0 :
-        ((reg1_addr_decode == write_reg_exec) && reg_write_exec) ? result_exec :
-        ((reg1_addr_decode == write_reg_mem) && reg_write_mem) ? result_mem :
+        ((reg1_addr_decode == write_reg_exec) && (readf1_decode == writef_exec) && reg_write_exec) ? result_exec :
+        ((reg1_addr_decode == write_reg_mem) && (readf1_decode == writef_mem) && reg_write_mem) ? reg_write_data :
         reg1_data_wire;
+
 
     wire [31:0] branch_reg2 =
         (reg2_addr_decode == 0) ? 0 :
-        ((reg2_addr_decode == write_reg_exec) && reg_write_exec) ? result_exec :
-        ((reg2_addr_decode == write_reg_mem) && reg_write_mem) ? result_mem :
+        ((reg2_addr_decode == write_reg_exec) && (readf2_decode == writef_exec) && reg_write_exec) ? result_exec :
+        ((reg2_addr_decode == write_reg_mem) && (readf2_decode == writef_mem) && reg_write_mem) ? reg_write_data :
         reg2_data_wire;
 
+    wire branch_reg_feq, branch_reg_fne, branch_reg_flt, branch_reg_fge;
+
+    feq feq_instance(
+        .x1 (branch_reg1),
+        .x2 (branch_reg2),
+        .y (branch_reg_feq)
+    );
+    assign branch_reg_fne = ~branch_reg_feq;
+
+    fless fless_instance(
+        .x1 (branch_reg1),
+        .x2 (branch_reg2),
+        .y (branch_reg_flt)
+    );
+
+    fle fle_instance(
+        .x1 (branch_reg2),
+        .x2 (branch_reg1),
+        .y (branch_reg_fge)
+    );
+
     assign branch_wrong =
-        (beq || bne || blt || bge || bltu || bgeu) && !(
+        (beq || bne || blt || bge || bltu || bgeu || bfeq || bfne || bflt || bfge) && !(
             (beq && (branch_reg1 == branch_reg2)) ||
             (bne && (branch_reg1 != branch_reg2)) ||
             (blt && ($signed(branch_reg1) < $signed(branch_reg2))) ||
             (bge && ($signed(branch_reg1) >= $signed(branch_reg2))) ||
             (bltu && (branch_reg1 < branch_reg2)) ||
-            (bgeu && (branch_reg1 >= branch_reg2))
+            (bgeu && (branch_reg1 >= branch_reg2)) ||
+            (bfeq && branch_reg_feq) ||
+            (bfne && branch_reg_fne) ||
+            (bflt && branch_reg_flt) ||
+            (bfge && branch_reg_fge)
         );
 
 
-    wire branch_reg_eq = (branch_reg1 == branch_reg2);
-    wire branch_reg_ne = (branch_reg1 != branch_reg2);
-    wire branch_reg_lt = ($signed(branch_reg1) < $signed(branch_reg2));
-    wire branch_reg_ge = ($signed(branch_reg1) >= $signed(branch_reg2));
-    wire branch_reg_ltu = (branch_reg1 < branch_reg2);
-    wire branch_reg_geu = (branch_reg1 >= branch_reg2);
 
     wire [31:0] reg1_data_wire, reg2_data_wire;
     wire [4:0] write_reg_exec, reg1_addr_exec, reg2_addr_exec;
@@ -195,7 +220,6 @@ module core(
         .writef_out (writef_mem)
     );
 
-    wire earth = 0;
     assign reg_write_data = mem_read_mem ? mem_data_read : result_mem;
     wire stall_reg1 = read_reg1  && (readf1_decode || (reg1_addr_decode != 0)) && (readf1_decode == writef_exec) && (reg1_addr_decode == write_reg_exec);
     wire stall_reg2 = (~mem_read_exec || ~mem_write_decode) && read_reg2 && (readf2_decode || (reg2_addr_decode != 0)) && (readf2_decode == writef_exec) && (reg2_addr_decode == write_reg_exec);
