@@ -20,6 +20,7 @@ module core(
     wire jal = (instr_raw[6:0] == 7'b1101111);
     wire [31:0] branch_imm = { {20{instr_raw[31]}}, instr_raw[7], instr_raw[30:25], instr_raw[11:8], 1'b0 };
     wire branch = (instr_raw[6:0] == 7'b1100011) || (instr_raw[6:0] == 7'b1100100);
+    wire branch_wrong;
 
     wire [31:0] pc_used =
         stall ? pc_cache :
@@ -44,7 +45,7 @@ module core(
     wire beq, bne, blt, bge, bltu, bgeu;
     wire bfeq, bfne, bfge, bflt;
 
-    wire branch_wrong, data_in, data_out, wait_exec, readf1_decode, readf2_decode, writef_decode, use_fpu;
+    wire data_in, data_out, wait_exec, readf1_decode, readf2_decode, writef_decode, use_fpu;
     decode decode_instance(
         .clk (clk),
         .rst (rst),
@@ -99,24 +100,31 @@ module core(
         reg2_data_wire;
 
     wire branch_reg_feq, branch_reg_fne, branch_reg_flt, branch_reg_fge;
+    wire earth = 0;
 
     feq feq_instance(
         .x1 (branch_reg1),
         .x2 (branch_reg2),
-        .y (branch_reg_feq)
+        .y (branch_reg_feq),
+        .clk (earth),
+        .rstn (earth)
     );
     assign branch_reg_fne = ~branch_reg_feq;
 
     fless fless_instance(
         .x1 (branch_reg1),
         .x2 (branch_reg2),
-        .y (branch_reg_flt)
+        .y (branch_reg_flt),
+        .clk (earth),
+        .rstn (earth)
     );
 
     fle fle_instance(
         .x1 (branch_reg2),
         .x2 (branch_reg1),
-        .y (branch_reg_fge)
+        .y (branch_reg_fge),
+        .clk (earth),
+        .rstn (earth)
     );
 
     assign branch_wrong =
