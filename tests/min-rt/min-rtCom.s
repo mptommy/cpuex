@@ -1077,8 +1077,8 @@ main:
 	sw	%s2, 12(%t4)
 	sw	%a0, 8(%t4)
 	sw	%a5, 4(%t4)
-	addi	%t0, %zero, 128
-	addi	%t1, %zero, 128
+	addi	%t0, %zero, 30
+	addi	%t1, %zero, 30
 	sw	%ra, -172(%sp)
 	lw	%t3, 0(%t4)
 	addi	%sp, %sp, -176

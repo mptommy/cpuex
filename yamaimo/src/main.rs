@@ -6,10 +6,11 @@ mod riscv_csr;
 mod riscv_core;
 use crate::riscv_core::Riscv64Core;
 use crate::riscv_core::EnvBase;
-use crate::riscv_core::NRiscvInst;
+use crate::riscv_core::PipeRiscvInst;
 use crate::riscv_core::ForMem;
 use crate::riscv_core::MemSize;
 use crate::riscv_core::MemType;
+use crate::riscv_core::Predicate;
 use crate::riscv_core::ForWrite;
 use crate::riscv_core::DRAM_BASE;
 use crate::riscv_core::InstType;
@@ -27,13 +28,23 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     riscv64_core.writing = false;
     for result in filebuf.bytes(){
         let l:u8 = result?;
+        riscv64_core.write_instmemory_byte(hex_addr + DRAM_BASE,l as XlenType);
+        hex_addr=hex_addr+1;
+    }
+    let file = File::open(&args[2]).unwrap();
+    let filebuf = BufReader::new(file);
+    let mut hex_addr = 0;
+    for result in filebuf.bytes(){
+        let l:u8 = result?;
         riscv64_core.write_memory_byte(hex_addr + DRAM_BASE,l as XlenType);
         hex_addr=hex_addr+1;
     }
+    
+
     riscv64_core.writing = true;
     riscv64_core.write_reg(2,riscv_core::STACK_BASE-8);
     riscv64_core.write_reg(3,riscv_core::HEAP_BASE);
-    let sldname = if args.len() >= 3 {&args[2]}else{"contest.sld"};
+    let sldname = if args.len() >= 4 {&args[3]}else{"contest.sld"};
     let file = File::open(sldname);
     if let Ok(file) = file {
         let filebuf = BufReader::new(file);
@@ -64,13 +75,18 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let finish = false;
     let mut step = true;
     let mut renzoku = 0;
-    let mut decoded = NRiscvInst::FIRST;
-    let mut inst_data1=0;
-    let mut inst_data2=0;
-    let mut forwrite1=ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
-    let mut formembuf1=ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
-    let mut forwardingbuf1=ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
     let mut finishcount = 0;
+
+    let mut pipe_write_back = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+    let mut pipe_inst_data = 0;
+    let mut pipe_decoded = PipeRiscvInst::FIRST;
+    let mut pipe_forwarding1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+    let mut pipe_forwarding2 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+    let mut pipe_formem = ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
+    let mut pipe_forwrite1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+
+    let mut pipe_predicate = Predicate{togo:0,fetched_addr:0};
+    let mut pipe_predicate2 = Predicate{togo:0,fetched_addr:0};
     let mut togo:i32 = -1;
     println!("PIPELINE?[y/n]");
     let mut read = String::new();
@@ -79,6 +95,17 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     let ispipe =match reads.next().unwrap(){
         "y"=> true,"n"=>false,_=>false
     };
+    if ispipe{
+        println!("PREDICATE?[y/n]");
+        let mut read = String::new();
+        std::io::stdin().read_line(&mut read).ok();
+        let mut reads = read.split_whitespace();
+        let ispred =match reads.next().unwrap(){
+            "y"=> true,"n"=>false,_=>false
+        };
+        riscv64_core.do_predicate = ispred;
+    }
+    
     while !finish&& finishcount < 4{
        // let yoyu = i32::abs(riscv64_core.read_reg(2) as i32 - riscv64_core.read_reg(3) as i32);
         if  riscv64_core.read_reg(2)  < riscv64_core.read_reg(3){
@@ -160,6 +187,37 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
             continue;
         }*/
         if ispipe{
+            riscv64_core.write_back(pipe_write_back);//write_backだけは最初にしないとダメ
+            let (fpredicate,inst_data) = riscv64_core.pred_fetch_memory ();
+            let (predicate,decoded) = riscv64_core.pipedecode(pipe_inst_data,pipe_predicate);
+            let execres = riscv64_core.pipeexecute(pipe_decoded,pipe_forwarding1,pipe_forwarding2,pipe_predicate2);
+            let forwrite = riscv64_core.mem_access_unit(pipe_formem, pipe_forwrite1);
+            
+            
+            match execres{
+                None =>{
+                    //stall
+                    riscv64_core.fetch_pc = fpredicate.fetched_addr;
+                    pipe_forwarding1 = forwrite;
+                    pipe_formem = ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::BYTE,data:0,addr:0};
+                    pipe_forwrite1 = ForWrite{typ:2,data:2,rd:0,fdata:-1.0,isint:true,issigned:true};
+                    pipe_write_back = forwrite;
+                },
+                Some((exformem,exforwrite))=>{
+                    pipe_formem = exformem;
+                    pipe_forwrite1 = exforwrite;
+                    pipe_decoded = decoded;
+                    pipe_inst_data = inst_data;
+                    pipe_forwarding1 = exforwrite;
+                    pipe_forwarding2 = forwrite;
+                    pipe_write_back = forwrite;
+                    pipe_predicate = fpredicate;
+                    pipe_predicate2 = predicate;
+                }
+            }
+            
+            }
+       /* if ispipe{
         let inst_data = riscv64_core.fetch_memory ();
         let (formembuf,forwardingbuf) = riscv64_core.execute(decoded, inst_data2 as InstType);
         riscv64_core.write_back(forwrite1);
@@ -184,7 +242,7 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
         formembuf1 = formembuf;
         forwrite1  = forwrite;
         forwardingbuf1 = forwardingbuf;
-        }else{
+        }*/else{
             if riscv64_core.get_is_finish_cpu(){
                 break;
             }
@@ -222,11 +280,12 @@ fn main()-> Result<(), Box<dyn std::error::Error>>  {
     
     riscv64_core.output_outs();
     println!("STEPSUM:{}",count);
-    riscv64_core.output_toukei();
+    if ispipe{riscv64_core.output_bunkires();}else{ riscv64_core.output_toukei();};
     riscv64_core.output_regtoukei();
     println!("HP:{}",riscv64_core.heapmax);
     println!("HP-HEAP_BASE:{}",riscv64_core.heapmax-riscv_core::HEAP_BASE);
     println!("SP:{}",riscv64_core.stackmin);
     println!("SP_BASE-SP:{}",riscv_core::STACK_BASE-riscv64_core.stackmin);
+    riscv64_core.output_jumped();
     Ok(())
 }
