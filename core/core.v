@@ -20,7 +20,7 @@ module core(
     wire jal = (instr_raw[6:0] == 7'b1101111);
     wire [31:0] branch_imm = { {20{instr_raw[31]}}, instr_raw[7], instr_raw[30:25], instr_raw[11:8], 1'b0 };
     wire branch = (instr_raw[6:0] == 7'b1100011) || (instr_raw[6:0] == 7'b1100100);
-    wire branch_wrong;
+    wire branch_wrong, jalr;
 
     wire [31:0] pc_used =
         stall ? pc_cache :
@@ -41,7 +41,7 @@ module core(
     wire [4:0] ctl;
     wire src_imm;
     wire [4:0] reg1_addr_decode, reg2_addr_decode, write_reg_decode;
-    wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc, jalr;
+    wire read_reg1, read_reg2, reg_write_decode, mem_write_decode, mem_read_decode, src_pc;
     wire beq, bne, blt, bge, bltu, bgeu;
     wire bfeq, bfne, bfge, bflt;
 
