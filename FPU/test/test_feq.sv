@@ -2,7 +2,7 @@
 `default_nettype none
 
 module test_feq
-    #(parameter REPEATNUM = 500,
+    #(parameter REPEATNUM = 1000000000,
       parameter RANDSEED = 2) ();
 
 wire [31:0] x1,x2;
@@ -22,6 +22,7 @@ bit [22:0] tm;
 int i;
 logic clk, rstn;
 logic [31:0] diff;
+logic checknnan;
 
 assign x1 = x1i;
 assign x2 = x2i;
@@ -36,12 +37,8 @@ initial begin
     $display("difference message format");
     $display("x1 = [input 1(bit)], [exponent 1(decimal)]");
     $display("x2 = [input 2(bit)], [exponent 2(decimal)]");
-    $display("ref. : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
-    $display("fmul : result(float) sign(bit),exponent(decimal),mantissa(bit) overflow(bit)");
-    
-    repeat(RANDSEED) begin
-        i = $urandom();
-    end
+    $display("ref. : result(bit)");
+    $display("feq : result(bit)");
 
     repeat(REPEATNUM) begin
         #1;
@@ -61,7 +58,9 @@ initial begin
 
         #1;
 
-        if(fy != y) begin
+        checknnan = ~(((&x1i[30:23]) && (|x1i[22:0])) || ((&x2i[30:23]) && (|x2i[22:0])));
+
+        if(fy != y && checknnan) begin
    	        $display("x1 = %b %b %b, %3d",
 	        x1[31], x1[30:23], x1[22:0], x1[30:23]);
    	        $display("x2 = %b %b %b, %3d",
