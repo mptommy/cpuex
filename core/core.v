@@ -2,8 +2,7 @@ module core(
     input clk,
     input rst,
     input uart_input,
-    output uart_output,
-    output [31:0] test
+    output uart_output
     );
 
     reg [31:0] steps;
@@ -213,7 +212,6 @@ module core(
         .Data2 (reg2_data_wire),
         .clk (clk),
         .rst (rst),
-        .x1_test (test),
         .readf1 (readf1_decode),
         .readf2 (readf2_decode),
         .writef (writef_mem));

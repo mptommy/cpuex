@@ -3,14 +3,13 @@ module core_tb();
     reg clk, rst;
     reg start_sending;
     reg [7:0] received, sending;
-    wire [31:0] test;
     wire uart_out;
     wire uart_in;
     wire rstn;
     wire uart_busy;
     assign rstn = ~rst;
 
-    core core_instance(clk, rst, uart_in, uart_out, test);
+    core core_instance(clk, rst, uart_in, uart_out);
     wire [7:0] rdata_uart;
     wire rdata_ready_uart;
     wire ferr;
