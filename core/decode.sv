@@ -24,6 +24,10 @@ module decode(
     output reg bne_out,
     output reg blt_out,
     output reg bge_out,
+    output reg bfeq_out,
+    output reg bfne_out,
+    output reg bflt_out,
+    output reg bfge_out,
     output reg bltu_out,
     output reg bgeu_out,
     output reg data_in,
@@ -72,6 +76,10 @@ module decode(
     wire bne = (opcode == 7'b1100011) && (funct3 == 3'b001);
     wire blt = (opcode == 7'b1100011) && (funct3 == 3'b100);
     wire bge = (opcode == 7'b1100011) && (funct3 == 3'b101);
+    wire bfeq = (opcode == 7'b1100100) && (funct3 == 3'b000);
+    wire bfne = (opcode == 7'b1100100) && (funct3 == 3'b001);
+    wire bflt = (opcode == 7'b1100100) && (funct3 == 3'b100);
+    wire bfge = (opcode == 7'b1100100) && (funct3 == 3'b101);
     wire bltu = (opcode == 7'b1100011) && (funct3 == 3'b110);
     wire bgeu = (opcode == 7'b1100011) && (funct3 == 3'b111);
     wire in = (opcode == 7'b0000000);
@@ -102,6 +110,7 @@ module decode(
     wire i_type = (opcode == 7'b0010011 || opcode == 7'b0000011 || opcode == 7'b1100111);
     wire s_type = (opcode == 7'b0100011);
     wire sb_type = (opcode == 7'b1100011);
+    wire fsb_type = (opcode == 7'b1100100);
     wire uj_type = jal;
     wire u_type = lui || auipc;
 
@@ -126,6 +135,10 @@ module decode(
             bne_out <= 0;
             blt_out <= 0;
             bge_out <= 0;
+            bfeq_out <= 0;
+            bfne_out <= 0;
+            bflt_out <= 0;
+            bfge_out <= 0;
             bltu_out <= 0;
             bgeu_out <= 0;
             data_in <= 0;
@@ -155,6 +168,10 @@ module decode(
                 bne_out <= bne_out;
                 blt_out <= blt_out;
                 bge_out <= bge_out;
+                bfeq_out <= bfeq_out;
+                bfne_out <= bfne_out;
+                bflt_out <= bflt_out;
+                bfge_out <= bfge_out;
                 bltu_out <= bltu_out;
                 bgeu_out <= bgeu_out;
                 data_in <= data_in;
@@ -183,6 +200,10 @@ module decode(
                 bne_out <= 0;
                 blt_out <= 0;
                 bge_out <= 0;
+                bfeq_out <= 0;
+                bfne_out <= 0;
+                bflt_out <= 0;
+                bfge_out <= 0;
                 bltu_out <= 0;
                 bgeu_out <= 0;
                 data_in <= 0;
@@ -195,7 +216,7 @@ module decode(
                 read_reg1 <= ~(auipc || lui || jal);
                 read_reg2 <=
                     sw || r_type || sb_type
-                || (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fsw);
+                 || (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fsw || bfeq || bfne || bflt || bfge);
                 reg1_addr <= instr_raw[19:15];
                 reg2_addr <= instr_raw[24:20];
                 write_reg <= instr_raw[11:7];
@@ -263,7 +284,7 @@ module decode(
 
                 mem_read <= lw || flw;
                 mem_write <= sw || fsw;
-                reg_write <= (sb_type || sw || fsw || out) ? 0 : 1;
+                reg_write <= (sb_type || fsb_type || sw || fsw || out) ? 0 : 1;
                 pc_out <= pc_in;
                 src_pc <= (auipc || jal || jalr) ? 1 : 0;
                 stall_jalr <= jalr;
@@ -272,15 +293,19 @@ module decode(
                 bne_out <= bne;
                 blt_out <= blt;
                 bge_out <= bge;
+                bfeq_out <= bfeq;
+                bfne_out <= bfne;
+                bflt_out <= bflt;
+                bfge_out <= bfge;
                 bltu_out <= bltu;
                 bgeu_out <= bgeu;
 
                 data_in <= in;
                 data_out <= out;
                 readf1 <=
-                    (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fmv_x_w);
+                    (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fmv_x_w || bfeq || bfne || bflt || bfge);
                 readf2 <=
-                    (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fsw);
+                    (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || flt || fmax || fmin || fmv || fhalf || floor || ftoi || feq || fle || fsw || bfeq || bfne || bflt || bfge);
                 writef <=
                     (fadd || fsub || fmul || fdiv || fneg || fabs || fsqrt || fmax || fmin || fmv || fhalf || floor || itof || flw || fmv_w_x);
                 use_fpu <=
