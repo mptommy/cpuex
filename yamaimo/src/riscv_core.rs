@@ -1514,11 +1514,9 @@ impl Riscv64Core for EnvBase{
             PipeRiscvInst::FSQRTS(rd,rs1_data,rs1)=>{
                 if self.writing{println!("FSQRT {},{}",rd,rs1);}
                 if let Some(rs1_data) = Self::fcheck_forwarding(rs1, rs1_data, forwarding1, forwarding2) {
-                    if(true){
 
-                        //let reg_data = fpu::sqrt(rs1_data,&self.fpucore);
-                    }
-                    let reg_data = f32::sqrt(rs1_data);
+                    let reg_data = fpu::sqrt(rs1_data,&self.fpucore);
+                    //let reg_data = f32::sqrt(rs1_data);
                     (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:-1,rd:rd,fdata:reg_data,isint:false,issigned:false})
                 }else{return None}
             }

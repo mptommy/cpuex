@@ -233,6 +233,7 @@ pub fn Addsef(l:&FandU,s:&FandU,ans:&FandU)->FandU{
 }
 
 pub fn fadd(f1:f32,f2:f32)->f32{
+    return f1+f2;
     let a = FandU::new(f1);
     let b = FandU::new(f2);
     let mut ans=FandU::default();
@@ -245,6 +246,7 @@ pub fn fadd(f1:f32,f2:f32)->f32{
     return ans.flo;
 }
 pub fn fsub(f1:f32,f2:f32)->f32{
+    return f1-f2;
     let u2 = f2.to_bits();
     let u2 = u2 ^ (1<<31);
     return fadd(f1, f32::from_bits(u2));
