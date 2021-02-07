@@ -79,7 +79,8 @@ module exec(
 
     wire [7:0] uart_out_wire = reg1_current[7:0];
     wire uart_busy_wire;
-    uart_tx uart_tx_instance(uart_out_wire, data_out, uart_busy_wire, uart_out, clk, rstn);
+    wire data_out_en = ~wait_exec_in && ~stall && data_out;
+    uart_tx uart_tx_instance(uart_out_wire, data_out_en, uart_busy_wire, uart_out, clk, rstn);
 
     wire fdata_ready;
     wire [31:0] fpu_out;
