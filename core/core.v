@@ -265,8 +265,6 @@ module core(
                 pc <= pc_cache + jal_imm + 4;
             else if (jalr)
                 pc <= branch_reg1 + jalr_imm + 4;
-            else if (branch)
-                pc <= pc + branch_imm;
             else
                 pc <= pc + 4;
             pc_cache <= pc_used;
