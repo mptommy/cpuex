@@ -51,13 +51,13 @@ module exec(
     reg [4:0] ctl_cache;
 
     assign reg1_current =
-        (reg1_addr_in == 0) ? 0 :
+        (reg1_addr_in == 0 && !readf1_in) ? 0 :
         ((reg1_addr_in == write_reg_out) && (readf1_in == writef_out) && reg_write_out) ? result :
         ((reg1_addr_in == write_reg_mem) && (readf1_in == writef_mem) && reg_write_mem) ? result_mem :
         reg1_data;
 
     assign reg2_current =
-        (reg2_addr_in == 0) ? 0 :
+        (reg2_addr_in == 0 && !readf2_in) ? 0 :
         ((reg2_addr_in == write_reg_out) && (readf2_in == writef_out) && reg_write_out) ? result :
         ((reg2_addr_in == write_reg_mem) && (readf2_in == writef_mem) && reg_write_mem) ? result_mem :
         reg2_data;
@@ -80,7 +80,7 @@ module exec(
     wire [7:0] uart_out_wire = reg1_current[7:0];
     wire uart_busy_wire;
     wire data_out_en = ~wait_exec_in && ~stall && data_out;
-    uart_tx uart_tx_instance(uart_out_wire, data_out_en, uart_busy_wire, uart_out, clk, rstn);
+    uart_tx uart_tx_instance(uart_out_wire, data_out, uart_busy_wire, uart_out, clk, rstn);
 
     wire fdata_ready;
     wire [31:0] fpu_out;
