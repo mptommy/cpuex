@@ -8,7 +8,7 @@ float fhalf(float f){
 }
 
 float fsqr(float f){
-  return fmul(f, f);
+  return MulFloat(f, f);
 }
 
 float fabs(float f){

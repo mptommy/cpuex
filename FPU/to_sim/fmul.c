@@ -14,6 +14,7 @@ float MulFloat(float f1, float f2){
   SepSEF(&b);
   ans.s = a.s ^ b.s;
   ans.e = a.e + b.e - (127 << 23);  // a.e + b.eは上に1bit拡張して127 = 8'b01111111を引けばよい
+	//PrintUIntBin(ans.e);
   if(a.e + b.e < (127 << 23) || a.e == 0 || b.e == 0){
     ans.e = 0;
 		ans.f = 0;
@@ -40,15 +41,34 @@ float MulFloat(float f1, float f2){
 		}
 	}
 	
+	//unsigned int mask = (1 << (top-26));
 	ans.e += (1 << 23) * (top-24);
 	ans.f = (mult >> (top-23)) & fmask;  // top < 23は起こり得ない。24, 25のみ
+	// 丸めていない。丸める場合は
+	// ans.f = RN(mult << 2, &ans.e);
+	// とかだが、それでも精度が上がるわけでもない。
 
-	if((ans.e & (1 << 31)) > 0){
-    ans.e = emask;
+	if(ans.e >= (255 << 23)){
+    	ans.e = emask;
 		ans.f = 0;
-		CatSEF(&ans);
-  	return ans.raw;
 	}
+	else if(ans.e < (1 << 23)){
+		ans.f = 0;
+	}
+
+	/*printf("debug<3\n");
+	PrintUIntBin(raf);
+	PrintUIntBin(highaf);
+	PrintUIntBin(lowaf);
+	PrintUIntBin(rbf);
+	PrintUIntBin(highbf);
+	PrintUIntBin(lowbf);
+	PrintUIntBin(mult);
+	printf("top = %d <3\n", top);*/
+	
+	/*unsigned int ansf28 = (ans.f << 3);
+	PrintUIntBin(ansf28);
+	RN(ansf28, &ans.e);		// Fpu.pdfでは丸めてないらしい*/
 
 	CatSEF(&ans);
   return ans.raw;

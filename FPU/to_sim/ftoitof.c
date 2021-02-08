@@ -21,17 +21,26 @@ int FloatToInt(float f){
 float IntToFloat(int i){
   sef ans;
   unsigned int u = (i>=0) ? i : -i;
-  int top = 0;
+  int top = -1;
   for(int j=30;j>=0;--j){
     if(((u >> j) & 1) == 1){
       top = j;
       break;
     }
   }
+  if(top == -1){
+    if(i >= 0)
+      return 0.0;
+    else
+      return -2147483648.0;
+  }
   ans.s = ((i < 0) << 31);
   ans.e = ((127 + top) << 23);
   if(top >= 23){
-    ans.f = (((u >> (top-23)) + ((u >> (top-24)) & 1)) & fmask);
+    ans.f = ((u >> (top-23)) + ((u >> (top-24)) & 1));
+    if(((ans.f >> 24) & 1) == 1){
+      ans.e += (1 << 23);
+    }
   }
   else{
     ans.f = ((u << (23 - top)) & fmask);
