@@ -370,16 +370,29 @@ pub fn int_to_float(i:i32)->f32{
         ans.s = 0;
         i as u32
     };
-    let mut top:u32 = 0;
+    let mut top:i32 = -1;
     for j in (0..31).rev(){
         if ((u >> j)&1)==1{
             top = j;
             break;
         }
     }
+    if top == -1{
+        if i >= 0{
+            return 0.0;
+        }else{
+            return -2147483648.0;
+        }
+    };
+    let top = top as u32;
     ans.e = ((127 + top)) << 23;
     if top >= 23{
+        if(true){//ここ、FMASKひつようそうだなぁ
+        };
         ans.f = ((u >> (top-23))+((u >> (top-24))&1))&FMASK;
+        if((ans.f >> 24)&1) ==1{
+            ans.e += 1 << 23;
+        }
     }else{
         ans.f = (u << (23-top))& FMASK;
     }

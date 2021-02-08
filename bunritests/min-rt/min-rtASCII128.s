@@ -1,6 +1,4 @@
 main:
-	addi	t6,t6,170
-	out	t6
 	addi	%t0, %zero, 1
 	addi	%t1, %zero, 0
 	la	%t2, l.7214
@@ -1079,8 +1077,8 @@ main:
 	sw	%s2, 12(%t4)
 	sw	%a0, 8(%t4)
 	sw	%a5, 4(%t4)
-	addi	%t0, %zero, 4
-	addi	%t1, %zero, 4
+	addi	%t0, %zero, 128
+	addi	%t1, %zero, 128
 	sw	%ra, -172(%sp)
 	lw	%t3, 0(%t4)
 	addi	%sp, %sp, -176
@@ -8425,6 +8423,8 @@ bge_else.9592:
 ble_else.9591:
 	jr	%ra
 write_ppm_header.3053:
+	addi	t6,zero,170
+	out	t6
 	lw	%t0, 4(%t4)
 	addi	%t1, %zero, 80
 	out	%t1
