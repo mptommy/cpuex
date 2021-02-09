@@ -21,12 +21,13 @@ module core(
     wire [31:0] branch_imm = { {20{instr_raw[31]}}, instr_raw[7], instr_raw[30:25], instr_raw[11:8], 1'b0 };
     wire branch = (instr_raw[6:0] == 7'b1100011);
     wire branch_wrong, jalr;
+    wire [31:0] branch_reg1, branch_reg2;
 
     wire [31:0] pc_used =
         stall ? pc_cache :
         branch_wrong ? branch_back :
-        branch ? pc_cache + branch_imm :
         jalr ? jalr_imm + branch_reg1 :
+        branch ? pc_cache + branch_imm :
         jal ? pc_cache + jal_imm : pc;
 
     instr_mem instr_mem_instance(
@@ -81,14 +82,14 @@ module core(
         .use_fpu (use_fpu)
     );
 
-    wire [31:0] branch_reg1 =
+    assign branch_reg1 =
         (reg1_addr_decode == 0) ? 0 :
         ((reg1_addr_decode == write_reg_exec) && (readf1_decode == writef_exec) && reg_write_exec) ? result_exec :
         ((reg1_addr_decode == write_reg_mem) && (readf1_decode == writef_mem) && reg_write_mem) ? reg_write_data :
         reg1_data_wire;
 
 
-    wire [31:0] branch_reg2 =
+    assign branch_reg2 =
         (reg2_addr_decode == 0) ? 0 :
         ((reg2_addr_decode == write_reg_exec) && (readf2_decode == writef_exec) && reg_write_exec) ? result_exec :
         ((reg2_addr_decode == write_reg_mem) && (readf2_decode == writef_mem) && reg_write_mem) ? reg_write_data :
@@ -221,13 +222,13 @@ module core(
                 pc <= pc;
             else if (branch_wrong)
                 pc <= branch_back + 4;
+            else if (jalr)
+                pc <= branch_reg1 + jalr_imm + 4;
             else if (branch) begin
                 pc <= pc_cache + branch_imm + 4;
                 branch_back <= pc_cache + 4;
             end else if (jal)
                 pc <= pc_cache + jal_imm + 4;
-            else if (jalr)
-                pc <= branch_reg1 + jalr_imm + 4;
             else
                 pc <= pc + 4;
             pc_cache <= pc_used;
