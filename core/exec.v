@@ -49,6 +49,7 @@ module exec(
     reg data_in_cache, data_out_cache, use_fpu_cache;
     reg [31:0] alu_result;
     reg [4:0] ctl_cache;
+    reg in_fired;
 
     assign reg1_current =
         (reg1_addr_in == 0 && !readf1_in) ? 0 :
@@ -75,11 +76,13 @@ module exec(
     wire uart_ready_wire;
     wire ferr;
     wire rstn = ~rst;
+    wire data_in_en = ~wait_exec_in && ~stall && data_in;
+    wire data_in_first = data_in_en && !in_fired;
     uart_rx uart_rx_instance(uart_in_wire, uart_ready_wire, ferr, uart_in, clk, rstn);
 
-    wire [7:0] uart_out_wire = reg1_current[7:0];
+    wire [7:0] uart_out_wire = in_fired ? reg1_current[7:0] : 8'b10101010;
     wire uart_busy_wire;
-    wire data_out_en = ~wait_exec_in && ~stall && data_out;
+    wire data_out_en = (data_in_first) || (~wait_exec_in && ~stall && data_out);
     uart_tx uart_tx_instance(uart_out_wire, data_out_en, uart_busy_wire, uart_out, clk, rstn);
 
     wire fdata_ready;
@@ -117,6 +120,7 @@ module exec(
             use_fpu_cache <= 0;
             alu_result <= 0;
             ctl_cache <= 0;
+            in_fired <= 0;
         end else begin
             if (stall) begin
                 write_reg_out <= 0;
@@ -170,6 +174,7 @@ module exec(
                 alu_result <= alu_out;
                 ctl_cache <= ctl;
             end
+            if(data_in_first) in_fired <= 1;
         end
     end
 endmodule

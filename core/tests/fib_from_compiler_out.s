@@ -1,11 +1,11 @@
 main:
-	addi	a0, zero, 10
+	in a0
 	sw	ra, -4(sp)
 	addi	sp, sp, -8
 	jal	fib.9
 	addi	sp, sp, 8
 	lw	ra, -4(sp)
-	add zero,zero,zero
+	out a0
 halt:
 	jal	halt
 fib.9:

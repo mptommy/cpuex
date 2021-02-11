@@ -2036,8 +2036,6 @@ rad.2789:
 	fmul	%ft0, %ft0, %ft1
 	jr	%ra
 read_screen_settings.2791:
-	addi	t6,zero,170
-	out	t6
 	lw	%t0, 28(%t4)
 	lw	%t1, 24(%t4)
 	lw	%t2, 20(%t4)
