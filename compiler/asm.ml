@@ -64,6 +64,12 @@ let regs = (* Array.init 16 (fun i -> Printf.sprintf "%%r%d" i) *)
      "%a0"; "%a1"; "%a2"; "%a3"; "%a4"; "%a5"; "%a6"; "%a7";
      "%s2"; "%s3"; "%s4"; "%s5"; "%s6"; "%s7"; "%s8"; "%s9"; "%s10"; "%s11";
      "%t3"; "%t4" |]
+(* let regs = (* Array.init 16 (fun i -> Printf.sprintf "%%r%d" i) *)
+  [| "%t0"; "%t1"; "%t2";
+     "%s0";
+     "%s1"; 
+     "%a0"; "%a1"; "%a2"; "%a3"; "%a4"; "%a5"; "%a6"; "%a7";
+     "%s2"; "%s3"; "%s4"; "%s5"; "%s6"; "%s7"; "%s8"; "%s9"; "%s10"; "%s11"|] *)
 (* let regs_tmp = 
   [| "%t0"; "%t1"; "%t2"; "%t3"; "%t4"; "%t5"; "%t6";
      "%s2"; "%s3"; "%s4"; "%s5"; "%s6"; "%s7"; "%s8"; "%s9"; "%s10"; "%s11" |]
@@ -77,11 +83,53 @@ let fregs =
      "%fa2"; "%fa3"; "%fa4"; "%fa5"; "%fa6"; "%fa7"; 
      "%fs2"; "%fs3"; "%fs4"; "%fs5"; "%fs6"; "%fs7"; "%fs8"; "%fs9"; "%fs10"; "%fs11";
      "%ft8"; "%ft9"; "%ft10" |]
+(* let fregs = 
+  [| "%ft0"; "%ft1"; "%ft2"; "%ft3"; "%ft4"; "%ft5"; "%ft6"; "%ft7"; 
+     "%fs0"; "%fs1"; 
+     "%fa0"; "%fa1";
+     "%fa2"; "%fa3"; "%fa4"; "%fa5"; "%fa6"; "%fa7"; 
+     "%fs2"; "%fs3"; "%fs4"; "%fs5"; "%fs6"; "%fs7"; "%fs8"; "%fs9"; "%fs10"; "%fs11";
+     "%ft8"; "%ft9"; "%ft10" |] *)
 let allregs = Array.to_list regs
 let allfregs = Array.to_list fregs
 let reg_cl = regs.(Array.length regs - 1) (* closure address (caml2html: sparcasm_regcl) *)
 let reg_sw = regs.(Array.length regs - 2) (* temporary for swap *)
-let reg_fsw = fregs.(Array.length fregs - 1) (* temporary for swap *)
+let reg_fsw = fregs.(Array.length fregs - 1) (* temporary for swap *) 
+(* let reg_cl = "%t4" (* closure address (caml2html: sparcasm_regcl) *)
+let reg_sw = "%t3" (* temporary for swap *)
+let reg_fsw = "%ft10" (* temporary for swap *) *)
+let reg_num reg = match reg with
+  | "%t0" | "%ft0" -> 0
+  | "%t1" | "%ft1" -> 1
+  | "%t2" | "%ft2" -> 2
+  | "%s0" | "%ft3" -> 3
+  | "%s1" | "%ft4" -> 4
+  | "%a0" | "%ft5" -> 5
+  | "%a1" | "%ft6" -> 6
+  | "%a2" | "%ft7" -> 7
+  | "%a3" | "%fs0" -> 8
+  | "%a4" | "%fs1" -> 9
+  | "%a5" | "%fa0" -> 10
+  | "%a6" | "%fa1" -> 11
+  | "%a7" | "%fa2" -> 12
+  | "%s2" | "%fa3" -> 13
+  | "%s3" | "%fa4" -> 14
+  | "%s4" | "%fa5" -> 15
+  | "%s5" | "%fa6" -> 16
+  | "%s6" | "%fa7" -> 17
+  | "%s7" | "%fs2" -> 18
+  | "%s8" | "%fs3" -> 19
+  | "%s9" | "%fs4" -> 20
+  | "%s10" | "%fs5" -> 21
+  | "%s11" | "%fs6" -> 22
+  | "%fs7" -> 23
+  | "%fs8" -> 24
+  | "%fs9" -> 25
+  | "%fs10" -> 26
+  | "%fs11" -> 27
+  | "%ft8" -> 28
+  | "%ft9" -> 29
+  | "%ft10" -> 30
 let reg_sp = "%sp" (* stack pointer *)
 let reg_hp = "%gp" (* heap pointer (caml2html: sparcasm_reghp) *)
 let reg_ra = "%ra" (* return address *)
@@ -97,6 +145,18 @@ let co_freg_table =
   done;
   ht
 let co_freg freg = Hashtbl.find co_freg_table freg (* "companion" freg *)
+
+(* let call_fun_des x =
+  let rec call_fun_des_sub done to =
+    if S.is_empty to then
+      (S.diff done (S.singleton x))
+    else
+      let elt = S.choose to in
+      let done' = S.add elt done in
+      let call_yet = S.diff (M.find elt !LivenessColor.call_fun) already' in
+      let to' = S.union (S.diff to (S.singleton elt)) (S.diff (M.find elt !LivenessColor.call_fun) done') in
+      find_call_chain done' to' in
+  call_fun_des_sub S.empty (S.singleton x) *)
 
 (* super-tenuki *)
 let rec remove_and_uniq xs = function

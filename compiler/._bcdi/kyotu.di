@@ -1,1 +1,3 @@
-kyotu.cmi : m.cmo kNormal.cmi
+kyotu.cmi : \
+    m.cmo \
+    kNormal.cmi

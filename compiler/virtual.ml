@@ -43,8 +43,8 @@ let rec g env = function (* 式の仮想マシンコード生成 (caml2html: vir
           let l = Id.L(Id.genid "l") in
           data := (l, d) :: !data;
           l in
-      let x = Id.genid "l" in
-      Let((x, Type.Int), SetL(l), Ans(LdF(x, C(0)))) (* 今作った変数xについて、整数型として浮動小数テーブル内でのラベルをlet宣言し、この変数をロードさせる *)
+      (* let x = Id.genid "l" in *)
+      Ans(LdFL(l)) (* 今作った変数xについて、整数型として浮動小数テーブル内でのラベルをlet宣言し、この変数をロードさせる *)
   | Closure.Neg(x) -> Ans(Neg(x))
   | Closure.Add(x, y) -> Ans(Add(x, V(y))) (* Vは即値ではなく変数であるという意味 *)
   | Closure.Sub(x, y) -> Ans(Sub(x, V(y)))

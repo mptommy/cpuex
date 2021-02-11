@@ -19,12 +19,12 @@ $(RESULT): debug-code top
 clean:: nobackup
 
 # ���⤷�������¤�����顢����˹�碌���Ѥ���
-SOURCES = float.c type.ml id.ml m.ml s.ml \
+SOURCES = float.c type.ml id.ml m.ml s.ml s_nodepair.ml \
 syntax.ml parser.mly lexer.mll typing.mli typing.ml kNormal.mli kNormal.ml \
 alpha.mli alpha.ml kyotu.mli kyotu.ml beta.mli beta.ml assoc.mli assoc.ml \
 inline.mli inline.ml constFold.mli constFold.ml elim.mli elim.ml \
 closure.mli closure.ml asm.mli asm.ml virtual.mli virtual.ml \
-simm.mli simm.ml regAlloc.mli regAlloc.ml emit.mli emit.ml \
+simm.mli simm.ml livenessColor.ml s_inst.ml s_int.ml graphColoring.ml regAlloc.mli regAlloc.ml regAllocColor.mli regAllocColor.ml emit.mli emit.ml \
 main.mli main.ml
 
 # ���ƥ��ȥץ�����ब�������顢��������䤹
@@ -56,7 +56,7 @@ min-caml.html: main.mli main.ml id.ml m.ml s.ml \
 		alpha.mli alpha.ml kyotu.mli kyotu.ml beta.mli beta.ml assoc.mli assoc.ml \
 		inline.mli inline.ml constFold.mli constFold.ml elim.mli elim.ml \
 		closure.mli closure.ml asm.mli asm.ml virtual.mli virtual.ml \
-		simm.mli simm.ml regAlloc.mli regAlloc.ml emit.mli emit.ml
+		simm.mli simm.ml livenessColor.ml graphColoring.ml regAlloc.mli regAlloc.ml emit.mli emit.ml
 	./to_sparc
 	caml2html -o min-caml.html $^
 	sed 's/.*<\/title>/MinCaml Source Code<\/title>/g' < min-caml.html > min-caml.tmp.html

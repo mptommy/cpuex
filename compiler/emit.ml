@@ -170,10 +170,10 @@ and g' oc = function (* 各命令のアセンブリ生成 (caml2html: emit_gprim
   | Tail, (Nop | St _ | StF _ | Comment _ | Save _ | Out _ as exp) ->
       g' oc (NonTail(Id.gentmp Type.Unit), exp);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
-  | Tail, (Set _ | SetL _ | LdFL _ | Mov _ | Neg _ | Add _ | Sub _ | Mul _ | Div _ | SLL _ | Ld _ | FToI _ | FLess _ | In as exp) ->
+  | Tail, (Set _ | SetL _ | Mov _ | Neg _ | Add _ | Sub _ | Mul _ | Div _ | SLL _ | Ld _ | FToI _ | FLess _ | In as exp) ->
       g' oc (NonTail(regs.(0)), exp);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
-  | Tail, (FMov _ | FNeg _ | FAdd _ | FSub _ | FMul _ | FDiv _ | FInv _ | FSqrt _ | FAbs _ | FHalf _ | FSqr _ | LdF _ | IToF _ | Floor _  | InF as exp) ->
+  | Tail, (FMov _ | FNeg _ | FAdd _ | FSub _ | FMul _ | FDiv _ | FInv _ | FSqrt _ | FAbs _ | FHalf _ | FSqr _ | LdF _ | LdFL _ | IToF _ | Floor _  | InF as exp) ->
       g' oc (NonTail(fregs.(0)), exp);
       Printf.fprintf oc "\tjr\t%s\n" reg_ra
   | Tail, (Restore(x) as exp) ->
@@ -312,8 +312,6 @@ let f oc (Prog(data, fundefs, e)) =
   (* Printf.fprintf oc ".section\t\".text\"\n"; *)
   (* Printf.fprintf oc ".globl\tmain\n"; *)
   Printf.fprintf oc "main:\n";
-  Printf.fprintf oc "\taddi\t%s, %s, 170\n" "%t0" "%zero";
-  Printf.fprintf oc "\tout\t%s\n" "%t0";
   (* Printf.fprintf oc "\tsave\t%%sp, -112, %%sp\n"; (* from gcc; why 112? *) *)
   stackset := S.empty;
   stackmap := [];
@@ -322,7 +320,7 @@ let f oc (Prog(data, fundefs, e)) =
   Printf.fprintf oc "halt:\n";
   Printf.fprintf oc "\tjal\thalt\n";
   List.iter (fun fundef -> h oc fundef) fundefs;
-  (* Printf.fprintf oc ".section\t\".rodata\"\n"; *)
+  Printf.fprintf oc ".data:\n";
   List.iter
     (fun (Id.L(x), d) ->
       Printf.fprintf oc "%s:\n\t%f\n" x d;
