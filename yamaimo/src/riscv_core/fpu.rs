@@ -249,7 +249,7 @@ pub fn Addfloat(f1:f32,f2:f32)->f32{
     let shift = (l.e - s.e) as u32 >> 23;
     let lf25 = ((1<<23)+l.f as u32) << 2;
     let sfp1 = if s.e == 0 {0}else{(1<< 23)+s.f as u32};
-    let sf25 = if shift >= 24 {0}else{ if shift >= 2 {sfp1 >> (shift -2 )}else{sfp1 << (2-shift)}};
+    let sf25 = if shift >= 26 {0}else{ if shift >= 2 {sfp1 >> (shift -2 )}else{sfp1 << (2-shift)}};
     let af25 = if l.s != s.s {lf25-sf25}else{lf25+sf25};
     let mut top = -1;
     for i in (0..27).rev(){
