@@ -2,7 +2,6 @@ use std::fs::File;
 use std::io::{Read, BufReader,BufRead};
 use std::env;
 use std::time::{Duration, Instant};
-mod riscv_csr;
 mod riscv_core;
 use crate::riscv_core::Riscv64Core;
 use crate::riscv_core::EnvBase;

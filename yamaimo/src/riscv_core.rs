@@ -1,10 +1,6 @@
 use std::fs::File;
 use std::io::{Write,BufRead,BufReader,BufWriter};
 use std::num::Wrapping;
-use crate::riscv_csr::RiscvCsr;
-use crate::riscv_csr::RiscvCsrBase;
-use crate::riscv_csr::Riscv64Csr;
-use crate::riscv_csr::CsrAddr;
 mod fpu;
 use fpu::FPUCore;
 use std::collections::HashMap;
@@ -200,7 +196,6 @@ pub struct EnvBase{
     pub f_regs:[f32;32],
     pub inst_memory:[u8;DRAM_SIZE],
     pub m_memory:[u8;DRAM_SIZE],
-    pub m_csr:RiscvCsr,
     m_tohost_addr:AddrType,
     m_fromhost_addr:AddrType,
     m_tohost:XlenType,
@@ -265,27 +260,6 @@ impl EnvBase{
             m_tohost_addr:(DRAM_BASE + 0x001000) as AddrType,
             m_fromhost:0,
             m_tohost:0,
-            m_csr:RiscvCsr{
-                m_mcycle:RiscvCsrBase{m_csr:0},
-                m_minstret:RiscvCsrBase{m_csr:0},
-                m_mimpid    : RiscvCsrBase { m_csr: 0 },
-                m_marchid   : RiscvCsrBase { m_csr: 0 },
-                m_mvendorid : RiscvCsrBase { m_csr: 0 },
-                m_misa      : RiscvCsrBase { m_csr: 0 },
-                m_mstatus   : RiscvCsrBase { m_csr: 0 },
-                m_mtvec     : RiscvCsrBase { m_csr: 0 },
-                m_mip       : RiscvCsrBase { m_csr: 0 },
-                m_mie       : RiscvCsrBase { m_csr: 0 },
-                m_mscratch  : RiscvCsrBase { m_csr: 0 },
-                m_mepc      : RiscvCsrBase { m_csr: 0 },
-                m_mtval     : RiscvCsrBase { m_csr: 0 },
-                m_mcause    : RiscvCsrBase { m_csr: 0 },
-                m_mhartid   : RiscvCsrBase { m_csr: 0 },
-                m_dcsr      : RiscvCsrBase { m_csr: 0 },
-                m_dpc       : RiscvCsrBase { m_csr: 0 },
-                m_dscratch  : RiscvCsrBase { m_csr: 0 },
-                m_medeleg   : RiscvCsrBase { m_csr: 0 },
-            }
         }
     }
     pub fn read_int(&mut self,result:String){
@@ -705,7 +679,6 @@ impl Riscv64Core for EnvBase{
         let rs3=Self::get_rs3_addr(instu);
         let rd  = Self::get_rd_addr(instu);
         let rm = Self::get_rm_addr(instu);
-        let csr_addr =CsrAddr::from_u64(((inst>>20)&0x0fff)as u64);
 
         let opcode = inst & 0x7f;
         let funct3 = (inst >> 12)&0x07;
@@ -2042,7 +2015,6 @@ impl Riscv64Core for EnvBase{
         let rs3=Self::get_rs3_addr(inst);
         let rd  = Self::get_rd_addr  (inst);
         let rm = Self::get_rm_addr(inst);
-        let csr_addr =CsrAddr::from_u64(((inst>>20)&0x0fff)as u64);
         let mut update_pc = false;
         let (formem,forwrite)=
         match dec_inst{
@@ -2426,44 +2398,7 @@ impl Riscv64Core for EnvBase{
                 (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
             
             }
-            RiscvInst::CSRRW  => {
-                let rs1_data = self.read_reg(rs1);
-                let reg_data:XlenType = self.m_csr.csrrw (csr_addr, rs1_data);
-                self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            }
-            RiscvInst::CSRRS  => {
-                let rs1_data = self.read_reg(rs1);
-                let reg_data:XlenType = self.m_csr.csrrs (csr_addr, rs1_data);
-                self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            }
-            RiscvInst::CSRRC  => {
-                let rs1_data = self.read_reg(rs1);
-                let reg_data:XlenType = self.m_csr.csrrc (csr_addr, rs1_data);
-                self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            
-            }
-            RiscvInst::CSRRWI => {
-                let zimm: XlenType = ((inst >> 15) & 0x1f) as XlenType;
-                let reg_data:XlenType = self.m_csr.csrrw (csr_addr, zimm);
-                self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            }
-            RiscvInst::CSRRSI => {
-                let zimm: XlenType = ((inst >> 15) & 0x1f) as XlenType;
-                let reg_data:XlenType = self.m_csr.csrrs (csr_addr, zimm);
-                self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            
-            }
-            RiscvInst::CSRRCI => {
-                let zimm: XlenType = ((inst >> 15) & 0x1f) as XlenType;
-                let reg_data:XlenType = self.m_csr.csrrc (csr_addr, zimm);
-                self.write_reg(rd, reg_data);
-                (ForMem{fdata:-1.0,isint:true,memtype:MemType::NOP,memsize:MemSize::WORD,data:0,addr:0},ForWrite{typ:0,data:reg_data,rd:rd,fdata:-1.0,isint:true,issigned:false})
-            }
+
             RiscvInst::FLW  => {
                 let rs1_data = self.read_reg(rs1);
                 let imm =  Self::extract_flw(inst);
@@ -3148,14 +3083,5 @@ impl Riscv64Core for EnvBase{
         while !atais.is_empty(){
             filebbuf.write_all(&[atais.pop_front().unwrap()]).unwrap();
         }
-       /* writeln!(filebuf2,"P3");
-        writeln!(filebuf2,"{} {} 255",ppms.pop_front().unwrap(),ppms.pop_front().unwrap());
-        while !ppms.is_empty(){
-            writeln!(filebuf2,"{} {} {}",ppms.pop_front().unwrap(),ppms.pop_front().unwrap(),ppms.pop_front().unwrap());
-        }*/
-
-
-
     }
-
 }
