@@ -232,6 +232,62 @@ pub fn Addsef(l:&FandU,s:&FandU,ans:&FandU)->FandU{
     return ans;
 }
 
+pub fn Addfloat(f1:f32,f2:f32)->f32{
+    let a = FandU::new(f1);
+    let b = FandU::new(f2);
+    let (l,s)=
+    if a.e + a.f >= b.e + b.f{
+        (a,b)
+    }else{(b,a)};
+    let mut ans = FandU::default();
+    ans.s = l.s;
+    ans.e = l.e;
+    if l.e == EMASK{
+        let l = l.makeflo();
+        return l.flo;
+    };
+    let shift = (l.e - s.e) as u32 >> 23;
+    let lf25 = ((1<<23)+l.f as u32) << 2;
+    let sfp1 = if s.e == 0 {0}else{(1<< 23)+s.f as u32};
+    let sf25 = if shift >= 24 {0}else{ if shift >= 2 {sfp1 >> (shift -2 )}else{sfp1 << (2-shift)}};
+    let af25 = if l.s != s.s {lf25-sf25}else{lf25+sf25};
+    let mut top = -1;
+    for i in (0..27).rev(){
+        if af25 & (1 << i) > 0{
+            top = i;
+            break;
+        }
+    };
+    if top >= 24{
+        ans.f = (af25 >> (top-23))+((af25 >> (top-24))&1);
+    }else if top == 23{
+        ans.f = af25 >> (top -23);
+    }else{
+        ans.f = af25 << (23-top);
+    };
+
+    let mut tmp = 0 as u32;
+    let ttop = top as u32 + (ans.f >> 24);
+    if top == -1{
+        ans.e = 0;
+    }else if top >= 25{
+        tmp = (ttop-25)<<23;
+        ans.e = if EMASK- ans.e > tmp {ans.e + tmp}else{EMASK};
+    }else{
+        tmp = (25-ttop) << 23;
+        ans.e = if ans.e > tmp {ans.e-tmp}else{0};
+    };
+    if ans.e == 0 || ans.e == EMASK{
+        ans.f = 0;
+    };
+    ans = ans.makeflo();
+    return ans.flo;
+}
+pub fn Subfloat(f1:f32,f2:f32)->f32{
+    let u2 = f2.to_bits();
+    let u2 = u2 ^ (1<<31);
+    return Addfloat(f1, f32::from_bits(u2));
+}
 pub fn fadd(f1:f32,f2:f32)->f32{
     return f1+f2;
     let a = FandU::new(f1);
