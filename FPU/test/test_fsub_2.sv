@@ -2,8 +2,8 @@
 `default_nettype none
 
 module test_fsub
-    #(parameter NSTAGE = 2,
-      parameter REPEATNUM = 100000000,
+    #(parameter NSTAGE = 4,
+      parameter REPEATNUM = 10000000,
       parameter RANDSEED = 2) ();
 
 wire [31:0] x1,x2,y;
