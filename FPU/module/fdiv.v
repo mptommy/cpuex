@@ -41,9 +41,9 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin
-    x1r[3] <= x1r[2];
-    x1r[2] <= x1r[1];
-    x1r[1] <= x1r[0];
+    x1ir[3] <= x1ir[2];
+    x1ir[2] <= x1ir[1];
+    x1ir[1] <= x1ir[0];
 end
 
 assign y = ans;
