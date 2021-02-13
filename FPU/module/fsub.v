@@ -1,5 +1,5 @@
 `default_nettype none
-module fsub #(NSTAGE = 2)(
+module fsub #(NSTAGE = 4)(
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
@@ -7,18 +7,19 @@ module fsub #(NSTAGE = 2)(
     input wire clk,
     input wire rstn); 
 
-// stage = 0 (x1, x2 -> lx, sx, lf25, sf25)
-
-reg [31:0] lxr[1:0];
-reg [31:0] sxr;
-reg [25:0] lf25r, sf25r;
+// stage = 0 (x1, x2 -> lx, sx)
 
 wire [31:0] lx = (x1[30:0] >= x2[30:0]) ? x1 : {~x2[31], x2[30:0]};
 wire [31:0] sx = (x1[30:0] >= x2[30:0]) ? {~x2[31], x2[30:0]} : x1;
 
-wire [7:0] shift = lx[30:23] - sx[30:23];
-wire [25:0] lf25 = {1'b1, lx[22:0], 2'b00};
-wire [23:0] sfp1 = (sx[30:23] == 8'b0) ? 0 : {1'b1, sx[22:0]};
+// stage = 1 (lxr[0], sxr[0] -> lf25, sf25)
+
+reg [31:0] lxr[3:0];
+reg [31:0] sxr[1:0];
+
+wire [7:0] shift = lxr[0][30:23] - sxr[0][30:23];
+wire [25:0] lf25 = {1'b1, lxr[0][22:0], 2'b00};
+wire [23:0] sfp1 = (sxr[0][30:23] == 8'b0) ? 0 : {1'b1, sxr[0][22:0]};
 wire [25:0] sf25 =  (shift == 0) ? {sfp1, 2'b00} :
                     (shift == 1) ? {1'b0, sfp1, 1'b0} :
                     (shift == 2) ? {2'b0, sfp1} :
@@ -46,13 +47,11 @@ wire [25:0] sf25 =  (shift == 0) ? {sfp1, 2'b00} :
                     (shift == 24) ? {24'b0, sfp1[23:22]} :
                     (shift == 25) ? {25'b0, sfp1[23]} : 26'b0;
 
-// stage = 1 (lxr[0], sxr, lf25r, sf25r -> afnc, inc, top)
+// stage = 2 (lxr[1], sxr[1], lf25r, sf25r -> afnc, inc, top)
 
-reg [23:0] afncr;
-reg incr;
-reg [4:0] topr;
+reg [25:0] lf25r, sf25r;
 
-wire [26:0] af26 = (lxr[0][31]^sxr[31]) ? lf25r - sf25r : lf25r + sf25r;
+wire [26:0] af26 = (lxr[1][31]^sxr[1][31]) ? lf25r - sf25r : lf25r + sf25r;
 wire inc =  (af26[26]) ? af26[2] :
             (af26[25]) ? af26[1] :
             (af26[24]) ? af26[0] : 0;
@@ -112,37 +111,54 @@ wire [4:0] top =    (af26[26]) ? 26 :
                     (af26[1]) ? 1 :
                     (af26[0]) ? 0 : 0;
 
-// stage = 2 (lxr[1], afncr, incr, topr -> y, ovf)
+// stage = 3 (lxr[2], afncr, incr, topr -> af, ttop, ae)
+
+reg [23:0] afncr;
+reg incr;
+reg [4:0] topr;
 
 wire [24:0] af = afncr + incr;
 wire [4:0] ttop = topr + af[24];
-wire [8:0] ae = lxr[1][30:23] + ttop - 25;
+wire [8:0] ae = lxr[2][30:23] + ttop - 25;
 
-wire ys = lxr[1][31];
-wire [7:0] ye = (ae[8]) ? ((ttop >= 25) ? 8'b11111111 : 8'b0) : ae[7:0];
-wire [22:0] yf = (ye == 8'b0 || ye == 8'b11111111) ? 23'b0 : af[22:0];
+// stage = 4 (lxr[3], afr, ttopr, aer -> y, ovf)
 
-assign y = (&lxr[1][30:23]) ? lxr[1] : {ys, ye, yf};
-assign ovf = (ye == 8'b0 || ye == 8'b11111111) && (|af[22:0]);
+reg [24:0] afr;
+reg [4:0] ttopr;
+reg [8:0] aer;
+
+wire ys = lxr[3][31];
+wire [7:0] ye = (aer[8]) ? ((ttopr >= 25) ? 8'b11111111 : 8'b0) : aer[7:0];
+wire [22:0] yf = (ye == 8'b0 || ye == 8'b11111111) ? 23'b0 : afr[22:0];
+
+assign y = (&lxr[3][30:23]) ? lxr[3] : {ys, ye, yf};
+assign ovf = (ye == 8'b0 || ye == 8'b11111111) && (|afr[22:0]);
 
 always @(posedge clk) begin
     if(~rstn) begin
         lxr[0] <= 'b0;
-        sxr <= 'b0;
+        sxr[0] <= 'b0;
         lf25r <= 'b0;
         sf25r <= 'b0;
         afncr <= 'b0;
         incr <= 'b0;
         topr <= 'b0;
+        afr <= 'b0;
+        ttopr <= 'b0;
+        aer <= 'b0;
     end else begin
         lxr[0] <= lx;
-        lxr[1] <= lxr[0];
-        sxr <= sx;
+        lxr[3:1] <= lxr[2:0];
+        sxr[0] <= sx;
+        sxr[1] <= sxr[0];
         lf25r <= lf25;
         sf25r <= sf25;
         afncr <= afnc;
         incr <= inc;
         topr <= top;
+        afr <= af;
+        ttopr <= ttop;
+        aer <= ae;
     end
 end
 
