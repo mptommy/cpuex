@@ -58,7 +58,7 @@ module FPU(clk, rstn, ctl, x1, x2, y, ready, en);
 
     localparam FADD_NSTAGE = 4;
     localparam FSUB_NSTAGE = 4;
-    localparam FMUL_NSTAGE = 2;
+    localparam FMUL_NSTAGE = 3;
     localparam FINV_NSTAGE = 3;
     localparam FDIV_NSTAGE = 6;
     localparam FHALF_NSTAGE = 0;

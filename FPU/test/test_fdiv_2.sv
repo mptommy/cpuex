@@ -52,6 +52,7 @@ initial begin
         diffnum[i] = 0;
     end
     nannum = 0;
+    zeroinfnum = 0;
 
     #1;			//t = 2ns
     clk = 0;
