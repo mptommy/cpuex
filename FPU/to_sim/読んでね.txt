@@ -6,4 +6,4 @@ others.cにあるものは関数名はそのまま、それ以外は基本的に
 
 ◎修正点
 
-・AddFloat, SubFloatを更新しました。
+・AddFloatの30行目、sf25の(shift >= 24)を(shift >= 26)に修正。
