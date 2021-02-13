@@ -6,10 +6,4 @@ others.cにあるものは関数名はそのまま、それ以外は基本的に
 
 ◎修正点
 
-・itofが0または桁上がりするときに正しくない値を吐いていた。これを修正。
-
-(後は軽微な修正です)
-
-・名前の不一致を修正。(fsub→SubFloatなど)
-
-・const_table, grad_tableの名前が衝突していたのでfinv_, sqrt_の形に変更。
+・AddFloat, SubFloatを更新しました。

@@ -2,8 +2,8 @@
 `default_nettype none
 
 module test_fsub
-    #(parameter NSTAGE = 1,
-      parameter REPEATNUM = 50,
+    #(parameter NSTAGE = 2,
+      parameter REPEATNUM = 100000000,
       parameter RANDSEED = 2) ();
 
 wire [31:0] x1,x2,y;
@@ -13,10 +13,12 @@ shortreal    fx1,fx2,fy;
 logic [31:0] fybit;
 bit 	      fovf;
 bit 	      checkovf;
-int i;
+int i, d1, d2;
 
 logic clk, rstn;
 int diff;
+logic cond;
+int diffnum[2:0], nannum;
 
 logic [31:0]	x1_reg[NSTAGE:0];
 logic [31:0]	x2_reg[NSTAGE:0];
@@ -45,6 +47,10 @@ initial begin
     x1_reg[0] = 0;
     x2_reg[0] = 0;
     i=0;
+    for(i = 0; i < 3; ++i) begin
+        diffnum[i] = 0;
+    end
+    nannum = 0;
 
     #1;			//t = 2ns
     clk = 0;
@@ -57,8 +63,10 @@ initial begin
     end
 
     repeat(REPEATNUM) begin
-        x1_reg[0] <= $urandom();
-        x2_reg[0] <= $urandom();
+        d1 = $urandom();
+        d2 = $urandom();
+        x1_reg[0] <= (d1[30:23] == 8'b0 || d1[30:23] == 8'b11111111) ? {d1[31:23], 23'b0} : d1;
+        x2_reg[0] <= (d2[30:23] == 8'b0 || d2[30:23] == 8'b11111111) ? {d2[31:23], 23'b0} : d2;
         val[0] <= 1;
 
         #1;
@@ -81,6 +89,10 @@ initial begin
 	    #1;
 	    clk = 1;
     end
+    for(i = 0; i < 3; ++i) begin
+        $display("diff >= %d, %d case(s)", i, diffnum[i]);
+    end
+    $display("unordinary answer, %d case(s)", nannum);
     $display("end of checking module fsub");
     $finish;
 end
@@ -105,8 +117,15 @@ always @(posedge clk) begin
 		end 
         
         diff = (fybit >= y) ? fybit - y : y - fybit;
-        $display("diff = %d", diff);
-        //if (y !== fybit || ovf !== fovf) begin
+        //$display("diff = %d", diff);
+        cond = (fybit[30:23] == 8'b11111111 || fybit[30:23] == 8'b0) && (|fybit[22:0]);
+        if(!cond) begin
+            ++diffnum[(diff < 3) ? diff : 2];
+        end else begin
+            ++nannum;
+        end
+
+        if (diff >= 2 && !cond) begin
    	        $display("\nx1 = %b %b %b, %3d",
 	        x1_reg[NSTAGE][31], x1_reg[NSTAGE][30:23], x1_reg[NSTAGE][22:0], x1_reg[NSTAGE][30:23]);
    	        $display("x2 = %b %b %b, %3d",
@@ -115,11 +134,10 @@ always @(posedge clk) begin
 	        fybit[31], fybit[30:23], fybit[22:0], fovf);
    	        $display("%e %b,%3d,%b %b\n", $bitstoshortreal(y),
 	        y[31], y[30:23], y[22:0], ovf);
-        //end
+        end
     end
-    //$display("val = %b, %b, %b", val[0], val[1], val[2]);
-    //$display("%e %b,%3d,%b %b\n", $bitstoshortreal(y),y[31], y[30:23], y[22:0], ovf);
 end
+
 endmodule
 
 `default_nettype wire

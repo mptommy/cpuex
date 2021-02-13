@@ -1,7 +1,5 @@
-// x2がnan, -nan以外は動きます。とりあえず。
-
 `default_nettype none
-module fsub #(NSTAGE = 1)(
+module fsub #(NSTAGE = 2)(
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
@@ -9,137 +7,130 @@ module fsub #(NSTAGE = 1)(
     input wire clk,
     input wire rstn); 
 
-// stage = 0 (x1, x2 -> es, ss, tstck, mye)
+// stage = 0 (x1, x2 -> lx, sx, lf25, sf25)
 
-reg [31:0] x1r;
-reg [31:0] x2rn;
+reg [31:0] lxr[1:0];
+reg [31:0] sxr;
+reg [25:0] lf25r, sf25r;
 
-wire s1 = x1[31];
-wire [7:0] e1= x1[30:23];
-wire [22:0] m1 = x1[22:0];
-wire s2 = ~x2[31];
-wire [7:0] e2= x2[30:23];
-wire [22:0] m2 = x2[22:0];
+wire [31:0] lx = (x1[30:0] >= x2[30:0]) ? x1 : {~x2[31], x2[30:0]};
+wire [31:0] sx = (x1[30:0] >= x2[30:0]) ? {~x2[31], x2[30:0]} : x1;
 
-wire [24:0] m1a = (e1 == 'b0) ? {2'b00,m1} : {2'b01,m1};
-wire [24:0] m2a = (e2== 'b0) ? {2'b00,m2} : {2'b01,m2};
+wire [7:0] shift = lx[30:23] - sx[30:23];
+wire [25:0] lf25 = {1'b1, lx[22:0], 2'b00};
+wire [23:0] sfp1 = (sx[30:23] == 8'b0) ? 0 : {1'b1, sx[22:0]};
+wire [25:0] sf25 =  (shift >= 24) ? 26'b0 :
+                    (shift == 0) ? {sfp1, 2'b00} :
+                    (shift == 1) ? {1'b0, sfp1, 1'b0}:
+                        {2'b00, (sfp1 >> (shift - 2))};
 
-wire [7:0] e1a = (e1 == 'b0) ? 8'b1 : e1;
-wire [7:0] e2a = (e2 == 'b0) ? 8'b1 : e2;
+// stage = 1 (lxr[0], sxr, lf25r, sf25r -> afnc, inc, top)
 
-wire [8:0] te = {1'b0,e1a} + {1'b0,~e2a};
+reg [23:0] afncr;
+reg incr;
+reg [4:0] topr;
 
-wire ce = (te[8] == 1) ? 0 : 1;
-wire [9:0] tdeb = te+8'b1;
-wire [8:0] tdeb2 = ~te;
-wire [7:0] tde = (te[8] == 1) ? tdeb[7:0] : tdeb2[7:0];
+wire [26:0] af26 = (lxr[0][31]^sxr[31]) ? lf25r - sf25r : lf25r + sf25r;
+wire inc =  (af26[26]) ? af26[2] :
+            (af26[25]) ? af26[1] :
+            (af26[24]) ? af26[0] : 0;
+wire [23:0] afnc =  (af26[26]) ? af26[26:3] :
+                    (af26[25]) ? af26[25:2] :
+                    (af26[24]) ? af26[24:1] :
+                    (af26[23]) ? af26[23:0] : 
+                    (af26[22]) ? {af26[22:0], 1'b0} :
+                    (af26[21]) ? {af26[21:0], 2'b0} :
+                    (af26[20]) ? {af26[20:0], 3'b0} :
+                    (af26[19]) ? {af26[19:0], 4'b0} :
+                    (af26[18]) ? {af26[18:0], 5'b0} :
+                    (af26[17]) ? {af26[17:0], 6'b0} :
+                    (af26[16]) ? {af26[16:0], 7'b0} :
+                    (af26[15]) ? {af26[15:0], 8'b0} :
+                    (af26[14]) ? {af26[14:0], 9'b0} :
+                    (af26[13]) ? {af26[13:0], 10'b0} :
+                    (af26[12]) ? {af26[12:0], 11'b0} :
+                    (af26[11]) ? {af26[11:0], 12'b0} :
+                    (af26[10]) ? {af26[10:0], 13'b0} :
+                    (af26[9]) ? {af26[9:0], 14'b0} :
+                    (af26[8]) ? {af26[8:0], 15'b0} :
+                    (af26[7]) ? {af26[7:0], 16'b0} :
+                    (af26[6]) ? {af26[6:0], 17'b0} :
+                    (af26[5]) ? {af26[5:0], 18'b0} :
+                    (af26[4]) ? {af26[4:0], 19'b0} :
+                    (af26[3]) ? {af26[3:0], 20'b0} :
+                    (af26[2]) ? {af26[2:0], 21'b0} :
+                    (af26[1]) ? {af26[1:0], 22'b0} :
+                    (af26[0]) ? {af26[0], 23'b0} : 0;
 
-wire [4:0] de = (|(tde[7:5])) ? 31 : tde[4:0];
+wire [4:0] top =    (af26[26]) ? 26 :
+                    (af26[25]) ? 25 :
+                    (af26[24]) ? 24 :
+                    (af26[23]) ? 23 : 
+                    (af26[22]) ? 22 :
+                    (af26[21]) ? 21 :
+                    (af26[20]) ? 20 :
+                    (af26[19]) ? 19 :
+                    (af26[18]) ? 18 :
+                    (af26[17]) ? 17 :
+                    (af26[16]) ? 16 :
+                    (af26[15]) ? 15 :
+                    (af26[14]) ? 14 :
+                    (af26[13]) ? 13 :
+                    (af26[12]) ? 12 :
+                    (af26[11]) ? 11 :
+                    (af26[10]) ? 10 :
+                    (af26[9]) ? 9 :
+                    (af26[8]) ? 8 :
+                    (af26[7]) ? 7 :
+                    (af26[6]) ? 6 :
+                    (af26[5]) ? 5 :
+                    (af26[4]) ? 4 :
+                    (af26[3]) ? 3 :
+                    (af26[2]) ? 2 :
+                    (af26[1]) ? 1 :
+                    (af26[0]) ? 0 : 0;
 
-wire sel = (de == 0) ? ((m1a>m2a)?0:1) : ce;
+// stage = 2 (lxr[1], afncr, incr, topr -> y, ovf)
 
-wire [24:0] ms = (sel == 0) ? m1a : m2a;
-wire [24:0] mi = (sel == 0) ? m2a : m1a;
-wire [7:0] es = (sel == 0) ? e1a : e2a;
-wire ss = (sel == 0) ? s1 : s2;
+wire [24:0] af = afncr + incr;
+wire [4:0] ttop = topr + af[24];
+wire [8:0] ae = lxr[1][30:23] + ttop - 25;
 
-wire [55:0] mie = {mi,31'b0};
+wire ys = lxr[1][31];
+wire [7:0] ye = (ae[8]) ? ((ttop >= 25) ? 8'b11111111 : 8'b0) : ae[7:0];
+wire [22:0] yf = (ye == 8'b0 || ye == 8'b11111111) ? 23'b0 : af[22:0];
 
-wire [55:0] mia= mie >> de;
-
-wire tstck = |(mia[28:0]);
-
-wire [26:0] mye = (s1 == s2) ? ({ms,2'b0} + mia[55:29]) : {ms,2'b0} - mia[55:29];
-
-// stage = 2 (x1r, x2rn, esr, ssr, tstckr, myer -> y)
-
-reg [7:0] esr;
-reg ssr;
-reg tstckr;
-reg [26:0] myer;
-
-wire s1r = x1r[31];
-wire [7:0] e1r = x1r[30:23];
-wire [22:0] m1r = x1r[22:0];
-wire s2r = x2rn[31];
-wire [7:0] e2r = x2rn[30:23];
-wire [22:0] m2r = x2rn[22:0];
-
-wire [7:0] esi = esr + 1;
-
-wire [7:0] eyd = (myer[26] == 1) ? esi : esr;
-wire [26:0] myd = (myer[26] == 1) ? (esi == 8'b11111111 ? {2'b01,25'b0} : myer >> 1) : myer;
-wire stck = (myer[26] == 1) ? (esi == 8'b11111111 ? 1'b0:(tstckr || myer[0])) : tstckr;
-
-wire [4:0] se = myd[25] ? 5'd0:
-                myd[24] ? 5'd1:
-                myd[23] ? 5'd2:
-                myd[22] ? 5'd3:
-                myd[21] ? 5'd4:
-                myd[20] ? 5'd5:
-                myd[19] ? 5'd6:
-                myd[18] ? 5'd7:
-                myd[17] ? 5'd8:
-                myd[16] ? 5'd9:
-                myd[15] ? 5'd10:
-                myd[14] ? 5'd11:
-                myd[13] ? 5'd12:
-                myd[12] ? 5'd13:
-                myd[11] ? 5'd14:
-                myd[10] ? 5'd15:
-                myd[9] ? 5'd16:
-                myd[8] ? 5'd17:
-                myd[7] ? 5'd18:
-                myd[6] ? 5'd19:
-                myd[5] ? 5'd20:
-                myd[4] ? 5'd21:
-                myd[3] ? 5'd22:
-                myd[2] ? 5'd23:
-                myd[1] ? 5'd24:
-                myd[0] ? 5'd25: 5'd26;
-
-wire [8:0] eyf = {1'b0,eyd}-{4'b0,se};
-
-wire [26:0] myf = {1'b0,eyd} > {4'b0,se} ? myd << se : myd << (eyd[4:0]-1);
-wire [7:0] eyr = {1'b0,eyd} > {4'b0,se} ? eyf[7:0] : 8'b0;
-
-wire [24:0] myr= (myf[1] == 1 && myf[0] == 0 && stck == 0 && myf[2] == 1) ||( myf[1] == 1 && myf[0] == 0 && s1r == s2r && stck ==1) || (myf[1] == 1 && myf[0] == 1) ? myf[26:2] + 25'b1 : myf[26:2];
-
-wire [7:0] eyri = eyr + 8'b1;
-
-wire [7:0] ey = (myr[24]== 1) ? eyri : (myr[23:0] == 24'b0 ? 8'b0 : eyr);
-wire [22:0] my = (myr[24] == 1 || myr[23:0] == 24'b0) ? 23'b0 : myr[22:0];
-
-wire sy = (ey == 0 & my == 0 ) ? s1r && s2r : ssr;
-
-wire nzm1 = |(m1r[22:0]);
-wire nzm2 = |(m2r[22:0]);
+assign y = (&lxr[1][30:23]) ? lxr[1] : {ys, ye, yf};
+assign ovf = (ye == 8'b0 || ye == 8'b11111111) && (|af[22:0]);
 
 always @(posedge clk) begin
     if(~rstn) begin
-        x1r <= 'b0;
-        x2rn <= 'b0;
-        esr <= 'b0;
-        ssr <= 'b0;
-        myer <= 'b0;
-        tstckr <= 'b0;
+        lxr[0] <= 'b0;
+        sxr <= 'b0;
+        lf25r <= 'b0;
+        sf25r <= 'b0;
+        afncr <= 'b0;
+        incr <= 'b0;
+        topr <= 'b0;
     end else begin
-        x1r <= x1;
-        x2rn <= {~x2[31], x2[30:0]};
-        esr <= es;
-        ssr <= ss;
-        myer <= mye;
-        tstckr <= tstck;
+        lxr[0] <= lx;
+        lxr[1] <= lxr[0];
+        sxr <= sx;
+        lf25r <= lf25;
+        sf25r <= sf25;
+        afncr <= afnc;
+        incr <= inc;
+        topr <= top;
     end
 end
 
-assign y = (e1r == 8'd255 && e2r!= 8'd255)? {s1r,8'd255,nzm1,m1r[21:0]}:
+/*assign y = (e1r == 8'd255 && e2r!= 8'd255)? {s1r,8'd255,nzm1,m1r[21:0]}:
                       (e1r != 8'd255 && e2r== 8'd255)? {s2r,8'd255,nzm2,m2r[21:0]}:
                       (e1r == 8'd255 && e2r== 8'd255 && nzm2)? {s2r,8'd255,1'b1,m2r[21:0]}:
                       (e1r == 8'd255 && e2r== 8'd255 && nzm1)? {s1r,8'd255,1'b1,m1r[21:0]}:
                       (e1r == 8'd255 && e2r== 8'd255 && s1r == s2r)? {s1r,8'd255,23'b0}:
                       (e1r == 8'd255 && e2r== 8'd255)?{1'b1,8'd255,1'b1,22'b0}:{sy,ey,my};
 
-assign ovf = (e1r != 8'b11111111 || m1r != 'b0) && (e2r != 8'b11111111 || m2r != 'b0) && y[30:23] == 8'b11111111 && y[22:0] == 'b0;
+assign ovf = (e1r != 8'b11111111 || m1r != 'b0) && (e2r != 8'b11111111 || m2r != 'b0) && y[30:23] == 8'b11111111 && y[22:0] == 'b0;*/
 endmodule
 `default_nettype wire
