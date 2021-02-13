@@ -18,11 +18,14 @@ int main(){
   float a, b, ans, trueans;
   int a_int, ans_int, trueans_int;
   unsigned int ua, ub, uans, utrueans, diff;
+  unsigned int diffnum[10], nannum = 0;
   int temp_int;
   OPERATOR oper;
   srand((unsigned)time(NULL));
   LoadTable();
   SqrtLoadTable();
+  for(int i=0;i<10;++i)
+    diffnum[i] = 0;
   while(1){
     printf("command: ");
     scanf("%s", command);
@@ -314,9 +317,16 @@ int main(){
           uans = ftou(ans);
           utrueans = ftou(trueans);
         }
+        unsigned int ute = (utrueans & emask), utf = (utrueans & fmask);
+        if(utf != 0 && (ute == 0 || ute == emask) && (uans & emask) == ute){
+          ++nannum;
+          --i;
+          continue;
+        }
         diff = (uans >= utrueans) ? uans - utrueans : utrueans - uans;
-        printf("diff = %u\n", diff);
-        if(ans != trueans && (oper == ADD || oper == SUB)){
+        ++diffnum[(diff < 10) ? diff : 9];
+        //printf("diff = %u\n", diff);
+        if(diff >= 2 && (oper == ADD || oper == SUB)){
           miss++;
           printf("%f %f %f %f NG\n", a, b, trueans, ans);
           printf("uint: %u %u\n", ftou(a), ftou(b));
@@ -379,6 +389,13 @@ int main(){
           PrintFloatBin(ans);
         }
       }
+      for(int i=0;i<9;++i){
+        printf("diff = %d, %d case(s)\n", i, diffnum[i]);
+        diffnum[i] = 0;
+      }
+      printf("diff >= 9, %d case(s)\n", diffnum[9]);
+      printf("unordinary answer, %d case(s)\n", nannum);
+      nannum = diffnum[9] = 0;
       if(!miss)
         printf("all OK!\n");
     }

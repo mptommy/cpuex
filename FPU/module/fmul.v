@@ -61,11 +61,14 @@ reg [26:0] mmulr;
 // 7. シフト分だけ指数部に加える。オーバーフロー・アンダーフローする場合の指数部の正規化。
 
 wire iszero = (~(|x1r[1][30:23]) | ~(|x2r[1][30:23]));
+wire isinf = (&x1r[1][30:23]) | (&x2r[1][30:23]);
 
-wire [8:0] ye = (ye0r[9] == 1) ? 255 :
-                (ye0r[8] == 0) ? 0 :
-                (mmulr[26] == 1) ? ye0r + 2 :
-                (mmulr[25] == 1) ? ye0r + 1 : ye0r;
+wire [8:0] ye1 =    (ye0r[9] == 1) ? 255 :
+                    (ye0r[8] == 0) ? 0 :
+                    (mmulr[26] == 1) ? ye0r[7:0] + 2 :
+                    (mmulr[25] == 1) ? ye0r[7:0] + 1 : ye0r[7:0];
+
+wire [7:0] ye = (ye1[8]) ? 255 : ye1[7:0];
 
 wire [22:0] ym = (ye == 255 || ye == 0) ? 0 : ym0r;
 
@@ -96,7 +99,8 @@ always @(posedge clk) begin
 end
 
 assign ovf = (ye0[9] == 1) ? 1 : 0;
-assign y = (iszero) ? {ysr, 31'b0} : {ysr, ye[7:0], ym};
+assign y =  (iszero) ? {ysr, 31'b0} :
+            (isinf) ? {ysr, 8'b11111111, 23'b0} : {ysr, ye, ym};
 
 endmodule
 `default_nettype wire

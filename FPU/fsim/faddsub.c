@@ -3,63 +3,6 @@
 #include "util.h"
 #include "faddsub.h"
 
-void AddSEF(sef *l, sef *s, sef *ans){
-  unsigned int shift = (l->e - s->e) >> 23;
-  unsigned int mask, u8, lf28, sf28;
-  unsigned int sub28;
-  ans->s = l->s;
-  ans->e = l->e;
-  if(shift >= 25 || s->e == 0){    // けち表現により、0は2^-127と同一になってしまうため例外
-    ans->f = (1 << 23) + l->f;   // 最下位1bitに
-    return;
-  }
-  else if(l->e == emask){
-    ans->f = 0;
-    return;
-  }
-  else if(shift >= 3){
-    mask = (1 << (shift - 2)) - 1;
-    u8 = ((s->f & mask) > 0);    // 1/8ulp以下をORしている
-    lf28 = ((1 << 23) + l->f) << 3;
-    sf28 = ((((1 << 23) + s->f) >> (shift - 2)) << 1) + u8;
-  }
-  else{
-    lf28 = ((1 << 23) + l->f) << 3;
-    sf28 = ((1 << 23) + s->f) << (3 - shift);
-  }
-  /*printf("lf28, sf28\n");
-  PrintUIntBin(lf28);
-  PrintUIntBin(sf28);*/
-  
-  if(l->s ^ s->s){   // signが異なる場合
-    sub28 = lf28 - sf28;
-    if(sub28 == 0){
-      ans->e = 0;
-      ans->f = 0;
-    }
-    else{
-      /*printf("lf28とsf28\n");
-      PrintUIntBin(lf28);
-      PrintUIntBin(sf28);
-      printf("sub28とe\n");
-      PrintUIntBin(sub28);
-      PrintUIntBin(ans->e);
-      PrintUIntBin(1 << 26);*/
-      while((sub28 & (1 << 26)) == 0){   // けち表現bitの27bit目が1になるまでシフト
-        ans->e -= (1 << 23);
-        sub28 <<= 1;
-        /*printf("sub28とe\n");
-        PrintUIntBin(sub28);
-        PrintUIntBin(ans->e);*/
-      }
-      ans->f = RN(sub28, &ans->e);
-    }
-  }
-  else{
-    ans->f = RN(lf28 + sf28, &ans->e);
-  }
-}
-
 float AddFloat(float f1, float f2){
   sef a, b, ans;
   sef *l, *s;
@@ -75,7 +18,57 @@ float AddFloat(float f1, float f2){
     l = &b;
     s = &a;
   }
-  AddSEF(l, s, &ans);
+  
+  ans.s = l->s;
+  ans.e = l->e;
+  if(l->e == emask)
+    return l->raw;
+
+  unsigned int shift = (l->e - s->e) >> 23;
+  unsigned int lf25 = ((1 << 23) + l->f) << 2;
+  unsigned int sfp1 = (s->e == 0) ? 0 : (1 << 23) + s->f;
+  unsigned int sf25 = (shift >= 24) ? 0 : ((shift>=2) ? (sfp1 >> (shift-2)) : (sfp1 << (2-shift)));
+  unsigned int af25 = (l->s != s->s) ? lf25 - sf25 : lf25 + sf25;
+  /*printf("lfsf\n");
+  PrintUIntBin(lf25);
+  PrintUIntBin(sf25);
+  PrintUIntBin(af25);*/
+  int top = -1;
+  for(int i=26;i>=0;--i){
+    if((af25 & (1 << i)) > 0){
+      top = i;
+      //printf("top = %d\n", i);
+      break;
+    }
+  }
+
+  if(top >= 24)
+    ans.f = ((af25 >> (top - 23)) + ((af25 >> (top - 24)) & 1));
+    // もし最大桁が25bit目に繰り上がっても、どうせ10|0000...なので下23bit見ればよい
+  else if(top == 23)
+    ans.f = (af25 >> (top - 23));
+  else
+    ans.f = (af25 << (23 - top));
+
+  //PrintUIntBin(ans.f);
+
+  unsigned int tmp;
+  unsigned int ttop = top + (ans.f >> 24);
+  if(top == -1)
+    ans.e = 0;
+  else if(top >= 25){
+    tmp = ((ttop - 25) << 23);
+    ans.e = (emask - ans.e > tmp) ? ans.e + tmp : emask;
+  }
+  else{
+    tmp = ((25 - ttop) << 23);
+    ans.e = (ans.e > tmp) ? ans.e - tmp : 0;
+  }
+
+  if(ans.e == 0 || ans.e == emask)
+    ans.f = 0;
+
+  //printf("lfsf\n");
   CatSEF(&ans);
   return ans.raw;
 }
@@ -84,12 +77,4 @@ float SubFloat(float f1, float f2){
   unsigned int u2 = ftou(f2);
   u2 += (1 << 31);    // u2のsignビットを反転
   return AddFloat(f1, utof(u2));
-}
-
-float normalize(float denf){
-  unsigned int s = GetS(denf), e = GetE(denf);
-  if(e == 0 || e == emask)
-    return utof(s + e);           // AddFracの場合分けのおかげで不要？
-  else
-    return denf; 
 }

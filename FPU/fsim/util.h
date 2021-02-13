@@ -36,3 +36,4 @@ unsigned int GetEF(float a);
 void SepSEF(sef *a);
 unsigned int CatSEF(sef *b);
 unsigned int RN(unsigned int f28, unsigned int *e);
+float normalize(float denf);

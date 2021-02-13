@@ -119,3 +119,11 @@ unsigned int RN(unsigned int f28, unsigned int *e){ // X Y a_-1 a_-2 ... a_-23 a
   printf("e %u\n", *e);*/
   return ret;
 }
+
+float normalize(float denf){
+  unsigned int s = GetS(denf), e = GetE(denf);
+  if(e == 0 || e == emask)
+    return utof(s + e);           // AddFracの場合分けのおかげで不要？
+  else
+    return denf; 
+}

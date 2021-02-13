@@ -56,8 +56,8 @@ module FPU(clk, rstn, ctl, x1, x2, y, ready, en);
     sqrt sqrt_instance(x1, sqrt_y, clk, rstn);
     fmul fsqr_instance(x1, x1, fsqr_y, ovf, clk, rstn);
 
-    localparam FADD_NSTAGE = 1;
-    localparam FSUB_NSTAGE = 1;
+    localparam FADD_NSTAGE = 2;
+    localparam FSUB_NSTAGE = 2;
     localparam FMUL_NSTAGE = 2;
     localparam FINV_NSTAGE = 3;
     localparam FDIV_NSTAGE = 6;

@@ -10,8 +10,8 @@
 
 const unsigned int m_low13_mask_s = (1 << 13) - 1;
 
-uint128_t const_table[1024];
-uint128_t grad_table[1024];
+uint128_t sqrt_const_table[1024];
+uint128_t sqrt_grad_table[1024];
 
 void SqrtLoadTable(){
   FILE *fp;
@@ -19,13 +19,13 @@ void SqrtLoadTable(){
   fp = fopen("sqrt_const_table.txt", "r");
   for(int i=0;i<1024;++i){
     fscanf(fp, "%lu %lu", &upper, &lower);
-    const_table[i] = (((uint128_t)upper) << 64) + (uint128_t)lower;
+    sqrt_const_table[i] = (((uint128_t)upper) << 64) + (uint128_t)lower;
   }
   fclose(fp);
   fp = fopen("sqrt_grad_table.txt", "r");
   for(int i=0;i<1024;++i){
     fscanf(fp, "%lu %lu", &upper, &lower);
-    grad_table[i] = (((uint128_t)upper) << 64) + (uint128_t)lower;
+    sqrt_grad_table[i] = (((uint128_t)upper) << 64) + (uint128_t)lower;
   }
   fclose(fp);
 }
@@ -37,7 +37,8 @@ float SqrtFloat(float f){
   unsigned int aet = (a.e >> 23);
   unsigned int A0 = a.f >> 13;
   unsigned int A1 = a.f & m_low13_mask_s;
-  uint128_t mtmp = (const_table[A0] << 13) - A1 * grad_table[A0];
+  //printf("%lu %lu\n", (uint64_t)(sqrt_const_table[A0] >> 64), (uint64_t)sqrt_const_table[A0]);
+  uint128_t mtmp = (sqrt_const_table[A0] << 13) - A1 * sqrt_grad_table[A0];
   uint128_t mantissa = (mtmp >> 71) + ((mtmp >> 70) & 1);  //適当に丸めてる。
   unsigned int tsq = (1 << 23) + (unsigned int)(mantissa & fmask);
   unsigned int m = (1 << 23) + a.f;
@@ -59,7 +60,7 @@ float SqrtFloat(float f){
   CatSEF(&am);
   unsigned int A0 = a.f >> 13;
   unsigned int A1 = a.f & m_low13_mask_s;
-  uint128_t mtmp = (const_table[A0] << 13) - A1 * grad_table[A0];
+  uint128_t mtmp = (sqrt_const_table[A0] << 13) - A1 * sqrt_grad_table[A0];
   uint128_t mantissa = (mtmp >> 71) + ((mtmp >> 70) & 1);  //適当に丸めてる。
   tsq.f = (unsigned int)(mantissa & fmask);
   CatSEF(&tsq);
