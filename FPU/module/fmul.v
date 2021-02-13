@@ -1,9 +1,5 @@
 `default_nettype none
-<<<<<<< HEAD
 module fmul (
-=======
-module fmul #(parameter NSTAGE = 3)(
->>>>>>> fpu
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,

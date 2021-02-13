@@ -1,9 +1,5 @@
 `default_nettype none
-<<<<<<< HEAD
 module fadd (
-=======
-module fadd #(NSTAGE = 4)(
->>>>>>> fpu
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
