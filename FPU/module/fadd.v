@@ -19,10 +19,33 @@ wire [31:0] sx = (x1[30:0] >= x2[30:0]) ? x2 : x1;
 wire [7:0] shift = lx[30:23] - sx[30:23];
 wire [25:0] lf25 = {1'b1, lx[22:0], 2'b00};
 wire [23:0] sfp1 = (sx[30:23] == 8'b0) ? 0 : {1'b1, sx[22:0]};
-wire [25:0] sf25 =  (shift >= 24) ? 26'b0 :
-                    (shift == 0) ? {sfp1, 2'b00} :
-                    (shift == 1) ? {1'b0, sfp1, 1'b0}:
-                        {2'b00, (sfp1 >> (shift - 2))};
+wire [25:0] sf25 =  (shift == 0) ? {sfp1, 2'b00} :
+                    (shift == 1) ? {1'b0, sfp1, 1'b0} :
+                    (shift == 2) ? {2'b0, sfp1} :
+                    (shift == 3) ? {3'b0, sfp1[23:1]} :
+                    (shift == 4) ? {4'b0, sfp1[23:2]} :
+                    (shift == 5) ? {5'b0, sfp1[23:3]} :
+                    (shift == 6) ? {6'b0, sfp1[23:4]} :
+                    (shift == 7) ? {7'b0, sfp1[23:5]} :
+                    (shift == 8) ? {8'b0, sfp1[23:6]} :
+                    (shift == 9) ? {9'b0, sfp1[23:7]} :
+                    (shift == 10) ? {10'b0, sfp1[23:8]} :
+                    (shift == 11) ? {11'b0, sfp1[23:9]} :
+                    (shift == 12) ? {12'b0, sfp1[23:10]} :
+                    (shift == 13) ? {13'b0, sfp1[23:11]} :
+                    (shift == 14) ? {14'b0, sfp1[23:12]} :
+                    (shift == 15) ? {15'b0, sfp1[23:13]} :
+                    (shift == 16) ? {16'b0, sfp1[23:14]} :
+                    (shift == 17) ? {17'b0, sfp1[23:15]} :
+                    (shift == 18) ? {18'b0, sfp1[23:16]} :
+                    (shift == 19) ? {19'b0, sfp1[23:17]} :
+                    (shift == 20) ? {20'b0, sfp1[23:18]} :
+                    (shift == 21) ? {21'b0, sfp1[23:19]} :
+                    (shift == 22) ? {22'b0, sfp1[23:20]} :
+                    (shift == 23) ? {23'b0, sfp1[23:21]} :
+                    (shift == 24) ? {24'b0, sfp1[23:22]} :
+                    (shift == 25) ? {25'b0, sfp1[23]} : 26'b0;
+
 
 // stage = 1 (lxr[0], sxr, lf25r, sf25r -> afnc, inc, top)
 

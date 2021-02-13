@@ -27,7 +27,7 @@ float AddFloat(float f1, float f2){
   unsigned int shift = (l->e - s->e) >> 23;
   unsigned int lf25 = ((1 << 23) + l->f) << 2;
   unsigned int sfp1 = (s->e == 0) ? 0 : (1 << 23) + s->f;
-  unsigned int sf25 = (shift >= 24) ? 0 : ((shift>=2) ? (sfp1 >> (shift-2)) : (sfp1 << (2-shift)));
+  unsigned int sf25 = (shift >= 26) ? 0 : ((shift>=2) ? (sfp1 >> (shift-2)) : (sfp1 << (2-shift)));
   unsigned int af25 = (l->s != s->s) ? lf25 - sf25 : lf25 + sf25;
   int top = -1;
   for(int i=26;i>=0;--i){
