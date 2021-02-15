@@ -1,5 +1,5 @@
 `default_nettype none
-module fmul #(parameter NSTAGE = 2)(
+module fmul #(parameter NSTAGE = 3)(
     input wire [31:0] x1,
     input wire [31:0] x2,
     output wire [31:0] y,
@@ -31,7 +31,7 @@ wire [25:0] hh = hi1r * hi2r;
 wire [23:0] hl = hi1r * lo2r;
 wire [23:0] lh = lo1r * hi2r;
 
-// stage = 2 (x1r[1], x2r[1], hhr, hlr, lhr -> y, ovf)
+// stage = 2 (x1r[1], x2r[1], hhr, hlr, lhr -> mmul, ym0, ye0)
 
 reg [25:0] hhr;
 reg [23:0] hlr;
@@ -54,23 +54,26 @@ wire [7:0] e1= x1r[1][30:23];
 wire [7:0] e2= x2r[1][30:23];
 wire [9:0] ye0 = e1 + e2 + 129;      //256-127
 
+// stage = 3 (x1r[2], x2r[2], ysr, mmulr, ym0r, ye0r -> ovf, y)
+
+reg ysr;
+reg [22:0] ym0r;
+reg [9:0] ye0r;
+reg [26:0] mmulr;
+
 // 7. シフト分だけ指数部に加える。オーバーフロー・アンダーフローする場合の指数部の正規化。
 
-wire iszero = (~(|x1r[1][30:23]) | ~(|x2r[1][30:23]));
-wire isinf = (&x1r[1][30:23]) | (&x2r[1][30:23]);
+wire iszero = (~(|x1r[2][30:23]) | ~(|x2r[2][30:23]));
+wire isinf = (&x1r[2][30:23]) | (&x2r[2][30:23]);
 
-wire [8:0] ye1 =    (ye0[9] == 1) ? 255 :
-                    (ye0[8] == 0) ? 0 :
-                    (mmul[26] == 1) ? ye0[7:0] + 2 :
-                    (mmul[25] == 1) ? ye0[7:0] + 1 : ye0[7:0];
+wire [8:0] ye1 =    (ye0r[9] == 1) ? 255 :
+                    (ye0r[8] == 0) ? 0 :
+                    (mmulr[26] == 1) ? ye0r[7:0] + 2 :
+                    (mmulr[25] == 1) ? ye0r[7:0] + 1 : ye0r[7:0];
 
 wire [7:0] ye = (ye1[8]) ? 255 : ye1[7:0];
 
-wire [22:0] ym = (ye == 255 || ye == 0) ? 0 : ym0;
-
-assign y =  (iszero) ? {ys, 31'b0} :
-            (isinf) ? {ys, 8'b11111111, 23'b0} : {ys, ye, ym};
-assign ovf = (ye0[9] == 1) ? 1 : 0;
+wire [22:0] ym = (ye == 255 || ye == 0) ? 0 : ym0r;
 
 always @(posedge clk) begin
     if(~rstn) begin
@@ -79,6 +82,10 @@ always @(posedge clk) begin
         hhr <= 'b0;
         hlr <= 'b0;
         lhr <= 'b0;
+        ysr <= 'b0;
+        mmulr <= 'b0;
+        ym0r <= 'b0;
+        ye0r <= 'b0;
         hi1r <= 'b0;
         hi2r <= 'b0;
         lo1r <= 'b0;
@@ -86,8 +93,8 @@ always @(posedge clk) begin
     end else begin
         x1r[0] <= x1;
         x2r[0] <= x2;
-        x1r[1] <= x1r[0];
-        x2r[1] <= x2r[0];
+        x1r[2:1] <= x1r[1:0];
+        x2r[2:1] <= x2r[1:0];
         hi1r <= hi1;
         lo1r <= lo1;
         hi2r <= hi2;
@@ -95,8 +102,16 @@ always @(posedge clk) begin
         hhr <= hh;
         hlr <= hl;
         lhr <= lh;
+        ysr <= ys;
+        mmulr <= mmul;
+        ym0r <= ym0;
+        ye0r <= ye0;
     end
 end
+
+assign ovf = (ye0[9] == 1) ? 1 : 0;
+assign y =  (iszero) ? {ysr, 31'b0} :
+            (isinf) ? {ysr, 8'b11111111, 23'b0} : {ysr, ye, ym};
 
 endmodule
 `default_nettype wire
