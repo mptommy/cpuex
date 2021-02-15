@@ -2,19 +2,17 @@
 `default_nettype none
 
 module test_sqrt
-    #(parameter NSTAGE = 4,
-      parameter REPEATNUM = 10000000,
+    #(parameter NSTAGE = 5,
+      parameter REPEATNUM = 500,
       parameter RANDSEED = 2) ();
 
 wire [31:0] x1,y;
+logic [31:0] x1d;
 shortreal    fx1,fy;
 logic [31:0] fybit;
 
 logic clk, rstn;
-int i, diff, d1;
-logic cond, zeroinf;
-int diffnum[10:0];
-int nannum, zeroinfnum;
+int i, diff;
 
 logic [31:0] x1_reg[NSTAGE:0];
 logic val[NSTAGE:0];
@@ -40,10 +38,6 @@ initial begin
     val = {default: 1'b0};
     x1_reg[0] = 0;
     i=0;
-    for(i = 0; i < 11; ++i) begin
-        diffnum[i] = 0;
-    end
-    nannum = 0;
 
     #1;			//t = 2ns
     clk = 0;
@@ -56,9 +50,8 @@ initial begin
     end
 
     repeat(REPEATNUM) begin
-        d1 = $urandom();
-        x1_reg[0] <= (d1[30:23] == 8'b0 || d1[30:23] == 8'b11111111) ? {d1[31:23], 23'b0} : {1'b0, d1[30:0]};
-
+        x1d = $urandom();
+        x1_reg[0] <= {1'b0, x1d[30:0]};
         val[0] <= 1;
 
         #1;
@@ -81,10 +74,6 @@ initial begin
 	    #1;
 	    clk = 1;
     end
-    for(i = 0; i < 11; ++i) begin
-        $display("diff >= %d, %d case(s)", i, diffnum[i]);
-    end
-    $display("unordinary answer, %d case(s)", nannum);
     $display("end of checking module sqrt");
     $finish;
 end
@@ -102,21 +91,15 @@ always @(posedge clk) begin
         fybit = $shortrealtobits(fy);
 
         diff = (fybit >= y) ? fybit - y : y - fybit;
-        cond = (fybit[30:23] == 8'b11111111 || fybit[30:23] == 8'b0) && (|fybit[22:0]);
-        if(!cond) begin
-            ++diffnum[(diff < 11) ? diff : 10];
-        end else begin
-            ++nannum;
-        end
-        //$display("diff = %d", diff);
-        if(diff >= 4 && !cond) begin
+        $display("diff = %d", diff);
+        //if(diff >= 4) begin
    	        $display("x = %b %b %b, %f",
 	        x1_reg[NSTAGE][31], x1_reg[NSTAGE][30:23], x1_reg[NSTAGE][22:0], fx1);
    	        $display("%e %b,%3d,%b", fy,
 	        fybit[31], fybit[30:23], fybit[22:0]);
    	        $display("%e %b,%3d,%b\n", $bitstoshortreal(y),
 	        y[31], y[30:23], y[22:0]);
-        end
+        //end
     end
     //$display("val = %b, %b, %b", val[0], val[1], val[2]);
     //$display("%e %b,%3d,%b %b\n", $bitstoshortreal(y),y[31], y[30:23], y[22:0], ovf);

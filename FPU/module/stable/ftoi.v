@@ -1,5 +1,5 @@
 `default_nettype none
-module ftoi (
+module ftoi #(parameter NSTAGE = 2)(
     input wire [31:0] x,
     output wire [31:0] y,
     input wire clk,
@@ -70,29 +70,39 @@ wire inc =  (e == 8'b01111111) ? m[22] :
             (e == 8'b10010100) ? m[1] :
             (e == 8'b10010101) ? m[0] : 1'b0;
 
-// stage = 1 (xr, absynir, incr -> y)
+// stage = 1 (absyni, inc -> absy)
 
-reg [31:0] xr;
 reg [31:0] absynir;
 reg incr;
 
 wire [31:0] absy = absynir + incr;
 
-wire s = xr[31];
+// stage = 2 (absyr -> y)
 
-assign y = (s == 0) ? absy : (~absy) + 1'b1;
+reg [31:0] xr[1:0];
+reg [31:0] absyr;
+
+wire s = xr[1][31];
 
 always @(posedge clk) begin
     if(~rstn) begin
-        xr <= 'b0;
+        xr[0] <= 'b0;
         absynir <= 'b0;
         incr <= 'b0;
+        absyr <= 'b0;
     end else begin
-        xr <= x;
+        xr[0] <= x;
         absynir <= absyni;
         incr <= inc;
+        absyr <= absy;
     end
 end
+
+always @(posedge clk) begin
+    xr[1] <= xr[0];
+end
+
+assign y = (s == 0) ? absyr : (~absyr) + 1'b1;
 
 endmodule
 `default_nettype wire

@@ -56,14 +56,14 @@ module FPU(clk, rstn, ctl, x1, x2, y, ready, en);
     sqrt sqrt_instance(x1, sqrt_y, clk, rstn);
     fmul fsqr_instance(x1, x1, fsqr_y, ovf, clk, rstn);
 
-    localparam FADD_NSTAGE = 2;
-    localparam FSUB_NSTAGE = 2;
-    localparam FMUL_NSTAGE = 2;
-    localparam FINV_NSTAGE = 2;
-    localparam FDIV_NSTAGE = 4;
+    localparam FADD_NSTAGE = 4;
+    localparam FSUB_NSTAGE = 4;
+    localparam FMUL_NSTAGE = 3;
+    localparam FINV_NSTAGE = 3;
+    localparam FDIV_NSTAGE = 7;
     localparam FHALF_NSTAGE = 0;
-    localparam FTOI_NSTAGE = 1;
-    localparam ITOF_NSTAGE = 1;
+    localparam FTOI_NSTAGE = 2;
+    localparam ITOF_NSTAGE = 2;
     localparam FLOOR_NSTAGE = 1;
     localparam FEQ_NSTAGE = 0;
     localparam FLE_NSTAGE = 0;
@@ -75,8 +75,8 @@ module FPU(clk, rstn, ctl, x1, x2, y, ready, en);
     localparam FISZERO_NSTAGE = 0;
     localparam FISPOS_NSTAGE = 0;
     localparam FISNEG_NSTAGE = 0;
-    localparam SQRT_NSTAGE = 4;
-    localparam FSQR_NSTAGE = FMUL_NSTAGE;
+    localparam SQRT_NSTAGE = 5;
+    localparam FSQR_NSTAGE = 2;
 
     always @(posedge clk) begin
         if(~rstn) begin
