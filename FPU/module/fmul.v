@@ -93,8 +93,10 @@ always @(posedge clk) begin
     end else begin
         x1r[0] <= x1;
         x2r[0] <= x2;
-        x1r[2:1] <= x1r[1:0];
-        x2r[2:1] <= x2r[1:0];
+        x1r[2] <= x1r[1];
+        x1r[1] <= x1r[0];
+        x2r[2] <= x2r[1];
+        x2r[1] <= x2r[0];
         hi1r <= hi1;
         lo1r <= lo1;
         hi2r <= hi2;

@@ -148,7 +148,9 @@ always @(posedge clk) begin
         aer <= 'b0;
     end else begin
         lxr[0] <= lx;
-        lxr[3:1] <= lxr[2:0];
+        lxr[3] <= lxr[2];
+        lxr[2] <= lxr[1];
+        lxr[1] <= lxr[0];
         sxr[0] <= sx;
         sxr[1] <= sxr[0];
         lf25r <= lf25;
