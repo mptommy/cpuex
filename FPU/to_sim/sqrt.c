@@ -34,6 +34,17 @@ float SqrtFloat(float f){
   sef a, ans;
   a.raw = f;
   SepSEF(&a);
+
+  if(a.e == 0)
+    return 0.0;
+  else if(a.e == emask){
+    ans.s = 0;
+    ans.e = emask;
+    ans.f = 0;
+    CatSEF(&ans);
+    return ans.raw;
+  }
+
   unsigned int aet = (a.e >> 23);
   unsigned int A0 = a.f >> 13;
   unsigned int A1 = a.f & m_low13_mask_s;
