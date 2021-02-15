@@ -382,6 +382,15 @@ pub fn fmax(f1:f32,f2:f32)->f32{
 pub fn sqrt(f:f32,fpu:&FPUCore)->f32{
     let  a = FandU::new(f);
     let mut ans = FandU::default();
+    if a.e == 0{
+        return 0.0;
+    }else if a.e == EMASK{
+        ans.s = 0;
+        ans.e = EMASK;
+        ans.f = 0;
+        ans = ans.makeflo();
+        return ans.flo;
+    }
     let aet = a.e >> 23;
     let a0 = a.f >> 13;
     let a1 = a.f & M_LOW13_MASK;
