@@ -452,8 +452,6 @@ pub fn int_to_float(i:i32)->f32{
     let top = top as u32;
     ans.e = ((127 + top)) << 23;
     if top >= 23{
-        if(true){//ここ、FMASKひつようそうだなぁ
-        };
         ans.f = ((u >> (top-23))+((u >> (top-24))&1))&FMASK;
         if((ans.f >> 24)&1) ==1{
             ans.e += 1 << 23;

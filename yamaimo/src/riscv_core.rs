@@ -196,10 +196,6 @@ pub struct EnvBase{
     pub f_regs:[f32;32],
     pub inst_memory:[u8;DRAM_SIZE],
     pub m_memory:[u8;DRAM_SIZE],
-    m_tohost_addr:AddrType,
-    m_fromhost_addr:AddrType,
-    m_tohost:XlenType,
-    m_fromhost: XlenType,
     m_finish_cpu: bool,
     pub is_branch:u8,
     pub writing:bool,
@@ -256,10 +252,6 @@ impl EnvBase{
             f_regs: [0.0;32],
             m_finish_cpu:false,
             writing:true,
-            m_fromhost_addr:(DRAM_BASE+0x001000) as AddrType,
-            m_tohost_addr:(DRAM_BASE + 0x001000) as AddrType,
-            m_fromhost:0,
-            m_tohost:0,
         }
     }
     pub fn read_int(&mut self,result:String){
@@ -443,8 +435,6 @@ pub trait Riscv64Core{
     fn write_back(&mut self,write:ForWrite);
     fn get_is_finish_cpu(&mut self)->bool;
     fn set_finish_cpu(&mut self);
-    fn get_tohost(&mut self)->XlenType;
-    fn get_fromhost(&mut self)->XlenType;
     fn output_reg(&mut self);
     fn output_regi(&mut self,i:i32);
     fn output_fregi(&mut self,i:i32);
@@ -2866,33 +2856,19 @@ impl Riscv64Core for EnvBase{
         //let addr = addr + DRAM_BASE + 10000;
         match op {
             MemType::STORE => {
-                if addr == self.m_tohost_addr {
-                    self.m_finish_cpu = true;
-                    self.m_tohost = data;
-                } else if addr == self.m_fromhost_addr {
-                    self.m_finish_cpu = true;
-                    self.m_fromhost = data;
-                } else {
                     match size {
                         MemSize::BYTE  => self.write_memory_byte (addr, data),
                         MemSize::HWORD => self.write_memory_hword(addr, data),
                         MemSize::WORD  => self.write_memory_word (addr, data),
                     };
                 }
-            }
             MemType::LOAD  => {
-                if addr == self.m_tohost_addr {
-                    return self.m_tohost;
-                } else if addr == self.m_fromhost_addr {
-                    return self.m_fromhost;
-                } else {
                     match size {
                         MemSize::BYTE  => return self.read_memory_byte (addr),
                         MemSize::HWORD => return self.read_memory_hword(addr),
                         MemSize::WORD  => return self.read_memory_word (addr),
                     };
                 }
-            }
             _ =>{panic!("MEM ACCESS FAILED!")}
         }
         return 0;
@@ -2902,13 +2878,6 @@ impl Riscv64Core for EnvBase{
        // let addr = addr + DRAM_BASE + 10000;
         match op {
             MemType::STORE => {
-                if addr == self.m_tohost_addr {
-                    self.m_finish_cpu = true;
-                    self.m_tohost =EnvBase::float_to_int(data);
-                } else if addr == self.m_fromhost_addr {
-                    self.m_finish_cpu = true;
-                    self.m_fromhost =EnvBase::float_to_int(data);
-                } else {
                     match size {
                      //   MemSize::BYTE  => self.fwrite_memory_byte (addr, data),
                       //  MemSize::HWORD => self.fwrite_memory_hword(addr, data),
@@ -2916,13 +2885,9 @@ impl Riscv64Core for EnvBase{
                         _              => 1.0
                     };
                 }
-            }
+            
             MemType::LOAD  => {
-                if addr == self.m_tohost_addr {
-                    return EnvBase::int_to_float(self.m_tohost as u32);
-                } else if addr == self.m_fromhost_addr {
-                    return  EnvBase::int_to_float(self.m_fromhost as u32);
-                } else {
+
                     match size {
                        // MemSize::BYTE  => return self.fread_memory_byte (addr),
                      //   MemSize::HWORD => return self.fread_memory_hword(addr),
@@ -2930,7 +2895,7 @@ impl Riscv64Core for EnvBase{
                         _              => 1
                     };
                 }
-            }
+            
             _ =>{panic!("MEM ACCESS FAILED!")}
         }
         return 0.0;
@@ -2978,8 +2943,6 @@ impl Riscv64Core for EnvBase{
     }
     fn get_is_finish_cpu (&mut self) -> bool { return self.m_finish_cpu; }
     fn set_finish_cpu (&mut self)  { self.m_finish_cpu=true; }
-    fn get_tohost (&mut self) -> XlenType { return self.m_tohost; }
-    fn get_fromhost (&mut self) -> XlenType { return self.m_fromhost; }
     fn output_reg(&mut self){
         println!("レジスタダンプ");
         for i in 0..32{
