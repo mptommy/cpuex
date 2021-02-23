@@ -1,0 +1,175 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.2.1 (win64) Build 2729669 Thu Dec  5 04:49:17 MST 2019
+| Date         : Tue Feb 16 00:30:18 2021
+| Host         : LAPTOP-D2IMMG8J running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file design_1_wrapper_control_sets_placed.rpt
+| Design       : design_1_wrapper
+| Device       : xcku040
+---------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    97 |
+|    Minimum number of control sets                        |    97 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    41 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    97 |
+| >= 0 to < 4        |     1 |
+| >= 4 to < 6        |     5 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |     4 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |    10 |
+| >= 14 to < 16      |     2 |
+| >= 16              |    74 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |             106 |           70 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |            1102 |          378 |
+| Yes          | No                    | No                     |            2088 |          437 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             383 |          174 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-----------------------------------+-----------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+------------------+----------------+
+|            Clock Signal           |                                Enable Signal                                |                                        Set/Reset Signal                                       | Slice Load Count | Bel Load Count |
++-----------------------------------+-----------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+------------------+----------------+
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/rdata_ready_reg_0     | design_1_i/core_0/inst/exec_instance/uart_rx_instance/dout_reg_0_13                           |                1 |              2 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_tx_instance/status[3]_i_1__0_n_0  | design_1_i/clk_wiz/inst/locked                                                                |                1 |              4 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/decode_instance/rst_10                                                 |                2 |              4 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/decode_instance/rst_17                                                 |                3 |              4 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/status0               | design_1_i/clk_wiz/inst/locked                                                                |                2 |              4 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/mem_write_out_reg_rep | design_1_i/core_0/inst/exec_instance/uart_rx_instance/data_in_cache_reg                       |                2 |              4 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/rst_0                 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/dout_reg_0_5                            |                4 |              7 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/decode_instance/rst_19                                                 |                2 |              8 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/decode_instance/sf25r[25]_i_6__0_6                                     |                3 |              8 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/rst_0                 |                                                                                               |                5 |              8 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_tx_instance/txbuf                 | design_1_i/clk_wiz/inst/locked                                                                |                3 |              8 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/decode_instance/sf25r[25]_i_7_0                                        |                6 |             12 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/rst_33[0]             | design_1_i/core_0/inst/decode_instance/jalr_imm[16]_i_1_n_0                                   |                1 |             12 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/FPU_instance/sqrt_instance/mtmpr[88]_i_11_psdsp_inv_n    |                3 |             13 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/FPU_instance/finv_instance/mtmpr[47]_i_2_psdsp_inv_n     |                7 |             13 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/FPU_instance/sqrt_instance/a1grdr_reg[16]__0_psdsp_inv_n |               11 |             13 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/FPU_instance/sqrt_instance/a1grdr_reg[16]_psdsp_inv_n    |                4 |             13 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/FPU_instance/finv_instance/mtmp_carry__4_i_1_psdsp_inv_n |                9 |             13 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/FPU_instance/sqrt_instance/mtmpr[72]_i_50_psdsp_inv_n    |                8 |             13 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/FPU_instance/fdiv_instance/u1/a1grdr_reg[16]_psdsp_inv_n |                4 |             13 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/FPU_instance/finv_instance/a1grdr_reg[16]_psdsp_inv_n    |               10 |             13 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/decode_instance/rst_0                                                  |                7 |             14 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/decode_instance/rst_9                                                  |                6 |             14 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/rst_0                 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/dout_reg_0_31                           |                6 |             17 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[4]_1[0]               |                                                                                               |               22 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/core_0/inst/exec_instance/uart_rx_instance/counter[0]_i_1__0_n_0                   |                4 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[4]_2[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/decode_instance/E[0]                                 |                                                                                               |                5 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[4]_3[0]               |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/rdata_ready_reg_0     | design_1_i/clk_wiz/inst/locked                                                                |               13 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[3]_7[0]               |                                                                                               |               22 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[4]_0[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/E[0]                  | design_1_i/clk_wiz/inst/locked                                                                |               19 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_tx_instance/counter[0]_i_2_n_0    | design_1_i/core_0/inst/exec_instance/uart_tx_instance/counter[0]_i_1_n_0                      |                4 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/E[0]                                    |                                                                                               |               27 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_13[0]              |                                                                                               |               22 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_11[0]              |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_20[0]              |                                                                                               |               17 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_22[0]              |                                                                                               |               19 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_26[0]              |                                                                                               |               19 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_9[0]               |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_10[0]              |                                                                                               |               20 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_3[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_5[0]               |                                                                                               |               20 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[3]_0[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_4[0]               |                                                                                               |               22 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_3[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_13[0]              |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[3]_1[0]               |                                                                                               |               20 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[3]_2[0]               |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[3]_4[0]               |                                                                                               |               26 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[3]_5[0]               |                                                                                               |               17 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_0[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[3]_3[0]               |                                                                                               |               24 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/reg_write_out_reg_3[0]                  | design_1_i/clk_wiz/inst/locked                                                                |               18 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_24[0]              |                                                                                               |               25 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_29[0]              |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_28[0]              |                                                                                               |               19 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_7[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_1[0]               |                                                                                               |               22 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/reg_write_out_reg_2[0]                  | design_1_i/clk_wiz/inst/locked                                                                |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_10[0]              |                                                                                               |               24 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_19[0]              |                                                                                               |               25 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_5[0]               |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_12[0]              |                                                                                               |               22 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_23[0]              |                                                                                               |               19 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_27[0]              |                                                                                               |               19 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_17[0]              |                                                                                               |               25 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_31[0]              |                                                                                               |               20 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_32[0]              |                                                                                               |               29 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_6[0]               |                                                                                               |               18 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_7[0]               |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_1[0]               |                                                                                               |               25 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_16[0]              |                                                                                               |               24 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_21[0]              |                                                                                               |               19 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_18[0]              |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_25[0]              |                                                                                               |               18 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_8[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_12[0]              |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_14[0]              |                                                                                               |               25 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_2[0]               |                                                                                               |               23 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_2[0]               |                                                                                               |               19 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_11[0]              |                                                                                               |               16 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_30[0]              |                                                                                               |               24 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_4[0]               |                                                                                               |               25 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_6[0]               |                                                                                               |               25 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_8[0]               |                                                                                               |               24 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[1]_9[0]               |                                                                                               |               21 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_0[0]               |                                                                                               |               26 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_14[0]              |                                                                                               |               27 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[0]_15[0]              |                                                                                               |               26 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/mem_instance/write_reg_out_reg[3]_6[0]               |                                                                                               |               17 |             32 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/uart_rx_instance/rdata_ready_reg_0     | design_1_i/core_0/inst/decode_instance/stall_jalr_reg_0                                       |               39 |             77 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/core_0/inst/exec_instance/FPU_instance/en12_in                   | design_1_i/core_0/inst/decode_instance/use_fpu_cache                                          |               64 |             88 |
+|  design_1_i/clk_wiz/inst/clk_out1 | design_1_i/clk_wiz/inst/locked                                              |                                                                                               |               32 |             96 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             |                                                                                               |               71 |            126 |
+|  design_1_i/clk_wiz/inst/clk_out1 |                                                                             | design_1_i/clk_wiz/inst/locked                                                                |              318 |            902 |
++-----------------------------------+-----------------------------------------------------------------------------+-----------------------------------------------------------------------------------------------+------------------+----------------+
+
+

@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.2.1 (64-bit)
+# SW Build 2729669 on Thu Dec  5 04:49:17 MST 2019
+# IP Build 2729494 on Thu Dec  5 07:38:25 MST 2019
+# Start of session at: Tue Feb 16 01:18:00 2021
+# Process ID: 4792
+# Current directory: C:/Users/koki-ryu/core_pipeline3/core_pipeline3.runs/design_1_core_0_0_synth_1
+# Command line: vivado.exe -log design_1_core_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_core_0_0.tcl
+# Log file: C:/Users/koki-ryu/core_pipeline3/core_pipeline3.runs/design_1_core_0_0_synth_1/design_1_core_0_0.vds
+# Journal file: C:/Users/koki-ryu/core_pipeline3/core_pipeline3.runs/design_1_core_0_0_synth_1\vivado.jou
+#-----------------------------------------------------------
+source design_1_core_0_0.tcl -notrace
