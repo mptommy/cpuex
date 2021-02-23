@@ -1,0 +1,5 @@
+set_property SRC_FILE_INFO {cfile:C:/Users/koki-ryu/core_pipeline/core_pipeline.srcs/constrs_1/imports/new/kcu.xdc rfile:../../../../core_pipeline/core_pipeline.srcs/constrs_1/imports/new/kcu.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:3 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN K26      [get_ports "USB_UART_RX"]
+set_property src_info {type:XDC file:1 line:6 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN G25      [get_ports "USB_UART_TX"]
