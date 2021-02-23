@@ -1,0 +1,35 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Launch",
+            "program": "${workspaceFolder}/target/debug/ringo",
+            "args": ["${workspaceFolder}/target/debug/mandelb.s"],
+            "cwd": "${workspaceFolder}"
+        },
+      /*  {
+            "name": "(gdb) 起動",
+            "type": "cpplsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/ringo",
+            "args": ["${workspaceFolder}/target/debug/hello.s"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "gdb の再フォーマットを有効にする",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }*/
+    ]
+}

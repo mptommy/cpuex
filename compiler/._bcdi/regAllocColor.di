@@ -1,0 +1,2 @@
+regAllocColor.cmi : \
+    asm.cmi

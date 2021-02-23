@@ -1,0 +1,119 @@
+コンパイラ係向け課題　理学部情報科学科3年　村山浩理（05201028）
+
+グラフ彩色によるレジスタ割り当ての実装を選択した。
+
+実装についての説明
+レジスタ彩色に関するコードはlivenessColor.ml, graphColoring.ml, regAllocColor.mlの3つである。
+livenessColor.mlでは、基本ブロック化と変数の活性解析を行っている。基本ブロック化とは、条件分岐やループなどのない命令の塊のことで、命令列をこの基本ブロックに分けることによって効率よく活性解析を行うことができる。
+基本ブロック化は、条件分岐にあたるごとにブロックを分割、一つの関数をこのブロックのリストとして表現するという方針で実装した。
+活性解析は、スライドにあるアルゴリズムで実装した。基本ブロックへの対応は、基本ブロック内での生存を与えるgenと死滅を与えるkillをブロックごとに計算し、これをブロックのリスト全体で合わせることによって生存変数を計算した。
+graphColoring.mlがグラフ彩色の本体である。
+グラフ彩色は、simplify, coalesce, freeze, selectspill, assignの各フェーズを適宜繰り返すことによって行い、spillが出てしまった場合には、spillした変数の定義直後にsave、使用直前にrestoreを入れて再度活性解析を行ったうえでもう一度レジスタ彩色をする。
+simplifyは隣接ノード数がレジスタ数未満のノードをグラフから削除し、彩色スタックに入れる操作である。
+coalesceはmovやfmov命令があった場合に、これにかかわる2ノードを融合するという操作である。
+freezeはmov命令などの関係でsimplifyできないようになっていたノードをsimplify可能にする操作である。 
+selectspillはspill候補になっているノードから実際にspillするノードを選ぶ操作である。この選択においてはocamlの集合モジュールからchooseを用いて選択することにした。
+assignは、彩色スタックに入っているノードをひとつづつ取り出して彩色していく操作である。
+実装では、ノードをはじめ集合initialに入れておき、それをsimplify可能ノードの集合、freeze状態ノードの集合、spill候補ノードの集合の3つの集合の間を移動させながら上記の操作を繰り返し、最終的に融合されたノードの集合、彩色スタック、spillされたノードの集合に振り分けることによって彩色を行った。
+regAllocColor.mlでは、レジスタ彩色の結果をもとにレジスタ割り当てを行う。
+この実装は元のmin-camlコンパイラのレジスタ割り当て機能に、変数ごとに決まったレジスタを割り当てるような操作を加えたのみである。
+
+効果
+test/fib.mlを用いて効果を検証したところ、min-camlの元のコンパイラよりも非効率的なレジスタ割り当てになってしまった。いかにアセンブリを示す。
+元のもの
+main:
+	addi	%t0, %zero, 170
+	out	%t0
+	addi	%t0, %zero, 30
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	fib.10
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	out	%t0
+	srli	%t6, %t0, 8
+	out	%t6
+	srli	%t6, %t0, 16
+	out	%t6
+	srli	%t6, %t0, 24
+	out	%t6
+halt:
+	jal	halt
+fib.10:
+	addi	%t6, %t0, -1
+	bgt	%t6, %zero, ble_else.24
+	jr	%ra
+ble_else.24:
+	addi	%t1, %t0, -1
+	sw	%t0, 0(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	fib.10
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	lw	%t1, 0(%sp)
+	addi	%t1, %t1, -2
+	sw	%t0, -8(%sp)
+	addi	%t0, %t1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	fib.10
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	lw	%t1, -8(%sp)
+	add	%t0, %t1, %t0
+	jr	%ra
+今回のもの
+main:
+	addi	%t0, %zero, 170
+	out	%t0
+	addi	%a0, %zero, 30
+	addi	%t0, %a0, 0
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	fib.10
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%a0, %t0, 0
+	out	%a0
+	srli	%t6, %a0, 8
+	out	%t6
+	srli	%t6, %a0, 16
+	out	%t6
+	srli	%t6, %a0, 24
+	out	%t6
+halt:
+	jal	halt
+fib.10:
+	addi	%t6, %a0, -1
+	bgt	%t6, %zero, ble_else.25
+	add	%t0, %zero, %a0
+	jr	%ra
+ble_else.25:
+	addi	%a1, %a0, -1
+	sw	%a0, 0(%sp)
+	addi	%t0, %a1, 0
+	sw	%ra, -4(%sp)
+	addi	%sp, %sp, -8
+	jal	fib.10
+	addi	%sp, %sp, 8
+	lw	%ra, -4(%sp)
+	addi	%a2, %t0, 0
+	lw	%a0, 0(%sp)
+	addi	%a1, %a0, -2
+	sw	%a2, -8(%sp)
+	addi	%t0, %a1, 0
+	sw	%ra, -12(%sp)
+	addi	%sp, %sp, -16
+	jal	fib.10
+	addi	%sp, %sp, 16
+	lw	%ra, -12(%sp)
+	addi	%a1, %t0, 0
+	lw	%a2, -8(%sp)
+	add	%t0, %a2, %a1
+	jr	%ra
+
+参考
+第8回実験スライド
+Appel, A., W., modern compiler implementation in ML.(1998) CAMBRIDGE UNIVERSITY PRESS
